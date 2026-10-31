@@ -1,0 +1,29 @@
+name: Render video
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Instalar FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Criar projeto de teste (se não existir)
+        run: |
+          if [ ! -d video ]; then
+            npx -y hyperframes@0.8.223 init video --example blank --non-interactive --skip-skills
+          fi
+      - name: Diagnóstico
+        working-directory: video
+        run: npx -y hyperframes@0.8.223 doctor || true
+      - name: Renderizar
+        working-directory: video
+        run: npx -y hyperframes@0.8.223 render --quality draft --output out.mp4
+      - uses: actions/upload-artifact@v4
+        with:
+          name: video
+          path: video/out.mp4
