@@ -1,1 +1,0 @@
-✗ heygen-tts: no HyperFrames credentials — set $HEYGEN_API_KEY, or run `npx hyperframes auth login` (writes ~/.hyperframes/credentials)

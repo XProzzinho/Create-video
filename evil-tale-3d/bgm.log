@@ -1,3 +1,0 @@
-media-use: heygen CLI not found — it's the free path for bgm/image/voice/avatar-video. Install the CLI from https://developers.heygen.com/cli, then run: hyperframes auth login
-error: bgm needs the heygen CLI, which is not installed: use your host app's own music tool if it has one, or install the CLI.
-musica falhou
