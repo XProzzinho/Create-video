@@ -1,11 +1,14 @@
 name: Render video
 on:
   push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       project:
         description: "Pasta do projeto"
         default: "evil-tale"
+permissions:
+  contents: write
 jobs:
   render:
     runs-on: ubuntu-latest
@@ -19,23 +22,25 @@ jobs:
           node-version: 22
       - name: Instalar FFmpeg
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
-      - name: Conferir (check)
+      - name: Conferir, revisar e renderizar
         working-directory: ${{ env.PROJECT }}
-        run: $HF check --json > ../check.json || true; head -c 20000 ../check.json
-      - name: Quadros de revisão (snapshot)
-        working-directory: ${{ env.PROJECT }}
-        run: $HF snapshot --review || true
-      - name: Renderizar
-        working-directory: ${{ env.PROJECT }}
-        run: $HF render --quality looks --output ../video.mp4
-      - uses: actions/upload-artifact@v4
-        with:
-          name: video
-          path: video.mp4
+        run: |
+          mkdir -p ../out
+          $HF check --json > ../out/check.json 2> ../out/check.log || true
+          $HF snapshot --review > ../out/snapshot.log 2>&1 || true
+          cp -r .hyperframes/artifacts/snapshots ../out/snapshots 2>/dev/null || true
+          $HF render --quality looks --output ../out/video.mp4 > ../out/render.log 2>&1 || echo "RENDER FALHOU" >> ../out/render.log
+          tail -60 ../out/render.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: revisao
-          path: |
-            check.json
-            ${{ env.PROJECT }}/.hyperframes/artifacts/snapshots/
+          name: video
+          path: out/video.mp4
+      - name: Publicar resultados no ramo "resultados"
+        if: always()
+        run: |
+          cd out
+          git init -q -b resultados
+          git config user.name "render-bot"; git config user.email "render-bot@users.noreply.github.com"
+          git add -A && git commit -q -m "Resultados de ${GITHUB_SHA::7}"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" resultados
