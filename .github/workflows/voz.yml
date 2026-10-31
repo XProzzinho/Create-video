@@ -38,7 +38,7 @@ jobs:
       - name: Salvar no repositório
         if: always()
         run: |
-                    cp out/tts.log evil-tale-3d/tts.log 2>/dev/null || true
+          cp out/tts.log evil-tale-3d/tts.log 2>/dev/null || true
           git add -A evil-tale-3d
-          git commit -q -m "Narração e música do Evil Tale 3D [skip ci]" || true
+          git commit -q -m "Narração do Evil Tale 3D [skip ci]" || true
           git pull -q --rebase && git push -q
