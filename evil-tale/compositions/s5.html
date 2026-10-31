@@ -1,0 +1,89 @@
+<template>
+  <style>
+#root{position:absolute;inset:0;overflow:hidden;background:#07040f;font-family:Inter,sans-serif}
+.bg{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.cap{position:absolute;left:80px;right:80px;top:1150px;margin:0;text-align:center;font-family:Inter;font-weight:700;font-size:56px;line-height:1.3;color:#fff;text-shadow:0 4px 20px rgba(0,0,0,.95),0 0 3px #000;z-index:20}
+.cap span{display:inline-block;margin:0 .13em}
+.win{position:absolute;background:rgba(9,6,24,.88);border:3px solid #6c4bd8;border-radius:14px;color:#efe9ff;font-family:Oswald;z-index:10}
+.win h3{margin:0;font-family:Oswald;font-weight:700;letter-spacing:6px;color:#b9a4ff;font-size:34px}
+
+#s5-win{left:140px;top:380px;width:800px;height:520px;border-color:#ffc94a;background:rgba(24,16,4,.9);text-align:center;box-shadow:0 0 60px rgba(255,201,74,.45)}
+#s5-win h3{color:#ffc94a;margin-top:44px}
+#s5-q{font-family:Inter;font-weight:700;font-size:48px;color:#fff6dc;margin-top:40px;line-height:1.3}
+#s5-btn{display:inline-block;margin-top:56px;font-family:Oswald;font-weight:700;font-size:84px;color:#1d1200;background:#ffc94a;padding:10px 70px;border-radius:16px}
+</style>
+  <div id="root" data-composition-id="s5" data-width="1080" data-height="1920" data-duration="20">
+    <canvas id="s5-bg" class="bg" width="1080" height="1920"></canvas>
+    <div id="s5-winclip" class="clip" data-start="0.9" data-duration="19.1"><div id="s5-win" class="win"><h3>[ SISTEMA ]</h3><div id="s5-q">Deseja sair<br>de Evil Tale?</div><div id="s5-btn">SAIR</div></div></div><p id="s5-cap1" class="clip cap s5-cap" data-start="5.0" data-duration="4.6" style=""><span>Depois</span><span>de</span><span>tanto</span><span>tempo...</span></p><p id="s5-cap2" class="clip cap s5-cap" data-start="9.8" data-duration="4.2" style=""><span>ali</span><span>estava</span><span>ele.</span></p><p id="s5-cap3" class="clip cap s5-cap" data-start="14.2" data-duration="5.6" style=""><span>O</span><span>botão</span><span>de</span><span>sair.</span></p>
+  </div>
+  <script>
+  (function(){
+  
+const W=1080,H=1920;
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const prog=(t,a,b)=>clamp((t-a)/(b-a));
+const eOut=x=>1-Math.pow(1-x,3);
+const eInOut=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const lerp=(a,b,x)=>a+(b-a)*x;
+function hero(c,x,y,s,pose,col){
+  c.save();c.translate(x,y);c.scale(s,s);c.fillStyle=col;c.strokeStyle=col;c.lineCap='round';c.lineJoin='round';
+  if(pose==='kneel'){
+    c.beginPath();c.arc(-6,-178,26,0,7);c.fill();
+    c.beginPath();c.moveTo(-34,-150);c.quadraticCurveTo(-48,-90,-30,-40);c.lineTo(30,-40);c.quadraticCurveTo(34,-100,20,-150);c.closePath();c.fill();
+    c.lineWidth=22;c.beginPath();c.moveTo(-20,-46);c.lineTo(-70,-8);c.lineTo(-100,0);c.stroke();
+    c.beginPath();c.moveTo(20,-46);c.lineTo(58,-60);c.lineTo(60,0);c.stroke();
+    c.lineWidth=16;c.beginPath();c.moveTo(18,-136);c.lineTo(62,-96);c.lineTo(84,-120);c.stroke();
+    c.lineWidth=9;c.beginPath();c.moveTo(84,-170);c.lineTo(84,6);c.stroke();c.lineWidth=7;c.beginPath();c.moveTo(66,-128);c.lineTo(102,-128);c.stroke();
+    c.lineWidth=10;c.beginPath();c.moveTo(-30,-140);c.quadraticCurveTo(-80,-110,-96,-60);c.stroke();
+  } else if(pose==='sit'){
+    c.beginPath();c.arc(14,-148,24,0,7);c.fill();
+    c.beginPath();c.moveTo(-26,-140);c.quadraticCurveTo(-36,-80,-26,-40);c.lineTo(28,-40);c.quadraticCurveTo(34,-96,22,-136);c.closePath();c.fill();
+    c.lineWidth=20;c.beginPath();c.moveTo(-14,-44);c.lineTo(46,-44);c.lineTo(52,0);c.stroke();
+    c.lineWidth=14;c.beginPath();c.moveTo(20,-120);c.lineTo(56,-84);c.lineTo(80,-90);c.stroke();
+  } else {
+    c.beginPath();c.arc(0,-232,26,0,7);c.fill();
+    c.beginPath();c.moveTo(-36,-204);c.lineTo(36,-204);c.lineTo(28,-96);c.lineTo(-28,-96);c.closePath();c.fill();
+    c.lineWidth=22;c.beginPath();c.moveTo(-14,-100);c.lineTo(-24,0);c.stroke();c.beginPath();c.moveTo(14,-100);c.lineTo(26,0);c.stroke();
+    c.lineWidth=15;c.beginPath();c.moveTo(-32,-196);c.lineTo(-48,-118);c.stroke();c.beginPath();c.moveTo(32,-196);c.lineTo(50,-120);c.stroke();
+    c.lineWidth=9;c.beginPath();c.moveTo(52,-122);c.lineTo(70,40);c.stroke();
+    c.lineWidth=10;c.beginPath();c.moveTo(-34,-196);c.quadraticCurveTo(-70,-140,-62,-90);c.stroke();
+  }
+  c.restore();
+}
+
+  
+function caps(tl,cls){document.querySelectorAll('.'+cls).forEach(function(c){
+  const s=parseFloat(c.dataset.start),d=parseFloat(c.dataset.duration);const w=c.querySelectorAll('span');
+  tl.fromTo(w,{opacity:0,filter:'blur(6px)'},{opacity:1,filter:'blur(0px)',duration:0.16,stagger:0.08,ease:'power2.out'},s+0.05);
+  tl.to(w,{opacity:0,filter:'blur(6px)',duration:0.18,stagger:0.025,ease:'power3.in'},s+d-0.32);});}
+
+  const cv=document.getElementById('s5-bg');const ctx=cv.getContext('2d');
+  
+const R=rng(3);const dust=[];for(let i=0;i<90;i++)dust.push([R()*W,R()*H,R()*6.28,0.4+R()*1.2]);
+function draw(t){
+  const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#0a0614');g.addColorStop(1,'#120a10');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);
+  const gl=eOut(prog(t,0.8,2.2));const lg=ctx.createRadialGradient(W/2,640,40,W/2,640,820);lg.addColorStop(0,`rgba(255,200,90,${0.42*gl})`);lg.addColorStop(1,'rgba(255,200,90,0)');ctx.fillStyle=lg;ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='#07040a';for(let i=0;i<5;i++){ctx.fillRect(60+i*230,260+(i%2)*80,60,1100);}
+  for(const d of dust){const yy=((d[1]-t*10*d[3])%H+H)%H;const xx=d[0]+Math.sin(t*0.5+d[2])*40;const near=Math.max(0,1-Math.hypot(xx-W/2,yy-640)/700);ctx.fillStyle=`rgba(255,220,150,${0.08+0.5*near*gl})`;ctx.fillRect(xx,yy,3,3);}
+  const reach=eInOut(prog(t,3.0,15.5));const tr=Math.sin(t*23)*3+Math.sin(t*37)*2;
+  const hx=W/2+40+tr,hy=lerp(2100,1120,reach)+Math.cos(t*29)*2;
+  ctx.save();ctx.translate(hx,hy);ctx.rotate(-0.12);ctx.fillStyle='#030204';
+  ctx.beginPath();ctx.moveTo(-70,900);ctx.lineTo(-60,120);ctx.quadraticCurveTo(-64,40,-40,10);ctx.lineTo(-30,-110);ctx.quadraticCurveTo(-18,-140,-4,-112);ctx.lineTo(4,-20);ctx.lineTo(14,-90);ctx.quadraticCurveTo(28,-114,40,-86);ctx.lineTo(40,-6);ctx.quadraticCurveTo(60,-50,74,-20);ctx.lineTo(70,40);ctx.quadraticCurveTo(110,30,104,80);ctx.lineTo(70,180);ctx.lineTo(80,900);ctx.closePath();ctx.fill();
+  ctx.strokeStyle=`rgba(255,200,90,${0.5*gl})`;ctx.lineWidth=3;ctx.stroke();ctx.restore();
+  const v=ctx.createRadialGradient(W/2,H*0.4,H*.2,W/2,H/2,H*.75);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.7)');ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
+}
+
+  const tl=gsap.timeline({paused:true});
+  const clock={t:0};
+  tl.fromTo(clock,{t:0},{t:20,duration:20,ease:'none',onUpdate:function(){draw(clock.t);}},0);
+  draw(0);
+  
+tl.fromTo('#s5-win',{opacity:0,scaleX:0.05,scaleY:0.02,filter:'blur(12px)'},{opacity:1,scaleX:1,scaleY:1,filter:'blur(0px)',duration:0.7,ease:'expo.out'},1.0);
+tl.fromTo('#s5-btn',{opacity:0,y:20},{opacity:1,y:0,duration:0.4,ease:'expo.out'},1.8);
+
+  caps(tl,'s5-cap');
+  window.__timelines["s5"]=tl;
+  })();
+  </script>
+</template>

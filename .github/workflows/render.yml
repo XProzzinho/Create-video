@@ -2,9 +2,16 @@ name: Render video
 on:
   push:
   workflow_dispatch:
+    inputs:
+      project:
+        description: "Pasta do projeto"
+        default: "evil-tale"
 jobs:
   render:
     runs-on: ubuntu-latest
+    env:
+      PROJECT: ${{ inputs.project || 'evil-tale' }}
+      HF: npx -y hyperframes@0.8.223
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -12,18 +19,23 @@ jobs:
           node-version: 22
       - name: Instalar FFmpeg
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
-      - name: Criar projeto de teste (se não existir)
-        run: |
-          if [ ! -d video ]; then
-            npx -y hyperframes@0.8.223 init video --example blank --non-interactive --skip-skills
-          fi
-      - name: Diagnóstico
-        working-directory: video
-        run: npx -y hyperframes@0.8.223 doctor || true
+      - name: Conferir (check)
+        working-directory: ${{ env.PROJECT }}
+        run: $HF check --json > ../check.json || true; head -c 20000 ../check.json
+      - name: Quadros de revisão (snapshot)
+        working-directory: ${{ env.PROJECT }}
+        run: $HF snapshot --review || true
       - name: Renderizar
-        working-directory: video
-        run: npx -y hyperframes@0.8.223 render --quality draft --output out.mp4
+        working-directory: ${{ env.PROJECT }}
+        run: $HF render --quality looks --output ../video.mp4
       - uses: actions/upload-artifact@v4
         with:
           name: video
-          path: video/out.mp4
+          path: video.mp4
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: revisao
+          path: |
+            check.json
+            ${{ env.PROJECT }}/.hyperframes/artifacts/snapshots/

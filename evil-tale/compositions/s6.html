@@ -1,0 +1,93 @@
+<template>
+  <style>
+#root{position:absolute;inset:0;overflow:hidden;background:#07040f;font-family:Inter,sans-serif}
+.bg{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.cap{position:absolute;left:80px;right:80px;top:1150px;margin:0;text-align:center;font-family:Inter;font-weight:700;font-size:56px;line-height:1.3;color:#fff;text-shadow:0 4px 20px rgba(0,0,0,.95),0 0 3px #000;z-index:20}
+.cap span{display:inline-block;margin:0 .13em}
+.win{position:absolute;background:rgba(9,6,24,.88);border:3px solid #6c4bd8;border-radius:14px;color:#efe9ff;font-family:Oswald;z-index:10}
+.win h3{margin:0;font-family:Oswald;font-weight:700;letter-spacing:6px;color:#b9a4ff;font-size:34px}
+
+#s6-btn{position:absolute;left:290px;top:640px;width:500px;height:240px;border-radius:30px;background:#ffc94a;display:flex;align-items:center;justify-content:center;font-family:Oswald;font-weight:700;font-size:150px;color:#1d1200;box-shadow:0 0 80px rgba(255,201,74,.7);z-index:10}
+</style>
+  <div id="root" data-composition-id="s6" data-width="1080" data-height="1920" data-duration="15">
+    <canvas id="s6-bg" class="bg" width="1080" height="1920"></canvas>
+    <div id="s6-btnclip" class="clip" data-start="0" data-duration="3.3"><div id="s6-btn">SAIR</div></div><p id="s6-cap1" class="clip cap s6-cap" data-start="8.2" data-duration="6.6" style=""><span>Eu</span><span>só</span><span>queria</span><span>voltar</span><span>para</span><span>casa.</span></p>
+  </div>
+  <script>
+  (function(){
+  
+const W=1080,H=1920;
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;}}
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+const prog=(t,a,b)=>clamp((t-a)/(b-a));
+const eOut=x=>1-Math.pow(1-x,3);
+const eInOut=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const lerp=(a,b,x)=>a+(b-a)*x;
+function hero(c,x,y,s,pose,col){
+  c.save();c.translate(x,y);c.scale(s,s);c.fillStyle=col;c.strokeStyle=col;c.lineCap='round';c.lineJoin='round';
+  if(pose==='kneel'){
+    c.beginPath();c.arc(-6,-178,26,0,7);c.fill();
+    c.beginPath();c.moveTo(-34,-150);c.quadraticCurveTo(-48,-90,-30,-40);c.lineTo(30,-40);c.quadraticCurveTo(34,-100,20,-150);c.closePath();c.fill();
+    c.lineWidth=22;c.beginPath();c.moveTo(-20,-46);c.lineTo(-70,-8);c.lineTo(-100,0);c.stroke();
+    c.beginPath();c.moveTo(20,-46);c.lineTo(58,-60);c.lineTo(60,0);c.stroke();
+    c.lineWidth=16;c.beginPath();c.moveTo(18,-136);c.lineTo(62,-96);c.lineTo(84,-120);c.stroke();
+    c.lineWidth=9;c.beginPath();c.moveTo(84,-170);c.lineTo(84,6);c.stroke();c.lineWidth=7;c.beginPath();c.moveTo(66,-128);c.lineTo(102,-128);c.stroke();
+    c.lineWidth=10;c.beginPath();c.moveTo(-30,-140);c.quadraticCurveTo(-80,-110,-96,-60);c.stroke();
+  } else if(pose==='sit'){
+    c.beginPath();c.arc(14,-148,24,0,7);c.fill();
+    c.beginPath();c.moveTo(-26,-140);c.quadraticCurveTo(-36,-80,-26,-40);c.lineTo(28,-40);c.quadraticCurveTo(34,-96,22,-136);c.closePath();c.fill();
+    c.lineWidth=20;c.beginPath();c.moveTo(-14,-44);c.lineTo(46,-44);c.lineTo(52,0);c.stroke();
+    c.lineWidth=14;c.beginPath();c.moveTo(20,-120);c.lineTo(56,-84);c.lineTo(80,-90);c.stroke();
+  } else {
+    c.beginPath();c.arc(0,-232,26,0,7);c.fill();
+    c.beginPath();c.moveTo(-36,-204);c.lineTo(36,-204);c.lineTo(28,-96);c.lineTo(-28,-96);c.closePath();c.fill();
+    c.lineWidth=22;c.beginPath();c.moveTo(-14,-100);c.lineTo(-24,0);c.stroke();c.beginPath();c.moveTo(14,-100);c.lineTo(26,0);c.stroke();
+    c.lineWidth=15;c.beginPath();c.moveTo(-32,-196);c.lineTo(-48,-118);c.stroke();c.beginPath();c.moveTo(32,-196);c.lineTo(50,-120);c.stroke();
+    c.lineWidth=9;c.beginPath();c.moveTo(52,-122);c.lineTo(70,40);c.stroke();
+    c.lineWidth=10;c.beginPath();c.moveTo(-34,-196);c.quadraticCurveTo(-70,-140,-62,-90);c.stroke();
+  }
+  c.restore();
+}
+
+  
+function caps(tl,cls){document.querySelectorAll('.'+cls).forEach(function(c){
+  const s=parseFloat(c.dataset.start),d=parseFloat(c.dataset.duration);const w=c.querySelectorAll('span');
+  tl.fromTo(w,{opacity:0,filter:'blur(6px)'},{opacity:1,filter:'blur(0px)',duration:0.16,stagger:0.08,ease:'power2.out'},s+0.05);
+  tl.to(w,{opacity:0,filter:'blur(6px)',duration:0.18,stagger:0.025,ease:'power3.in'},s+d-0.32);});}
+
+  const cv=document.getElementById('s6-bg');const ctx=cv.getContext('2d');
+  
+const R=rng(19);const shards=[];for(let i=0;i<70;i++){const cx=R()*W,cy=R()*H;const pts=[];const n=3+Math.floor(R()*2);for(let k=0;k<n;k++){const a=k/n*6.28+R()*0.6;const r=60+R()*130;pts.push([Math.cos(a)*r,Math.sin(a)*r]);}
+  shards.push({cx,cy,pts,vx:(cx-W/2)*(0.6+R()),vy:(cy-H/2)*(0.6+R())-200*R(),rot:(R()-0.5)*4,hue:R()});}
+const frag=[];for(let i=0;i<40;i++)frag.push([R()*W,R()*H,R()*6.28,10+R()*40,R()]);
+const P=3.0;
+function world(){const g=ctx.createLinearGradient(0,0,0,H);g.addColorStop(0,'#1a0630');g.addColorStop(.6,'#4a1050');g.addColorStop(1,'#0a0410');ctx.fillStyle=g;ctx.fillRect(0,0,W,H);}
+function draw(t){
+  if(t<P+0.2){world();const lg=ctx.createRadialGradient(W/2,820,40,W/2,820,700);lg.addColorStop(0,'rgba(255,200,90,0.45)');lg.addColorStop(1,'rgba(255,200,90,0)');ctx.fillStyle=lg;ctx.fillRect(0,0,W,H);
+    const k=eInOut(prog(t,0.6,P));ctx.save();ctx.translate(W/2+30,lerp(1900,1010,k));ctx.fillStyle='#030204';
+    ctx.beginPath();ctx.moveTo(-40,900);ctx.lineTo(-34,40);ctx.quadraticCurveTo(-30,-10,0,-12);ctx.quadraticCurveTo(30,-10,34,40);ctx.lineTo(40,900);ctx.closePath();ctx.fill();ctx.restore();
+  } else if(t<7.2){
+    const k=prog(t,P+0.2,7.2);ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);ctx.fillStyle=`rgba(5,3,10,${eOut(prog(t,P+0.3,5.5))})`;ctx.fillRect(0,0,W,H);
+    for(const s of shards){const kk=eOut(k);ctx.save();ctx.translate(s.cx+s.vx*kk*1.4,s.cy+s.vy*kk*1.4);ctx.rotate(s.rot*kk);ctx.globalAlpha=1-k;
+      ctx.beginPath();s.pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();
+      ctx.fillStyle=s.hue<0.5?'#4a1050':'#2a0a40';ctx.fill();ctx.strokeStyle='rgba(255,220,255,0.8)';ctx.lineWidth=2;ctx.stroke();ctx.restore();}
+    const seg=Math.floor(t*15);const gr=rng(seg);for(let i=0;i<8;i++){const y=gr()*H,h=6+gr()*40;ctx.fillStyle=gr()<0.5?`rgba(0,255,255,${0.35*(1-k)})`:`rgba(255,0,120,${0.35*(1-k)})`;ctx.fillRect(0,y,W,h);}
+  } else {
+    ctx.fillStyle='#05030a';ctx.fillRect(0,0,W,H);
+    for(const f of frag){const yy=f[1]+Math.sin(t*0.4+f[2])*30;const xx=f[0]+(t-7.2)*8*Math.cos(f[2]);ctx.save();ctx.translate(xx,yy);ctx.rotate(t*0.2+f[2]);ctx.fillStyle=`rgba(180,150,255,${0.12+0.12*f[4]})`;ctx.fillRect(-f[3]/2,-f[3]/2,f[3],f[3]*0.6);ctx.restore();}
+  }
+}
+
+  const tl=gsap.timeline({paused:true});
+  const clock={t:0};
+  tl.fromTo(clock,{t:0},{t:15,duration:15,ease:'none',onUpdate:function(){draw(clock.t);}},0);
+  draw(0);
+  
+tl.fromTo('#s6-btn',{scale:1},{scale:0.9,duration:0.12,ease:'power3.in'},2.95);
+tl.to('#s6-btn',{scale:1.15,opacity:0,duration:0.2,ease:'power3.out'},3.07);
+
+  caps(tl,'s6-cap');
+  window.__timelines["s6"]=tl;
+  })();
+  </script>
+</template>
