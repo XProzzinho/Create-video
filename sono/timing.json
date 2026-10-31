@@ -1,0 +1,261 @@
+{
+ "total": 107.57,
+ "shots": [
+  {
+   "id": "intro",
+   "t0": 0.0,
+   "t1": 2.604
+  },
+  {
+   "id": "question",
+   "t0": 2.604,
+   "t1": 5.653
+  },
+  {
+   "id": "calendar",
+   "t0": 5.653,
+   "t1": 9.573
+  },
+  {
+   "id": "day1",
+   "t0": 9.573,
+   "t1": 10.944
+  },
+  {
+   "id": "clock",
+   "t0": 10.944,
+   "t1": 12.988
+  },
+  {
+   "id": "drunk",
+   "t0": 12.988,
+   "t1": 17.147
+  },
+  {
+   "id": "reading",
+   "t0": 17.147,
+   "t1": 20.246
+  },
+  {
+   "id": "angry",
+   "t0": 20.246,
+   "t1": 22.862
+  },
+  {
+   "id": "fridge",
+   "t0": 22.862,
+   "t1": 27.456
+  },
+  {
+   "id": "day2",
+   "t0": 27.456,
+   "t1": 28.412
+  },
+  {
+   "id": "microsleep",
+   "t0": 28.412,
+   "t1": 34.936
+  },
+  {
+   "id": "memory",
+   "t0": 34.936,
+   "t1": 36.0
+  },
+  {
+   "id": "immune",
+   "t0": 36.0,
+   "t1": 39.491
+  },
+  {
+   "id": "day3",
+   "t0": 39.491,
+   "t1": 40.88
+  },
+  {
+   "id": "shadows",
+   "t0": 40.88,
+   "t1": 47.9
+  },
+  {
+   "id": "paranoia",
+   "t0": 47.9,
+   "t1": 49.957
+  },
+  {
+   "id": "slurred",
+   "t0": 49.957,
+   "t1": 52.501
+  },
+  {
+   "id": "day4",
+   "t0": 52.501,
+   "t1": 54.015
+  },
+  {
+   "id": "tremble",
+   "t0": 54.015,
+   "t1": 58.78
+  },
+  {
+   "id": "limit",
+   "t0": 58.78,
+   "t1": 60.974
+  },
+  {
+   "id": "y1964",
+   "t0": 60.974,
+   "t1": 65.31
+  },
+  {
+   "id": "randy",
+   "t0": 65.31,
+   "t1": 66.816
+  },
+  {
+   "id": "eleven",
+   "t0": 66.816,
+   "t1": 70.172
+  },
+  {
+   "id": "hours",
+   "t0": 70.172,
+   "t1": 75.563
+  },
+  {
+   "id": "randy_tired",
+   "t0": 75.563,
+   "t1": 81.882
+  },
+  {
+   "id": "recovery",
+   "t0": 81.882,
+   "t1": 87.962
+  },
+  {
+   "id": "record_book",
+   "t0": 87.962,
+   "t1": 93.863
+  },
+  {
+   "id": "sleep_good",
+   "t0": 93.863,
+   "t1": 100.275
+  },
+  {
+   "id": "cta",
+   "t0": 100.275,
+   "t1": 107.57
+  }
+ ],
+ "marks": {},
+ "lines": [
+  {
+   "i": 0,
+   "start": 0.45,
+   "dur": 1.904036,
+   "text": "Fala, galera! Aqui é o Bessekai."
+  },
+  {
+   "i": 1,
+   "start": 2.654036,
+   "dur": 6.269388,
+   "text": "Quantos dias o seu corpo aguenta sem dormir? Hoje eu vou te mostrar, dia por dia."
+  },
+  {
+   "i": 2,
+   "start": 9.623424,
+   "dur": 6.873107,
+   "text": "Dia um. Depois de dezoito horas acordado, seu cérebro já fica parecido com o de quem bebeu."
+  },
+  {
+   "i": 3,
+   "start": 17.196531,
+   "dur": 5.01551,
+   "text": "A atenção some, você lê a mesma frase três vezes e fica irritado com tudo."
+  },
+  {
+   "i": 4,
+   "start": 22.912041000000002,
+   "dur": 3.993832,
+   "text": "E bate uma fome do nada, principalmente de doce e besteira."
+  },
+  {
+   "i": 5,
+   "start": 27.505873,
+   "dur": 6.780227,
+   "text": "Dia dois. Começam os microcochilos: o cérebro desliga por alguns segundos e você nem percebe."
+  },
+  {
+   "i": 6,
+   "start": 34.9861,
+   "dur": 3.854512,
+   "text": "A memória falha, e a defesa do corpo contra doenças cai."
+  },
+  {
+   "i": 7,
+   "start": 39.540612,
+   "dur": 7.709025,
+   "text": "Dia três. O mundo começa a ficar estranho. Sombras parecem se mexer, e você vê coisas que não estão ali."
+  },
+  {
+   "i": 8,
+   "start": 47.949637,
+   "dur": 3.900952,
+   "text": "Você fica desconfiado de todo mundo, e a fala começa a enrolar."
+  },
+  {
+   "i": 9,
+   "start": 52.550589,
+   "dur": 5.479909,
+   "text": "Dia quatro em diante. O corpo treme, os olhos não focam e a cabeça se perde."
+  },
+  {
+   "i": 10,
+   "start": 58.830498000000006,
+   "dur": 1.393197,
+   "text": "Mas qual é o limite?"
+  },
+  {
+   "i": 11,
+   "start": 61.023695000000004,
+   "dur": 8.498503,
+   "text": "Em mil novecentos e sessenta e quatro, um estudante americano chamado Randy Gardner ficou onze dias inteiros acordado."
+  },
+  {
+   "i": 12,
+   "start": 70.222198,
+   "dur": 4.690431,
+   "text": "Foram duzentas e sessenta e quatro horas, acompanhadas por cientistas."
+  },
+  {
+   "i": 13,
+   "start": 75.61262900000001,
+   "dur": 5.619229,
+   "text": "No fim, ele mal conseguia falar e esquecia o que estava fazendo no meio da frase."
+  },
+  {
+   "i": 14,
+   "start": 81.931858,
+   "dur": 5.479909,
+   "text": "E o mais impressionante: depois de uma boa noite de sono, ele se recuperou."
+  },
+  {
+   "i": 15,
+   "start": 88.011767,
+   "dur": 5.20127,
+   "text": "Hoje o Guinness nem aceita mais tentativas desse recorde, porque é perigoso demais."
+  },
+  {
+   "i": 16,
+   "start": 93.913037,
+   "dur": 5.712109,
+   "text": "Então não tente isso em casa. Dormir bem é o que mantém seu cérebro funcionando."
+  },
+  {
+   "i": 17,
+   "start": 100.325146,
+   "dur": 4.643991,
+   "text": "Curtiu? Me segue aqui, que tem muito mais curiosidade vindo aí."
+  }
+ ]
+}
