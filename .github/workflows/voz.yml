@@ -24,17 +24,22 @@ jobs:
           node-version: 22
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg
       - name: Login HeyGen (aprovar pelo link)
+        shell: bash
         run: |
+          set +e
           git config --global user.name "render-bot"; git config --global user.email "render-bot@users.noreply.github.com"
-          $HF auth login --device > login.log 2>&1 < /dev/null &
+          $HF --version > login.log 2>&1
+          $HF auth login --device >> login.log 2>&1 < /dev/null &
           PID=$!
-          for i in $(seq 1 60); do grep -qo "https://[^ ]*" login.log && break; sleep 2; done
+          pub() { rm -rf /tmp/pub; mkdir -p /tmp/pub; sed 's/\x1b\[[0-9;]*m//g' $GITHUB_WORKSPACE/login.log > /tmp/pub/login.txt; echo "$1" > /tmp/pub/estado.txt
+            (cd /tmp/pub && git init -q -b login && git add -A && git commit -q -m "login $1" && git push -f -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" login); }
+          for i in $(seq 1 90); do grep -q "https://" login.log && break; kill -0 $PID 2>/dev/null || break; sleep 2; done
+          pub aguardando
+          for i in $(seq 1 450); do kill -0 $PID 2>/dev/null || break; sleep 2; done
+          wait $PID; echo "saida $?" >> login.log
+          $HF auth status >> login.log 2>&1
+          pub terminou
           cat login.log
-          mkdir -p /tmp/pub && cd /tmp/pub && git init -q -b login && grep -o "https://[^ ]*" $GITHUB_WORKSPACE/login.log > link.txt; sed 's/\x1b\[[0-9;]*m//g' $GITHUB_WORKSPACE/login.log > login.txt
-          git add -A && git commit -q -m "link de login" && git push -f -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" login
-          cd $GITHUB_WORKSPACE
-          wait $PID
-          $HF auth status
       - name: Narração e música
         run: |
           mkdir -p out evil-tale-3d/assets
