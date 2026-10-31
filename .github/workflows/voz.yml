@@ -8,6 +8,9 @@ on:
       voice:
         description: "ID da voz (opcional)"
         default: ""
+      project:
+        description: "Pasta do projeto"
+        default: "evil-tale-3d"
 permissions:
   contents: write
 jobs:
@@ -17,6 +20,7 @@ jobs:
     env:
       HF: npx -y hyperframes@0.8.223
       KVOICE: ${{ inputs.voice }}
+      PROJ: ${{ inputs.project || 'evil-tale-3d' }}
       HEYGEN_API_KEY: ${{ secrets.HEYGEN_API_KEY }}
     steps:
       - uses: actions/checkout@v4
@@ -27,18 +31,18 @@ jobs:
       - name: Narração (voz grátis Kokoro, uma fala por linha)
         run: |
           git config --global user.name "render-bot"; git config --global user.email "render-bot@users.noreply.github.com"
-          mkdir -p out evil-tale-3d/assets/falas
+          mkdir -p out $PROJ/assets/falas
           i=0
           while IFS= read -r line; do
             [ -z "$line" ] && continue
             i=$((i+1)); n=$(printf "%02d" $i)
-            $HF tts "$line" --voice ${KVOICE:-pm_alex} --lang pt-br --speed 0.95 --output evil-tale-3d/assets/falas/fala-$n.wav 2>&1 | tail -2 | tee -a out/tts.log
-          done < evil-tale-3d/narracao.txt
-          ls -la evil-tale-3d/assets/falas | tee -a out/tts.log
+            $HF tts "$line" --voice ${KVOICE:-pm_alex} --lang pt-br --speed 0.95 --output $PROJ/assets/falas/fala-$n.wav 2>&1 | tail -2 | tee -a out/tts.log
+          done < $PROJ/narracao.txt
+          ls -la $PROJ/assets/falas | tee -a out/tts.log
       - name: Salvar no repositório
         if: always()
         run: |
-          cp out/tts.log evil-tale-3d/tts.log 2>/dev/null || true
-          git add -A evil-tale-3d
-          git commit -q -m "Narração do Evil Tale 3D [skip ci]" || true
+          cp out/tts.log $PROJ/tts.log 2>/dev/null || true
+          git add -A $PROJ
+          git commit -q -m "Narração de $PROJ [skip ci]" || true
           git pull -q --rebase && git push -q
