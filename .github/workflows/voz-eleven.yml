@@ -32,11 +32,12 @@ jobs:
           while IFS= read -r line; do
             [ -z "$line" ] && continue
             i=$((i+1)); n=$(printf "%02d" $i)
+            [ -f $PROJ/assets/falas-eleven/fala-$n.wav ] && continue
             body=$(jq -n --arg t "$line" '{text:$t, model_id:"eleven_multilingual_v2", language_code:"pt", voice_settings:{stability:0.45, similarity_boost:0.8, style:0.35, use_speaker_boost:true}}')
-            code=$(curl -s -o /tmp/f.mp3 -w "%{http_code}" -X POST "https://api.elevenlabs.io/v1/text-to-speech/$VOICE?output_format=mp3_44100_128" -H "xi-api-key: $KEY" -H "Content-Type: application/json" -d "$body")
+            code=$(curl -s -o /tmp/f.mp3 -w "%{http_code}" -X POST "https://api.elevenlabs.io/v1/text-to-speech/$VOICE?output_format=mp3_44100_128" -H "xi-api-key: $KEY" -H "Content-Type: application/json" -d "$body" < /dev/null)
             echo "fala $n: $code" | tee -a out/eleven.log
             if [ "$code" != "200" ]; then head -c 400 /tmp/f.mp3 >> out/eleven.log; echo >> out/eleven.log; continue; fi
-            ffmpeg -v error -y -i /tmp/f.mp3 -ar 44100 -ac 1 $PROJ/assets/falas-eleven/fala-$n.wav
+            ffmpeg -nostdin -v error -y -i /tmp/f.mp3 -ar 44100 -ac 1 $PROJ/assets/falas-eleven/fala-$n.wav
           done < $PROJ/narracao.txt
       - name: Salvar
         if: always()
