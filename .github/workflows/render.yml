@@ -2,19 +2,20 @@ name: Render video
 on:
   push:
     branches: [main]
-    paths: ["evil-tale/**", ".github/workflows/render.yml"]
+    paths: ["evil-tale-3d/**", ".github/workflows/render.yml"]
   workflow_dispatch:
     inputs:
       project:
         description: "Pasta do projeto"
-        default: "evil-tale"
+        default: "evil-tale-3d"
 permissions:
   contents: write
 jobs:
   render:
     runs-on: ubuntu-latest
+    timeout-minutes: 120
     env:
-      PROJECT: ${{ inputs.project || 'evil-tale' }}
+      PROJECT: ${{ inputs.project || 'evil-tale-3d' }}
       HF: npx -y hyperframes@0.8.223
     steps:
       - uses: actions/checkout@v4

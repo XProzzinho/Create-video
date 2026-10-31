@@ -1,0 +1,317 @@
+{
+ "total": 91.88,
+ "shots": [
+  {
+   "id": "intro",
+   "t0": 0.0,
+   "t1": 2.143
+  },
+  {
+   "id": "cage",
+   "t0": 2.143,
+   "t1": 4.727
+  },
+  {
+   "id": "title",
+   "t0": 4.727,
+   "t1": 6.25
+  },
+  {
+   "id": "gate",
+   "t0": 6.25,
+   "t1": 8.541
+  },
+  {
+   "id": "barrier",
+   "t0": 8.541,
+   "t1": 10.999
+  },
+  {
+   "id": "room",
+   "t0": 10.999,
+   "t1": 14.524
+  },
+  {
+   "id": "slimes",
+   "t0": 14.524,
+   "t1": 15.509
+  },
+  {
+   "id": "monitor_off",
+   "t0": 15.509,
+   "t1": 17.096
+  },
+  {
+   "id": "menu",
+   "t0": 17.096,
+   "t1": 19.893
+  },
+  {
+   "id": "clicks",
+   "t0": 19.893,
+   "t1": 22.468
+  },
+  {
+   "id": "clock",
+   "t0": 22.468,
+   "t1": 25.058
+  },
+  {
+   "id": "kills",
+   "t0": 25.058,
+   "t1": 27.327
+  },
+  {
+   "id": "death",
+   "t0": 27.327,
+   "t1": 28.828
+  },
+  {
+   "id": "respawn",
+   "t0": 28.828,
+   "t1": 31.552
+  },
+  {
+   "id": "party",
+   "t0": 31.552,
+   "t1": 37.713
+  },
+  {
+   "id": "tavern",
+   "t0": 37.713,
+   "t1": 42.101
+  },
+  {
+   "id": "npc1",
+   "t0": 42.101,
+   "t1": 43.753
+  },
+  {
+   "id": "npc2",
+   "t0": 43.753,
+   "t1": 45.923
+  },
+  {
+   "id": "castle",
+   "t0": 45.923,
+   "t1": 49.154
+  },
+  {
+   "id": "boss_reveal",
+   "t0": 49.154,
+   "t1": 50.198
+  },
+  {
+   "id": "boss_bar",
+   "t0": 50.198,
+   "t1": 51.785
+  },
+  {
+   "id": "fight",
+   "t0": 51.785,
+   "t1": 54.084
+  },
+  {
+   "id": "last_hit",
+   "t0": 54.084,
+   "t1": 55.123
+  },
+  {
+   "id": "explode",
+   "t0": 55.123,
+   "t1": 57.436
+  },
+  {
+   "id": "silence",
+   "t0": 57.436,
+   "t1": 59.911
+  },
+  {
+   "id": "window",
+   "t0": 59.911,
+   "t1": 63.132
+  },
+  {
+   "id": "window_close",
+   "t0": 63.132,
+   "t1": 65.027
+  },
+  {
+   "id": "hand",
+   "t0": 65.027,
+   "t1": 68.66
+  },
+  {
+   "id": "button",
+   "t0": 68.66,
+   "t1": 69.799
+  },
+  {
+   "id": "home",
+   "t0": 69.799,
+   "t1": 72.291
+  },
+  {
+   "id": "press",
+   "t0": 72.291,
+   "t1": 73.134
+  },
+  {
+   "id": "shatter",
+   "t0": 73.134,
+   "t1": 76.387
+  },
+  {
+   "id": "wake",
+   "t0": 76.387,
+   "t1": 77.608
+  },
+  {
+   "id": "wind",
+   "t0": 77.608,
+   "t1": 78.644
+  },
+  {
+   "id": "moons",
+   "t0": 78.644,
+   "t1": 80.5
+  },
+  {
+   "id": "creatures",
+   "t0": 80.5,
+   "t1": 81.809
+  },
+  {
+   "id": "crane",
+   "t0": 81.809,
+   "t1": 83.632
+  },
+  {
+   "id": "xsky",
+   "t0": 83.632,
+   "t1": 86.623
+  },
+  {
+   "id": "cta",
+   "t0": 86.623,
+   "t1": 91.88
+  }
+ ],
+ "marks": {
+  "sumiu": 18.896,
+  "nada": 21.316,
+  "ryu": 34.492,
+  "sora": 35.329,
+  "todos": 36.259
+ },
+ "lines": [
+  {
+   "i": 0,
+   "start": 0.45,
+   "dur": 3.626667,
+   "text": "Meu nome é Kim Woojin. E eu estou preso dentro de um jogo."
+  },
+  {
+   "i": 1,
+   "start": 4.776667,
+   "dur": 3.114667,
+   "text": "O nome dele é Evil Tale. E ninguém sai de Evil Tale."
+  },
+  {
+   "i": 2,
+   "start": 8.591334,
+   "dur": 1.557333,
+   "text": "Eu tentei. Por anos."
+  },
+  {
+   "i": 3,
+   "start": 11.048667,
+   "dur": 5.397333,
+   "text": "No começo, era só um jogo online. Eu chegava do trabalho, matava uns monstros e desligava."
+  },
+  {
+   "i": 4,
+   "start": 17.146,
+   "dur": 4.672,
+   "text": "Até o dia em que o botão de sair sumiu do menu. Eu apertei mil vezes. Nada."
+  },
+  {
+   "i": 5,
+   "start": 22.518,
+   "dur": 8.384,
+   "text": "Três anos, quatro meses e doze dias. Quarenta e oito mil monstros derrotados. Mil e duzentas mortes. E eu sempre renascia no mesmo lugar."
+  },
+  {
+   "i": 6,
+   "start": 31.602,
+   "dur": 5.461333,
+   "text": "Os outros jogadores foram sumindo, um por um. Primeiro o Ryu. Depois a Sora. Depois, todo mundo."
+  },
+  {
+   "i": 7,
+   "start": 37.763333,
+   "dur": 7.509333,
+   "text": "Só restaram eu e os personagens do jogo, repetindo as mesmas falas. Bem-vindo, aventureiro. Bem-vindo, aventureiro."
+  },
+  {
+   "i": 8,
+   "start": 45.972666000000004,
+   "dur": 5.162667,
+   "text": "Então eu entendi. A única saída era o fim do jogo. O Rei das Sombras. O chefe final."
+  },
+  {
+   "i": 9,
+   "start": 51.835333000000006,
+   "dur": 4.650667,
+   "text": "Lutei por dezoito horas sem parar. E no último golpe, ele se desfez em luz."
+  },
+  {
+   "i": 10,
+   "start": 57.486000000000004,
+   "dur": 0.874667,
+   "text": "Silêncio."
+  },
+  {
+   "i": 11,
+   "start": 59.960667,
+   "dur": 4.416,
+   "text": "E então, uma janela apareceu na minha frente. Deseja sair de Evil Tale?"
+  },
+  {
+   "i": 12,
+   "start": 65.076667,
+   "dur": 6.464,
+   "text": "Minhas mãos tremiam. Depois de tanto tempo, ali estava ele. O botão de sair. Eu só queria voltar para casa."
+  },
+  {
+   "i": 13,
+   "start": 72.340667,
+   "dur": 2.496,
+   "text": "Eu apertei. E o mundo quebrou como vidro."
+  },
+  {
+   "i": 14,
+   "start": 76.436667,
+   "dur": 3.413333,
+   "text": "Quando abri os olhos, tinha grama. Vento. E duas luas no céu."
+  },
+  {
+   "i": 15,
+   "start": 80.55,
+   "dur": 2.432,
+   "text": "Aquilo não era casa. Era um outro mundo."
+  },
+  {
+   "i": 16,
+   "start": 83.682,
+   "dur": 2.090667,
+   "text": "E no céu, uma única letra. X."
+  },
+  {
+   "i": 17,
+   "start": 86.672667,
+   "dur": 2.602667,
+   "text": "Quer a parte dois? Me segue e comenta X."
+  }
+ ]
+}
