@@ -61,7 +61,7 @@
     x.lineWidth = 10; x.strokeStyle = border; x.shadowColor = border; x.shadowBlur = 30; x.stroke(); x.shadowBlur = 0;
   }
   function txt(x, s, X, Y, size, col, weight = 700, fam = 'Oswald', align = 'center') {
-    x.font = `${weight} ${size}px ${fam}`; x.textAlign = align; x.textBaseline = 'middle'; x.fillStyle = col; x.fillText(s, X, Y);
+    x.font = `${weight} ${size}px ${fam}`; while (align === 'center' && size > 20 && x.measureText(s).width > x.canvas.width - 70) { size -= 4; x.font = `${weight} ${size}px ${fam}`; } x.textAlign = align; x.textBaseline = 'middle'; x.fillStyle = col; x.fillText(s, X, Y);
   }
 
   // partículas: cubinhos instanciados com posição calculada a cada quadro

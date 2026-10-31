@@ -2,7 +2,7 @@ name: Render video
 on:
   push:
     branches: [main]
-    paths: ["evil-tale-3d/**", ".github/workflows/render.yml"]
+    paths: ["render-trigger.txt"]
   workflow_dispatch:
     inputs:
       project:
