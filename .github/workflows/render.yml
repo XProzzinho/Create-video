@@ -31,6 +31,7 @@ jobs:
           $HF snapshot --review > ../out/snapshot.log 2>&1 || true
           cp -r .hyperframes/artifacts/snapshots ../out/snapshots 2>/dev/null || true
           $HF render --quality looks --output ../out/video.mp4 > ../out/render.log 2>&1 || echo "RENDER FALHOU" >> ../out/render.log
+          $HF audio ../out/video.mp4 --json > ../out/audio.json 2>&1 || true
           tail -60 ../out/render.log
       - uses: actions/upload-artifact@v4
         if: always()

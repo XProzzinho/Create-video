@@ -5,6 +5,7 @@
 .cap{position:absolute;left:80px;right:80px;top:1150px;margin:0;text-align:center;font-family:Inter;font-weight:700;font-size:56px;line-height:1.3;color:#fff;text-shadow:0 4px 20px rgba(0,0,0,.95),0 0 3px #000;z-index:20}
 .cap span{display:inline-block;margin:0 .13em}
 .win{position:absolute;background:rgba(9,6,24,.88);border:3px solid #6c4bd8;border-radius:14px;color:#efe9ff;font-family:Oswald;z-index:10}
+.gl{position:relative;display:block}.gl i,.gl b{font-style:normal;font-weight:inherit;display:block}.gl i{position:absolute;left:0;right:0;top:0;mix-blend-mode:screen}.gl i:first-child{color:#ef4444;transform:translateX(var(--gr,0px))}.gl i:nth-child(2){color:#22d3ee;transform:translateX(var(--gb,0px))}
 .win h3{margin:0;font-family:Oswald;font-weight:700;letter-spacing:6px;color:#b9a4ff;font-size:34px}
 
 #s1-win{left:110px;top:520px;width:860px;height:380px;border-color:#ff2a4a;background:rgba(18,2,8,.9);text-align:center}
@@ -16,7 +17,7 @@
     <canvas id="s1-bg" class="bg" width="1080" height="1920"></canvas>
     
 <div id="s1-winclip" class="clip" data-start="0" data-duration="3.4">
-  <div id="s1-win" class="win"><div class="k">[ SISTEMA ]</div><div class="t"><span id="s1-t1">BEM-VINDO A</span><span id="s1-t2">EVIL TALE</span></div></div>
+  <div id="s1-win" class="win"><div class="k">[ SISTEMA ]</div><div class="t"><span id="s1-t1">BEM-VINDO A</span><span id="s1-t2" class="gl"><i>EVIL TALE</i><i>EVIL TALE</i><b>EVIL TALE</b></span></div></div>
 </div>
 <p id="s1-cap1" class="clip cap s1-cap" data-start="3.5" data-duration="3.9" style=""><span>Ninguém</span><span>sai</span><span>de</span><span>Evil</span><span>Tale.</span></p><p id="s1-cap2" class="clip cap s1-cap" data-start="7.6" data-duration="4.2" style=""><span>Eu</span><span>tentei</span><span>por</span><span>anos.</span></p>
   </div>
@@ -88,7 +89,8 @@ function draw(t){
   draw(0);
   
 const gx=[0,-14,10,0,-6,12,0];
-gx.forEach(function(v,i){tl.to('#s1-t2',{x:v,ease:'steps(1)',duration:0.04},0.6+i*0.07);});
+function rgb(sel,at,px,n){tl.fromTo(sel,{'--gr':'0px','--gb':'0px'},{'--gr':(-px)+'px','--gb':px+'px',duration:0.06,repeat:n,yoyo:true,ease:'steps(1)'},at);}
+rgb('#s1-t2',0.6,16,7);rgb('#s1-t2',2.4,9,3);
 gx.forEach(function(v,i){tl.to('#s1-t1',{x:-v,ease:'steps(1)',duration:0.04},1.9+i*0.06);});
 tl.to('#s1-win',{opacity:0,filter:'blur(10px)',scale:1.06,duration:0.3,ease:'power3.in'},3.0);
 

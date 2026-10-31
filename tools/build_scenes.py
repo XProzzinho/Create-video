@@ -59,6 +59,7 @@ BASE_CSS = """
 .cap{position:absolute;left:80px;right:80px;top:1150px;margin:0;text-align:center;font-family:Inter;font-weight:700;font-size:56px;line-height:1.3;color:#fff;text-shadow:0 4px 20px rgba(0,0,0,.95),0 0 3px #000;z-index:20}
 .cap span{display:inline-block;margin:0 .13em}
 .win{position:absolute;background:rgba(9,6,24,.88);border:3px solid #6c4bd8;border-radius:14px;color:#efe9ff;font-family:Oswald;z-index:10}
+.gl{position:relative;display:block}.gl i,.gl b{font-style:normal;font-weight:inherit;display:block}.gl i{position:absolute;left:0;right:0;top:0;mix-blend-mode:screen}.gl i:first-child{color:#ef4444;transform:translateX(var(--gr,0px))}.gl i:nth-child(2){color:#22d3ee;transform:translateX(var(--gb,0px))}
 .win h3{margin:0;font-family:Oswald;font-weight:700;letter-spacing:6px;color:#b9a4ff;font-size:34px}
 """
 
@@ -117,12 +118,13 @@ s1_css = """
 """
 s1_body = """
 <div id="s1-winclip" class="clip" data-start="0" data-duration="3.4">
-  <div id="s1-win" class="win"><div class="k">[ SISTEMA ]</div><div class="t"><span id="s1-t1">BEM-VINDO A</span><span id="s1-t2">EVIL TALE</span></div></div>
+  <div id="s1-win" class="win"><div class="k">[ SISTEMA ]</div><div class="t"><span id="s1-t1">BEM-VINDO A</span><span id="s1-t2" class="gl"><i>EVIL TALE</i><i>EVIL TALE</i><b>EVIL TALE</b></span></div></div>
 </div>
 """ + cap("s1", 1, "Ninguém sai de Evil Tale.", 3.5, 3.9) + cap("s1", 2, "Eu tentei por anos.", 7.6, 4.2)
 s1_tl = r"""
 const gx=[0,-14,10,0,-6,12,0];
-gx.forEach(function(v,i){tl.to('#s1-t2',{x:v,ease:'steps(1)',duration:0.04},0.6+i*0.07);});
+function rgb(sel,at,px,n){tl.fromTo(sel,{'--gr':'0px','--gb':'0px'},{'--gr':(-px)+'px','--gb':px+'px',duration:0.06,repeat:n,yoyo:true,ease:'steps(1)'},at);}
+rgb('#s1-t2',0.6,16,7);rgb('#s1-t2',2.4,9,3);
 gx.forEach(function(v,i){tl.to('#s1-t1',{x:-v,ease:'steps(1)',duration:0.04},1.9+i*0.06);});
 tl.to('#s1-win',{opacity:0,filter:'blur(10px)',scale:1.06,duration:0.3,ease:'power3.in'},3.0);
 """
@@ -384,14 +386,34 @@ function draw(t){
 }
 """
 s8_css = "#s8-x{position:absolute;left:0;right:0;top:640px;text-align:center;font-family:Oswald;font-weight:700;font-size:200px;color:#fff;text-shadow:0 0 40px rgba(200,180,255,.9);z-index:10}"
-s8_body = '<div id="s8-xclip" class="clip" data-start="0.5" data-duration="3.3"><div id="s8-x">……X.</div></div>'
+s8_body = '<div id="s8-xclip" class="clip" data-start="0.5" data-duration="3.3"><div id="s8-x"><span class="gl"><i>……X.</i><i>……X.</i><b>……X.</b></span></div></div>'
 s8_tl = r"""
 tl.fromTo('#s8-x',{opacity:0,filter:'blur(16px)',scale:1.2},{opacity:1,filter:'blur(0px)',scale:1,duration:0.8,ease:'expo.out'},0.55);
+tl.fromTo('#s8-x .gl',{'--gr':'0px','--gb':'0px'},{'--gr':'-22px','--gb':'22px',duration:0.06,repeat:9,yoyo:true,ease:'steps(1)'},0.62);
+tl.fromTo('#s8-x .gl',{'--gr':'0px','--gb':'0px'},{'--gr':'-10px','--gb':'10px',duration:0.05,repeat:5,yoyo:true,ease:'steps(1)'},2.6);
 """
 scenes.append(("s8", 5, scene("s8", 5, s8_css, s8_body, s8_draw, s8_tl)))
 
 # ---------- escrever arquivos ----------
 total = sum(d for _, d, _ in scenes)
+# (id, arquivo, início absoluto, duração, volume) — início já descontado o tempo até o pico do som
+SFX = [
+ ("sx-glitch-titulo","glitch-1",0.26,1.6,0.5),("sx-glitch-titulo2","glitch-3",2.38,1.2,0.35),("sx-whoosh-1","whoosh-short",2.88,0.57,0.4),
+ ("sx-whoosh-2","whoosh",11.96,0.57,0.4),("sx-typing","typing",12.95,1.5,0.3),
+ ("sx-card-1","pop",17.6,0.72,0.4),("sx-card-2","ping",18.6,1.0,0.35),("sx-card-3","pop",19.6,0.72,0.45),
+ ("sx-menu","whoosh-short",21.85,0.57,0.35),("sx-glitch-sair","glitch-2",24.4,1.6,0.45),("sx-erro","error",25.6,1.62,0.45),
+ ("sx-bolha-1","pop",30.58,0.72,0.25),("sx-bolha-2","pop",32.78,0.72,0.25),("sx-bolha-3","pop",34.98,0.72,0.25),
+ ("sx-grupo","whoosh-short",37.35,0.57,0.35),
+ ("sx-off-1","click-soft",39.55,0.37,0.45),("sx-off-2","click-soft",40.65,0.37,0.45),("sx-off-3","click-soft",41.75,0.37,0.45),("sx-off-4","click-soft",42.85,0.37,0.45),
+ ("sx-chefe","whoosh",50.1,0.57,0.4),("sx-riser","riser",53.57,10.03,0.35),
+ ("sx-golpe-1","impact-bass-1",52.42,1.1,0.55),("sx-golpe-2","impact-bass-2",54.92,1.1,0.55),("sx-golpe-3","impact-bass-1",57.42,1.1,0.55),("sx-golpe-4","impact-bass-2",59.92,1.1,0.55),("sx-golpe-5","impact-bass-1",62.42,1.1,0.6),
+ ("sx-explosao","glitch-2",63.62,1.8,0.5),("sx-brilho-1","sparkle",64.0,1.8,0.35),
+ ("sx-janela","sparkle",71.0,1.8,0.4),
+ ("sx-clique","click",92.95,0.37,0.7),("sx-quebra","impact-bass-2",93.2,1.6,0.6),("sx-quebra-2","glitch-1",92.85,2.2,0.5),
+ ("sx-acordar","whoosh-cinematic",102.5,4.0,0.35),
+ ("sx-x","impact-bass-1",115.57,1.6,0.6),("sx-x-glitch","glitch-1",115.28,1.8,0.45),
+]
+sfx_tags = "\n".join(f'      <audio id="{i}" class="clip" src="assets/sfx/{f}.mp3" data-start="{s}" data-duration="{d}" data-track-index="{3+n%3}" data-volume="{v}" data-fade-out="0.2"></audio>' for n,(i,f,s,d,v) in enumerate(SFX))
 hosts = []
 t = 0
 for sid, d, content in scenes:
@@ -408,6 +430,7 @@ index = f"""<!doctype html>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="{total}" data-width="1080" data-height="1920">
 {chr(10).join(hosts)}
+{sfx_tags}
     </div>
     <script>
       const tl = gsap.timeline({{ paused: true }});
@@ -418,4 +441,9 @@ index = f"""<!doctype html>
 </html>
 """
 open(os.path.join(ROOT, "index.html"), "w").write(index)
+import shutil
+SFXDIR=os.path.join(os.path.dirname(__file__),"..",".agents","skills","media-use","audio","assets","sfx")
+os.makedirs(os.path.join(ROOT,"assets","sfx"),exist_ok=True)
+for f in set(c[1] for c in SFX)|{"CREDITS.md"}:
+    shutil.copy(os.path.join(SFXDIR,f if f.endswith(".md") else f+".mp3"),os.path.join(ROOT,"assets","sfx",f if f.endswith(".md") else f+".mp3"))
 print("ok", total, "s")
