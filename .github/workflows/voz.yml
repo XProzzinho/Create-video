@@ -1,4 +1,4 @@
-name: Gerar narração (HeyGen)
+name: Gerar narração
 on:
   push:
     branches: [main]
@@ -16,7 +16,7 @@ jobs:
     timeout-minutes: 30
     env:
       HF: npx -y hyperframes@0.8.223
-      VOICE: ${{ inputs.voice }}
+      KVOICE: ${{ inputs.voice }}
       HEYGEN_API_KEY: ${{ secrets.HEYGEN_API_KEY }}
     steps:
       - uses: actions/checkout@v4
@@ -24,22 +24,21 @@ jobs:
         with:
           node-version: 22
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg
-      - name: Conferir chave HeyGen
+      - name: Narração (voz grátis Kokoro, uma fala por linha)
         run: |
-          if [ -z "$HEYGEN_API_KEY" ]; then echo "Falta o segredo HEYGEN_API_KEY"; exit 1; fi
           git config --global user.name "render-bot"; git config --global user.email "render-bot@users.noreply.github.com"
-      - name: Narração e música
-        run: |
-          mkdir -p out evil-tale-3d/assets
-          V=$(node tools/pick_voice.mjs | tail -1); echo "voz: $V"; echo "$V" > out/voz.txt
-          node .agents/skills/media-use/audio/scripts/heygen-tts.mjs evil-tale-3d/narracao.txt -o evil-tale-3d/assets/narracao.wav --words evil-tale-3d/narracao.words.json --lang pt ${V:+--voice $V} 2>&1 | tee out/tts.log
-          $HF media-use resolve --type bgm --intent "dark epic fantasy video game soundtrack, tense and mysterious, building to an emotional climax, cinematic" --project evil-tale-3d > out/bgm.log 2>&1 || echo "musica falhou" >> out/bgm.log
-          cat out/bgm.log | tail -20
+          mkdir -p out evil-tale-3d/assets/falas
+          i=0
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            i=$((i+1)); n=$(printf "%02d" $i)
+            $HF tts "$line" --voice ${KVOICE:-pm_alex} --lang pt-br --speed 0.95 --output evil-tale-3d/assets/falas/fala-$n.wav 2>&1 | tail -2 | tee -a out/tts.log
+          done < evil-tale-3d/narracao.txt
+          ls -la evil-tale-3d/assets/falas | tee -a out/tts.log
       - name: Salvar no repositório
         if: always()
         run: |
-          cp out/voices.json evil-tale-3d/voices.json 2>/dev/null || true
-          cp out/*.log out/voz.txt evil-tale-3d/ 2>/dev/null || true
+                    cp out/tts.log evil-tale-3d/tts.log 2>/dev/null || true
           git add -A evil-tale-3d
           git commit -q -m "Narração e música do Evil Tale 3D [skip ci]" || true
           git pull -q --rebase && git push -q
