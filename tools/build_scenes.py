@@ -402,14 +402,17 @@ for sid, d, content in scenes:
 index = f"""<!doctype html>
 <html>
   <head><meta charset="utf-8"><title>Evil Tale</title>
-  <style>html,body{{margin:0;background:#000}}</style></head>
+  <meta name="viewport" content="width=1080, height=1920" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+  <style>*{{margin:0;padding:0;box-sizing:border-box}}html,body{{margin:0;width:1080px;height:1920px;overflow:hidden;background:#000}}#root{{width:100%;height:100%}}</style></head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-duration="{total}" data-width="1080" data-height="1920">
 {chr(10).join(hosts)}
     </div>
     <script>
-      window.__timelines = window.__timelines || {{}};
-      window.__timelines["main"] = gsap.timeline({{ paused: true }});
+      const tl = gsap.timeline({{ paused: true }});
+      window.__timelines["main"] = tl;
+      tl.seek(0);
     </script>
   </body>
 </html>
