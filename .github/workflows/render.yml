@@ -33,7 +33,7 @@ jobs:
         run: |
           mkdir -p ../out
           $HF check --json > ../out/check.json 2> ../out/check.log || true
-          [ -z "$START" ] && ($HF snapshot --review > ../out/snapshot.log 2>&1 || true)
+          if [ -z "$START" ]; then $HF snapshot --review > ../out/snapshot.log 2>&1 || true; fi
           cp -r .hyperframes/artifacts/snapshots ../out/snapshots 2>/dev/null || true
           $HF render --quality looks ${START:+--start $START} --output ../out/video.mp4 > ../out/render.log 2>&1 || echo "RENDER FALHOU" >> ../out/render.log
           $HF audio ../out/video.mp4 --json > ../out/audio.json 2>&1 || true

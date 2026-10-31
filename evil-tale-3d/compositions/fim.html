@@ -1,19 +1,23 @@
 <template>
   <style>
     #root{position:absolute;inset:0}
-    #fim-card{position:absolute;left:110px;right:110px;top:820px;height:430px;border-radius:44px;background:rgba(14,8,30,.92);border:6px solid #c9a7ff;box-shadow:0 0 60px rgba(201,167,255,.55);text-align:center}
-    #fim-user{position:absolute;left:0;right:0;top:56px;font-family:'Archivo Black';font-size:76px;color:#fff}
-    #fim-sub{position:absolute;left:0;right:0;top:160px;font-family:Inter;font-weight:700;font-size:42px;color:#c9b8ff}
-    #fim-btn{position:absolute;left:150px;right:150px;top:250px;height:120px;border-radius:60px;background:#ffd23c;font-family:'Archivo Black';font-size:58px;line-height:120px;color:#1a0d18}
+    #fim-card{position:absolute;left:90px;right:90px;top:720px;height:760px;border-radius:44px;background:rgba(14,8,30,.93);border:6px solid #c9a7ff;box-shadow:0 0 60px rgba(201,167,255,.55);text-align:center}
+    #fim-tag{position:absolute;left:330px;right:330px;top:-38px;height:76px;border-radius:38px;background:#c9a7ff;font-family:'Archivo Black';font-size:40px;line-height:76px;color:#1a0d18;letter-spacing:4px}
+    #fim-title{position:absolute;left:40px;right:40px;top:80px;font-family:'Archivo Black';font-size:74px;line-height:1.05;color:#fff;-webkit-text-stroke:10px #1a0d18;paint-order:stroke fill}
+    #fim-sub{position:absolute;left:0;right:0;top:370px;font-family:'Archivo Black';font-size:52px;color:#ffd23c}
+    #fim-user{position:absolute;left:0;right:0;top:460px;font-family:Inter;font-weight:700;font-size:48px;color:#c9b8ff}
+    #fim-btn{position:absolute;left:150px;right:150px;top:570px;height:120px;border-radius:60px;background:#ffd23c;font-family:'Archivo Black';font-size:54px;line-height:120px;color:#1a0d18}
   </style>
   <div id="root" data-composition-id="fim" data-width="1080" data-height="1920" data-duration="5.31">
     <div id="fim-cardclip" class="clip" data-start="0.2" data-duration="5.11">
-      <div id="fim-card"><div id="fim-user" data-var-text="usuario">@Bessekai</div><div id="fim-sub">Parte 2 em breve</div><div id="fim-btn">COMENTA “X”</div></div>
+      <div id="fim-card"><div id="fim-tag">SINOPSE</div><div id="fim-title" data-var-text="titulo">DESLOGAR DA CONTA É MUITO DIFÍCIL</div><div id="fim-sub">PARTE 2 EM BREVE</div><div id="fim-user" data-var-text="usuario">@Bessekai</div><div id="fim-btn">COMENTA “X”</div></div>
     </div>
   </div>
   <script>
     const tl = gsap.timeline({ paused: true });
     tl.fromTo('#fim-card', { y: 300, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, duration: 0.55, ease: 'expo.out' }, 0.25);
+    tl.fromTo('#fim-tag', { scale: 0, rotation: -12 }, { scale: 1, rotation: -3, duration: 0.4, ease: 'back.out(2.6)' }, 0.55);
+    tl.fromTo('#fim-title', { opacity: 0, filter: 'blur(8px)' }, { opacity: 1, filter: 'blur(0px)', duration: 0.3, ease: 'power3.out' }, 0.5);
     tl.fromTo('#fim-btn', { scale: 0.6 }, { scale: 1, duration: 0.45, ease: 'back.out(2.6)' }, 0.6);
     tl.to('#fim-btn', { scale: 1.06, duration: 0.3, ease: 'power2.inOut', yoyo: true, repeat: 3 }, 1.3);
     window.__timelines["fim"] = tl;
