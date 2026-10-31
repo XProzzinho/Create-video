@@ -1,0 +1,3208 @@
+[
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Murilo - Bright & Articulate",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/wzvW3dnWbpwHSkZFUKo9.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "d703f08d1ef34302a36945aa3efc7b3f"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Portuguese",
+    "name": "Lucilene - Clear & Trustworthy",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/TCdWaNVZjwYds8hop36r.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "e808da2329754929803c8bd98dc36857"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Afonso - Warm & Resonant",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/xx0reTOyunOIWIY1ghDr.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "9ce5f601f9e04382bb26141d5a3f839d"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Portuguese",
+    "name": "Thaís - Energetic & Punchy",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/upofFV94ohMu5Q4w9zPY.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "a8c7b58e38c44719b3ab36342f080e95"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Giles - Serious & Composed",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/public-voice-curation/7d5dfb068b534baa996aef0ab3468a8d/id=2aba5eac-25dc-40a7-b4aa-089c1d7dd470.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "7d5dfb068b534baa996aef0ab3468a8d"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Oscar - Firm & Measured",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/public-voice-curation/f6dabcabaabe47dab19a39c7dd926cbb/id=5c6354b5-f349-4247-928f-0b233a7ad665.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "f6dabcabaabe47dab19a39c7dd926cbb"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Gail in car",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/B7mSeiBWP6WRAsadXMPjWm.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "0214ac51f93e420f8711d568dcfbc50e"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Daran outside walking",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/KbaxAZ77k3t5dWNBhj9NnD.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "0ac81e725f4948dfa9638ceca216bcfa"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Tim outside sitting",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/qxY3Uq75GBVbiWbKypuyxX.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "0f04c50500bf417396ba2e846d7bd3d7"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Lea outside walking",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/FFHPhwFgT5Er4rGpXM4BJf.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "1753e5984bca4125a3e727d5d5e07ee2"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Lea inside sitting down",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/msSd5uEFY5Px5qxyhHTyjV.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "1803df59c37443789d2e4f71c82859a0"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Lucas outside at cafe",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/2vYwxdcTu4BeKuUiyE59pD.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "4db64fcc025a418dbf6f46cd94dcc404"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "DARAN INSIDE 2 with mic",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/w5bNBpz3ijrLxwBZ5aCueF.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "5a3cff20eddd491ca1196ffd1a868fdb"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Lea inside sitting",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/xsp4nT3i6QNfVaSMTxrCdU.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "7885c6f49ee94be1b642002f6f383543"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Lukas in car",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/45SJU2d62kD2j5XKGz5xxQ.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "8f0944e10aad4e989bce8f76807b6f36"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Lea in car",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/7ewwzNo5rjXvqS8pC4AS2H.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "8f389c2237194f80b50fe7632dcc17b8"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Daran outside sitting",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/7E62giDuJiAWSdmBeNcvin.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "9ff7fd2dd9114c3bae005e62aa485e52"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Gail inside standing",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/nSYSm8euJqGceAxZpR49gb.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "acebd7b6419a44a388b9d1620614b29f"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Mark - Warm & Friendly",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/public-voice-curation/c8810dc6f3904500b89d934dcd99b94b/id=37149393-95d8-49e8-85eb-9542e23f1750.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "c8810dc6f3904500b89d934dcd99b94b"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Lea on balcony",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/iGVJzMk3mkBV2oB2z9fMUL.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "d0c68b40ab8a45f8aa551404d780cce8"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Lea in car 2",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/NV4tM5hApagtKiTCTU2JnP.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "edf40d9a721c4d1f8458c9f8794f1a4d"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Lucas Inside — black hoodie",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/YzmvM9kgyyJv2akNBUzW8B.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "f084205207c9474e8413b4bbf1a0c170"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Daran in car",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/z3hVTCK9Lp3sgPzB3aZRwH.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "fdc76477bc3a49ed9868c8da29535fe3"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Daran inside booth",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/VaNQGEiGRCzMJoqAVHecAC.mp3",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "fe5b9effb624445ba3913007dd68c77f"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Paul - Broadcaster",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/02733a92a0db457aadf63b235d2aa457/id=90a43243-8ea6-4223-bcff-31eeebc72cbb.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "02733a92a0db457aadf63b235d2aa457"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Paul - Soothing",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/046dacc3502347eea0c796f97399632e/id=504c013e-0279-4608-9d0e-7b65d6233ebf.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "046dacc3502347eea0c796f97399632e"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Theo - Soothing",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/0628580ef2ab48dd951af4f4d5396379/id=fa42840b-4106-4d4f-bd3f-bed28ed93717.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "0628580ef2ab48dd951af4f4d5396379"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Ceecee - Serious",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/080f8e5cb3ae424989242b0efe5205e6/id=cf224d71-b623-49a8-bd8d-c0530eb7d479.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "080f8e5cb3ae424989242b0efe5205e6"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Rex - Soothing",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/1601b13a4a8e4902a9e848da0c129bce/id=d63f541e-329c-4b10-b4cb-ceba3a49397d.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "1601b13a4a8e4902a9e848da0c129bce"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Melissa - Friendly",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/1776ddbd05374fa480e92f0297bbc67e/id=a641afc8-f311-4379-83f1-c564ae9f21f3.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "1776ddbd05374fa480e92f0297bbc67e"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Ceecee - Soothing",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/1c651b8254304a298f6f35585f2e1d04/id=8dd72b6c-55c9-431c-a916-3d256a171af4.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "1c651b8254304a298f6f35585f2e1d04"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Ceecee - Excited",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/1cd326303dc3411eaa9fcda84ee7b921/id=f63056d7-5844-40d1-b2ba-1f275b716b3c.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "1cd326303dc3411eaa9fcda84ee7b921"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Rex - Friendly",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/2d432723a02444acb48e28ada714cc43/id=4e84e516-7428-4ca3-9248-31f554f8b83b.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "2d432723a02444acb48e28ada714cc43"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Christine - Excited",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/38209693fc4749748a0a298ef67e3860/id=46b99f6c-8f34-4254-badd-6f841599cc94.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "38209693fc4749748a0a298ef67e3860"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Theo - Excited",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/44a6e603e3714f1fbba1370aac82f7af/id=49a7ab89-4640-446f-becb-1c30b0752fad.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "44a6e603e3714f1fbba1370aac82f7af"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Elizabeth - Soothing",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/45d1bc0c65e9426b9da4327d52e1f346/id=1eb8c1de-e8ac-44ee-9570-3cb024edd954.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "45d1bc0c65e9426b9da4327d52e1f346"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Elizabeth - Friendly",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/55f8c0f546884f9cbdefa113f5e7b682/id=6a2a69f8-2193-4ca9-8e07-c4a0173d52a5.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "55f8c0f546884f9cbdefa113f5e7b682"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Paul - Serious",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/5700372f7c364088a5affaef8d903474/id=c6ec528e-3222-4ec2-9798-8af68a0b15e3.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "5700372f7c364088a5affaef8d903474"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Theo - Friendly",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/5c1ade5e514c4c6c900b0ded224970fd/id=0804dc0a-e609-4539-b0ef-8e72c7dd47a1.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "5c1ade5e514c4c6c900b0ded224970fd"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Paul - Friendly",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/5cb81a519c4845f2b3c3d12b9630e258/id=8b69702b-1cef-42f6-a85f-aad4c8d3420e.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "5cb81a519c4845f2b3c3d12b9630e258"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Theo - Serious",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/6dfaa3b29f0b46f79677abdd25b66d15/id=006b1a8b-b711-4c0c-9357-675f90527fc1.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "6dfaa3b29f0b46f79677abdd25b66d15"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Theo - Broadcaster",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/715e7730f62043c290be79876b19f692/id=d792f66b-0af9-4671-b1aa-9eec13c2cd93.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "715e7730f62043c290be79876b19f692"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Christine - Friendly",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/7682f3cff71a47abb2d6ae7ab3b339fd/id=0608a856-b693-4d34-b60f-b1b0c81f2a9b.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "7682f3cff71a47abb2d6ae7ab3b339fd"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Melissa - Soothing",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/788cd5ac4afe4f88a88c86feafebf88e/id=2a5e3fef-47a6-4584-85fc-197739565b95.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "788cd5ac4afe4f88a88c86feafebf88e"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Melissa - Serious",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/88fff92e30d840f6884929bda4368bd6/id=459adfd4-12ce-4cf9-9705-7221d3b3a5db.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "88fff92e30d840f6884929bda4368bd6"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Melissa - Excited",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/8bd368108ef341579cd5b0d923b01c36/id=f4a550a0-6de6-4c92-a95c-00cfd28bd994.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "8bd368108ef341579cd5b0d923b01c36"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Elizabeth - Excited",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/91120f72682e4459a19e311ba2ee4cb2/id=778a86ab-df40-4741-bed9-b43b5b1b79d6.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "91120f72682e4459a19e311ba2ee4cb2"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Paul - Excited",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/9aa98f478ac94b3a85272470dff2aae4/id=29b4d7a5-89e8-47ef-a8d3-97b2d5e04792.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "9aa98f478ac94b3a85272470dff2aae4"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Christine - Broadcaster",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/a43417015bdd430f9983c36add401518/id=2f11465b-2995-4ce0-bf27-b3e8154a77cd.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "a43417015bdd430f9983c36add401518"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Rex - Serious",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/baae7852b7824c8aaec62fc1c4e3064b/id=ba0caa87-74c7-4023-9616-7129873d6e98.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "baae7852b7824c8aaec62fc1c4e3064b"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Christine - Soothing",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/bb2850ee8c76464d8e3d43f51b963fd1/id=1eaa8dfa-2cf0-4acf-a68f-6e3387043ca1.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "bb2850ee8c76464d8e3d43f51b963fd1"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Ceecee - Friendly",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/bc5d389d33a140c89e50e9b75fde5303/id=e7943e98-ddf9-49e4-a610-e5c6da4d7766.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "bc5d389d33a140c89e50e9b75fde5303"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Rex - Excited",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/d444eb833273406a8d054158d1ef2ecf/id=a5f26095-aaa6-4bb3-be4a-6df9fb30c981.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "d444eb833273406a8d054158d1ef2ecf"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Elizabeth - Broadcaster",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/d61b495d10ae4d1d8df0c6a8aeeece61/id=2b1b7ef9-4d92-4cc0-8378-bda3a4a89d97.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "d61b495d10ae4d1d8df0c6a8aeeece61"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Christine - Serious",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/dadd7050adc04e5e91d6f381b2605484/id=70400703-d485-49c1-bc44-5eed1ffef918.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "dadd7050adc04e5e91d6f381b2605484"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Multilingual",
+    "name": "Melissa - Broadcaster",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/f5b3191e7171477880fc9144f60d8015/id=c21d95c1-cb53-4d86-a693-f3042165d543.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "f5b3191e7171477880fc9144f60d8015"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Multilingual",
+    "name": "Rex - Broadcaster",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/f80e430f06b34b70b275c9c746436e37/id=de6e278f-7df1-4b71-a4c3-1259c3dcbe5f.wav",
+    "support_locale": false,
+    "support_pause": false,
+    "type": "public",
+    "voice_id": "f80e430f06b34b70b275c9c746436e37"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Pedro Lima - Serious 😐",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/0d0e23e8170446e38b18a7380b2d30a8/id=be96e3e6-80fe-44e5-9ab1-a017c06d06df.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0d0e23e8170446e38b18a7380b2d30a8"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Portuguese",
+    "name": "Ana Carvalho",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/qGgtRKZsqWK8zWmt3bBH4L.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0d23c5b2f6004e909802a2e8bfcd52c2"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Portuguese",
+    "name": "Sofia Brazil - Friendly 😊",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/0edbc867be6f48c5be8ff8b0fbca0802/id=56cc39d7-d68f-4585-8440-32508a5233ef.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0edbc867be6f48c5be8ff8b0fbca0802"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Yuri",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/14be84ff0ad848d79bd867a79a870f4a/id=65511091-0e80-4a5d-9493-0f9c4ea92d2c.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "14be84ff0ad848d79bd867a79a870f4a"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Portuguese",
+    "name": "Aida",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/2799eccbd72d48e0af3202a147d51146/id=fc3f85aa-746c-43a5-94bc-ae8e4eb75ab0.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "2799eccbd72d48e0af3202a147d51146"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Portuguese",
+    "name": "Ana Carvalho - Excited 🤩",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/2f296fed147e4194aa07a425df87d7e7/id=06099c12-4246-458d-9c65-a496c478aadb.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "2f296fed147e4194aa07a425df87d7e7"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Pedro Lima - Friendly 😊",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/2f8b7ca37f1f45f8bf8473b3bcaba64c/id=1292f519-264f-4c4f-964f-eecc897ea83f.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "2f8b7ca37f1f45f8bf8473b3bcaba64c"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Calm Carlos",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/GgYMC4u6kqhazVTJuJJFjB.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "3b2a59d6edb54e79a40b29726a12d1c3"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Mark",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/48bf398ee0344469ad4fa859bc3ba271/id=4b9e2714-f53e-4ec5-ae5b-c3c52f103ffe.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "48bf398ee0344469ad4fa859bc3ba271"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Patrick",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/4ce61943b31540cea8c813fee060f571/id=342529fc-e056-4629-8b5a-ab3ec454789c.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "4ce61943b31540cea8c813fee060f571"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Andrea Loco",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/52910929f49f41c99f07fee83cb687d8/id=e9861567-db83-4322-8d07-c85376daa2d2.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "52910929f49f41c99f07fee83cb687d8"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Manoel Dias CotaFácil",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/5a53b652eb8e4ba1b53d24e8fa642107/id=aa2b8d91-e1c1-40f7-909b-7785a01522da.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "5a53b652eb8e4ba1b53d24e8fa642107"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Pedro Lima",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/tr67HZYtX9AGBdhd2EL9Un.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "6872a840c4194f42a7f8ce0aee47660c"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Portuguese",
+    "name": "Ana Carvalho - Friendly 😊",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/6c0a95599317428a8151293305deceba/id=4df9deb9-463b-45ec-9640-00935f7bddd6.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "6c0a95599317428a8151293305deceba"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Portuguese",
+    "name": "Sofia Brazil - Excited 🤩",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/6d282a9f296746568da9d65586935dba/id=7c4a8f8d-e4fa-4ce7-9f45-ef4f8183b25d.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "6d282a9f296746568da9d65586935dba"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Portuguese",
+    "name": "Sofia Brazil",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/ZSSfa8Hoy3vNvwMyE47P99.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "94ec497104a04c87904a8aa138d6e46c"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Borges",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/9ad2928439bb48158c9858fdabef03f1/id=18a80b41-721e-4b4f-bc3d-1b39be53647a.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "9ad2928439bb48158c9858fdabef03f1"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Portuguese",
+    "name": "Arabella",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/9f2ea3bb9ccb4f129d7685505df5fbc4/id=4a59d705-a754-4a88-860f-72e1c8fce726.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "9f2ea3bb9ccb4f129d7685505df5fbc4"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Portuguese",
+    "name": "Serene Sofia",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/aGC5ksHigGGnFCHbQK97XP.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "ab40d65529a74f0e83528a1c2133a3b0"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Vijay",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/c180a0c38afc400fa385695b65bbfc23/id=f8b7ff72-e4d2-44f7-be62-d76016825cac.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "c180a0c38afc400fa385695b65bbfc23"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Adriano",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/c8ac31e97555494fb8502599e6bc5461/id=edbd73ae-984b-4ac5-bb44-e8c3741b795f.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "c8ac31e97555494fb8502599e6bc5461"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Portuguese",
+    "name": "Will",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/21e28514b7994f46b907b74914a3ca6e/f8ae4c0d76fa4f5ebd133bbef14e1c67/id=8b318243-4b31-44c3-be88-212d893e0ffc.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "f8ae4c0d76fa4f5ebd133bbef14e1c67"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Annie - Lifelike",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/561ac7e163fa4d42a9115b5db9beeaf6/330290724a1b470fb63153f34d4c0183/id=8a40de08-a60e-4d1a-8d03-066c135ebb93&locale=en-US.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "330290724a1b470fb63153f34d4c0183"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Adam Stone ",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/88bb9ee1c81b466eb2a08fdde86d3619/id=037f909c-bffe-4701-a7a4-6d7e521af5cc.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "88bb9ee1c81b466eb2a08fdde86d3619"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Chill Brian",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/WpSDQvmLGXEqXZVZQiVeg6.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "d2f4f24783d04e22ab49ee8fdc3715e0"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Chill Brian",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/WpSDQvmLGXEqXZVZQiVeg6.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "f38a635bee7a4d1f9b0a654a31d050d2"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Norwegian",
+    "name": "Mia Starset ",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/000466f8ac6d47a49f5743d50b3778de/id=a9441f83-32bd-4b01-834f-d92fcf96d877.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "000466f8ac6d47a49f5743d50b3778de"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Spanish",
+    "name": "William Shanks",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/001248bb63f847888d37b766ee8b3a47/id=65463a21-2432-44f5-b8f2-109c8876ede9.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "001248bb63f847888d37b766ee8b3a47"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Minseo",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/v99bJF6s1PHbq6txaFkl.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0029fa65c1ee45a68c76261cf0573eb2"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Zain",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/0047732240584155b1588455313e78ec/id=9c348edf-fcbc-48c2-a5a2-2b21ba9dd98c.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0047732240584155b1588455313e78ec"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Romanian",
+    "name": "Jora Slobod",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/00631519159a402ab5d8f719e51532bb/id=799464e1-ca50-4fc6-a0d4-7e757106ac28.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "00631519159a402ab5d8f719e51532bb"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Spanish",
+    "name": "Narrator Mateo  - Excited 🤩",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/0077225a877e457db4572ccaf245910b/id=f6c1a7a1-0ceb-432a-b2d4-851a030af1c8.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0077225a877e457db4572ccaf245910b"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Aria",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_voice_preview/b2c18cc939c84942bddcbad080e9d861/dVYrwEu0DARGWp0MZH7R.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "007e1378fc454a9f976db570ba6164a7"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Caryns",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/0082e70326864107823605db0d77f5e0/id=a3e365c3-6bf1-4c1d-b9b1-bd583c1ea5dc.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0082e70326864107823605db0d77f5e0"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Klara",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/01209fdcd1c24a109c86dc24ee0f71c0/id=073663a3-0900-43ae-b617-fa3a8fcd5c8a.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "01209fdcd1c24a109c86dc24ee0f71c0"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Vietnamese",
+    "name": "Son Tran",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/0132f85950a94d11ba180f885101bf84/id=7c22db94-61e0-486d-8403-bb9d695fde1d.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0132f85950a94d11ba180f885101bf84"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "Polish",
+    "name": "Bold Kasia - Excited 🤩",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/015482a78b9a46ebae74bd0beb17765b/id=46a66955-fa18-434a-b2eb-1b22ce121dae.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "015482a78b9a46ebae74bd0beb17765b"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "French",
+    "name": "Marc Aurèle",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/018a94cf15574491a0bab7f6799ac15b/id=82cd6bef-1425-4aa0-9aec-71a53f1fb50c.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "018a94cf15574491a0bab7f6799ac15b"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Shaun",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/01c42cddcfdc4665a57b8d89cba8ffc1/id=fb1f99ae-9ed6-4ba7-8183-032fd974be44.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "01c42cddcfdc4665a57b8d89cba8ffc1"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Senthil",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/4wRmRbxoFRdn42rH2HrBWn.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "01d674cfd32b4728a3fddd21b7e7d543"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Cody",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_voice_preview/b2c18cc939c84942bddcbad080e9d861/nTYHDzfzwQKpXlYNX8mT.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "01f98ed43e6140349f47dbd37a416827"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Saffron",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/0258bbc2cd8648cfa357adfb833f6d7b/id=e5285155-adf3-4691-b218-b098aa53ade0.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0258bbc2cd8648cfa357adfb833f6d7b"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Blanka - Lifelike",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/QLXLQA76pMBmHTNbrt5Nu8.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "02880d1c6fd94b7799d91135581ed810"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Rami",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/02d5366a90af4c7a87157808ff352e33/id=f85f4725-5e4c-4cdd-aef0-9c103e63b25c.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "02d5366a90af4c7a87157808ff352e33"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Rhodes",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/02dce0a169b3460084b6c914d18fb2c8/id=d59601c3-1b1b-41ff-bf52-6d6edcc51ff6.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "02dce0a169b3460084b6c914d18fb2c8"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Michelle  - Voice 1",
+    "preview_audio_url": "https://heygen-product.s3-accelerate.amazonaws.com/voice-design/previews/02X8sHnuxFpsq1caYWN0.mp3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIA3FLD4S3AUVE3T26R%2F20251017%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20251017T082354Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=15c35f1978eb0980a9a698133a57eee30dd75b3102c64bf956260a1f4bc64241",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "02X8sHnuxFpsq1caYWN0"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "",
+    "name": "Tuba",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/034ca0c32b6542028748d6d365d90d6a/id=bfbeef9a-a2e0-4fee-99eb-4908f98e2b2a.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "034ca0c32b6542028748d6d365d90d6a"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Autumn - UGC 3",
+    "preview_audio_url": "https://static.heygen.ai/instant_avatar/voice_clone/b2c18cc939c84942bddcbad080e9d861/voice_previews/a2e7709ddbfd40638fcf903b9e6cdb8e.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "03dca9ebfca441dba55fb14afa0791b7"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Reassuring Rupert",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/HArXLY8AJgX8a2YcFT7pMf.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "03fcf8ecb0a94b6b94e9007edb7c35f8"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Rose - UGC -2 .mp4",
+    "preview_audio_url": "https://static.heygen.ai/instant_avatar/voice_clone/b2c18cc939c84942bddcbad080e9d861/voice_previews/3d86373aea6f4b2098335c6740a00d8e.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0495e14c2bd74eb3aeeef03583e0bce5"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Derya - Lifelike - Broadcaster 🎙️",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/04d0ae1d0af2489ca7d3bb402a39a890/id=59cb8d4c-aba9-4ecd-ac05-4f3ce37ca204.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "04d0ae1d0af2489ca7d3bb402a39a890"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Dynamic Derek",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/5Ndoofyqi5CxMTRSaUeKW6.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0516c2d857eb425c94e90b068241914e"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Lotte",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/HIQkvbnOOFmLIligxHKY.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "052fcfb83d1a4c2f8d0368c226fea4b9"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Thanos - Broadcaster 🎙️",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/054af44a167344d0af2722fdfef08d17/id=15e04fa8-4972-4970-92b2-41219dd2354c.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "054af44a167344d0af2722fdfef08d17"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "unknown",
+    "language": "",
+    "name": "Mireille",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/public-voice-curation/055084a1121c42b1bf3fb5d84cd1e9ec/id=21dab301-dc3c-495a-9d5c-b7d713b1cf7f.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "055084a1121c42b1bf3fb5d84cd1e9ec"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "German",
+    "name": "W. Clint Oxley",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/059d76bbac5441ed9bc2ef7cdc254328/id=f0ce5904-c079-477a-9174-4b5c64f2653a.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "059d76bbac5441ed9bc2ef7cdc254328"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Dutch",
+    "name": "Peter",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/05c3275ea199464fb7edbd10e91c7513/id=c59cc8a4-2669-4fb6-a15a-0a2e477878e5.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "05c3275ea199464fb7edbd10e91c7513"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Marcia",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/05f19352e8f74b0392a8f411eba40de1/id=f1358110-b423-4377-9a71-4661399d8db6.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "05f19352e8f74b0392a8f411eba40de1"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Camden",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/06468055edd4458aa131a1dfd813c1e9/id=fe89fdec-0a6d-4a77-957f-f5cb6169b071.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "06468055edd4458aa131a1dfd813c1e9"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "unknown",
+    "language": "",
+    "name": "Paloma",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/public-voice-curation/0654eaaaa93244bea8f2d10a4511a151/id=be2f0191-621d-408a-b6ad-65da01a14f7b.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0654eaaaa93244bea8f2d10a4511a151"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Rumi",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/06672207805f41a9ad0af6797f8aa14b/id=258a7eac-960f-44b7-a7fe-99f9e23870c2.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "06672207805f41a9ad0af6797f8aa14b"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Pippa",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/5B8ZFyiIOi4POmPiRzi7.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "06b68c4dbb544935b9af984e80efa4fb"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "William Prescott - Broadcaster 🎙️",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/855c71ccf90e4141871bedb467c0ea01/06c816b952f14fa9b3a6c42aa151f731/id=e2068df2-42c6-4859-a535-a2d4b99bab42.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "06c816b952f14fa9b3a6c42aa151f731"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Dutch",
+    "name": "AstroMesh",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/public-voice-curation/06d3468ac25f4efdabb7f8360d461da6/id=dc4579b3-99d7-47b7-9c86-e5819aff3c4c.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "06d3468ac25f4efdabb7f8360d461da6"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Sammy",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/06e6facd99654b9dbb9308f67bf3a31c/id=c6c52c36-0427-4485-9076-1d61f108f0b9.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "06e6facd99654b9dbb9308f67bf3a31c"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "Indonesian",
+    "name": "Breezy Bagus",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/WU2bkpo3ebsovvD5uSR8cB.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "06e81a5d7c8b41818d3f0b38f7cf15a1"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Ben",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/6825eafbb8004373baaa86a97bbb000d/07ca39b243184dbcb82e7e0f0e524b21/id=c4582e1a-78d4-42e4-98ab-38da22dde621.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "07ca39b243184dbcb82e7e0f0e524b21"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Smooth Dev",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/SVR8yzetKpYKjvV36DLkVW.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "07d2ba65847541feb97abc9b60181555"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Daran inside booth",
+    "preview_audio_url": "https://static.heygen.ai/voice_preview/ef3c5118e9b84875b1de93b258ceac7f.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "080d9383c0314056aef392892e009806"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "unknown",
+    "language": "",
+    "name": "Lasse",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/public-voice-curation/0828ce2c70c94787aee8d6745bcde7d7/id=047fbdb0-8347-45c7-ba3f-5a9b79b59744.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0828ce2c70c94787aee8d6745bcde7d7"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Peppy Stella",
+    "preview_audio_url": "https://resource.heygen.ai/text_to_speech/FzPvkRntsBMY7KpxY6bDEU.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "084760b4922a44599575c770070ec2d7"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "unknown",
+    "language": "",
+    "name": "Damian",
+    "preview_audio_url": "https://resource2.heygen.ai/text_to_speech/public-voice-curation/08b0921f57b6417a9531b669a65856f1/id=3c9d743c-491d-42b8-a8c3-60901f727372.wav",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "08b0921f57b6417a9531b669a65856f1"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Leanne - Expressive & Earthy",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/ceD53EtTVSbmM0NwgWbq.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "31001ed1e3e54c79a88458cb03ca123a"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Lewis - Imaginative & Expressive",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/ADng00vV7KxsfBihH1uE.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "80b17a1be1594e578b92c0ddf4a37fc8"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Deirdre - Gentle & Instructive",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/9skrqi8qxNUtck0rAO6i.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "84bc506c91674034aa1d32e22903f627"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Brodie - Breezy & Genuine",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/1MuAmkGUvVnnkSQfVuTv.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "c30ecab014cb4a8d816d07f6b2b625c8"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Janet - Warm & Approachable",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/MPwot9dm6HXzLQXdGPXv.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "4270665fc47f44aa989c093bb3dc2b99"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Roderic - Authoritative & Refined",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/fhj0pCUvhyKkX6dcT9o2.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "b5c5b28db1ea408abc7d851202983bdb"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Prudence - Cultivated & Precise",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/7q4FFGn21lSX6yWr2uzg.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "f264d09b4320461b9873abbe9283b505"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Braith - Evocative & Natural",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/1ewfmLUJI4eIbvMY9qRe.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "9252544abbc04ed48ecb2e7394cdf5f3"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Tarni - Gentle & Expressive",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/MflICSjmdNEvdEGIerZn.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "e0f19302aa394eea8090b45ba677fcbc"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Lachie - Direct & Reassuring",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/bwRwLrZUNO2Urk5MYmA7.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "f9a2c5a6b6be456a8ed59dac8a319f2a"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Joanna - Warm & Conversational",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/u56ezlTUm6VNNPHEHPlA.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "776f9d2ff401499a8f1f2bcb4ca46004"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Wade - Resonant & Narrative",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/RPFp9jEl9ORvq3vByBde.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "a3a4aa242aaf431ea8ec2c4b3bb332fa"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Cassidy - Expressive & Imaginative",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/E8kjoGXP4Kt2kmJ94ud3.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "95d52e056b7b495dab8f090b44fa2ec4"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Devansh - Expressive & Poetic",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/uWBOUnTypQIvqrWES4V8.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "129cbbad06554f28a7351d192221cb1e"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Bronwyn - Knowledgeable & Direct",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/JNNbLSZWkE9DGHgN9U0B.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "fd9050d8553349daa13a36a5a3f2fe49"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Alistaire - Authoritative & Articulate",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/5Kc0rj6N0dZeUCLo6gFt.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "b50db2127b854791b6e16815c3e9b824"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Morven - Lyrical & Immersive",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/oSpk2KdUHHGxBHQqByp6.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "707bf8ae1794471f9126e12310a16dff"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Garret - Bold & Persuasive",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/0RMvQetFq09Bde3sgUIW.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "f49763c1a284420b8f25f16472d8738e"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Neville - Warm & Easygoing",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/wK2AeDGGb5uMNZGCXciB.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "96b762a3f37e44a78f3faf4d3490f96a"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Bryher - Melodic & Imaginative",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/BRNMUCPnQX5Jp9OLxMIg.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "5fdd89567b6d4ccfacc94b143367ea63"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Jolyon - Rich & Imaginative",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/cJKuJeW1SV4yr7eJrzFU.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "3a9207e83f88414699ef99a007c4c550"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Tori - Warm & Engaging",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/o51LSEGlNM45BToA2533.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "1d9e45674c7b487fa61ff0cbaed0d1d4"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Tushar - Relaxed & Friendly",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/9h6fGhiF4ddwqhjH3pu0.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "8cbf663786c64ab689f5899956990789"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Henrietta - Clear & Engaging",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/N5WhdfLaFjAJP2kJBYnw.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "4845602c87bc4a3892908ec0c49f509c"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Hershel - Seasoned & Trustworthy",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/TIMzR05RLl5KM7Z2LmeC.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "08dd93144fd74effb732d209d030078c"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Deanne - Authoritative & Kind",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/fBE8PMrjPcVHmhrOEwCZ.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "00e580506bd44675a7432225d76053ac"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Craig - Warm & Approachable",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/xIftCkLXwMlzZ83I0CZf.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "eae6fca42aae4b78b992533e96ab43c9"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Hallie - Gentle & Expressive",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/tgpeIYYFyOUAem7NEdTk.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "8f71d16d1fa84544a4db41a18264d613"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Raghavan - Scholarly & Calm",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/SP4ChDQKyzpX4SD1oYwl.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "910d15fbaf0c43edb2df86d64c4dfeff"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Chidi - Warm & Easygoing",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/uKpH1aw7cWan4OG16S5c.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "49a8e7dda6a049f490f888546abee4bf"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Priti - Composed & Direct",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/bbVSZsrH7hgGf3UY0NVD.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "da9659970e9d4250be76c3f628565bc7"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Jemmy - Bold & Upbeat",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/4jkdnpYY1PRWwsXg5Dym.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "7a155d5e64ba4ef2867c3341d75f3598"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Penelope - Scholarly & Graceful",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/I1427P8A5N9IS5crcC6b.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "527463ee4b2b458dafa661419d1846a6"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Willoughby - Distinguished & Patient",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/zOfY8g1agdOLXacTWKBd.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0c104eaa19e649b898057beef0094997"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Aman - Crisp & Methodical",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/QsRGLToYlXhqgcV8Zhmx.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "48c9761b1fdb48678e5f351ffc464253"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Orlaith - Lively & Informative",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/crCoSzOtJ4WCH9AJSriQ.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "314e57d116b64159b40907ddaea4015e"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Trevin - Direct & Inspiring",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/k6IoJKlS4oS0SIGn4b7B.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "991e44c70203403aabd0119611fae7c6"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Keeva - Bright & Sparky",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/EsfCBD3EPenL3vkFJv8Q.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "9cc364c4dadc444b87b4230e1923b151"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Gordon - Wise & Reassuring",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/pYknqvDrA1Um3mp7nQ8h.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0e9125f141ad4c94a79fbed1db8160ee"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Janine - Composed & Insightful",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/eHfmTOTVBo2QpCRyJxS6.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "c318a6b1bab142849041019f58c97a6b"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Callan - Bright & Articulate",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/dBMfG7QVcDVru1UR7KSb.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "bd24de5f981543f1a03dfbee6d4db375"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Ishan - Sharp & Motivated",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/xebBFkMkEjyL0M34SGOq.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "d114bc5e92584f9e9b38988b2263ba5f"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Sonia - Chic & Persuasive",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/IYC1tY8mY80aukiXLe1z.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "3b34260d825f4f3391a0dfe32dd0bfe5"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Brock - Confident & Persuasive",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/VIZNCfVN28CDg741CZiT.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "4fb113051a204040826fddb19f29c21c"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Joelle - Upbeat & Persuasive",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/mUmX3tmEgS4DMOfj1cIT.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "dff185982cf84b91a246dace28badb71"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Keanu - Crisp & Approachable",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/4RwWDlSmUHK1t9eqRhdw.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "80f988d41e454baa8d20e0e0ddfe050d"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Antonia - Calm & Articulate",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/9j9VBx0z0zjYrEpynh8a.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "f3318f83c10547dba19f61533d80e258"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Rowen - Fresh & Methodical",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/2XemV8xgQKGgPgsanoef.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "96e1496e44824d6890cc977c4276c8b7"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Clay - Clear & Analytical",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/lp0LFzIw8j3gDkvGCIb0.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "f91cc0b0eea44f8391f080d2de079ea2"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Jennifer - Smooth & Warm",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/jtQK5a33LKBk3Sp0gutw.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "c5e71f9038a2419d9d43c7132c31fe49"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Warwick - Seasoned & Wise",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/ci6sAs1maZGiJYo1T2AY.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "490b479583d5478a8c8b4cdc95ad6c3e"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Nicola - Sharp & Sophisticated",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/C2Hm9rw28WaKpdVmNT8Z.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "55e722394d154366a157a518d2d0d4dc"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Derek - Bold & Persuasive",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/4XuL7yC7ewUzlcqmDAQj.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "5a26ef42c78d4679a60b077ec1fde11b"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Kendall - Soulful & Immersive",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/2sdcgjBVB6dwIVwlmqd6.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0c15ff66590e451e8a60f466a64ee8a2"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Liam - Bright & Warm",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/nadK9fp6GzXhYmtiQ5b8.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "2a50d70e96ff44518780c5d150127cce"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Neha - Bright & Expressive",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/MgRxyxBoWVDQPNpM91jT.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "e6627d0b5b114c208d4e531fc006c8bf"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Adam - Husky & Expressive",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/gUIOwiVijGjyHhiGGCUV.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "6dab2ac5784c4a27af705f119232d20d"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Nicola - Smooth & Warm",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/xUX5UiwzeNYiXLPl9VTK.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "a7ab5a1d74f444c9862c5e3ca163f258"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Silvan - Expressive & Engaging",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/DGg0KUqaV4M3xa9tYcAv.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "1cc57a5ad85b417e96dc970831355967"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Toby - Upbeat & Charismatic",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/8wBxhZ2pjsxho4xEv9e7.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "67a1aebae3dd45ebb41eb7cb2c16f4f4"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Danica - Bright & Articulate",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/Xxm8FQfYWpWnP8rUbsUJ.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "536b7bbcb06345d69b539f457d956583"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Sterling - Cinematic & Engaging",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/mZ78CTZIgTWntU0sm8hx.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "e8ad4ba6c5e241549c1920fda63eb878"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Kirstie - Warm & Approachable",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/p6CiSSeyBY6uFiPpxcs1.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "f088c7e82db1421191bf9edf920e1f47"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Rahul - Bright & Warm",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/wYm9dQCrz2bA7L1zduOw.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "080227efd3874821a1328e1b5ff1620f"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Marilla - Gentle & Engaging",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/BfgJHKLP1jXNMKazeixQ.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "836a2bfda0144ea5ac67740880cdf7a3"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Kendrick - Crisp & Focused",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/7njYcIlFHCkroSHENoDY.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "3169e7d2e526415e9f30d9c45573e25f"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Sharon - Soft & Warm",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/eYtER25qKqVzh7VsIRoz.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "3d99ad74a1ca43d191d2247926488ff2"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Craig - Husky & Smooth",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/adxgngy8mmeQyFZy2nMV.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "5b041e2f0b2a446c9e8e1a08f26de235"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Ananya - Articulate & Bright",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/lRRm9LWXk4KQ62eyrTZk.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "5223d565e3e94839931b53d3931ec931"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Jake - Bright & Clear",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/hnYP5cFozV7k8IVm75br.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "8cbcc90b5f9349c286114dc08c6a498a"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Verity - Sleek & Compelling",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/sSVAia7OUPXbsRmPHvGL.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "4868dc3d11d5473488559b793bded4ea"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Ambrose - Calm & Scholarly",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/zsEjgCAthS763pTwoi1r.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "f2255bc5c44246a28a99a86b4285a90d"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Jordan - Lucid & Analytical",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/SzKYP7SEetZO965IHLEU.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "3d2deedf9f7e4109a2d355304156be34"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Kaycee - Vibrant & Punchy",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/kyKl7Lis5yzdjaCu1wIK.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0052fdde677d465f909aa182e6ce3232"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Bonaventure - Grand & Poetic",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/OO1Hadt6MmB0r3scic47.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "33dd019e1ae140c483e58cf38377b24c"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Morwenna - Poised & Insightful",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/1Cq4fLLAmnBVQm0y1K9h.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "4f90f3c16ec3499095446f4db77b4521"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Jalen - Snappy & Charismatic",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/E7bGEzgizSJEnwj0R4Ub.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "e5f0084d0ddd4164a12a38a83457446c"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Emily - Soft & Expressive",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/Tqf9gkn4uEfAbR3pA4iy.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "b3c48f2b29874f3ba019cc5ecec3784e"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Nigel - Casual & Witty",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/GEGqemHnLJhk6ftGraMH.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "40b1b244f893491ca6ce52369b10277a"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Kavita - Structured & Reassuring",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/p2IxFA83cHZKsY5hw276.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "5a5e9d2b30814ea7b636a0b7d3b0ba40"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Jackson - Smooth & Warm",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/bhXPJsXO837RY3CmZwNz.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "f349e0c112724b9ca22f4cf781bc82b5"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Emma - Warm & Rich",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/bMZH7NgZj4CJmNOxe8pB.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "c660e2fdad2344b8bb3d286b53b57821"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Jason - Bright & Upbeat",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/iLx5s2qLfXXioJPiEKIh.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "eaacb72c732742ebafc3f0c1921d1b45"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Vasundhara - Lyrical & Soulful",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/Q6kveIqwDZRjT2JxLO1h.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "f0c6bb40fb8d4d13b7f63ded67581d4e"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Huw - Soft & Warm",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/ySDsYKutYdUnkgZcexdE.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "af688ebdaad4484592b3ca4c4f5166bb"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Leo - Approachable & Crisp",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/TUITIXRicp0hXCcBdF54.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "3536a10aaa5847c2a86022aed90fc4c5"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Lucinda - Authoritative & Calm",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/2Gazfurt0L0RGiAARHkn.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "8f89784c37fd4a42b159e83977371598"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Darren - Soft & Expressive",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/JmZAZO6bwxAo2y7PV5GA.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "969c67b1ebdb416c94fb1113cf8bcc86"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Nerida - Grounded & Evocative",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/psU3BKo4MK1DgqmBzA1Y.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "42861daa7af747beb13ab1f3c28fd5e3"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Reyansh - Dynamic & Punchy",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/UioBjzIPDXlSs748zJyf.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "677fb08da5de48aa88e1443fc0cf0253"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Valerie - Assertive & Bold",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/PEtVEhFYN8zTNqNVctvV.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0d321373621440b9b533ccfd093901bb"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Garrettson - Resonant & Captivating",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/WViM5qUgtilFIAyR7HHp.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "3dfc02357aeb484dbf9cf7b02ec89976"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Keira - Bubbly & Direct",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/owYP65aODgSrU98ol0NU.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "79139bdcd5e34edd87868803f77b1570"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Garry - Gravelly & Charismatic",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/7qWJVLlU9VzNIFTMnv0z.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "04f5e7c61b664654923e8f644e5c5d07"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Sarah - Warm & Airy",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/U22cWv9Xz9OZrZc5uB6h.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "72c8f3c67efe4aea9b13b5f398002c62"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Braden - Clear & Relatable",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/VpYSv76BLV3BuFptqGf4.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "05e9d3ca8f744e968e257d5439236362"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Jacquetta - Cheery & Relatable",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/gpoGDMky6AsS2WA3rsxP.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "a1f50b615e9f49b8b0abc31312cb3f1c"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Calum - Warm & Resonant",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/BKDSc8VnfhIsu54kZXeS.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "5ecd2f096aab4cacb3a7c922c2bcecc5"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "male",
+    "language": "English",
+    "name": "Ryan - Smooth & Warm",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/KcGdMWfaWtdZcC4HWRXP.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "bc89672906f04b44ba272705593e8030"
+  },
+  {
+    "available_engines": [
+      "orca"
+    ],
+    "default_engine": "orca",
+    "gender": "female",
+    "language": "English",
+    "name": "Jessica - Smooth & Warm",
+    "preview_audio_url": "https://resource2.heygen.ai/voice_preview/DG5AIoWmOwBJbMczMceU.mp3",
+    "support_locale": false,
+    "support_pause": true,
+    "type": "public",
+    "voice_id": "0943cedbe928403fafeee36f2318cdf3"
+  }
+]
