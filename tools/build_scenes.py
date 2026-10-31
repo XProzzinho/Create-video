@@ -118,7 +118,7 @@ s1_css = """
 """
 s1_body = """
 <div id="s1-winclip" class="clip" data-start="0" data-duration="3.4">
-  <div id="s1-win" class="win"><div class="k">[ SISTEMA ]</div><div class="t"><span id="s1-t1">BEM-VINDO A</span><span id="s1-t2" class="gl"><i>EVIL TALE</i><i>EVIL TALE</i><b>EVIL TALE</b></span></div></div>
+  <div id="s1-win" class="win"><div class="k">[ SISTEMA ]</div><div class="t"><span id="s1-t1">BEM-VINDO A</span><span id="s1-t2" class="gl" data-layout-allow-overlap><i>EVIL TALE</i><i>EVIL TALE</i><b>EVIL TALE</b></span></div></div>
 </div>
 """ + cap("s1", 1, "Ninguém sai de Evil Tale.", 3.5, 3.9) + cap("s1", 2, "Eu tentei por anos.", 7.6, 4.2)
 s1_tl = r"""
@@ -386,11 +386,11 @@ function draw(t){
 }
 """
 s8_css = "#s8-x{position:absolute;left:0;right:0;top:640px;text-align:center;font-family:Oswald;font-weight:700;font-size:200px;color:#fff;text-shadow:0 0 40px rgba(200,180,255,.9);z-index:10}"
-s8_body = '<div id="s8-xclip" class="clip" data-start="0.5" data-duration="3.3"><div id="s8-x"><span class="gl"><i>……X.</i><i>……X.</i><b>……X.</b></span></div></div>'
+s8_body = '<div id="s8-xclip" class="clip" data-start="0.5" data-duration="3.3"><div id="s8-x"><span class="gl" data-layout-allow-overlap><i>……X.</i><i>……X.</i><b>……X.</b></span></div></div>'
 s8_tl = r"""
 tl.fromTo('#s8-x',{opacity:0,filter:'blur(16px)',scale:1.2},{opacity:1,filter:'blur(0px)',scale:1,duration:0.8,ease:'expo.out'},0.55);
 tl.fromTo('#s8-x .gl',{'--gr':'0px','--gb':'0px'},{'--gr':'-22px','--gb':'22px',duration:0.06,repeat:9,yoyo:true,ease:'steps(1)'},0.62);
-tl.fromTo('#s8-x .gl',{'--gr':'0px','--gb':'0px'},{'--gr':'-10px','--gb':'10px',duration:0.05,repeat:5,yoyo:true,ease:'steps(1)'},2.6);
+tl.to('#s8-x .gl',{'--gr':'-10px','--gb':'10px',duration:0.05,repeat:5,yoyo:true,ease:'steps(1)'},2.6);
 """
 scenes.append(("s8", 5, scene("s8", 5, s8_css, s8_body, s8_draw, s8_tl)))
 
@@ -413,7 +413,7 @@ SFX = [
  ("sx-acordar","whoosh-cinematic",102.5,4.0,0.35),
  ("sx-x","impact-bass-1",115.57,1.6,0.6),("sx-x-glitch","glitch-1",115.28,1.8,0.45),
 ]
-sfx_tags = "\n".join(f'      <audio id="{i}" class="clip" src="assets/sfx/{f}.mp3" data-start="{s}" data-duration="{d}" data-track-index="{3+n%3}" data-volume="{v}" data-fade-out="0.2"></audio>' for n,(i,f,s,d,v) in enumerate(SFX))
+sfx_tags = "\n".join(f'      <audio id="{i}" class="clip" src="assets/sfx/{f}.mp3" data-start="{s}" data-duration="{d}" data-track-index="{(7 if f=='riser' else 3+n%3)}" data-volume="{v}" data-fade-out="0.2"></audio>' for n,(i,f,s,d,v) in enumerate(SFX))
 hosts = []
 t = 0
 for sid, d, content in scenes:

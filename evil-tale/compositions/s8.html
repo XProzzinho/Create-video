@@ -10,7 +10,7 @@
 #s8-x{position:absolute;left:0;right:0;top:640px;text-align:center;font-family:Oswald;font-weight:700;font-size:200px;color:#fff;text-shadow:0 0 40px rgba(200,180,255,.9);z-index:10}</style>
   <div id="root" data-composition-id="s8" data-width="1080" data-height="1920" data-duration="5">
     <canvas id="s8-bg" class="bg" width="1080" height="1920"></canvas>
-    <div id="s8-xclip" class="clip" data-start="0.5" data-duration="3.3"><div id="s8-x"><span class="gl"><i>……X.</i><i>……X.</i><b>……X.</b></span></div></div>
+    <div id="s8-xclip" class="clip" data-start="0.5" data-duration="3.3"><div id="s8-x"><span class="gl" data-layout-allow-overlap><i>……X.</i><i>……X.</i><b>……X.</b></span></div></div>
   </div>
   <script>
   (function(){
@@ -70,7 +70,7 @@ function draw(t){
   
 tl.fromTo('#s8-x',{opacity:0,filter:'blur(16px)',scale:1.2},{opacity:1,filter:'blur(0px)',scale:1,duration:0.8,ease:'expo.out'},0.55);
 tl.fromTo('#s8-x .gl',{'--gr':'0px','--gb':'0px'},{'--gr':'-22px','--gb':'22px',duration:0.06,repeat:9,yoyo:true,ease:'steps(1)'},0.62);
-tl.fromTo('#s8-x .gl',{'--gr':'0px','--gb':'0px'},{'--gr':'-10px','--gb':'10px',duration:0.05,repeat:5,yoyo:true,ease:'steps(1)'},2.6);
+tl.to('#s8-x .gl',{'--gr':'-10px','--gb':'10px',duration:0.05,repeat:5,yoyo:true,ease:'steps(1)'},2.6);
 
   caps(tl,'s8-cap');
   window.__timelines["s8"]=tl;
