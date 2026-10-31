@@ -1,0 +1,48 @@
+name: Narração ElevenLabs
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: "Pasta do projeto"
+        default: "ferro"
+      voice:
+        description: "ID da voz ElevenLabs"
+        default: "pNInz6obpgDQGcFmaJgB"
+permissions:
+  contents: write
+jobs:
+  voz:
+    runs-on: ubuntu-latest
+    env:
+      KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+      PROJ: ${{ inputs.project }}
+      VOICE: ${{ inputs.voice }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg jq
+      - name: Gerar falas
+        run: |
+          set -e
+          mkdir -p out
+          if [ -z "$KEY" ]; then echo "SEM CHAVE ELEVENLABS_API_KEY" | tee out/eleven.log; exit 0; fi
+          curl -s https://api.elevenlabs.io/v1/voices -H "xi-api-key: $KEY" | jq -r '.voices[] | [.voice_id, .name, (.labels.accent // ""), (.labels.gender // "")] | @tsv' > out/vozes.tsv || true
+          curl -s https://api.elevenlabs.io/v1/user/subscription -H "xi-api-key: $KEY" | jq '{tier, character_count, character_limit}' > out/plano.json || true
+          mkdir -p $PROJ/assets/falas-eleven
+          i=0
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            i=$((i+1)); n=$(printf "%02d" $i)
+            body=$(jq -n --arg t "$line" '{text:$t, model_id:"eleven_multilingual_v2", language_code:"pt", voice_settings:{stability:0.45, similarity_boost:0.8, style:0.35, use_speaker_boost:true}}')
+            code=$(curl -s -o /tmp/f.mp3 -w "%{http_code}" -X POST "https://api.elevenlabs.io/v1/text-to-speech/$VOICE?output_format=mp3_44100_128" -H "xi-api-key: $KEY" -H "Content-Type: application/json" -d "$body")
+            echo "fala $n: $code" | tee -a out/eleven.log
+            if [ "$code" != "200" ]; then head -c 400 /tmp/f.mp3 >> out/eleven.log; echo >> out/eleven.log; continue; fi
+            ffmpeg -v error -y -i /tmp/f.mp3 -ar 44100 -ac 1 $PROJ/assets/falas-eleven/fala-$n.wav
+          done < $PROJ/narracao.txt
+      - name: Salvar
+        if: always()
+        run: |
+          git config user.name "render-bot"; git config user.email "render-bot@users.noreply.github.com"
+          cp out/eleven.log out/vozes.tsv out/plano.json $PROJ/ 2>/dev/null || true
+          git add -A $PROJ
+          git commit -q -m "Narração ElevenLabs de $PROJ [skip ci]" || true
+          git pull -q --rebase && git push -q
