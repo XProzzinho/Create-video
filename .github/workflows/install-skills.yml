@@ -1,0 +1,25 @@
+name: Instalar skills HyperFrames
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/install-skills.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  skills:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: npx skills add heygen-com/hyperframes
+        run: |
+          (npx -y skills add heygen-com/hyperframes --all -y < /dev/null || npx -y skills add heygen-com/hyperframes -y < /dev/null) 2>&1 | tee skills-install.log
+      - name: Salvar no repositório
+        run: |
+          git config user.name "render-bot"; git config user.email "render-bot@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Instala as skills da HyperFrames (npx skills add heygen-com/hyperframes)" || echo "nada para salvar"
+          git push

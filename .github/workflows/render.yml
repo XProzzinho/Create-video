@@ -2,6 +2,7 @@ name: Render video
 on:
   push:
     branches: [main]
+    paths: ["evil-tale/**", ".github/workflows/render.yml"]
   workflow_dispatch:
     inputs:
       project:
