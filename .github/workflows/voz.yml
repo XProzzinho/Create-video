@@ -2,7 +2,7 @@ name: Gerar narração (HeyGen)
 on:
   push:
     branches: [main]
-    paths: ["evil-tale-3d/narracao.txt", ".github/workflows/voz.yml"]
+    paths: ["evil-tale-3d/narracao.txt"]
   workflow_dispatch:
     inputs:
       voice:
@@ -17,29 +17,17 @@ jobs:
     env:
       HF: npx -y hyperframes@0.8.223
       VOICE: ${{ inputs.voice }}
+      HEYGEN_API_KEY: ${{ secrets.HEYGEN_API_KEY }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg
-      - name: Login HeyGen (aprovar pelo link)
-        shell: bash
+      - name: Conferir chave HeyGen
         run: |
-          set +e
+          if [ -z "$HEYGEN_API_KEY" ]; then echo "Falta o segredo HEYGEN_API_KEY"; exit 1; fi
           git config --global user.name "render-bot"; git config --global user.email "render-bot@users.noreply.github.com"
-          $HF --version > login.log 2>&1
-          $HF auth login --device >> login.log 2>&1 < /dev/null &
-          PID=$!
-          pub() { rm -rf /tmp/pub; mkdir -p /tmp/pub; sed 's/\x1b\[[0-9;]*m//g' $GITHUB_WORKSPACE/login.log > /tmp/pub/login.txt; echo "$1" > /tmp/pub/estado.txt
-            (cd /tmp/pub && git init -q -b login && git add -A && git commit -q -m "login $1" && git push -f -q "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" login); }
-          for i in $(seq 1 90); do grep -q "https://" login.log && break; kill -0 $PID 2>/dev/null || break; sleep 2; done
-          pub aguardando
-          for i in $(seq 1 450); do kill -0 $PID 2>/dev/null || break; sleep 2; done
-          wait $PID; echo "saida $?" >> login.log
-          $HF auth status >> login.log 2>&1
-          pub terminou
-          cat login.log
       - name: Narração e música
         run: |
           mkdir -p out evil-tale-3d/assets
