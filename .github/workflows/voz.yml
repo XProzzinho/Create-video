@@ -23,7 +23,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg espeak-ng && pip install kokoro-onnx soundfile
       - name: Narração (voz grátis Kokoro, uma fala por linha)
         run: |
           git config --global user.name "render-bot"; git config --global user.email "render-bot@users.noreply.github.com"
