@@ -8,6 +8,9 @@ on:
       project:
         description: "Pasta do projeto"
         default: "evil-tale-3d"
+      start:
+        description: "Renderizar a partir deste segundo (opcional)"
+        default: ""
 permissions:
   contents: write
 jobs:
@@ -17,6 +20,7 @@ jobs:
     env:
       PROJECT: ${{ inputs.project || 'evil-tale-3d' }}
       HF: npx -y hyperframes@0.8.223
+      START: ${{ inputs.start }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -29,9 +33,9 @@ jobs:
         run: |
           mkdir -p ../out
           $HF check --json > ../out/check.json 2> ../out/check.log || true
-          $HF snapshot --review > ../out/snapshot.log 2>&1 || true
+          [ -z "$START" ] && ($HF snapshot --review > ../out/snapshot.log 2>&1 || true)
           cp -r .hyperframes/artifacts/snapshots ../out/snapshots 2>/dev/null || true
-          $HF render --quality looks --output ../out/video.mp4 > ../out/render.log 2>&1 || echo "RENDER FALHOU" >> ../out/render.log
+          $HF render --quality looks ${START:+--start $START} --output ../out/video.mp4 > ../out/render.log 2>&1 || echo "RENDER FALHOU" >> ../out/render.log
           $HF audio ../out/video.mp4 --json > ../out/audio.json 2>&1 || true
           tail -60 ../out/render.log
       - uses: actions/upload-artifact@v4

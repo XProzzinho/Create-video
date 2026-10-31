@@ -198,7 +198,7 @@ fim = f"""<template>
   </style>
   <div id="root" data-composition-id="fim" data-width="1080" data-height="1920" data-duration="{cta_dur}">
     <div id="fim-cardclip" class="clip" data-start="0.2" data-duration="{round(cta_dur - 0.2, 2)}">
-      <div id="fim-card"><div id="fim-user" data-var-text="usuario">@GeanAlves</div><div id="fim-sub">Parte 2 em breve</div><div id="fim-btn">COMENTA “X”</div></div>
+      <div id="fim-card"><div id="fim-user" data-var-text="usuario">@Bessekai</div><div id="fim-sub">Parte 2 em breve</div><div id="fim-btn">COMENTA “X”</div></div>
     </div>
   </div>
   <script>
