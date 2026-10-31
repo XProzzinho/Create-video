@@ -1,0 +1,19 @@
+name: Baixar bibliotecas
+on:
+  push:
+    branches: [main]
+    paths: [".github/workflows/vendor.yml"]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  vendor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p evil-tale-3d/assets
+          curl -sfL https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js -o evil-tale-3d/assets/three.min.js
+          ls -la evil-tale-3d/assets
+          git config user.name "render-bot"; git config user.email "render-bot@users.noreply.github.com"
+          git add -A && git commit -q -m "Adiciona three.js 0.160.0 ao projeto" && git push
