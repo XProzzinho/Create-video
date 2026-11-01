@@ -1,0 +1,110 @@
+<template>
+  <style>
+#root{position:absolute;inset:0;pointer-events:none;font-family:Inter}
+.kwrap{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.card,.cardlite{position:absolute;left:150px;right:150px;padding:34px 40px;border-radius:40px;background:rgba(22,24,58,.9);border:4px solid rgba(255,255,255,.18);box-shadow:0 18px 50px rgba(0,0,0,.35);color:#fff;text-align:center}
+.cardlite{background:transparent;border:0;box-shadow:none;padding:0}
+.lab{font-family:Inter;font-weight:900;font-size:40px;letter-spacing:2px;color:#cfd4ff}
+.big{font-family:'Archivo Black';font-size:150px;line-height:1.05;color:#fff;margin-top:6px}
+.sub{font-weight:700;font-size:38px;color:#e6e8ff;margin-top:8px}
+.tw{position:absolute;left:60px;right:60px;text-align:center}
+.tt{font-family:'Archivo Black';font-size:104px;line-height:1.02;color:#fff;-webkit-text-stroke:16px #14122e;paint-order:stroke fill;text-shadow:0 10px 0 #14122e}
+.daychip{position:absolute;left:60px;padding:16px 30px;border-radius:40px;background:rgba(22,24,58,.92);font-family:'Archivo Black';font-size:48px;color:#fff;border:4px solid rgba(255,255,255,.2)}
+.dot{display:inline-block;width:26px;height:26px;border-radius:13px;margin-right:16px;vertical-align:middle}
+.chip{display:inline-block;margin:10px;padding:16px 30px;border-radius:40px;background:rgba(22,24,58,.92);border:3px solid rgba(255,255,255,.2);font-weight:900;font-size:42px;color:#fff}
+.chip i{display:inline-block;width:20px;height:20px;border-radius:10px;margin-right:14px;vertical-align:middle}
+.crow{margin-top:10px}
+.bl{display:flex;justify-content:space-between;font-weight:900;font-size:36px;margin-top:26px;color:#fff}
+.bt{height:30px;border-radius:15px;background:rgba(255,255,255,.14);margin-top:12px;overflow:hidden}
+.bf{height:100%;border-radius:15px}
+.ct{display:flex;justify-content:space-between;font-weight:900;font-size:38px;color:#fff;margin-bottom:14px} .ct em{font-style:normal;color:#aab0e0;font-size:32px}
+.blips{display:flex;justify-content:center;gap:26px;margin:30px 0 10px} .blips i{display:block;width:70px;height:110px;border-radius:16px;background:#ffd23c}
+.pf{display:flex;align-items:center;gap:26px;text-align:left}
+.av{width:120px;height:120px;border-radius:60px;background:#ff7a1a;font-family:'Archivo Black';font-size:66px;line-height:120px;text-align:center;color:#1a0d18;flex:none}
+.pn{font-family:'Archivo Black';font-size:54px;color:#fff} .ph{font-weight:700;font-size:32px;color:#c8ccf0}
+.fb{margin-left:auto;padding:18px 34px;border-radius:30px;background:#ff2d55;font-weight:900;font-size:36px;color:#fff}
+.stamp{display:inline-block;margin-top:30px;padding:14px 30px;border:10px solid #ff2a3a;border-radius:20px;color:#ff2a3a;font-family:'Archivo Black';font-size:66px;transform:rotate(-8deg)}
+.warn{position:relative;border-radius:26px;overflow:hidden;height:150px;background:#ffd23c}
+.stripes{position:absolute;inset:0;background:repeating-linear-gradient(-45deg,#ffd23c 0 40px,#1a1a1a 40px 80px);opacity:.9}
+.wt{position:absolute;left:30px;right:30px;top:30px;height:90px;border-radius:18px;background:#1a1a1a;color:#ffd23c;font-family:'Archivo Black';font-size:58px;line-height:90px}
+.opt{margin-top:22px;padding:22px;border-radius:24px;background:rgba(255,255,255,.12);font-weight:900;font-size:44px;color:#fff;text-align:left;padding-left:40px}
+.pause{position:absolute;left:0;right:0;top:640px;text-align:center}
+.pbtn{width:230px;height:230px;border-radius:115px;margin:0 auto;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;gap:34px}
+.pbtn i{display:block;width:40px;height:110px;border-radius:10px;background:#1d3a2a}
+.pl{margin-top:40px;font-family:'Archivo Black';font-size:80px;color:#fff;text-shadow:0 6px 20px rgba(0,0,0,.5)}
+.ps{font-weight:700;font-size:44px;color:#fff;margin-top:6px} .ps b{color:#ffb03a}
+.badge{display:inline-block;margin-top:14px;padding:12px 30px;border-radius:30px;background:#ff2d55;font-weight:900;font-size:40px;color:#fff}
+.vrow{display:flex;justify-content:space-around;align-items:flex-end;height:330px;margin:20px 0 10px}
+.vc{width:150px;text-align:center}.vv{font-family:'Archivo Black';font-size:40px;color:#fff}.vt{height:230px;display:flex;align-items:flex-end;justify-content:center}.vbf{width:90px;border-radius:14px 14px 4px 4px}.vl{font-weight:900;font-size:36px;color:#cfd4ff;margin-top:10px}
+.tl{display:flex;justify-content:space-between;margin:26px 0 10px}.tl span{flex:1;margin:0 6px;padding:18px 0;border-radius:18px;background:rgba(255,255,255,.12);font-family:'Archivo Black';font-size:38px;color:#fff}.tl .hot{background:#ff3a3a}
+.q{position:absolute;left:100px;right:100px;padding:34px 40px 40px;border-radius:44px;background:#ffd23c;color:#14122e;text-align:center;border:6px solid #14122e;box-shadow:0 14px 0 #14122e}
+.q:after{content:'';position:absolute;left:130px;bottom:-50px;border-left:24px solid transparent;border-right:24px solid transparent;border-top:44px solid #14122e}
+.qh{font-weight:900;font-size:36px;letter-spacing:4px;color:#8a4a00}
+.qi{display:inline-block;width:40px;height:30px;border-radius:12px;background:#14122e;margin-right:14px;vertical-align:-4px;position:relative}
+.qt{font-family:'Archivo Black';font-size:68px;line-height:1.08;margin-top:12px} .qt span{color:#c8301a}
+.opt2{margin-top:18px;padding:16px 26px;border-radius:24px;background:#14122e;color:#ffd23c;font-weight:900;font-size:46px;text-align:left}
+.heart{display:inline-block;width:60px;height:54px;position:relative;vertical-align:middle;margin-left:10px}
+.heart:before,.heart:after{content:'';position:absolute;top:0;width:32px;height:52px;border-radius:32px 32px 0 0;background:#ff2d55}
+.heart:before{left:28px;transform:rotate(-45deg);transform-origin:0 100%} .heart:after{left:0;transform:rotate(45deg);transform-origin:100% 100%}
+</style>
+  <div id="root" data-composition-id="cartoes" data-width="1080" data-height="1920" data-duration="195.56">
+<div id="k-hook" class="clip kwrap" data-start="0.15" data-duration="2.664" data-anim="slam"><div class="tw" style="top:230px;"><div class="tt">TUDO ISSO<br><span style="color:#ff8a3a">JÁ FOI UMA PEDRA</span></div></div></div>
+<div id="k-perfil" class="clip kwrap" data-start="2.814" data-duration="5.046" data-anim="pop"><div class="card" style="top:560px;"><div class="pf"><div class="av">B</div><div><div class="pn">Bessekai</div><div class="ph">@Bessekai · curiosidades</div></div><div class="fb">Seguir</div></div></div></div>
+<div id="k-chip" class="clip kwrap" data-start="3.114" data-duration="18.397" data-anim="slide"><div class="daychip" style="top:190px;"><span class="dot" style="background:#ff7a1a"></span>COMO NASCE O FERRO</div></div>
+<div id="k-q1" class="clip kwrap" data-start="8.46" data-duration="5.427" data-anim="slam"><div class="q" style="top:360px"><div class="qh"><span class="qi"></span>COMENTA AÍ</div><div class="qt">De onde vem o ferro do <span>portão da sua casa?</span></div></div></div>
+<div id="k-mina" class="clip kwrap" data-start="14.287" data-duration="7.224" data-anim="pop"><div class="card" style="top:400px;"><div class="lab">MINÉRIO DE FERRO</div><div class="big" style="color:#ff6a3a;font-size:120px">PEDRA</div><div class="crow"><span class="chip"><i style="background:#ff6a3a"></i>ferro</span><span class="chip"><i style="background:#ff6a3a"></i>oxigênio</span><span class="chip"><i style="background:#ff6a3a"></i>terra</span></div></div></div>
+<div id="k-furos" class="clip kwrap" data-start="21.511" data-duration="4.479" data-anim="pop"><div class="cardlite" style="top:470px;"><div class="crow"><span class="chip"><i style="background:#ffd23c"></i>furos na rocha</span></div></div></div>
+<div id="k-boom" class="clip kwrap" data-start="25.99" data-duration="2.49" data-anim="slam"><div class="tw" style="top:300px;"><div class="tt">BUM!<br><span style="color:#ff6a1a"></span></div></div></div>
+<div id="k-cam" class="clip kwrap" data-start="28.78" data-duration="6.44" data-anim="pop"><div class="card" style="top:400px;"><div class="lab">CADA CAMINHÃO CARREGA</div><div class="big" style="color:#ffc21a">+<span class="num" data-to="200">200</span> t</div><div class="sub">de uma vez só</div></div></div>
+<div id="k-q2" class="clip kwrap" data-start="35.22" data-duration="3.409" data-anim="slam"><div class="q" style="top:360px"><div class="qh"><span class="qi"></span>COMENTA AÍ</div><div class="qt">Quanto pesa <span>só um pneu?</span></div></div></div>
+<div id="k-pneu" class="clip kwrap" data-start="38.629" data-duration="2.325" data-anim="pop"><div class="card" style="top:400px;"><div class="lab">UM PNEU PODE PASSAR DE</div><div class="big" style="color:#ffc21a">5 t</div><div class="sub">mais que 3 carros populares</div></div></div>
+<div id="k-brit" class="clip kwrap" data-start="41.254" data-duration="5.242" data-anim="pop"><div class="cardlite" style="top:470px;"><div class="crow"><span class="chip"><i style="background:#9aa0a8"></i>britador esmaga</span><span class="chip"><i style="background:#9aa0a8"></i>moinho vira pó</span></div></div></div>
+<div id="k-pel" class="clip kwrap" data-start="46.796" data-duration="8.119" data-anim="pop"><div class="card" style="top:400px;"><div class="lab">PÓ LAVADO VIRA</div><div class="big" style="font-size:110px;color:#c8907a">PELOTAS</div><div class="sub">no tambor gigante</div></div></div>
+<div id="k-carv" class="clip kwrap" data-start="55.214999999999996" data-duration="6.367" data-anim="pop"><div class="card" style="top:400px;"><div class="lab">MINAS GERAIS</div><div class="big" style="font-size:84px;color:#7ad07a">CARVÃO DE EUCALIPTO</div><div class="sub">fornos tipo iglu</div></div></div>
+<div id="k-carv2" class="clip kwrap" data-start="61.882" data-duration="5.058" data-anim="pop"><div class="card" style="top:400px;"><div class="lab">O CARVÃO FAZ 2 COISAS</div><div class="opt">1 · dá o calor</div><div class="opt">2 · arranca o oxigênio do minério</div></div></div>
+<div id="k-forno" class="clip kwrap" data-start="66.94" data-duration="4.205" data-anim="slam"><div class="tw" style="top:230px;"><div class="tt">O CORAÇÃO:<br><span style="color:#ff8a3a">ALTO-FORNO</span></div></div></div>
+<div id="k-fora" class="clip kwrap" data-start="71.445" data-duration="4.604" data-anim="pop"><div class="cardlite" style="top:470px;"><div class="crow"><span class="chip"><i style="background:#ffd23c"></i>prédio de canos</span><span class="chip"><i style="background:#ffd23c"></i>chaminé</span><span class="chip"><i style="background:#ffd23c"></i>fumaça</span></div></div></div>
+<div id="k-est" class="clip kwrap" data-start="76.349" data-duration="8.651" data-anim="pop"><div class="card" style="top:400px;"><div class="lab">A ESTEIRA LEVA ATÉ O TOPO</div><div class="crow"><span class="chip"><i style="background:#c8482a"></i>minério</span><span class="chip"><i style="background:#3a3a40"></i>carvão</span><span class="chip"><i style="background:#f4f0e8"></i>calcário</span></div></div></div>
+<div id="k-q3" class="clip kwrap" data-start="85.0" data-duration="4.58" data-anim="slam"><div class="q" style="top:360px"><div class="qh"><span class="qi"></span>COMENTA AÍ</div><div class="qt">Esse prédio inteiro <span>é um forno só?</span></div></div></div>
+<div id="k-sopro" class="clip kwrap" data-start="89.97" data-duration="4.361" data-anim="pop"><div class="card" style="top:400px;"><div class="lab">AR QUENTE SOPRADO</div><div class="big" style="color:#ffb03a">+<span class="num" data-to="1000">1000</span> °C</div></div></div>
+<div id="k-dentro" class="clip kwrap" data-start="94.631" data-duration="8.909" data-anim="pop"><div class="card" style="top:380px;"><div class="lab">LÁ DENTRO</div><div class="big" style="color:#ff5a2a">+1.500 °C</div><div class="crow"><span class="chip"><i style="background:#ff8a3a"></i>carbono rouba o oxigênio</span><span class="chip"><i style="background:#ff8a3a"></i>ferro derrete</span></div></div></div>
+<div id="k-q4" class="clip kwrap" data-start="103.54" data-duration="3.23" data-anim="slam"><div class="q" style="top:360px"><div class="qh"><span class="qi"></span>COMENTA AÍ</div><div class="qt">Você aguentaria <span>esse calor?</span></div></div></div>
+<div id="k-pausa" class="clip kwrap" data-start="106.77" data-duration="2.186" data-anim="fade"><div class="pause"><div class="pbtn"><i></i><i></i></div><div class="pl">Deixa o like <span class="heart"></span></div><div class="ps">e segue o <b>@Bessekai</b></div></div></div>
+<div id="k-corr" class="clip kwrap" data-start="109.106" data-duration="3.294" data-anim="pop"><div class="card" style="top:380px;border-color:#ffd23c"><div class="warn"><div class="stripes"></div><div class="wt">A CORRIDA</div></div><div class="sub" style="margin-top:18px">a parte mais perigosa</div></div></div>
+<div id="k-epi" class="clip kwrap" data-start="112.7" data-duration="7.412" data-anim="pop"><div class="cardlite" style="top:470px;"><div class="crow"><span class="chip"><i style="background:#c8ccd4"></i>capacete</span><span class="chip"><i style="background:#c8ccd4"></i>roupa prateada</span><span class="chip"><i style="background:#c8ccd4"></i>furo na base</span></div></div></div>
+<div id="k-bica" class="clip kwrap" data-start="120.41199999999999" data-duration="6.06" data-anim="pop"><div class="card" style="top:400px;"><div class="lab">A BICA</div><div class="big" style="font-size:100px;color:#ffb03a">RIO DE LAVA</div></div></div>
+<div id="k-esc" class="clip kwrap" data-start="126.77199999999999" data-duration="4.488" data-anim="pop"><div class="cardlite" style="top:470px;"><div class="crow"><span class="chip"><i style="background:#ffd06a"></i>escória boia por cima</span><span class="chip"><i style="background:#ffd06a"></i>vai pra outro canal</span></div></div></div>
+<div id="k-gusa" class="clip kwrap" data-start="131.56" data-duration="4.68" data-anim="pop"><div class="card" style="top:400px;"><div class="lab">ESSE FERRO É O</div><div class="big" style="color:#ff8a1a">GUSA</div><div class="sub">cai direto na panela</div></div></div>
+<div id="k-ponte" class="clip kwrap" data-start="136.54000000000002" data-duration="3.357" data-anim="pop"><div class="card" style="top:400px;"><div class="lab">PONTE ROLANTE</div><div class="sub">levanta a panela de metal quente</div></div></div>
+<div id="k-cab" class="clip kwrap" data-start="139.897" data-duration="4.143" data-anim="pop"><div class="cardlite" style="top:470px;"><div class="crow"><span class="chip"><i style="background:#3af0ff"></i>operador na cabine</span></div></div></div>
+<div id="k-sir" class="clip kwrap" data-start="144.04" data-duration="6.72" data-anim="pop"><div class="card" style="top:380px;border-color:#ff3a3a"><div class="warn"><div class="stripes"></div><div class="wt">SIRENE!</div></div><div class="sub" style="margin-top:18px">todo mundo se afasta</div></div></div>
+<div id="k-ling" class="clip kwrap" data-start="151.06" data-duration="5.81" data-anim="pop"><div class="card" style="top:400px;"><div class="lab">LINGOTES ESFRIANDO</div><div class="bl"><span>LARANJA</span><b>CINZA</b></div><div class="bt"><div class="bf" style="background:linear-gradient(90deg,#ffd04a,#e8501a,#6e7076);width:100%" data-from="0" data-to="100"></div></div><div class="crow"><span class="chip"><i style="background:#9aa0a8"></i>trem</span><span class="chip"><i style="background:#9aa0a8"></i>caminhão</span><span class="chip"><i style="background:#9aa0a8"></i>aciaria</span></div></div></div>
+<div id="k-q5" class="clip kwrap" data-start="156.87" data-duration="5.29" data-anim="slam"><div class="q" style="top:360px"><div class="qh"><span class="qi"></span>COMENTA AÍ</div><div class="qt">Você trabalha ou já trabalhou <span>numa siderúrgica?</span></div></div></div>
+<div id="k-conv" class="clip kwrap" data-start="162.46" data-duration="7.0" data-anim="pop"><div class="card" style="top:400px;"><div class="lab">CONVERSOR</div><div class="crow"><span class="chip"><i style="background:#ffb03a"></i>jato de oxigênio</span><span class="chip"><i style="background:#ffb03a"></i>queima o carbono</span></div></div></div>
+<div id="k-aco" class="clip kwrap" data-start="169.46" data-duration="3.944" data-anim="slam"><div class="tw" style="top:230px;"><div class="tt">NASCE O<br><span style="color:#9ad8ff">AÇO</span></div></div></div>
+<div id="k-lam" class="clip kwrap" data-start="173.704" data-duration="5.956" data-anim="pop"><div class="cardlite" style="top:470px;"><div class="crow"><span class="chip"><i style="background:#9aa0a8"></i>chapa</span><span class="chip"><i style="background:#9aa0a8"></i>barra</span><span class="chip"><i style="background:#9aa0a8"></i>fio</span><span class="chip"><i style="background:#9aa0a8"></i>trilho</span></div></div></div>
+<div id="k-cid" class="clip kwrap" data-start="179.96" data-duration="4.458" data-anim="pop"><div class="cardlite" style="top:470px;"><div class="crow"><span class="chip"><i style="background:#ff7a1a"></i>seu carro</span><span class="chip"><i style="background:#ff7a1a"></i>sua geladeira</span><span class="chip"><i style="background:#ff7a1a"></i>o portão da casa</span></div></div></div>
+<div id="k-poll" class="clip kwrap" data-start="184.418" data-duration="6.817" data-anim="slam"><div class="q" style="top:330px"><div class="qh"><span class="qi"></span>COMENTA AÍ</div><div class="qt">Qual parte te <span>impressionou mais?</span></div><div class="opt2">A · a bica</div><div class="opt2">B · a ponte rolante</div><div class="opt2">C · o alto-forno</div></div></div>
+<div id="k-perfil2" class="clip kwrap" data-start="191.235" data-duration="4.325" data-anim="pop"><div class="card" style="top:470px;"><div class="pf"><div class="av">B</div><div><div class="pn">Bessekai</div><div class="ph">@Bessekai · curiosidades</div></div><div class="fb">Seguir</div></div><div class="sub" style="font-size:30px;margin-top:20px;color:#aab0e0">Voz: ElevenLabs</div></div></div>
+<div id="k-segue" class="clip kwrap" data-start="191.63500000000002" data-duration="3.925" data-anim="pop"><div class="card" style="top:800px;"><div class="big" style="font-size:80px;color:#ff7a1a">SEGUE PRA MAIS</div></div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    document.querySelectorAll('#root .kwrap').forEach(function (k) {
+      const s = parseFloat(k.dataset.start), d = parseFloat(k.dataset.duration), an = k.dataset.anim; const el = k.firstElementChild;
+      if (an === 'slam') tl.fromTo(el, { scale: 1.6, opacity: 0, rotation: -4 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.28, ease: 'back.out(2.2)' }, s);
+      else if (an === 'slide') tl.fromTo(el, { x: -360, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: 'expo.out' }, s);
+      else if (an === 'fade') tl.fromTo(el, { opacity: 0, scale: 1.1 }, { opacity: 1, scale: 1, duration: 0.25, ease: 'power2.out' }, s);
+      else tl.fromTo(el, { scale: 0.6, opacity: 0, y: 40 }, { scale: 1, opacity: 1, y: 0, duration: 0.35, ease: 'back.out(1.8)' }, s);
+      tl.to(el, { opacity: 0, scale: 0.92, duration: 0.18, ease: 'power3.in' }, s + d - 0.2);
+      k.querySelectorAll('.chip,.opt,.opt2,.blips i').forEach(function (c, i) { tl.fromTo(c, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(2.4)' }, s + 0.25 + i * 0.18); });
+      k.querySelectorAll('.vbf').forEach(function (b, i) { tl.fromTo(b, { height: '0%' }, { height: b.dataset.to + '%', duration: 0.6, ease: 'back.out(1.6)' }, s + 0.3 + i * 0.25); });
+      k.querySelectorAll('.bf').forEach(function (b) { tl.fromTo(b, { width: b.dataset.from + '%' }, { width: b.dataset.to + '%', duration: Math.min(1.6, d * 0.6), ease: 'power2.inOut' }, s + 0.3); });
+      k.querySelectorAll('.ln').forEach(function (p) { const L = p.getTotalLength(); p.style.strokeDasharray = L; tl.fromTo(p, { strokeDashoffset: L }, { strokeDashoffset: 0, duration: Math.min(1.6, d * 0.7), ease: 'power2.inOut' }, s + 0.3); });
+      k.querySelectorAll('.num').forEach(function (n) { const o = { v: 0 }; const to = parseFloat(n.dataset.to); tl.fromTo(o, { v: 0 }, { v: to, duration: Math.min(1.8, d * 0.7), ease: 'power2.out', onUpdate: function () { n.textContent = Math.round(o.v); } }, s + 0.2); });
+      k.querySelectorAll('.stamp').forEach(function (st) { tl.fromTo(st, { scale: 2.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.22, ease: 'power4.in' }, s + d * 0.4); });
+      k.querySelectorAll('.blips i').forEach(function (bp, i) { tl.to(bp, { opacity: 0.15, duration: 0.05, yoyo: true, repeat: 3, ease: 'steps(1)' }, s + 0.8 + i * 0.3); });
+    });
+    window.__timelines["cartoes"] = tl;
+  </script>
+</template>
