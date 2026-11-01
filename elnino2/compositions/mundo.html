@@ -288,7 +288,17 @@
   const [ix, iz] = ll(-24, -12); const isle = grp(world, ix, 0, iz);
   { const base = new T3.Mesh(new T3.CylinderGeometry(22, 16, 8, 8), pmat('#d8c088')); base.position.y = 2; isle.add(base); const top = new T3.Mesh(new T3.CylinderGeometry(22, 22, 1.4, 8), pmat('#6cbf52')); top.position.y = 6.6; isle.add(top);
     const palm = grp(isle, -12, 7, -8); const tr = new T3.Mesh(new T3.CylinderGeometry(0.8, 1.1, 16, 6), pmat('#9a6a3a')); tr.position.y = 8; tr.rotation.z = 0.15; palm.add(tr); for (let k = 0; k < 5; k++) { const lf = box(palm, Math.cos(k * 1.25) * 4 + 1.2, 16, Math.sin(k * 1.25) * 4, 9, 0.5, 2.4, '#3f9a46'); lf.rotation.y = -k * 1.25; lf.rotation.z = -0.35; } }
-  const host = makeBessekai('varsity'); host.scale.setScalar(0.85); host.position.set(4, 7.3, 4); isle.add(host);
+  const host = makeBessekai('gamer'); host.scale.setScalar(0.85); host.position.set(4, 7.3, 4); isle.add(host);
+
+  // ---------- EXTRAS: apresentador gigante (estilo moça do tempo), nuvens, pássaros, avião-tanque, Manaus maior ----------
+  const hostBig = makeBessekai('gamer'); hostBig.scale.setScalar(2.6); world.add(hostBig); opt(hostBig);
+  const holo = opt(grp(world)); { const ring = new T3.Mesh(new T3.TorusGeometry(10, 0.6, 6, 32), bmat('#3af0ff')); ring.rotation.x = Math.PI / 2; holo.add(ring); const r2 = new T3.Mesh(new T3.TorusGeometry(14, 0.4, 6, 32), bmat('#9a6aff')); r2.rotation.x = Math.PI / 2; r2.position.y = 0.4; holo.add(r2); }
+  const driftClouds = []; { const R = rng(97); for (let i = 0; i < 9; i++) { const c = cloud(-300 + R() * 140, -20 + R() * 140, 0.9 + R() * 0.6); c.position.y = 140 + R() * 14; c.userData = { x0: c.position.x, sp: 4 + R() * 6 }; driftClouds.push(c); } }
+  const birds = []; for (let i = 0; i < 7; i++) { const g = grp(world); const wl = box(g, -1.6, 0, 0, 3, 0.25, 1, '#1a1a24'); const wr = box(g, 1.6, 0, 0, 3, 0.25, 1, '#1a1a24'); g.userData = { wl, wr, ph: i * 0.9 }; birds.push(g); }
+  const plane = opt(grp(world)); { box(plane, 0, 0, 0, 12, 2.6, 2.6, '#e8302a'); box(plane, 0, 0.4, 0, 3, 0.5, 18, '#ffd23c'); box(plane, -5.5, 2, 0, 2, 3, 0.5, '#e8302a'); box(plane, -5.5, 0.6, 0, 2, 0.4, 6, '#ffd23c'); box(plane, 6.4, 0, 0, 0.6, 1.8, 1.8, '#9ad0ff'); }
+  const drop = particles(world, 160, '#7ad0ff', 0.7);
+  { const R = rng(99); for (let i = 0; i < 26; i++) { const a = R() * 6.28, r = 2.5 + R() * 4.5; const h = 1 + R() * 3; box(manaus, Math.cos(a) * r, h / 2, Math.sin(a) * r, 0.8 + R() * 0.8, h, 0.8 + R() * 0.8, R() < 0.5 ? '#f0f0f4' : '#d8e0ec'); } }
+  const ripples = particles(world, 30, '#bfe6ff', 0.4);
 
   // ---------- céu ----------
   const skyC = document.createElement('canvas'); skyC.width = 4; skyC.height = 256; const skyX = skyC.getContext('2d'); const skyT = new T3.CanvasTexture(skyC); skyT.colorSpace = T3.SRGBColorSpace; scene.background = skyT;
@@ -327,9 +337,18 @@
   function hostPose(o) { heroPose(host, gT, o); }
   const HEAT = {};
   function dryNorth(k) { regColor('norte', '#e8902a', k); river.forEach(r => r.scale.z = lerp(1, 0.35, k)); }
-  function swimBotos(hot, dead) { botos.forEach((b, i) => { b.visible = true; const a = gT * 0.6 + b.userData.ph; b.position.set(tx + Math.cos(a) * 5, 6 + (dead ? 0.2 : Math.abs(Math.sin(gT * 2 + i)) * 1.2), tz + 4 + Math.sin(a) * 5); b.rotation.set(dead ? Math.PI : 0, -a - Math.PI / 2, 0); }); lake.material.color.set('#3a9ae8').lerp(tmpC.set('#ff8a2a'), hot); }
+  function swimBotos(hot, dead) { botos.forEach((b, i) => { b.visible = true; const a = gT * 0.6 + b.userData.ph; const j = dead ? 0 : Math.max(0, Math.sin(gT * 2.2 + i * 1.7)); b.position.set(tx + Math.cos(a) * 5, 5.8 + (dead ? 0.2 : j * 3.2), tz + 4 + Math.sin(a) * 5); b.rotation.set(dead ? Math.PI : 0, -a - Math.PI / 2, dead ? 0 : Math.cos(gT * 2.2 + i * 1.7) * 0.8); });
+    ripples.userData.place((i, d) => { const b = botos[i % 4].position; const k = ((gT * 1.5 + i * 0.13) % 1); d.position.set(b.x + Math.cos(i) * k * 3, 5.9, b.z + Math.sin(i) * k * 3); d.scale.set(1 + k * 2, 0.1, 1 + k * 2); }); lake.material.color.set('#3a9ae8').lerp(tmpC.set('#ff8a2a'), hot); }
   function burn(k) { fire.userData.place((i, d) => { const p = treePts[(i * 7) % treePts.length]; const R = rng(i + 3); if (R() > k) return false; const kk = ((gT * 1.2 + R()) % 1); d.position.set(p[0] + (R() - .5) * 2, 9 + kk * 9, p[1] + (R() - .5) * 2); d.scale.setScalar(0.9 * (1 - kk) + 0.2); });
     smoke.userData.place((i, d) => { const p = treePts[(i * 11) % treePts.length]; const R = rng(i + 9); if (R() > k) return false; const kk = ((gT * 0.4 + R()) % 1); d.position.set(p[0] + kk * 10, 16 + kk * 30, p[1]); d.scale.setScalar(1.5 + kk * 4); }); }
+  const BIG = { empurra: [-62, -6], rios: null, estados: [-64, -4], nordeste: [-40, -8], chuvosa: [-40, -8], seca16: [-40, -9], calor: [-50, -12], sul: [-52, -28], parte3: [-52, -28] };
+  function bigHost(id, lt) { if (!BIG[id]) return; hostBig.visible = true; holo.visible = true;
+    const f = new T3.Vector3(); cam.getWorldDirection(f); const up = new T3.Vector3(0, 1, 0).applyQuaternion(cam.quaternion); const rt = new T3.Vector3(1, 0, 0).applyQuaternion(cam.quaternion);
+    const pop = eBack(prog(lt, 0, 0.45)) || 0.001; hostBig.scale.setScalar(0.9 * pop);
+    hostBig.position.copy(cam.position).addScaledVector(f, 55).addScaledVector(rt, 8.5).addScaledVector(up, -21 + Math.sin(gT * 1.6) * 0.5);
+    hostBig.quaternion.copy(cam.quaternion); hostBig.rotateY(-0.35);
+    holo.position.copy(hostBig.position); holo.quaternion.copy(cam.quaternion); holo.rotateX(0.55); holo.rotateY(gT * 1.5); holo.scale.setScalar(0.45 * pop);
+    heroPose(hostBig, gT, { armL: -0.15, armLz: -1.45 - Math.sin(gT * 3) * 0.1, armR: Math.sin(gT * 2) * 0.15, headY: -0.35 + Math.sin(gT) * 0.12, legL: Math.sin(gT * 1.6) * 0.05 }); }
   const A = {
     intro() { hostPose({ armR: -0.2, armRz: 2.5 + Math.sin(gT * 9) * 0.4 }); },
     botos(lt, T) { dryNorth(0.6); swimBotos(eIO(prog(lt, 0.5, T)), lt > T * 0.75); },
@@ -340,12 +359,13 @@
     regua(lt, T) { dryNorth(0.7); gauge.visible = true; gaugeWater.visible = true; const h = lerp(12, 1.2, eIO(prog(lt, 0.2, T))); gaugeWater.scale.y = h; gaugeWater.position.y = 5.4 + h / 2; },
     encalhe(lt, T) { dryNorth(1); boats.visible = true; sand.visible = true; sand.scale.x = 30; },
     tefe(lt, T) { dryNorth(0.8); swimBotos(1, false); },
-    fogo(lt, T) { dryNorth(0.9); burn(eIO(prog(lt, 0.2, T))); },
+    fogo(lt, T) { dryNorth(0.9); burn(eIO(prog(lt, 0.2, T))); plane.visible = true; const u = prog(lt, 0.3, T); plane.position.set(-330 + u * 160, 34 + Math.sin(gT * 2) * 1.5, 10 + u * 20); plane.rotation.set(Math.sin(gT * 2) * 0.05, -0.12, 0);
+      drop.userData.place((i, d) => { const R2 = rng(i + 5); const k = ((gT * 1.6 + R2()) % 1); if (u < 0.15) return false; d.position.set(plane.position.x - 4 - k * 6 + (R2() - .5) * 3, plane.position.y - k * 26, plane.position.z + (R2() - .5) * 4); d.scale.set(0.5, 1.4, 0.5); }); },
     estados(lt, T) { dryNorth(1); burn(0.6); const k = (Math.sin(gT * 6) + 1) / 2; ['rr', 'ac', 'am'].forEach((s, i) => { stateM[s].visible = lt > 0.4 + i * 0.5; stateM[s].material.opacity = 0.45 + 0.4 * k; }); },
     nordeste(lt, T) { dryNorth(1); regColor('nordeste', '#c8903a', eIO(prog(lt, 0, T))); },
     chuvosa(lt, T) { regColor('nordeste', '#c8903a', 1); sunBall.visible = true; sunBall.position.set(nex, 46, nez); },
-    seca16(lt, T) { regColor('nordeste', '#a8642a', 1); cracks.visible = true; cracks.scale.set(1, 1, 1); },
-    afeta(lt, T) { regColor('nordeste', '#a8642a', 1); cracks.visible = true; cattle.visible = true; tank.visible = true; },
+    seca16(lt, T) { regColor('nordeste', '#a8642a', 1); cracks.visible = true; const k = eOut(prog(lt, 0.1, T * 0.8)); cracks.children.forEach((c, i) => { c.scale.x = (6 + (i % 5) * 1.6) * clamp(k * 1.5 - (i % 7) * 0.08); }); },
+    afeta(lt, T) { regColor('nordeste', '#a8642a', 1); cracks.visible = true; cattle.visible = true; tank.visible = true; cattle.children.forEach((c, i) => { c.position.x += 0; c.rotation.y = Math.sin(gT * 0.6 + i) * 0.6; c.children[1].position.y = 2.2 + Math.sin(gT * 3 + i) * 0.3; }); const tk = tank.children[0]; tk.scale.y = 1 - 0.7 * prog(lt, 0, T); tk.position.y = 10 + 2 * tk.scale.y; },
     calor(lt, T) { const k = eIO(prog(lt, 0.2, T)); for (const r in regions) regColor(r, '#ff8a3a', k * 0.85); heat.userData.place((i, d) => { const R = rng(i + 80); const kk = ((gT * 0.5 + R()) % 1); const [x, z] = ll(-70 + R() * 34, -2 - R() * 28); d.position.set(x, 6 + kk * 26, z); d.scale.setScalar(0.4 + (1 - kk) * 0.9); }); },
     sul(lt) { regColor('sul', '#3a7ad8', 1); dryNorth(1); stormClouds.visible = true; rain.userData.place((i, d) => { const R = rng(i + 10); const k = ((gT * 1.4 + R()) % 1); d.position.set(sx + (R() - .5) * 60, 30 - k * 26, sz + (R() - .5) * 30); d.scale.set(0.3, 2.4, 0.3); }); bolt.visible = ((gT * 1.3) % 1.6) < 0.12; fx.flash = bolt.visible ? 0.25 : 0; },
     cta() { hostPose({ armR: -0.2, armRz: 2.5 + Math.sin(gT * 9) * 0.4 }); },
@@ -363,10 +383,13 @@
     sky(pc.sky, c.sky, idx === 0 ? 1 : eIO(prog(lt, 0, 1.2)));
     oceanHeat(1.1, t);
     (A[sh.id] || (() => {}))(lt, T);
+    driftClouds.forEach((c, i) => { c.position.x = c.userData.x0 + ((t * c.userData.sp + i * 30) % 120) - 60; });
+    birds.forEach((b, i) => { const u2 = ((t * 0.04 + i * 0.13) % 1); b.position.set(-320 + u2 * 260 + Math.floor(i / 2) * 4, 34 + Math.sin(t + i) * 2, -10 + (i % 3) * 5 + u2 * 60); b.rotation.y = -0.4; const f = Math.sin(t * 9 + b.userData.ph) * 0.6; b.userData.wl.rotation.z = f; b.userData.wr.rotation.z = -f; });
     const u = eIO(clamp(lt / T)); let P = L3(c.a, c.b, u), Lk = c.l.slice();
     if (idx > 0) { const d = Math.hypot(c.a[0] - pc.b[0], c.a[1] - pc.b[1], c.a[2] - pc.b[2]); const tr = Math.min(T * 0.7, 0.5 + d / 220); const k = eIO(clamp(lt / tr)); if (k < 1) { P = L3(pc.b, P, k); Lk = L3(pc.l, c.l, k); if (d > 120) P[1] += Math.sin(k * Math.PI) * Math.min(160, d * 0.2); } }
-    cam.position.set(P[0], P[1], P[2]); cam.lookAt(Lk[0], Lk[1], Lk[2]); if (cam.fov !== 50) { cam.fov = 50; cam.updateProjectionMatrix(); }
+    const sw = 0.6 + Math.hypot(P[0] - Lk[0], P[1] - Lk[1], P[2] - Lk[2]) * 0.01; P[0] += Math.sin(t * 0.7) * sw; P[1] += Math.sin(t * 1.1) * sw * 0.5; cam.position.set(P[0], P[1], P[2]); cam.lookAt(Lk[0], Lk[1], Lk[2]); if (cam.fov !== 50) { cam.fov = 50; cam.updateProjectionMatrix(); }
     if (fx.shake) { cam.position.x += Math.sin(t * 87) * fx.shake; cam.position.y += Math.cos(t * 71) * fx.shake; }
+    cam.updateMatrixWorld(); bigHost(sh.id, lt); driftClouds.forEach(c => { c.visible = c.position.distanceTo(cam.position) > 110; });
     renderer.render(scene, cam);
     flashEl.style.opacity = fx.flash.toFixed(3);
     tintEl.style.background = fx.red ? '#ff0020' : '#000'; tintEl.style.mixBlendMode = fx.red ? 'multiply' : 'normal'; tintEl.style.opacity = fx.red ? fx.red : Math.min(1, fx.black);
