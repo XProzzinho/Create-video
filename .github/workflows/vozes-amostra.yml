@@ -1,0 +1,41 @@
+name: Amostras de voz ElevenLabs
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        default: "ferro2"
+permissions:
+  contents: write
+jobs:
+  amostra:
+    runs-on: ubuntu-latest
+    env:
+      KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+      PROJ: ${{ inputs.project }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y jq ffmpeg
+      - name: Buscar vozes brasileiras e gerar amostras
+        run: |
+          mkdir -p $PROJ/amostras
+          curl -s "https://api.elevenlabs.io/v1/shared-voices?page_size=30&language=pt&gender=male&sort=usage_character_count_1y" -H "xi-api-key: $KEY" > /tmp/shared.json
+          jq -r '.voices[] | [.public_owner_id, .voice_id, .name, (.accent // ""), (.locale // ""), (.use_case // ""), (.descriptive // "")] | @tsv' /tmp/shared.json > $PROJ/amostras/lista.tsv || true
+          head -c 600 /tmp/shared.json > $PROJ/amostras/raw.txt
+          grep -i -E "brazil|pt-br|brasil" $PROJ/amostras/lista.tsv | head -4 > /tmp/pick.tsv || true
+          [ -s /tmp/pick.tsv ] || head -4 $PROJ/amostras/lista.tsv > /tmp/pick.tsv
+          TEXT="Fala, galera! Aqui é o Bessekai, e hoje eu vou te levar pra dentro de uma siderúrgica. Chuta aí: quanto pesa só um pneu desse caminhão?"
+          n=0
+          while IFS=$'\t' read -r owner vid name accent locale usecase desc; do
+            n=$((n+1))
+            add=$(curl -s -X POST "https://api.elevenlabs.io/v1/voices/add/$owner/$vid" -H "xi-api-key: $KEY" -H "Content-Type: application/json" -d "{\"new_name\":\"BR $n $name\"}" < /dev/null)
+            newid=$(echo "$add" | jq -r '.voice_id // empty'); [ -z "$newid" ] && newid=$vid
+            body=$(jq -n --arg t "$TEXT" '{text:$t, model_id:"eleven_multilingual_v2", voice_settings:{stability:0.38, similarity_boost:0.8, style:0.45, use_speaker_boost:true}}')
+            code=$(curl -s -o "$PROJ/amostras/voz-$n.mp3" -w "%{http_code}" -X POST "https://api.elevenlabs.io/v1/text-to-speech/$newid?output_format=mp3_44100_128" -H "xi-api-key: $KEY" -H "Content-Type: application/json" -d "$body" < /dev/null)
+            echo -e "$n\t$newid\t$name\t$accent\t$locale\t$code\t$(echo $add | head -c 200)" >> $PROJ/amostras/escolhas.tsv
+          done < /tmp/pick.tsv
+          cat $PROJ/amostras/escolhas.tsv
+      - name: Salvar
+        if: always()
+        run: |
+          git config user.name "render-bot"; git config user.email "render-bot@users.noreply.github.com"
+          git add -A $PROJ; git commit -q -m "Amostras de voz [skip ci]" || true; git pull -q --rebase && git push -q
