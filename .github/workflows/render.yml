@@ -43,6 +43,16 @@ jobs:
         with:
           name: video
           path: out/video.mp4
+      - name: Publicar o vídeo original (sem compressão) como Release
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -f out/video.mp4 ]; then
+            TAG="${PROJECT}-$(date -u +%Y%m%d-%H%M)"
+            cp out/video.mp4 "/tmp/${PROJECT}-original.mp4"
+            gh release create "$TAG" "/tmp/${PROJECT}-original.mp4" --repo "${{ github.repository }}" --title "Vídeo ${PROJECT} ($(date -u +%d/%m/%Y))" --notes "Vídeo original em qualidade máxima, sem compressão. Gerado pelo robô." || echo "release falhou"
+          fi
       - name: Deixar o vídeo abaixo de 95 MB (limite do GitHub)
         if: always()
         run: |
