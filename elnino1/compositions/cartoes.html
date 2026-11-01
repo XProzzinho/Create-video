@@ -1,0 +1,88 @@
+<template>
+  <style>
+#root{position:absolute;inset:0;pointer-events:none;font-family:Inter}
+.kwrap{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.card,.cardlite{position:absolute;left:150px;right:150px;padding:34px 40px;border-radius:40px;background:rgba(22,24,58,.9);border:4px solid rgba(255,255,255,.18);box-shadow:0 18px 50px rgba(0,0,0,.35);color:#fff;text-align:center}
+.cardlite{background:transparent;border:0;box-shadow:none;padding:0}
+.lab{font-family:Inter;font-weight:900;font-size:40px;letter-spacing:2px;color:#cfd4ff}
+.big{font-family:'Archivo Black';font-size:150px;line-height:1.05;color:#fff;margin-top:6px}
+.sub{font-weight:700;font-size:38px;color:#e6e8ff;margin-top:8px}
+.tw{position:absolute;left:60px;right:60px;text-align:center}
+.tt{font-family:'Archivo Black';font-size:104px;line-height:1.02;color:#fff;-webkit-text-stroke:16px #14122e;paint-order:stroke fill;text-shadow:0 10px 0 #14122e}
+.daychip{position:absolute;left:60px;padding:16px 30px;border-radius:40px;background:rgba(22,24,58,.92);font-family:'Archivo Black';font-size:48px;color:#fff;border:4px solid rgba(255,255,255,.2)}
+.dot{display:inline-block;width:26px;height:26px;border-radius:13px;margin-right:16px;vertical-align:middle}
+.chip{display:inline-block;margin:10px;padding:16px 30px;border-radius:40px;background:rgba(22,24,58,.92);border:3px solid rgba(255,255,255,.2);font-weight:900;font-size:42px;color:#fff}
+.chip i{display:inline-block;width:20px;height:20px;border-radius:10px;margin-right:14px;vertical-align:middle}
+.crow{margin-top:10px}
+.bl{display:flex;justify-content:space-between;font-weight:900;font-size:36px;margin-top:26px;color:#fff}
+.bt{height:30px;border-radius:15px;background:rgba(255,255,255,.14);margin-top:12px;overflow:hidden}
+.bf{height:100%;border-radius:15px}
+.ct{display:flex;justify-content:space-between;font-weight:900;font-size:38px;color:#fff;margin-bottom:14px} .ct em{font-style:normal;color:#aab0e0;font-size:32px}
+.blips{display:flex;justify-content:center;gap:26px;margin:30px 0 10px} .blips i{display:block;width:70px;height:110px;border-radius:16px;background:#ffd23c}
+.pf{display:flex;align-items:center;gap:26px;text-align:left}
+.av{width:120px;height:120px;border-radius:60px;background:#ff7a1a;font-family:'Archivo Black';font-size:66px;line-height:120px;text-align:center;color:#1a0d18;flex:none}
+.pn{font-family:'Archivo Black';font-size:54px;color:#fff} .ph{font-weight:700;font-size:32px;color:#c8ccf0}
+.fb{margin-left:auto;padding:18px 34px;border-radius:30px;background:#ff2d55;font-weight:900;font-size:36px;color:#fff}
+.stamp{display:inline-block;margin-top:30px;padding:14px 30px;border:10px solid #ff2a3a;border-radius:20px;color:#ff2a3a;font-family:'Archivo Black';font-size:66px;transform:rotate(-8deg)}
+.warn{position:relative;border-radius:26px;overflow:hidden;height:150px;background:#ffd23c}
+.stripes{position:absolute;inset:0;background:repeating-linear-gradient(-45deg,#ffd23c 0 40px,#1a1a1a 40px 80px);opacity:.9}
+.wt{position:absolute;left:30px;right:30px;top:30px;height:90px;border-radius:18px;background:#1a1a1a;color:#ffd23c;font-family:'Archivo Black';font-size:58px;line-height:90px}
+.opt{margin-top:22px;padding:22px;border-radius:24px;background:rgba(255,255,255,.12);font-weight:900;font-size:44px;color:#fff;text-align:left;padding-left:40px}
+.pause{position:absolute;left:0;right:0;top:640px;text-align:center}
+.pbtn{width:230px;height:230px;border-radius:115px;margin:0 auto;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;gap:34px}
+.pbtn i{display:block;width:40px;height:110px;border-radius:10px;background:#1d3a2a}
+.pl{margin-top:40px;font-family:'Archivo Black';font-size:80px;color:#fff;text-shadow:0 6px 20px rgba(0,0,0,.5)}
+.ps{font-weight:700;font-size:44px;color:#fff;margin-top:6px} .ps b{color:#ffb03a}
+.badge{display:inline-block;margin-top:14px;padding:12px 30px;border-radius:30px;background:#ff2d55;font-weight:900;font-size:40px;color:#fff}
+.vrow{display:flex;justify-content:space-around;align-items:flex-end;height:330px;margin:20px 0 10px}
+.vc{width:150px;text-align:center}.vv{font-family:'Archivo Black';font-size:40px;color:#fff}.vt{height:230px;display:flex;align-items:flex-end;justify-content:center}.vbf{width:90px;border-radius:14px 14px 4px 4px}.vl{font-weight:900;font-size:36px;color:#cfd4ff;margin-top:10px}
+.tl{display:flex;justify-content:space-between;margin:26px 0 10px}.tl span{flex:1;margin:0 6px;padding:18px 0;border-radius:18px;background:rgba(255,255,255,.12);font-family:'Archivo Black';font-size:38px;color:#fff}.tl .hot{background:#ff3a3a}
+.heart{display:inline-block;width:60px;height:54px;position:relative;vertical-align:middle;margin-left:10px}
+.heart:before,.heart:after{content:'';position:absolute;top:0;width:32px;height:52px;border-radius:32px 32px 0 0;background:#ff2d55}
+.heart:before{left:28px;transform:rotate(-45deg);transform-origin:0 100%} .heart:after{left:0;transform:rotate(45deg);transform-origin:100% 100%}
+</style>
+  <div id="root" data-composition-id="cartoes" data-width="1080" data-height="1920" data-duration="145.9">
+<div id="k-perfil" class="clip kwrap" data-start="0.0" data-duration="3.49" data-anim="pop"><div class="card" style="top:560px;"><div class="pf"><div class="av">B</div><div><div class="pn">Bessekai</div><div class="ph">@Bessekai · curiosidades</div></div><div class="fb">Seguir</div></div></div></div>
+<div id="k-t1" class="clip kwrap" data-start="3.49" data-duration="9.756" data-anim="slam"><div class="tw" style="top:250px;"><div class="tt">UM FENÔMENO<br><span style="color:#5ad0ff">NO PACÍFICO</span></div></div></div>
+<div id="k-t2" class="clip kwrap" data-start="13.246" data-duration="4.679" data-anim="pop"><div class="card" style="top:430px;"><div class="big" style="font-size:170px">EL NIÑO</div><div class="badge">● ATIVO AGORA</div></div></div>
+<div id="k-calma" class="clip kwrap" data-start="17.925" data-duration="7.652" data-anim="pop"><div class="card" style="top:430px;"><div class="lab">VAI ACABAR COM O BRASIL?</div><div class="stamp" style="font-size:58px">NÃO… MAS PODE BAGUNÇAR</div></div></div>
+<div id="k-quente" class="clip kwrap" data-start="25.577" data-duration="7.805" data-anim="pop"><div class="card" style="top:430px;"><div class="lab">ÁGUA DO PACÍFICO</div><div class="bl"><span>TEMPERATURA ACIMA DO NORMAL</span><b id="b-q-v">90%</b></div><div class="bt"><div id="b-q" class="bf" style="background:#ff5a3a;width:90%" data-from="0" data-to="90"></div></div></div></div>
+<div id="k-faixa" class="clip kwrap" data-start="33.382" data-duration="8.224" data-anim="pop"><div class="card" style="top:430px;"><div class="big" style="color:#ff6a3a">+2 °C</div><div class="sub">numa faixa de milhares de km</div></div></div>
+<div id="k-ventos" class="clip kwrap" data-start="41.606" data-duration="5.576" data-anim="pop"><div class="cardlite" style="top:470px;"><div class="crow"><span class="chip"><i style="background:#5ad0ff"></i>os ventos mudam</span><span class="chip"><i style="background:#5ad0ff"></i>a chuva muda de lugar</span></div></div></div>
+<div id="k-brasil" class="clip kwrap" data-start="47.182" data-duration="3.44" data-anim="pop"><div class="card" style="top:430px;"><div class="lab">E O BRASIL?</div><div class="big" style="font-size:110px;color:#ffd23c">SENTE MUITO</div></div></div>
+<div id="k-menino" class="clip kwrap" data-start="50.622" data-duration="13.085" data-anim="pop"><div class="card" style="top:400px;"><div class="lab">DE ONDE VEM O NOME</div><div class="big" style="font-size:96px">EL NIÑO</div><div class="sub" style="font-size:52px">= O MENINO</div><div class="crow"><span class="chip"><i style="background:#ffd23c"></i>pescadores do Peru</span><span class="chip"><i style="background:#ffd23c"></i>perto do Natal</span></div></div></div>
+<div id="k-motivo" class="clip kwrap" data-start="63.707" data-duration="2.876" data-anim="slam"><div class="tw" style="top:250px;"><div class="tt">O MOTIVO<br><span style="color:#ff4a5a">DO ALERTA</span></div></div></div>
+<div id="k-noaa" class="clip kwrap" data-start="66.583" data-duration="11.334" data-anim="pop"><div class="card" style="top:430px;"><div class="lab">NOAA (EUA) · AGOSTO</div><div class="big" style="color:#ff4a5a">+90%</div><div class="bl"><span>CHANCE DE FICAR MUITO FORTE</span><b id="b-n-v">92%</b></div><div class="bt"><div id="b-n" class="bf" style="background:#ff4a5a;width:92%" data-from="0" data-to="92"></div></div></div></div>
+<div id="k-forte" class="clip kwrap" data-start="77.917" data-duration="7.063" data-anim="pop"><div class="card" style="top:400px;"><div class="ct"><span>EL NIÑOS MAIS FORTES</span><em>pico do índice</em></div><div class="vrow"><div class="vc"><div class="vv">2,2</div><div class="vt"><div class="vbf" style="height:73%;background:#ff9a5a" data-to="73"></div></div><div class="vl">1982</div></div><div class="vc"><div class="vv">2,4</div><div class="vt"><div class="vbf" style="height:80%;background:#ff7a4a" data-to="80"></div></div><div class="vl">1997</div></div><div class="vc"><div class="vv">2,6</div><div class="vt"><div class="vbf" style="height:87%;background:#ff5a3a" data-to="87"></div></div><div class="vl">2015</div></div><div class="vc"><div class="vv">2,5+?</div><div class="vt"><div class="vbf" style="height:96%;background:#ff2a3a" data-to="96"></div></div><div class="vl">2026</div></div></div><div class="sub"><b style="color:#ff4a5a">69%</b> de chance de ser o maior desde 1950</div></div></div>
+<div id="k-pico" class="clip kwrap" data-start="84.98" data-duration="6.61" data-anim="pop"><div class="card" style="top:430px;"><div class="lab">QUANDO</div><div class="tl"><span>OUT</span><span class="hot">NOV</span><span class="hot">DEZ</span><span>JAN</span><span>FEV</span><span>MAR</span></div><div class="sub">pico agora · dura até março</div></div></div>
+<div id="k-pausa" class="clip kwrap" data-start="91.64" data-duration="2.184" data-anim="fade"><div class="pause"><div class="pbtn"><i></i><i></i></div><div class="pl">Deixa o like <span class="heart"></span></div><div class="ps">e segue o <b>@Bessekai</b></div></div></div>
+<div id="k-divide" class="clip kwrap" data-start="93.974" data-duration="5.716" data-anim="slam"><div class="tw" style="top:250px;"><div class="tt">O BRASIL<br><span style="color:#ffd23c">DIVIDIDO</span></div></div></div>
+<div id="k-sul" class="clip kwrap" data-start="99.69" data-duration="7.387" data-anim="pop"><div class="card" style="top:400px;border-color:#5ab0ff"><div class="lab" style="color:#9ad0ff">SUL</div><div class="big" style="font-size:96px;color:#5ab0ff">CHUVA DEMAIS</div><div class="crow"><span class="chip"><i style="background:#5ab0ff"></i>temporais</span><span class="chip"><i style="background:#5ab0ff"></i>rios cheios</span><span class="chip"><i style="background:#5ab0ff"></i>enchentes</span></div></div></div>
+<div id="k-norte" class="clip kwrap" data-start="107.077" data-duration="5.297" data-anim="pop"><div class="card" style="top:400px;border-color:#ff9a3a"><div class="lab" style="color:#ffc08a">NORTE E NORDESTE</div><div class="big" style="font-size:96px;color:#ff9a3a">CHUVA DE MENOS</div><div class="crow"><span class="chip"><i style="background:#ff9a3a"></i>seca</span><span class="chip"><i style="background:#ff9a3a"></i>calor</span><span class="chip"><i style="background:#ff9a3a"></i>rios baixos</span></div></div></div>
+<div id="k-sudeste" class="clip kwrap" data-start="112.374" data-duration="5.437" data-anim="pop"><div class="card" style="top:400px;border-color:#ffd23c"><div class="lab" style="color:#ffe08a">SUDESTE E CENTRO-OESTE</div><div class="big" style="font-size:96px;color:#ffd23c">CALORÃO</div><div class="crow"><span class="chip"><i style="background:#ffd23c"></i>ondas de calor</span><span class="chip"><i style="background:#ffd23c"></i>chuva irregular</span></div></div></div>
+<div id="k-manaus" class="clip kwrap" data-start="117.811" data-duration="10.453" data-anim="pop"><div class="card" style="top:420px;"><div class="lab">RIO NEGRO · MANAUS · 2023</div><div class="big" style="color:#ff9a3a;font-size:120px">RECORDE</div><div class="sub">menor nível em mais de 100 anos</div></div></div>
+<div id="k-maisforte" class="clip kwrap" data-start="128.264" data-duration="5.297" data-anim="pop"><div class="card" style="top:420px;"><div class="ct"><span>DESTA VEZ</span><em>pico do índice</em></div><div class="vrow"><div class="vc"><div class="vv">2,0</div><div class="vt"><div class="vbf" style="height:67%;background:#ff9a5a" data-to="67"></div></div><div class="vl">2023</div></div><div class="vc"><div class="vv">2,5+?</div><div class="vt"><div class="vbf" style="height:92%;background:#ff2a3a" data-to="92"></div></div><div class="vl">2026</div></div></div></div></div>
+<div id="k-parte2" class="clip kwrap" data-start="133.561" data-duration="7.273" data-anim="slam"><div class="tw" style="top:250px;"><div class="tt">PARTE 2:<br><span style="color:#ff9a3a">AMAZÔNIA E NORDESTE</span></div></div></div>
+<div id="k-perfil2" class="clip kwrap" data-start="140.834" data-duration="5.066" data-anim="pop"><div class="card" style="top:470px;"><div class="pf"><div class="av">B</div><div><div class="pn">Bessekai</div><div class="ph">@Bessekai · curiosidades</div></div><div class="fb">Seguir</div></div></div></div>
+<div id="k-emb" class="clip kwrap" data-start="141.334" data-duration="4.566" data-anim="pop"><div class="card" style="top:760px;"><div class="big" style="font-size:80px;color:#ffd23c">PARTE 2 EM BREVE</div></div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    document.querySelectorAll('#root .kwrap').forEach(function (k) {
+      const s = parseFloat(k.dataset.start), d = parseFloat(k.dataset.duration), an = k.dataset.anim; const el = k.firstElementChild;
+      if (an === 'slam') tl.fromTo(el, { scale: 1.6, opacity: 0, rotation: -4 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.28, ease: 'back.out(2.2)' }, s);
+      else if (an === 'slide') tl.fromTo(el, { x: -360, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: 'expo.out' }, s);
+      else if (an === 'fade') tl.fromTo(el, { opacity: 0, scale: 1.1 }, { opacity: 1, scale: 1, duration: 0.25, ease: 'power2.out' }, s);
+      else tl.fromTo(el, { scale: 0.6, opacity: 0, y: 40 }, { scale: 1, opacity: 1, y: 0, duration: 0.35, ease: 'back.out(1.8)' }, s);
+      tl.to(el, { opacity: 0, scale: 0.92, duration: 0.18, ease: 'power3.in' }, s + d - 0.2);
+      k.querySelectorAll('.chip,.opt,.blips i').forEach(function (c, i) { tl.fromTo(c, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(2.4)' }, s + 0.25 + i * 0.18); });
+      k.querySelectorAll('.vbf').forEach(function (b, i) { tl.fromTo(b, { height: '0%' }, { height: b.dataset.to + '%', duration: 0.6, ease: 'back.out(1.6)' }, s + 0.3 + i * 0.25); });
+      k.querySelectorAll('.bf').forEach(function (b) { tl.fromTo(b, { width: b.dataset.from + '%' }, { width: b.dataset.to + '%', duration: Math.min(1.6, d * 0.6), ease: 'power2.inOut' }, s + 0.3); });
+      k.querySelectorAll('.ln').forEach(function (p) { const L = p.getTotalLength(); p.style.strokeDasharray = L; tl.fromTo(p, { strokeDashoffset: L }, { strokeDashoffset: 0, duration: Math.min(1.6, d * 0.7), ease: 'power2.inOut' }, s + 0.3); });
+      k.querySelectorAll('.num').forEach(function (n) { const o = { v: 0 }; const to = parseFloat(n.dataset.to); tl.fromTo(o, { v: 0 }, { v: to, duration: Math.min(1.8, d * 0.7), ease: 'power2.out', onUpdate: function () { n.textContent = Math.round(o.v); } }, s + 0.2); });
+      k.querySelectorAll('.stamp').forEach(function (st) { tl.fromTo(st, { scale: 2.6, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.22, ease: 'power4.in' }, s + d * 0.4); });
+      k.querySelectorAll('.blips i').forEach(function (bp, i) { tl.to(bp, { opacity: 0.15, duration: 0.05, yoyo: true, repeat: 3, ease: 'steps(1)' }, s + 0.8 + i * 0.3); });
+    });
+    window.__timelines["cartoes"] = tl;
+  </script>
+</template>
