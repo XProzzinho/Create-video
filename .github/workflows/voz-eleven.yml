@@ -8,6 +8,11 @@ on:
       voice:
         description: "ID da voz ElevenLabs"
         default: "pNInz6obpgDQGcFmaJgB"
+      model:
+        description: "Modelo"
+        default: "eleven_multilingual_v2"
+      stability:
+        default: "0.45"
 permissions:
   contents: write
 jobs:
@@ -17,6 +22,8 @@ jobs:
       KEY: ${{ secrets.ELEVENLABS_API_KEY }}
       PROJ: ${{ inputs.project }}
       VOICE: ${{ inputs.voice }}
+      MODEL: ${{ inputs.model }}
+      STAB: ${{ inputs.stability }}
     steps:
       - uses: actions/checkout@v4
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg jq
@@ -33,7 +40,7 @@ jobs:
             [ -z "$line" ] && continue
             i=$((i+1)); n=$(printf "%02d" $i)
             [ -f $PROJ/assets/falas-eleven/fala-$n.wav ] && continue
-            body=$(jq -n --arg t "$line" '{text:$t, model_id:"eleven_multilingual_v2", language_code:"pt", voice_settings:{stability:0.45, similarity_boost:0.8, style:0.35, use_speaker_boost:true}}')
+            body=$(jq -n --arg t "$line" --arg m "$MODEL" --argjson s "$STAB" '{text:$t, model_id:$m, language_code:"pt", voice_settings:{stability:$s, similarity_boost:0.8, style:0.45, use_speaker_boost:true}}')
             code=$(curl -s -o /tmp/f.mp3 -w "%{http_code}" -X POST "https://api.elevenlabs.io/v1/text-to-speech/$VOICE?output_format=mp3_44100_128" -H "xi-api-key: $KEY" -H "Content-Type: application/json" -d "$body" < /dev/null)
             echo "fala $n: $code" | tee -a out/eleven.log
             if [ "$code" != "200" ]; then head -c 400 /tmp/f.mp3 >> out/eleven.log; echo >> out/eleven.log; continue; fi
