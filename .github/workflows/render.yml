@@ -43,6 +43,13 @@ jobs:
         with:
           name: video
           path: out/video.mp4
+      - name: Deixar o vídeo abaixo de 95 MB (limite do GitHub)
+        if: always()
+        run: |
+          if [ -f out/video.mp4 ] && [ $(stat -c%s out/video.mp4) -gt 95000000 ]; then
+            ffmpeg -v error -y -i out/video.mp4 -c:v libx264 -preset veryfast -crf 24 -maxrate 4M -bufsize 8M -c:a copy -movflags +faststart out/small.mp4 && mv out/small.mp4 out/video.mp4
+          fi
+          ls -la out/video.mp4 || true
       - name: Publicar resultados no ramo "resultados"
         if: always()
         run: |
