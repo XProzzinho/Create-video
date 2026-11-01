@@ -1,0 +1,223 @@
+  // ===================== SONO — ESTILO "MUNDO CONTÍNUO" LOW-POLY =====================
+  const OPT = []; const opt = (o) => { OPT.push(o); return o; };
+  const BILL = []; const bill = (o) => { BILL.push(o); return o; };
+  const PM = {}; function pmat(c) { return PM[c] || (PM[c] = new T3.MeshPhongMaterial({ color: c, flatShading: true, shininess: 4 })); }
+  function mesh(p, geo, c, x, y, z) { const m = new T3.Mesh(geo, pmat(c)); m.position.set(x, y, z); p.add(m); return m; }
+  const ICO = new T3.IcosahedronGeometry(1, 0), CONE = new T3.ConeGeometry(1, 1, 6), CYL = new T3.CylinderGeometry(1, 1, 1, 7), PRISM = new T3.CylinderGeometry(1, 1, 1, 3);
+  const world = grp(scene);
+  function gable(p, w, d, y0, c) { const g = grp(p); const rh = d * 0.32, half = d / 2 + 2; const L = Math.hypot(half, rh); const a = Math.atan2(rh, half);
+    [-1, 1].forEach(sn => { const b = box(g, 0, y0 + rh / 2, sn * half / 2, w + 4, 1.4, L, c); b.rotation.x = sn * a; b.material = pmat(c); });
+    const tri = new T3.Shape(); tri.moveTo(-half + 2, 0); tri.lineTo(half - 2, 0); tri.lineTo(0, rh - 0.6); tri.lineTo(-half + 2, 0);
+    [-1, 1].forEach(sn => { const m = new T3.Mesh(new T3.ShapeGeometry(tri), pmat('#e8dcc8')); m.position.set(sn * w / 2, y0, 0); m.rotation.y = Math.PI / 2; m.material.side = T3.DoubleSide; g.add(m); }); return g; }
+
+  // ---------- terreno ----------
+  { const g = new T3.PlaneGeometry(1400, 1400, 70, 70); g.rotateX(-Math.PI / 2); const pos = g.attributes.position; const cols = []; const R = rng(5);
+    for (let i = 0; i < pos.count; i++) { const x = pos.getX(i), z = pos.getZ(i); const town = clamp((340 - Math.abs(x - 10)) / 70) * clamp((200 - Math.abs(z + 20)) / 70); const hill = (Math.sin(x * 0.012) * 18 + Math.cos(z * 0.015) * 16 + Math.sin((x + z) * 0.02) * 8) * (1 - town * 0.97);
+      pos.setY(i, hill - 1.2); const c = new T3.Color(R() < 0.5 ? '#5fae4a' : '#6cbf52'); if (hill > 18) c.set('#4e9a40'); cols.push(c.r, c.g, c.b); }
+    g.setAttribute('color', new T3.Float32BufferAttribute(cols, 3)); g.computeVertexNormals();
+    const t = new T3.Mesh(g, new T3.MeshPhongMaterial({ vertexColors: true, flatShading: true, shininess: 2 })); world.add(t); }
+  // estradas
+  box(world, 40, 0.15, 48, 560, 0.3, 14, '#5a5e66'); box(world, 130, 0.15, -40, 14, 0.3, 300, '#5a5e66');
+  for (let i = 0; i < 28; i++) box(world, -230 + i * 20, 0.35, 48, 8, 0.1, 1, '#f0f0e0');
+  // árvores e nuvens
+  const R0 = rng(11);
+  function tree(x, z, s) { const g = grp(world, x, 0, z); g.scale.setScalar(s); const tr = mesh(g, CYL, '#7a5232', 0, 4, 0); tr.scale.set(0.9, 8, 0.9); const f = mesh(g, ICO, R0() < 0.5 ? '#3f9a46' : '#56b04a', 0, 11, 0); f.scale.set(6, 6.5, 6); return g; }
+  for (let i = 0; i < 170; i++) { const x = (R0() - .5) * 900, z = (R0() - .5) * 700; if (Math.abs(z - 48) < 16 || (Math.abs(x - 130) < 16 && z < 120 && z > -200)) continue; if (Math.abs(x) < 70 && z > -40 && z < 90) continue; if (Math.abs(x - 220) < 50 && Math.abs(z + 60) < 50) continue; if (Math.abs(x + 200) < 60 && Math.abs(z + 80) < 60) continue; tree(x, z, 0.8 + R0() * 0.9); }
+  const clouds = []; for (let i = 0; i < 16; i++) { const c = grp(world, (R0() - .5) * 900, 120 + R0() * 60, -300 + (R0() - .5) * 500); for (let k = 0; k < 4; k++) { const s = mesh(c, ICO, '#ffffff', k * 9 - 13, (k % 2) * 4, 0); s.scale.setScalar(8 + (k % 2) * 3); } c.userData.x0 = c.position.x; clouds.push(c); }
+  // casas da cidade
+  function house(x, z, w, d, h, wall, roof, ry) { const g = grp(world, x, 0, z); g.rotation.y = ry || 0; box(g, 0, h / 2, 0, w, h, d, wall); gable(g, w, d, h, roof);
+    box(g, 0, h * 0.35, d / 2 + 0.1, w * 0.18, h * 0.6, 0.3, '#6a4028'); [-1, 1].forEach(s => box(g, s * w * 0.3, h * 0.6, d / 2 + 0.1, w * 0.16, h * 0.22, 0.3, '#ffe6a0', true)); return g; }
+  const townHouses = [[70, 90, 28, 22, 18, '#f2e6d0', '#c0503a'], [-70, 92, 26, 22, 16, '#d8e8f0', '#3a6aa8'], [180, 92, 30, 24, 18, '#f0d8c0', '#8a3a2a'], [-150, 90, 26, 20, 16, '#e8f0d8', '#5a8a3a'], [70, 4, 26, 22, 16, '#e0d0f0', '#6a4a9a'], [-80, 0, 24, 20, 16, '#f0e0c8', '#b04a3a'], [180, 8, 28, 22, 18, '#d0e0e8', '#4a6a8a'], [-160, 6, 26, 20, 16, '#f0f0e0', '#a06030']];
+  townHouses.forEach(h => house(h[0], h[1], h[2], h[3], h[4], h[5], h[6], h[1] > 50 ? Math.PI : 0));
+  // hospital
+  const hosp = grp(world, 130, 0, -120); box(hosp, 0, 18, 0, 70, 36, 34, '#f4f6f8'); box(hosp, 0, 37, 0, 74, 2, 38, '#c8d0d8'); box(hosp, 0, 28, 17.2, 4, 14, 0.4, '#e0303a', true); box(hosp, 0, 28, 17.3, 14, 4, 0.4, '#e0303a', true);
+  for (let i = 0; i < 6; i++) box(hosp, -28 + i * 11, 12, 17.2, 6, 6, 0.3, '#9ad0ff', true);
+  // carros
+  const cars = []; ['#e0303a', '#3a8aff', '#ffd23c', '#ffffff'].forEach((c, i) => { const g = grp(world); box(g, 0, 3, 0, 14, 4, 7, c); box(g, -1, 6.2, 0, 8, 3, 6.4, c); box(g, -1, 6.2, 0, 8.2, 2, 6.6, '#9ad0ff'); [[-4.5, -3.6], [4.5, -3.6], [-4.5, 3.6], [4.5, 3.6]].forEach(([x, z]) => box(g, x, 1.4, z, 3, 3, 1, '#181818')); g.userData = { ph: i * 140, lane: i % 2 }; cars.push(g); });
+
+  // ---------- casa do Bessekai (em corte: quarto à esquerda, cozinha à direita) ----------
+  const home = grp(world, 0, 0, 0);
+  box(home, 0, 0.6, 0, 72, 1.2, 38, '#c8b090');
+  box(home, 0, 16, -18.5, 72, 31, 1, '#e8e0f0'); box(home, -35.5, 16, 0, 1, 31, 38, '#ded6e8'); box(home, 35.5, 16, 0, 1, 31, 38, '#ded6e8'); box(home, 0, 16, -4, 1, 31, 28, '#d8d0e4');
+  box(home, -18, 0.8, 0, 34, 0.3, 36, '#7a5a8a'); box(home, 18, 0.8, 0, 34, 0.3, 36, '#e0e4ec'); for (let i = 0; i < 6; i++) box(home, 18, 0.95, -15 + i * 6, 34, 0.05, 0.3, '#c8ccd8');
+  const homeRoof = gable(home, 72, 38, 31.5, '#b04a3a');
+  box(home, -18, 20, -17.8, 14, 10, 0.4, '#1a2a5a'); const winGlow = box(home, -18, 20, -17.6, 12, 8, 0.2, '#9ad0ff', true);
+  const bedG = grp(home, -8, 0, -8); box(bedG, 0, 3, 0, 14, 4, 20, '#5a3a24'); box(bedG, 0, 5.6, 0.5, 13, 1.4, 18, '#f4f4f8'); box(bedG, 0, 6.8, -7, 9, 1.6, 4, '#ffffff'); box(bedG, 0, 6.6, 3, 13.4, 0.8, 12, '#ff7a3a'); box(bedG, 0, 6, -10, 14, 8, 1, '#5a3a24');
+  const desk = grp(home, -27, 0, -10); box(desk, 0, 9, 0, 12, 1, 9, '#8a5a34'); [-5, 5].forEach(x => box(desk, x, 4.5, 0, 1, 9, 8, '#7a4a2a')); box(desk, 0, 15, -3, 9, 6, 0.6, '#151515'); const deskScr = box(desk, 0, 15, -2.6, 8.4, 5.4, 0.2, '#5ad0ff', true); box(desk, 4.5, 11, 1, 1, 3, 1, '#ffd23c', true);
+  const chair = grp(home, -27, 0, -2); box(chair, 0, 5, 0, 7, 1, 7, '#2a2a3a'); box(chair, 0, 9, 3.2, 7, 8, 1, '#2a2a3a');
+  const fridge = grp(home, 28, 0, -12); box(fridge, 0, 12, 0, 10, 24, 9, '#f0f4f8'); const frDoor = grp(fridge, -5, 0, 4.6); box(frDoor, 5, 12, 0.4, 10, 24, 0.8, '#e2e8ee'); const frIn = box(fridge, 0, 12, 4.2, 9, 22, 0.2, '#fff6d8', true);
+  const goodies = opt(grp(fridge)); ['#ff5a8a', '#ffd23c', '#7a4a2a', '#5ad0ff', '#ff8a3a', '#a0e060'].forEach((c, i) => box(goodies, -3 + (i % 3) * 3, 6 + Math.floor(i / 3) * 8, 2.5, 2.4, 2, 2.4, c));
+  box(home, 12, 6, -14, 16, 12, 8, '#6a7a9a'); box(home, 12, 12.4, -14, 16.4, 0.8, 8.4, '#e8e8f0'); box(home, 14, 6, 4, 12, 0.8, 8, '#a87a4a'); [9, 19].forEach(x => box(home, x, 3, 4, 0.8, 6, 0.8, '#8a5a34'));
+  const clockP = panel(home, 12, 4.6, (x, w, h, st) => { rr(x, 6, 6, w - 12, h - 12, 26); x.fillStyle = '#05060a'; x.fill(); x.shadowColor = '#ff3355'; x.shadowBlur = 30; txt(x, st.t || '00:00', w / 2, h / 2 + 6, 300, '#ff3355', 700, 'Oswald'); x.shadowBlur = 0; }); clockP.position.set(-14, 27, -17.6); clockP.scale.setScalar(0.62);
+  const lampL = new T3.PointLight(0xffd8a0, 1.2, 70); lampL.position.set(-18, 26, 2); home.add(lampL);
+  const kitL = new T3.PointLight(0xfff2d0, 0, 60); kitL.position.set(28, 14, 2); home.add(kitL);
+  const screenL = new T3.PointLight(0x5ad0ff, 0, 40); screenL.position.set(-27, 15, 2); home.add(screenL);
+  const av = makeHero({ shirt: '#23233a', plate: '#2f2f4c', belt: '#23233a', pants: '#2a3a5a', boot: '#f0f0f0', hair: '#1a1410', sword: false }); av.scale.setScalar(0.62);
+  { const P = av.userData.P; box(P.head, 0, 5.3, 0.2, 5.2, 1.4, 5.2, '#ff7a1a'); box(P.head, 0, 4.8, 3.2, 4.6, 0.5, 2.4, '#ff7a1a'); box(P.torso, 0, 4.6, 1.8, 3.6, 1.2, 0.2, '#ff7a1a'); }
+  home.add(av);
+  const shadows = []; for (let i = 0; i < 3; i++) { const s = makeHero({ shirt: '#000', plate: '#000', belt: '#000', pants: '#000', boot: '#000', skin: '#000', hair: '#000', sword: false, eye: '#ff2a2a', eyeGlow: true }); s.scale.set(0.7, 0.95, 0.25); home.add(s); shadows.push(opt(s)); }
+  const eyes = opt(grp(home)); const eyeL = []; { const R = rng(19); for (let i = 0; i < 12; i++) { const g = grp(eyes, -34 + R() * 32, 8 + R() * 20, -17.9); if (R() < 0.4) { g.position.set(-34.9, 8 + R() * 20, -16 + R() * 30); g.rotation.y = Math.PI / 2; } box(g, 0, 0, 0, 3, 1.7, 0.2, '#f4f4f4', true); const p = box(g, 0, 0, 0.2, 1, 1, 0.2, '#111', true); g.userData = { p, ph: R() * 6 }; eyeL.push(g); } }
+  const steam = particles(home, 80, '#ff3a3a', 0.8);
+  const zzz = particles(home, 30, '#cfe6ff', 1.0);
+  const bubble = bill(opt(panel(home, 16, 6, (x, w, h, st) => { rr(x, 10, 10, w - 20, h - 60, 50); x.fillStyle = '#fff4dc'; x.fill(); x.beginPath(); x.moveTo(w * .3, h - 52); x.lineTo(w * .26, h - 6); x.lineTo(w * .42, h - 52); x.fill(); txt(x, st.t || '', w / 2, (h - 50) / 2 + 6, 100, '#2a1a10', 700, 'Inter'); })));
+  const phone = grp(av.userData.P.armR, 0, -6, 1.4); box(phone, 0, 0, 0, 2.4, 0.4, 4, '#111'); box(phone, 0, 0.25, 0, 2.1, 0.1, 3.6, '#9ad8ff', true); phone.visible = false;
+
+  // ---------- casa de 1964 ----------
+  const old = grp(world, 220, 0, -60);
+  box(old, 0, 0.6, 0, 50, 1.2, 32, '#a88a60'); box(old, 0, 14, -15.5, 50, 27, 1, '#c8a878'); box(old, -24.5, 14, 0, 1, 27, 32, '#b89868'); box(old, 24.5, 14, 0, 1, 27, 32, '#b89868');
+  const oldRoofG = gable(old, 50, 32, 27.5, '#7a4a2a');
+  const oldBed = grp(old, -12, 0, -6); box(oldBed, 0, 3, 0, 12, 4, 18, '#6a4a2a'); box(oldBed, 0, 5.6, 0.5, 11, 1.4, 16, '#f0e8d8'); box(oldBed, 0, 6.6, 3, 11.4, 0.8, 10, '#8a3a2a'); box(oldBed, 0, 6.8, -6, 8, 1.6, 3.6, '#ffffff');
+  const tv = grp(old, 14, 0, -10); box(tv, 0, 4, 0, 10, 8, 6, '#5a3a20'); box(tv, 0, 12, 0, 9, 8, 6, '#4a3020'); box(tv, -1, 12, 3.1, 6, 5.4, 0.2, '#b8c0b0', true);
+  const yearSign = panel(old, 26, 9, (x, w, h, st) => { rr(x, 8, 8, w - 16, h - 16, 30); x.fillStyle = 'rgba(40,26,12,0.9)'; x.fill(); x.lineWidth = 8; x.strokeStyle = '#ffd8a0'; x.stroke(); txt(x, '1964', w / 2, h / 2, 220, '#ffe8c0', 700, 'Oswald'); }); yearSign.position.set(0, 36, 17);
+  const oldCar = grp(world, 260, 0, -20); box(oldCar, 0, 3.4, 0, 16, 4, 7.4, '#7ab0a0'); box(oldCar, -1, 6.8, 0, 8, 3.4, 6.8, '#7ab0a0'); box(oldCar, 7.6, 3, 0, 1, 2, 7, '#d8d8d0'); [[-5, -3.8], [5, -3.8], [-5, 3.8], [5, 3.8]].forEach(([x, z]) => box(oldCar, x, 1.6, z, 3.2, 3.2, 1, '#181818'));
+  const randy = makeHero({ shirt: '#c8b090', plate: '#a89070', belt: '#4a3a28', pants: '#4a5a6a', hair: '#7a5030', sword: false }); randy.scale.setScalar(0.62); old.add(randy);
+  const docs = [0, 1].map(i => { const d = makeHero({ shirt: '#f4f4f0', plate: '#e8e8e4', belt: '#d0d0cc', pants: '#3a3a44', hair: i ? '#9a9a9a' : '#3a2a1a', sword: false }); d.scale.setScalar(0.62); box(d.userData.P.armL, 0, -5, 1.6, 3, 4, 0.4, '#c8a060'); old.add(d); return d; });
+  const zzz2 = particles(old, 30, '#fff4dc', 1.0);
+  const bubble2 = bill(opt(panel(old, 16, 6, (x, w, h, st) => { rr(x, 10, 10, w - 20, h - 60, 50); x.fillStyle = '#fff4dc'; x.fill(); x.beginPath(); x.moveTo(w * .3, h - 52); x.lineTo(w * .26, h - 6); x.lineTo(w * .42, h - 52); x.fill(); txt(x, st.t || '', w / 2, (h - 50) / 2 + 6, 100, '#2a1a10', 700, 'Inter'); })));
+
+  // ---------- museu dos recordes ----------
+  const mus = grp(world, -200, 0, -90);
+  box(mus, 0, 2, 0, 80, 4, 50, '#e8e4dc'); box(mus, 0, 5, 0, 70, 2, 44, '#f0ece4'); for (let i = 0; i < 6; i++) { const c = mesh(mus, CYL, '#f4f0e8', -30 + i * 12, 20, 18); c.scale.set(2.4, 28, 2.4); }
+  box(mus, 0, 36, 4, 76, 4, 40, '#ece8e0'); gable(mus, 76, 40, 38, '#ece8e0');
+  box(mus, 0, 20, -14, 66, 28, 2, '#d8d0c4');
+  const pedestal = grp(world, -200, 0, -50); box(pedestal, 0, 5, 0, 10, 10, 10, '#c8c0b4');
+  const book = grp(pedestal, 0, 20, 0); box(book, 0, 0, 0, 16, 20, 3, '#1a3a8a'); box(book, 0, 0, 1.6, 14, 18, 0.2, '#ffd23c'); for (let i = 0; i < 5; i++) box(book, 8.1, -8 + i * 4, 0, 0.4, 3, 2.6, '#f4ecd8');
+  const bookT = panel(book, 13, 8, (x, w, h) => { txt(x, 'LIVRO DOS', w / 2, h * 0.32, 150, '#1a3a8a'); txt(x, 'RECORDES', w / 2, h * 0.7, 170, '#1a3a8a'); }); bookT.position.set(0, 3, 1.75);
+  const bookLight = new T3.PointLight(0xffe0a0, 0, 80); bookLight.position.set(-200, 40, -20); world.add(bookLight);
+
+  // ---------- céu e luz por "hora" ----------
+  const skyC = document.createElement('canvas'); skyC.width = 4; skyC.height = 256; const skyX = skyC.getContext('2d'); const skyT = new T3.CanvasTexture(skyC); skyT.colorSpace = T3.SRGBColorSpace; scene.background = skyT;
+  const SKY = {
+    day: { top: '#4a9ae8', bot: '#cfe8ff', hemi: [0xffffff, 0x5a8a4a, 1.25], sun: 1.3, fog: 0xcfe8ff, win: '#9ad0ff' },
+    sunset: { top: '#3a3a8a', bot: '#ff9a6a', hemi: [0xffd0b0, 0x4a3a3a, 1.0], sun: 0.9, fog: 0xe8a080, win: '#ff9a6a' },
+    night: { top: '#050a20', bot: '#1a2a5a', hemi: [0x6a7aff, 0x101828, 0.6], sun: 0.25, fog: 0x101a3a, win: '#1a2a6a' },
+    weird: { top: '#14062a', bot: '#5a1a6a', hemi: [0xa070ff, 0x200a2a, 0.55], sun: 0.2, fog: 0x2a0a3a, win: '#3a0a5a' },
+    red: { top: '#1a0204', bot: '#6a0a14', hemi: [0xff6060, 0x200404, 0.55], sun: 0.2, fog: 0x3a0408, win: '#4a0a10' },
+    sepia: { top: '#8a6a40', bot: '#f0d8a8', hemi: [0xffe0b0, 0x5a4a2a, 1.15], sun: 1.1, fog: 0xe0c8a0, win: '#f0d8a8' },
+    sunrise: { top: '#4a5aa8', bot: '#ffc08a', hemi: [0xffe0c0, 0x4a5a3a, 1.1], sun: 1.0, fog: 0xf0c8a8, win: '#ffc08a' },
+  };
+  scene.fog = new T3.Fog(0xcfe8ff, 250, 1100);
+  const cA = new T3.Color(), cB = new T3.Color();
+  function sky(a, b, u) { const A = SKY[a], B = SKY[b]; const mix = (p, q) => cA.set(p).lerp(cB.set(q), u).getStyle();
+    const g = skyX.createLinearGradient(0, 0, 0, 256); g.addColorStop(0, mix(A.top, B.top)); g.addColorStop(1, mix(A.bot, B.bot)); skyX.fillStyle = g; skyX.fillRect(0, 0, 4, 256); skyT.needsUpdate = true;
+    hemi.color.set(A.hemi[0]).lerp(cB.set(B.hemi[0]), u); hemi.groundColor.set(A.hemi[1]).lerp(cB.set(B.hemi[1]), u); hemi.intensity = lerp(A.hemi[2], B.hemi[2], u);
+    sun.intensity = lerp(A.sun, B.sun, u); sun.color.set('#fff2d8'); rim.intensity = 0.25; scene.fog.color.set(A.fog).lerp(cB.set(B.fog), u); }
+
+  // ---------- planos: câmera (A→B, olhar), céu e ações ----------
+  const C = {
+    intro: { a: [24, 22, 96], b: [10, 18, 70], l: [0, 13, 34], sky: 'day' },
+    question: { a: [-26, 22, 76], b: [-14, 20, 64], l: [0, 13, 34], sky: 'day' },
+    calendar: { a: [40, 60, 150], b: [10, 80, 170], l: [0, 15, 0], sky: 'sunset' },
+    day1: { a: [80, 110, 190], b: [60, 90, 160], l: [0, 10, 0], sky: 'sunset' },
+    clock: { a: [-12, 26, 46], b: [-18, 24, 34], l: [-26, 16, -12], sky: 'night', in: 1 },
+    drunk: { a: [-6, 18, 40], b: [-10, 17, 34], l: [-18, 11, -4], sky: 'night', in: 1 },
+    reading: { a: [-22, 30, 16], b: [-24, 28, 10], l: [-27, 12, -10], sky: 'night', in: 1 },
+    angry: { a: [-8, 22, 36], b: [-12, 21, 30], l: [-27, 14, -8], sky: 'night', in: 1 },
+    fridge: { a: [12, 20, 44], b: [18, 19, 34], l: [27, 12, -10], sky: 'night', in: 1 },
+    day2: { a: [0, 40, 110], b: [0, 70, 160], l: [0, 12, 0], sky: 'night' },
+    microsleep: { a: [-14, 22, 30], b: [-18, 21, 24], l: [-27, 13, -10], sky: 'night', in: 1 },
+    memory: { a: [-6, 58, 14], b: [-8, 48, 8], l: [-8, 0, -8], sky: 'night', in: 1 },
+    immune: { a: [170, 50, 40], b: [150, 36, 10], l: [130, 18, -120], sky: 'night' },
+    day3: { a: [40, 120, 200], b: [10, 100, 170], l: [0, 0, 0], sky: 'weird' },
+    shadows: { a: [-4, 22, 46], b: [-8, 20, 36], l: [-18, 12, -10], sky: 'weird', in: 1 },
+    paranoia: { a: [-6, 24, 34], b: [-10, 22, 26], l: [-18, 16, -14], sky: 'weird', in: 1 },
+    slurred: { a: [-2, 20, 40], b: [-6, 18, 32], l: [-16, 14, 0], sky: 'weird', in: 1 },
+    day4: { a: [20, 90, 170], b: [0, 80, 150], l: [0, 0, 0], sky: 'red' },
+    tremble: { a: [-12, 16, 28], b: [-14, 15, 22], l: [-18, 12, -2], sky: 'red', in: 1 },
+    limit: { a: [0, 60, 110], b: [0, 190, 260], l: [0, 0, -20], sky: 'red' },
+    y1964: { a: [290, 60, 70], b: [250, 40, 30], l: [220, 12, -60], sky: 'sepia' },
+    randy: { a: [236, 20, -20], b: [230, 19, -28], l: [220, 12, -52], sky: 'sepia', in: 2 },
+    eleven: { a: [204, 26, -16], b: [210, 25, -22], l: [220, 12, -60], sky: 'sepia', in: 2 },
+    hours: { a: [220, 34, 6], b: [220, 30, -8], l: [220, 12, -62], sky: 'sepia', in: 2 },
+    randy_tired: { a: [230, 22, -22], b: [228, 21, -28], l: [220, 14, -56], sky: 'sepia', in: 2 },
+    recovery: { a: [204, 40, -30], b: [200, 34, -40], l: [208, 6, -66], sky: 'sepia', in: 2 },
+    record_book: { a: [-150, 40, 20], b: [-180, 28, -10], l: [-200, 18, -50], sky: 'day' },
+    sleep_good: { a: [-2, 30, 40], b: [-4, 26, 30], l: [-8, 8, -8], sky: 'sunrise', in: 1 },
+    cta: { a: [12, 22, 84], b: [6, 20, 62], l: [0, 14, 34], sky: 'day' },
+  };
+  const fx = { flash: 0, shake: 0, tint: null, tintA: 0, black: 0, roll: 0, grey: 0 };
+  function sitDesk() { av.position.set(-27, 0, -3); av.rotation.set(0, Math.PI, 0); }
+  function pose(o) { heroPose(av, gT, o); }
+  let gT = 0;
+  const A = {
+    intro(lt) { av.position.set(0, 1.2, 34); av.rotation.set(0, 0.1, 0); pose({ armR: -0.2, armRz: 2.5 + Math.sin(gT * 9) * 0.4 }); },
+    question(lt) { av.position.set(0, 1.2, 34); av.rotation.set(0, -0.3, 0); pose({ armR: -0.4, armRz: 0.9, headZ: 0.25 }); },
+    calendar() { av.position.set(0, 1.2, 34); av.rotation.set(0, Math.PI, 0); pose({ walk: 0 }); },
+    day1() { av.visible = false; },
+    clock(lt) { sitDesk(); pose({ legL: -1.4, legR: -1.4, armL: -1.2, armR: -1.5, headX: 0.35 }); av.userData.P.hips.position.y = 8.5; phone.visible = true; screenL.intensity = 1.5; },
+    drunk(lt) { av.position.set(-18, 1.2, -2); av.rotation.set(0, 0.4, Math.sin(gT * 2.4) * 0.12); pose({ walk: 3, headZ: Math.sin(gT * 2) * 0.3, armL: 0.6, armR: -0.4 }); fx.roll = Math.sin(gT * 2.2) * 0.07; },
+    reading() { sitDesk(); pose({ legL: -1.4, legR: -1.4, armL: -1.2, armR: -1.2, headX: 0.5 + Math.sin(gT * 1.5) * 0.08 }); av.userData.P.hips.position.y = 8.5; screenL.intensity = 1.5; },
+    angry() { sitDesk(); pose({ legL: -1.4, legR: -1.4, armL: -2.4 + Math.sin(gT * 14) * 0.3, armR: -2.4 + Math.cos(gT * 14) * 0.3, armLz: 0.6, armRz: -0.6, headX: -0.2 }); av.userData.P.hips.position.y = 8.5;
+      av.updateMatrixWorld(true); const hp = new T3.Vector3(); av.userData.P.head.localToWorld(hp.set(0, 6, 0)); home.worldToLocal(hp);
+      steam.userData.place((i, d) => { const R = rng(i + 50); const k = ((gT * 1.3 + R()) % 1); d.position.set(hp.x + (R() - .5) * 3 + Math.sin(k * 6 + i), hp.y + k * 12, hp.z + (R() - .5) * 3); d.scale.setScalar(0.5 + k * 0.8); }); fx.shake = 0.3; },
+    fridge(lt, T) { const o = eOut(prog(lt, 0.1, 0.6)); frDoor.rotation.y = -o * 1.9; goodies.visible = true; kitL.intensity = 3 * o; av.position.set(27, 1.2, 8); av.rotation.set(0, Math.PI, 0); pose({ armR: -1.6, armL: -1.2, headX: -0.2, lean: 0.2 }); },
+    day2() { av.visible = false; },
+    microsleep(lt) { sitDesk(); const nod = [0.7, 2.6, 4.4]; const drop = Math.max(...nod.map(n => { const k = (lt - n) / 0.9; return k > 0 && k < 1 ? Math.sin(k * Math.PI) : 0; }));
+      pose({ legL: -1.4, legR: -1.4, armL: -1.1, armR: -1.1, headX: 0.25 + drop * 1.0 }); av.userData.P.hips.position.y = 8.5; fx.black = drop > 0.55 ? (drop - 0.55) * 2.0 : 0; screenL.intensity = 1.5; },
+    memory() { av.position.set(-8, 7.4, -9); av.rotation.set(-Math.PI / 2, 0, 0); pose({ headY: Math.sin(gT * 0.9) * 0.4 }); },
+    immune() { av.visible = false; },
+    day3() { av.visible = false; },
+    shadows(lt) { av.position.set(-8, 7.4, -6); av.rotation.set(0, 0, 0); pose({ legL: -1.5, legR: -1.5, armL: -0.4, armR: -0.4, headY: Math.sin(gT * 1.8) * 0.9 }); av.userData.P.hips.position.y = 6.5;
+      shadows.forEach((s, i) => { s.visible = true; s.position.set(-34 + ((gT * (5 + i * 2) + i * 10) % 30), 1.2, -14 + i * 2.5); s.rotation.set(0, Math.PI / 2, 0); heroPose(s, gT + i, { walk: 6 }); }); lampL.intensity = 0.4; },
+    paranoia(lt) { A.shadows(lt); shadows.forEach(s => s.visible = false); eyes.visible = true; eyeL.forEach((e, i) => { const k = eBack(prog(lt, i * 0.12, i * 0.12 + 0.3)); e.scale.set(Math.max(0.01, k), Math.max(0.01, k * (((gT + e.userData.ph) % 2.2) < 0.12 ? 0.1 : 1)), 1); e.userData.p.position.x = Math.sin(gT * 2 + i) * 0.8; }); pose({ legL: -1.5, legR: -1.5, armL: -1.6, armR: -1.6, armLz: 0.4, armRz: -0.4, headY: Math.sin(gT * 4) * 0.7 }); fx.shake = 0.15; },
+    slurred(lt) { av.position.set(-16, 1.2, 2); av.rotation.set(0, 0.5, 0); pose({ headZ: Math.sin(gT * 1.4) * 0.3, headX: 0.2, armL: 0.2, armR: -0.3 }); bubble.visible = true; bubble.position.set(-12, 22, 2); bubble.scale.setScalar(0.62); bubble.userData.set({ t: ['Ééé... eu táá...', 'O quêêê...?', 'Tô... béém...'][Math.floor(lt * 1.2) % 3] }); fx.roll = Math.sin(gT * 1.8) * 0.06; },
+    day4() { av.visible = false; },
+    tremble() { av.position.set(-18 + Math.sin(gT * 45) * 0.15, 1.2, -2); av.rotation.set(0, 0.3, 0); heroPose(av, gT * 3, { armL: Math.sin(gT * 40) * 0.12, armR: Math.cos(gT * 37) * 0.12, headX: Math.sin(gT * 33) * 0.06, headZ: Math.sin(gT * 1.3) * 0.25 }); fx.shake = 0.35; fx.roll = Math.sin(gT * 1.1) * 0.08; },
+    limit() { av.visible = false; },
+    y1964() { av.visible = false; },
+    randy() { randy.visible = true; randy.position.set(0, 1.2, 8); randy.rotation.set(0, 0.3, 0); heroPose(randy, gT, { armR: -0.2, armRz: 2.2 + Math.sin(gT * 6) * 0.3 }); },
+    eleven() { randy.visible = true; randy.position.set(-2, 1.2, 4); randy.rotation.set(0, -0.4, 0); heroPose(randy, gT, { headX: 0.1 }); },
+    hours() { randy.visible = true; randy.position.set(0, 1.2, 2); randy.rotation.set(0, 0, 0); heroPose(randy, gT, { headX: 0.2 }); docs.forEach((d, i) => { d.visible = true; d.position.set(i ? 10 : -10, 1.2, 6); d.rotation.set(0, i ? -0.8 : 0.8, 0); heroPose(d, gT + i, { armL: -1.2, headX: 0.2, headY: Math.sin(gT + i) * 0.3 }); }); },
+    randy_tired(lt, T) { randy.visible = true; randy.position.set(0, 1.2, 2); randy.rotation.set(0, 0.3, 0); heroPose(randy, gT * 0.5, { headX: 0.4, headZ: Math.sin(gT) * 0.3, lean: 0.25 }); bubble2.visible = true; bubble2.position.set(4, 16, 4); bubble2.scale.setScalar(0.6); bubble2.userData.set({ t: lt < T * 0.55 ? 'Eu ia dizer que...' : '... o quê mesmo?' }); },
+    recovery() { randy.visible = true; randy.position.set(-12, 7.4, -7); randy.rotation.set(-Math.PI / 2, 0, 0); heroPose(randy, gT, {}); randy.userData.P.eyes.forEach(e => e.scale.y = 0.1);
+      zzz2.userData.place((i, d) => { const R = rng(i + 70); const k = ((gT * 0.5 + R()) % 1); d.position.set(-12 + Math.sin(k * 6 + i) * 2, 10 + k * 16, -14); d.scale.setScalar(0.35 + k * 0.5); }); },
+    record_book(lt, T) { av.visible = false; book.rotation.y = Math.sin(gT * 0.6) * 0.4; bookLight.intensity = 2; },
+    sleep_good(lt, T) { av.position.set(-8, 7.4, -9); av.rotation.set(-Math.PI / 2, 0, 0); pose({}); av.userData.P.eyes.forEach(e => e.scale.y = 0.1); lampL.intensity = 0.3;
+      zzz.userData.place((i, d) => { const R = rng(i + 90); const k = ((gT * 0.5 + R()) % 1); d.position.set(-8 + Math.sin(k * 6 + i) * 2, 10 + k * 16, -16); d.scale.setScalar(0.35 + k * 0.5); }); },
+    cta() { av.position.set(0, 1.2, 34); av.rotation.set(0, 0, 0); pose({ armR: -0.2, armRz: 2.5 + Math.sin(gT * 9) * 0.4 }); },
+  };
+
+  const flashEl = document.getElementById('mundo-flash'), tintEl = document.getElementById('mundo-tint'), greyEl = document.getElementById('mundo-glitch');
+  function frame(t) {
+    gT = t; let idx = 0; for (let i = 0; i < SHOTS.length; i++) if (t >= SHOTS[i].t0) idx = i;
+    const sh = SHOTS[idx], prev = SHOTS[Math.max(0, idx - 1)]; const c = C[sh.id] || C.intro, pc = C[prev.id] || c;
+    const lt = t - sh.t0, T = Math.max(0.3, sh.t1 - sh.t0);
+    for (const k in fx) fx[k] = k === 'tint' ? null : 0;
+    PARTS.forEach(p => p.visible = false); OPT.forEach(o => o.visible = false);
+    av.visible = true; randy.visible = false; docs.forEach(d => d.visible = false); phone.visible = false; frDoor.rotation.y = 0; screenL.intensity = 0; kitL.intensity = 0; lampL.intensity = 1.2; bookLight.intensity = 0;
+    av.rotation.set(0, 0, 0); av.userData.P.eyes.forEach(e => e.scale.y = 0.8);
+    homeRoof.visible = c.in !== 1; oldRoofG.visible = c.in !== 2; yearSign.visible = c.in !== 2;
+    // céu
+    const su = eIO(prog(lt, 0, 1.4)); sky(pc.sky, c.sky, idx === 0 ? 1 : su);
+    const W = SKY[c.sky].win; winGlow.material = bmat(W);
+    // carros e nuvens
+    cars.forEach((cr, i) => { const p = ((t * 22 + cr.userData.ph) % 560) - 240; const dir = cr.userData.lane ? -1 : 1; cr.position.set(40 + p * dir, 0, 48 + (cr.userData.lane ? -3.4 : 3.4)); cr.rotation.y = dir > 0 ? 0 : Math.PI; });
+    clouds.forEach((cl, i) => { cl.position.x = cl.userData.x0 + ((t * 3 + i * 40) % 200) - 100; });
+    // ação
+    (A[sh.id] || (() => {}))(lt, T);
+    // relógio do quarto
+    const hrsMap = { clock: [16, 18], drunk: [18, 19], reading: [20, 21], angry: [21, 22], fridge: [23, 24], microsleep: [34, 36], memory: [40, 41], shadows: [60, 62], paranoia: [66, 67], slurred: [70, 71], tremble: [96, 98], sleep_good: [0, 0] };
+    const hm = hrsMap[sh.id]; if (hm) { const h = lerp(hm[0], hm[1], prog(lt, 0, T)); const hh = Math.floor(8 + h) % 24, mm = Math.floor((h % 1) * 60); clockP.userData.set({ t: sh.id === 'sleep_good' ? '07:00' : String(hh).padStart(2, '0') + ':' + String(mm - mm % 5).padStart(2, '0') }); }
+    // câmera contínua: A→B dentro do plano, viagem suave a partir do plano anterior
+    const u = eIO(clamp(lt / T)); let P = L3(c.a, c.b, u), Lk = c.l.slice();
+    if (idx > 0) { const d = Math.hypot(c.a[0] - pc.b[0], c.a[1] - pc.b[1], c.a[2] - pc.b[2]); const tr = Math.min(T * 0.7, 0.5 + d / 140); const k = eIO(clamp(lt / tr)); if (k < 1) { P = L3(pc.b, P, k); Lk = L3(pc.l, c.l, k); if (d > 60) P[1] += Math.sin(k * Math.PI) * Math.min(80, d * 0.25); } }
+    cam.position.set(P[0], P[1], P[2]); cam.lookAt(Lk[0], Lk[1], Lk[2]); if (cam.fov !== 50) { cam.fov = 50; cam.updateProjectionMatrix(); }
+    if (fx.roll) cam.rotateZ(fx.roll);
+    if (fx.shake) { cam.position.x += Math.sin(t * 87) * fx.shake; cam.position.y += Math.cos(t * 71) * fx.shake; }
+    BILL.forEach(o => { if (o.visible) o.quaternion.copy(cam.quaternion); });
+    renderer.render(scene, cam);
+    flashEl.style.opacity = fx.flash.toFixed(3);
+    tintEl.style.background = fx.black ? '#000' : 'transparent'; tintEl.style.opacity = Math.min(1, fx.black); tintEl.style.mixBlendMode = 'normal';
+    greyEl.style.opacity = 0;
+  }
+
+  const fontsReady = Promise.all(['700 40px Oswald', '700 40px Inter'].map(f => document.fonts.load(f).catch(() => null)));
+  fontsReady.then(() => {
+    [yearSign, bookT].forEach(p => p.userData.set({})); clockP.userData.set({ t: '16:00' });
+    const tl = gsap.timeline({ paused: true });
+    const clock = { t: 0 };
+    tl.fromTo(clock, { t: 0 }, { t: DUR, duration: DUR, ease: 'none', onUpdate: function () { frame(clock.t); } }, 0);
+    frame(0);
+    window.__timelines['mundo'] = tl;
+  });
+})();
