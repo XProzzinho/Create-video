@@ -5,6 +5,12 @@ on:
     paths: ["render-trigger.txt"]
   workflow_dispatch:
     inputs:
+      quality:
+        description: "draft, looks ou delivery"
+        default: "looks"
+      fps:
+        description: "30 ou 60"
+        default: "30"
       project:
         description: "Pasta do projeto"
         default: "evil-tale-3d"
@@ -19,6 +25,8 @@ jobs:
     timeout-minutes: 120
     env:
       PROJECT: ${{ inputs.project || 'evil-tale-3d' }}
+      QUALITY: ${{ inputs.quality || 'looks' }}
+      FPS: ${{ inputs.fps || '30' }}
       HF: npx -y hyperframes@0.8.223
       START: ${{ inputs.start }}
     steps:
@@ -35,7 +43,7 @@ jobs:
           $HF check --json > ../out/check.json 2> ../out/check.log || true
           if [ -z "$START" ]; then $HF snapshot --review > ../out/snapshot.log 2>&1 || true; fi
           cp -r .hyperframes/artifacts/snapshots ../out/snapshots 2>/dev/null || true
-          $HF render --quality looks ${START:+--start $START} --output ../out/video.mp4 > ../out/render.log 2>&1 || echo "RENDER FALHOU" >> ../out/render.log
+          $HF render --quality ${QUALITY:-looks} ${FPS:+--fps $FPS} ${START:+--start $START} --output ../out/video.mp4 > ../out/render.log 2>&1 || echo "RENDER FALHOU" >> ../out/render.log
           $HF audio ../out/video.mp4 --json > ../out/audio.json 2>&1 || true
           tail -60 ../out/render.log
       - uses: actions/upload-artifact@v4
