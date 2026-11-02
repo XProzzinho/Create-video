@@ -6,7 +6,6 @@
   const HAIRS = ['short', 'long', 'bun', 'cap', 'graybun', 'short'];
   const HC = ['#2a1a10', '#14101a', '#7a4420', '#3a2a5a', '#5a3a1a'];
   const PEOPLE = []; { const R = rng(77); for (let i = 0; i < 14; i++) PEOPLE.push({ s: 0.95 + R() * 0.15, hair: HAIRS[Math.floor(R() * HAIRS.length)], hairC: HC[Math.floor(R() * HC.length)], shirt: PAL[Math.floor(R() * PAL.length)], coat: R() < 0.3 ? PAL[Math.floor(R() * PAL.length)] : null, pants: ['#2a3048', '#4a3a2a', '#1a1a22', '#5a5a6a'][Math.floor(R() * 4)], dir: R() < 0.5 ? 1 : -1, sp: 70 + R() * 50, off: R() * 2400, lane: 1420 + R() * 70, phone: R() < 0.35, groceries: R() < 0.35, ph: R() * 6, mood: ['neutral', 'neutral', 'smug', 'neutral'][Math.floor(R() * 4)], walk: 7 + R() * 2 }); }
-  const camAB = (lt, T, a, b, e) => { const u = (e || eIO)(clamp(lt / T)); cam(lerp(a[0], b[0], u), lerp(a[1], b[1], u), lerp(a[2], b[2], u), a[3] ? lerp(a[3], b[3] || 0, u) : 0); };
 
   // ---------- rua do supermercado ----------
   function sky(mode, x0, x1) {
