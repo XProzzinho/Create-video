@@ -25,7 +25,7 @@
   function poly(pts, fill, lw, stroke) { X.beginPath(); pts.forEach((p, i) => i ? X.lineTo(p[0], p[1]) : X.moveTo(p[0], p[1])); X.closePath(); go(fill, lw, stroke); }
   function line(x1, y1, x2, y2, col, lw) { X.beginPath(); X.moveTo(x1, y1); X.lineTo(x2, y2); X.strokeStyle = col || OL; X.lineWidth = lw || LW; X.lineCap = 'round'; X.stroke(); }
   function text(s, x, y, size, col, font, align, stroke) { X.font = `${font || '700'} ${size}px ${font && font.includes('Oswald') ? '' : ''}`; X.font = (font || '700 ' + size + 'px Oswald'); X.textAlign = align || 'center'; X.textBaseline = 'middle'; if (stroke) { X.lineWidth = stroke; X.strokeStyle = OL; X.lineJoin = 'round'; X.strokeText(s, x, y); } X.fillStyle = col; X.fillText(s, x, y); }
-  function glow(x, y, r, col, a) { const g = X.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, col); g.addColorStop(1, 'rgba(0,0,0,0)'); X.save(); X.globalAlpha = a == null ? 1 : a; X.globalCompositeOperation = 'lighter'; X.fillStyle = g; X.fillRect(x - r, y - r, r * 2, r * 2); X.restore(); }
+  function glow(x, y, r, col, a) { r = Math.max(1, r || 1); const g = X.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, col); g.addColorStop(1, 'rgba(0,0,0,0)'); X.save(); X.globalAlpha = a == null ? 1 : a; X.globalCompositeOperation = 'lighter'; X.fillStyle = g; X.fillRect(x - r, y - r, r * 2, r * 2); X.restore(); }
   function shade(hex, k) { const n = parseInt(hex.slice(1), 16); let r = n >> 16, g = n >> 8 & 255, b = n & 255; r = Math.round(clamp(r * k / 255) * 255); g = Math.round(clamp(g * k / 255) * 255); b = Math.round(clamp(b * k / 255) * 255); return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1); }
 
   // ---------- rosto (usado no corpo e nos closes) ----------
