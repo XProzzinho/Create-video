@@ -1,0 +1,287 @@
+  // ===================== O ÚLTIMO CONHECIMENTO — PRÓLOGO EM 3D (toon/anime) =====================
+  const OPT = []; const opt = (o) => { OPT.push(o); return o; };
+  const world = grp(scene);
+  function shade(hex, k) { const c = new T3.Color(hex); c.multiplyScalar(k); return '#' + c.getHexString(); }
+  cam.near = 0.03; cam.far = 1600; cam.updateProjectionMatrix(); renderer.shadowMap.enabled = true; renderer.shadowMap.type = T3.PCFSoftShadowMap;
+  sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.camera.left = -18; sun.shadow.camera.right = 18; sun.shadow.camera.top = 18; sun.shadow.camera.bottom = -18; sun.shadow.camera.near = 1; sun.shadow.camera.far = 120; sun.shadow.bias = -0.0008; scene.add(sun.target);
+  const GRAD = (() => { const d = new Uint8Array([95, 95, 95, 255, 175, 175, 175, 255, 255, 255, 255, 255]); const t = new T3.DataTexture(d, 3, 1); t.minFilter = t.magFilter = T3.NearestFilter; t.needsUpdate = true; return t; })();
+  const TM = {}; function tm(c) { return TM[c] || (TM[c] = new T3.MeshToonMaterial({ color: c, gradientMap: GRAD })); }
+  const GM = {}; function gm(c) { return GM[c] || (GM[c] = new T3.MeshBasicMaterial({ color: c, toneMapped: false })); }
+  const OUTM = new T3.MeshBasicMaterial({ color: 0x15101c, side: T3.BackSide });
+  const SPH = new T3.SphereGeometry(1, 28, 18), CAP = new T3.CapsuleGeometry(0.5, 1, 8, 16), CYL = new T3.CylinderGeometry(1, 1, 1, 18), CONE = new T3.ConeGeometry(1, 1, 12), ICO = new T3.IcosahedronGeometry(1, 1), TOR = new T3.TorusGeometry(1, 0.12, 10, 40);
+  function part(p, geo, c, x, y, z, sx, sy, sz, ol, glow) { const m = new T3.Mesh(geo, glow ? gm(c) : tm(c)); m.position.set(x, y, z); m.scale.set(sx, sy, sz); m.castShadow = true; m.receiveShadow = true; p.add(m); if (ol) { const o = new T3.Mesh(geo, OUTM); o.scale.setScalar(1 + ol); m.add(o); } return m; }
+  function tb(p, x, y, z, w, h, d, c, glow) { const m = new T3.Mesh(BOX, glow ? gm(c) : tm(c)); m.position.set(x, y, z); m.scale.set(w, h, d); m.castShadow = true; m.receiveShadow = true; p.add(m); return m; }
+  function canvasTex(w, h, draw) { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); const t = new T3.CanvasTexture(c); t.colorSpace = T3.SRGBColorSpace; t.anisotropy = 4; return t; }
+  const glowTex = canvasTex(128, 128, (x, w, h) => { const g = x.createRadialGradient(64, 64, 0, 64, 64, 64); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.3, 'rgba(255,255,255,0.5)'); g.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = g; x.fillRect(0, 0, w, h); });
+  function glowSpr(p, x, y, z, s, c, a) { const m = new T3.Sprite(new T3.SpriteMaterial({ map: glowTex, color: c, transparent: true, opacity: a == null ? 1 : a, blending: T3.AdditiveBlending, depthWrite: false, toneMapped: false })); m.position.set(x, y, z); m.scale.set(s, s, 1); p.add(m); return m; }
+  const FONT_TEX = []; const SHOPG = []; const SIGNS = [];
+
+  // ---------- personagem 3D estilo anime ----------
+  const LEOC = { skin: '#f2b48e', hair: '#1c1a28', top: '#2c3e5e', top2: '#24324c', pants: '#3a4a6c', shoe: '#eeeef4', sole: '#9aa0b0', iris: '#6a3e1e' };
+  function makeChar(o) {
+    const g = grp(world); const P = { o };
+    const hips = grp(g, 0, 0.9, 0); P.hips = hips; const k = o.kid ? 0.62 : 1;
+    ['L', 'R'].forEach((s, i) => { const sx = i ? 1 : -1; const th = grp(hips, 0.095 * sx * k, 0, 0); part(th, CAP, o.pants, 0, -0.21, 0, 0.14, 0.215, 0.14, 0.06); const kn = grp(th, 0, -0.43, 0); part(kn, CAP, o.pants, 0, -0.2, 0, 0.12, 0.2, 0.12, 0.06); const ft = grp(kn, 0, -0.42, 0); part(ft, SPH, o.shoe, 0, 0.0, 0.05, 0.065, 0.055, 0.13, 0.08); part(ft, BOX, o.sole || '#5a5a64', 0, -0.045, 0.05, 0.12, 0.02, 0.26); P['th' + s] = th; P['kn' + s] = kn; P['ft' + s] = ft; });
+    const spine = grp(hips, 0, 0.02, 0); P.spine = spine;
+    part(spine, CAP, o.top, 0, 0.3, 0, 0.36, 0.3, 0.24, 0.05); part(spine, SPH, o.top, 0, 0.05, 0, 0.18, 0.08, 0.13);
+    if (o.hoodie) { part(spine, BOX, o.top2, 0, 0.16, 0.115, 0.2, 0.09, 0.02); [-1, 1].forEach(s => part(spine, CYL, '#e8eaf2', s * 0.04, 0.42, 0.125, 0.006, 0.12, 0.006)); part(spine, TOR, o.top2, 0, 0.57, -0.06, 0.12, 0.12, 0.25).rotation.x = Math.PI / 2.4; }
+    if (o.coat) part(spine, CYL, o.coat, 0, 0.0, 0, 0.2, 0.25, 0.15);
+    const neck = grp(spine, 0, 0.6, 0); part(neck, CYL, o.skin, 0, 0.03, 0, 0.045, 0.08, 0.045);
+    const head = grp(neck, 0, 0.08, 0); P.head = head; const hr = o.kid ? 0.15 : 0.14;
+    part(head, SPH, o.skin, 0, 0.13, 0, hr, hr * 1.06, hr * 1.0, 0.04);
+    [-1, 1].forEach(s => part(head, SPH, o.skin, s * hr * 0.98, 0.125, 0, 0.025, 0.04, 0.03));
+    part(head, SPH, o.skin, 0, 0.115, hr * 0.98, 0.014, 0.012, 0.012);
+    // olhos anime
+    P.eyes = [];
+    [-1, 1].forEach(s => { const e = grp(head, s * hr * 0.36, 0.14, hr * 0.9); e.rotation.y = s * 0.32; part(e, SPH, '#fbf8f2', 0, 0, 0, hr * 0.24, hr * 0.3, 0.012); const ir = grp(e, 0, 0, 0.008); part(ir, SPH, o.iris || '#5a3a1e', 0, -hr * 0.02, 0, hr * 0.17, hr * 0.23, 0.008); part(ir, SPH, '#0e0a10', 0, -hr * 0.02, 0.005, hr * 0.09, hr * 0.13, 0.006); part(ir, SPH, '#ffffff', -hr * 0.06, hr * 0.06, 0.009, hr * 0.05, hr * 0.06, 0.004, 0, true); const lid = part(e, BOX, '#1a1018', 0, hr * 0.28, 0.006, hr * 0.5, hr * 0.06, 0.01); const brow = part(head, BOX, o.hairC || o.hair, s * hr * 0.37, 0.14 + hr * 0.47, hr * 0.93, hr * 0.42, hr * 0.07, 0.02); brow.rotation.y = s * 0.3; P.eyes.push({ e, ir, lid, brow, s }); });
+    [-1, 1].forEach(s => { const b = part(head, SPH, '#ff7a8a', s * hr * 0.6, 0.085, hr * 0.78, hr * 0.14, hr * 0.06, 0.01); b.material = new T3.MeshBasicMaterial({ color: '#ff8a9a', transparent: true, opacity: 0.35 }); b.rotation.y = s * 0.6; });
+    P.mouth = part(head, SPH, '#5a1a24', 0, 0.06, hr * 0.94, hr * 0.17, hr * 0.03, 0.01); P.mouthLine = part(head, BOX, '#7a2a2a', 0, 0.062, hr * 0.955, hr * 0.26, hr * 0.03, 0.006);
+    // cabelo
+    const hc = o.hairC || '#1c1a28';
+    if (o.hairStyle === 'leo' || !o.hairStyle) { part(head, SPH, hc, 0, 0.17, -0.02, hr * 1.06, hr * 1.0, hr * 1.04, 0.04);
+      for (let i = 0; i < 7; i++) { const a = -0.9 + i * 0.3; const c = part(head, CONE, hc, Math.sin(a) * hr * 0.8, 0.2 + Math.cos(i) * 0.008, Math.cos(a) * hr * 0.82, hr * 0.17, hr * 0.5, hr * 0.12); c.rotation.set(2.5 + (i % 2) * 0.15, a, 0); }
+      for (let i = 0; i < 9; i++) { const a = i / 9 * Math.PI * 2; const c = part(head, CONE, hc, Math.sin(a) * hr * 0.75, 0.27, Math.cos(a) * hr * 0.6 - 0.02, hr * 0.2, hr * 0.55, hr * 0.2); c.rotation.set(-Math.cos(a) * 0.9, 0, Math.sin(a) * 0.9); } }
+    else if (o.hairStyle === 'pig') { part(head, SPH, hc, 0, 0.17, -0.02, hr * 1.06, hr * 0.98, hr * 1.04, 0.04); [-1, 1].forEach(s => { part(head, SPH, hc, s * hr * 1.15, 0.1, -0.03, hr * 0.32, hr * 0.5, hr * 0.32, 0.05); part(head, SPH, '#ff5a7a', s * hr * 1.05, 0.2, -0.02, hr * 0.12, hr * 0.12, hr * 0.12); }); for (let i = 0; i < 5; i++) { const c = part(head, CONE, hc, -hr * 0.5 + i * hr * 0.25, 0.22, hr * 0.8, hr * 0.15, hr * 0.35, hr * 0.1); c.rotation.x = 2.6; } }
+    else if (o.hairStyle === 'short') { part(head, SPH, hc, 0, 0.18, -0.025, hr * 1.05, hr * 0.92, hr * 1.04, 0.04); }
+    else if (o.hairStyle === 'long') { part(head, SPH, hc, 0, 0.17, -0.02, hr * 1.07, hr * 1.0, hr * 1.05, 0.04); part(head, CAP, hc, 0, 0.0, -0.07, hr * 2.0, hr * 1.4, hr * 1.2, 0.04); }
+    else if (o.hairStyle === 'bald') { part(head, SPH, '#b8b4c0', 0, 0.12, -0.04, hr * 1.02, hr * 0.7, hr * 1.0); }
+    if (o.kid && o.raincoat) { part(head, SPH, o.top, 0, 0.18, -0.04, hr * 1.18, hr * 1.1, hr * 1.12, 0.04); }
+    P.hood = part(head, SPH, o.top2 || o.top, 0, 0.15, -0.055, hr * 1.25, hr * 1.3, hr * 1.22, 0.04); P.hood.visible = false;
+    // braços
+    ['L', 'R'].forEach((s, i) => { const sx = i ? 1 : -1; const sh = grp(spine, 0.215 * sx * (o.kid ? 0.9 : 1), 0.52, 0); part(sh, CAP, o.top, 0, -0.15, 0, 0.11, 0.16, 0.11, 0.06); const el = grp(sh, 0, -0.3, 0); part(el, CAP, o.top, 0, -0.13, 0, 0.095, 0.14, 0.095, 0.06); part(el, SPH, o.skin, 0, -0.29, 0.01, 0.05, 0.06, 0.045, 0.06); P['sh' + s] = sh; P['el' + s] = el; });
+    if (o.phone) P.phone = part(P.elR, BOX, '#121220', 0, -0.33, 0.04, 0.05, 0.1, 0.01);
+    if (o.book) P.book = part(P.elR, BOX, '#c8402a', 0, -0.33, 0.07, 0.16, 0.2, 0.03);
+    g.scale.setScalar(o.kid ? 0.68 : (o.s || 1)); g.userData.P = P; return g;
+  }
+  function setFace(c, m, talk, t, look) {
+    const P = c.userData.P; const blink = ((t + (P.o.ph || 0)) % 3.3) < 0.11 ? 0.12 : 1; look = look || [0, 0];
+    P.eyes.forEach(({ e, ir, lid, brow, s }) => { const open = (m === 'shock' || m === 'scream' ? 1.2 : m === 'determined' ? 0.75 : m === 'sad' ? 0.8 : 1) * blink; e.scale.y = open; ir.position.x = look[0] * 0.012; ir.position.y = look[1] * 0.012; lid.visible = m === 'determined' || m === 'sad'; brow.rotation.z = s * (m === 'sad' || m === 'worried' ? -0.35 : m === 'determined' || m === 'angry' ? 0.4 : m === 'shock' ? -0.1 : 0.05); brow.position.y = 0.14 + 0.14 * 0.47 + (m === 'shock' || m === 'scream' ? 0.018 : 0); });
+    const op = m === 'scream' ? 1 : m === 'shock' ? 0.7 : talk ? Math.abs(Math.sin(t * 12)) * 0.8 : 0;
+    P.mouth.visible = op > 0.05; P.mouth.scale.y = 0.004 + op * 0.022; P.mouthLine.visible = op <= 0.05; P.mouthLine.rotation.z = 0; P.mouthLine.scale.x = m === 'smile' ? 0.05 : 0.036; P.mouthLine.position.y = m === 'smile' ? 0.058 : 0.062;
+    if (m === 'smile') { P.mouth.visible = true; P.mouth.scale.set(0.026, 0.008, 0.01); P.mouthLine.visible = false; } else P.mouth.scale.x = 0.024;
+  }
+  // poses: walk, run, idle, sit, custom
+  function pose(c, t, o) {
+    const P = c.userData.P; o = o || {}; t += P.o.ph || 0;
+    ['thL', 'thR', 'knL', 'knR', 'ftL', 'ftR', 'shL', 'shR', 'elL', 'elR'].forEach(k => P[k].rotation.set(0, 0, 0)); P.spine.rotation.set(0, 0, 0); P.head.rotation.set(0, 0, 0);
+    P.shL.rotation.z = -0.08; P.shR.rotation.z = 0.08; let hy = 0.9;
+    if (o.walk || o.run) { const run = !!o.run; const ph = t * (run ? 11 : 5.8); const A = run ? 0.95 : 0.48;
+      [['L', 0], ['R', Math.PI]].forEach(([s, off]) => { const p = ph + off; const th = -Math.sin(p) * A; const kn = (run ? 0.35 : 0.08) + Math.pow(Math.max(0, Math.cos(p)), 1.3) * (run ? 1.7 : 0.85); P['th' + s].rotation.x = th; P['kn' + s].rotation.x = kn; P['ft' + s].rotation.x = -(th + kn) * 0.55 + (run ? 0.2 : 0); P['sh' + s].rotation.x = Math.sin(p) * (run ? 1.0 : 0.42); P['el' + s].rotation.x = -(run ? 1.55 : 0.22 + Math.max(0, -Math.sin(p)) * 0.4); });
+      hy = 0.9 + (run ? 0.06 : 0.025) * Math.cos(2 * ph) - (run ? 0.05 : 0.01); P.spine.rotation.y = Math.sin(ph) * (run ? 0.18 : 0.09); P.spine.rotation.x = run ? 0.28 : 0.03; P.spine.rotation.z = Math.cos(ph) * 0.025; P.head.rotation.y = -Math.sin(ph) * 0.06; P.head.rotation.x = run ? -0.2 : 0;
+    } else if (o.sit) { ['L', 'R'].forEach(s => { P['th' + s].rotation.x = -1.5; P['kn' + s].rotation.x = 1.5; }); hy = 0.5; P.shL.rotation.x = -0.6; P.shR.rotation.x = -0.6; P.elL.rotation.x = -0.9; P.elR.rotation.x = -0.9; }
+    else { const br = Math.sin(t * 2) * 0.012; hy = 0.9 + br * 0.3; P.spine.rotation.x = br; P.shL.rotation.x = br * 2; P.shR.rotation.x = -br * 2; P.elL.rotation.x = -0.12; P.elR.rotation.x = -0.12; P.head.rotation.y = Math.sin(t * 0.6) * 0.08; }
+    P.hips.position.y = hy;
+    if (o.arms) { const a = o.arms; if (a.shL) P.shL.rotation.set(...a.shL); if (a.shR) P.shR.rotation.set(...a.shR); if (a.elL) P.elL.rotation.set(...a.elL); if (a.elR) P.elR.rotation.set(...a.elR); }
+    if (o.legs) { const l = o.legs; ['thL', 'thR', 'knL', 'knR'].forEach(k => { if (l[k] != null) P[k].rotation.x = l[k]; }); }
+    if (o.lean) P.spine.rotation.x = o.lean; if (o.headX != null) P.head.rotation.x = o.headX; if (o.headY != null) P.head.rotation.y = o.headY; if (o.headZ != null) P.head.rotation.z = o.headZ; if (o.hipY != null) P.hips.position.y = o.hipY;
+    P.hood.visible = !!o.hood; setFace(c, o.mood || 'neutral', o.talk, t, o.look);
+  }
+
+  // ---------- CIDADE (avenida ao longo de x) ----------
+  const city = grp(world);
+  tb(city, 0, -0.05, 0, 600, 0.1, 600, '#5a8a4a');
+  const road = tb(city, 0, 0.01, 0, 600, 0.02, 16, '#3a3a46'); const roadWet = new T3.MeshStandardMaterial({ color: '#1a1c28', roughness: 0.15, metalness: 0.6 });
+  const swalks = [tb(city, 0, 0.08, 10.5, 600, 0.16, 5, '#a8a2a8'), tb(city, 0, 0.08, -10.5, 600, 0.16, 5, '#a8a2a8')];
+  tb(city, 0, 0.1, 8.05, 600, 0.2, 0.3, '#d8d4d0'); tb(city, 0, 0.1, -8.05, 600, 0.2, 0.3, '#d8d4d0');
+  for (let x = -300; x < 300; x += 8) tb(city, x, 0.03, 0, 4, 0.01, 0.18, '#f0e0a0');
+  const zebra = grp(city); for (let i = 0; i < 9; i++) tb(zebra, 0, 0.035, -7 + i * 1.75, 3.6, 0.01, 0.9, '#f2f2f6');
+  const winTexDay = canvasTex(64, 128, (x, w, h) => { x.fillStyle = '#c8ccd8'; x.fillRect(0, 0, w, h); x.fillStyle = '#7a9ac8'; for (let r = 0; r < 4; r++) for (let c = 0; c < 2; c++) x.fillRect(6 + c * 30, 8 + r * 30, 22, 22); });
+  const winTexNight = canvasTex(256, 512, (x, w, h) => { x.fillStyle = '#000'; x.fillRect(0, 0, w, h); const R = rng(3); for (let r = 0; r < 16; r++) for (let c = 0; c < 8; c++) { if (R() < 0.42) { x.fillStyle = R() < 0.2 ? '#9ad0ff' : '#ffd890'; x.fillRect(6 + c * 31, 8 + r * 31, 22, 22); } } });
+  winTexDay.wrapS = winTexDay.wrapT = winTexNight.wrapS = winTexNight.wrapT = T3.RepeatWrapping;
+  const BUILD = []; const SHOPS = ['PADARIA', 'LANCHONETE', 'FARMÁCIA', 'BANCA', 'ÓTICA', 'MERCADO', 'CAFÉ', 'LIVRARIA'];
+  { const R = rng(17); [1, -1].forEach(side => { let x = -220; while (x < 220) { const w = 14 + R() * 18, h = 18 + R() * (Math.abs(x) < 60 ? 70 : 45), d = 16 + R() * 10; const col = ['#c8b8a8', '#a8b4c8', '#d8c8b8', '#9aa4b8', '#b8a8b8', '#c8c0b0'][Math.floor(R() * 6)];
+        const m = new T3.MeshToonMaterial({ color: col, gradientMap: GRAD, map: winTexDay.clone(), emissive: '#ffffff', emissiveIntensity: 0, emissiveMap: winTexNight.clone() }); m.map.repeat.set(Math.max(1, Math.round(w / 3)), Math.max(1, Math.round(h / 3.5))); m.map.needsUpdate = true; m.emissiveMap.repeat.set(w / 24, h / 48); m.emissiveMap.needsUpdate = true;
+        const b = new T3.Mesh(BOX, m); b.scale.set(w, h, d); b.position.set(x + w / 2, h / 2 + 3.5, side * (13 + d / 2)); b.castShadow = b.receiveShadow = true; city.add(b); BUILD.push(m);
+        tb(city, x + w / 2, 1.75, side * (13 + d / 2), w, 3.5, d, shade(col, 0.7));
+        const shop = SHOPS[Math.floor(R() * SHOPS.length)]; const sc = ['#e8402a', '#2a8a4a', '#2a5ad8', '#e8a82a', '#8a3ad8'][Math.floor(R() * 5)];
+        const sg = new T3.Mesh(new T3.PlaneGeometry(w * 0.8, 1.2), new T3.MeshBasicMaterial({ map: canvasTex(512, 80, (x2, ww, hh) => { x2.fillStyle = sc; x2.fillRect(0, 0, ww, hh); x2.font = '700 54px Oswald'; x2.textAlign = 'center'; x2.textBaseline = 'middle'; x2.fillStyle = '#fff'; x2.fillText(shop, ww / 2, hh / 2 + 2); FONT_TEX.push(() => {}); }), toneMapped: false })); sg.position.set(x + w / 2, 4.1, side * 12.95); if (side > 0) sg.rotation.y = Math.PI; city.add(sg); sg.userData.redraw = { shop, sc, w };
+        SIGNS.push(sg);
+        const glass = tb(city, x + w / 2, 1.5, side * 12.9, w * 0.85, 2.4, 0.1, '#ffe8b0', true); glass.userData.shopGlass = true; SHOPG.push(glass);
+        const aw = tb(city, x + w / 2, 3.2, side * 12.3, w * 0.85, 0.12, 1.4, sc); aw.rotation.x = side * 0.25;
+        if (R() < 0.35) { const ax = x + w * 0.3; tb(city, ax, h + 4.2, side * (13 + d / 2), 2, 1.4, 2, '#8a8e98'); }
+        x += w + 1 + R() * 3; } }); }
+  // postes, árvores, semáforos, ponto de ônibus
+  const LAMPS = []; for (let x = -200; x <= 200; x += 22) [1, -1].forEach(side => { const z = side * 8.6; tb(city, x, 3.5, z, 0.16, 7, 0.16, '#3a3e4a'); const arm = tb(city, x, 7, z - side * 0.8, 0.12, 0.12, 1.8, '#3a3e4a'); const bulb = tb(city, x, 6.9, z - side * 1.6, 0.6, 0.15, 0.35, '#fff2c0', true); LAMPS.push(glowSpr(city, x, 6.8, z - side * 1.6, 5, '#ffd8a0', 0)); });
+  for (let x = -190; x <= 190; x += 22) [1, -1].forEach(side => { const z = side * 11.8; tb(city, x + 11, 1.4, z, 0.25, 2.8, 0.25, '#6a4a34'); part(city, ICO, '#3f8a46', x + 11, 3.6, z, 1.5, 1.6, 1.5).rotation.y = x; part(city, ICO, '#4f9a52', x + 11.4, 4.4, z + 0.3, 1.0, 1.1, 1.0); });
+  const tlights = []; [[2.5, 8.6], [-2.5, -8.6]].forEach(([x, z]) => { tb(city, x, 2, z, 0.14, 4, 0.14, '#2a2a30'); tb(city, x, 4.2, z, 0.4, 1.1, 0.35, '#1a1a20'); const r = tb(city, x, 4.5, z - Math.sign(z) * 0.18, 0.22, 0.22, 0.05, '#ff3030', true), gg = tb(city, x, 3.95, z - Math.sign(z) * 0.18, 0.22, 0.22, 0.05, '#30ff60', true); tlights.push({ r, gg }); });
+  { const bs = grp(city, -14, 0.16, 11.6); tb(bs, 0, 1.3, 0.8, 4, 0.08, 1.6, '#2a5ad8'); [-1.9, 1.9].forEach(x => tb(bs, x, 0.65, 0.8, 0.08, 1.3, 0.08, '#4a4e58')); tb(bs, 0, 0.45, 0.6, 3.4, 0.08, 0.5, '#c8a06a'); tb(bs, 0, 1.0, 1.55, 3.6, 1.1, 0.04, '#9ad0ff'); }
+  // horizonte com antenas (Paulista)
+  { const R = rng(51); for (let i = 0; i < 70; i++) { const x = -400 + R() * 800, z = (R() < 0.5 ? -1 : 1) * (70 + R() * 160), h = 40 + R() * 120, w = 12 + R() * 22; const m = new T3.Mesh(BOX, new T3.MeshToonMaterial({ color: ['#8a94aa', '#7a849a', '#9aa0b4'][i % 3], gradientMap: GRAD, emissive: '#ffffff', emissiveIntensity: 0, emissiveMap: winTexNight })); m.scale.set(w, h, w); m.position.set(x, h / 2, z); city.add(m); BUILD.push(m); }
+    [[-60, -110], [40, -140], [120, -120]].forEach(([x, z]) => { const h = 150; [-1, 1].forEach(s => { const l = tb(city, x + s * 2, h / 2 + 80, z, 0.5, h, 0.5, '#c83a3a'); l.rotation.z = s * 0.02; }); for (let y = 90; y < 230; y += 12) tb(city, x, y, z, 4, 0.3, 0.3, '#e8e8f0'); LAMPS.push(glowSpr(city, x, 232, z, 10, '#ff3030', 0)); tb(city, x, 232, z, 1, 1, 1, '#ff3030', true); }); }
+  // carros
+  function makeCar(col) { const c = grp(world); tb(c, 0, 0.55, 0, 4.2, 0.7, 1.8, col); tb(c, -0.2, 1.1, 0, 2.2, 0.6, 1.6, col); tb(c, 0.15, 1.12, 0, 1.6, 0.48, 1.62, '#2a3a5a'); [-1.3, 1.3].forEach(x => [-0.9, 0.9].forEach(z => { const w = part(c, CYL, '#1a1a1e', x, 0.35, z, 0.35, 0.25, 0.35); w.rotation.x = Math.PI / 2; })); const hl = [tb(c, 2.11, 0.7, 0.6, 0.05, 0.18, 0.35, '#fff6d0', true), tb(c, 2.11, 0.7, -0.6, 0.05, 0.18, 0.35, '#fff6d0', true)]; const tl = [tb(c, -2.11, 0.7, 0.6, 0.05, 0.15, 0.3, '#ff2020', true), tb(c, -2.11, 0.7, -0.6, 0.05, 0.15, 0.3, '#ff2020', true)]; c.userData.glows = [glowSpr(c, 2.4, 0.7, 0.6, 2.2, '#fff2c0', 0), glowSpr(c, 2.4, 0.7, -0.6, 2.2, '#fff2c0', 0)]; return c; }
+  const cars = ['#e8302a', '#3a7ad8', '#f4f4f4', '#ffd23c', '#2a2a30', '#2aa86a', '#8a3ad8', '#e8803a'].map((c, i) => { const car = makeCar(c); car.userData.lane = [-5.5, -1.8, 1.8, 5.5][i % 4]; car.userData.sp = 9 + (i * 3) % 7; car.userData.off = i * 53; return car; });
+  // caminhão
+  const truck = grp(world); { tb(truck, 0, 2.2, 0, 2.6, 3.4, 2.6, '#c8ccd8'); tb(truck, 0.2, 3.0, 0, 2.3, 1.1, 2.5, '#22304a'); tb(truck, -6, 2.6, 0, 9, 4, 2.6, '#e8e4dc'); tb(truck, 1.32, 1.4, 0, 0.1, 1.2, 1.8, '#2a2e3a'); for (let i = 0; i < 5; i++) tb(truck, 1.38, 0.95 + i * 0.22, 0, 0.04, 0.08, 1.7, '#7a7e8a'); [-0.9, 0.9].forEach(z => tb(truck, 1.33, 1.4, z, 0.06, 0.35, 0.5, '#fffbe0', true)); [0.2, -3.5, -8.5].forEach(x => [-1.2, 1.2].forEach(z => { const w = part(truck, CYL, '#1a1a1e', x, 0.55, z, 0.55, 0.35, 0.55); w.rotation.x = Math.PI / 2; })); }
+  const tGlow = [glowSpr(truck, 1.8, 1.4, 0.9, 6, '#fff6d0', 1), glowSpr(truck, 1.8, 1.4, -0.9, 6, '#fff6d0', 1)];
+  const tSpot = new T3.SpotLight(0xfff2d0, 0, 80, 0.5, 0.6, 1.2); tSpot.position.set(1.5, 1.4, 0); truck.add(tSpot); const tTarget = new T3.Object3D(); tTarget.position.set(30, 0.5, 0); truck.add(tTarget); tSpot.target = tTarget; opt(truck);
+  const ball = opt(part(world, SPH, '#ff4a4a', 0, 0.2, 0, 0.2, 0.2, 0.2, 0.05));
+
+  // ---------- QUARTO / ESCRITÓRIO (x=1000) ----------
+  const room = grp(world, 1000, 0, 0);
+  tb(room, 0, -0.05, 0, 12, 0.1, 12, '#6a4a3a'); tb(room, 0, 2, -3, 12, 4, 0.2, '#3a3a5a'); tb(room, -4, 2, 0, 0.2, 4, 12, '#34345a');
+  const winTex = canvasTex(512, 512, (x, w, h) => { const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#0a1030'); g.addColorStop(1, '#3a2a5a'); x.fillStyle = g; x.fillRect(0, 0, w, h); const R = rng(9); for (let i = 0; i < 60; i++) { x.fillStyle = 'rgba(255,255,255,' + R() + ')'; x.fillRect(R() * w, R() * h * 0.5, 2, 2); } let xx = 0; while (xx < w) { const bw = 30 + R() * 60, bh = 100 + R() * 260; x.fillStyle = '#0c1024'; x.fillRect(xx, h - bh, bw, bh); for (let yy = h - bh + 8; yy < h; yy += 16) for (let cx = xx + 5; cx < xx + bw - 8; cx += 12) if (R() < 0.4) { x.fillStyle = '#ffd890'; x.fillRect(cx, yy, 6, 8); } xx += bw + 4; } });
+  const win = new T3.Mesh(new T3.PlaneGeometry(4.4, 2.6), new T3.MeshBasicMaterial({ map: winTex, toneMapped: false })); win.position.set(1, 2.2, -2.88); room.add(win); tb(room, 1, 2.2, -2.85, 0.12, 2.6, 0.1, '#1a1a2a'); tb(room, 1, 2.2, -2.85, 4.4, 0.12, 0.1, '#1a1a2a');
+  tb(room, 0.6, 0.75, -1.6, 2.8, 0.08, 1.2, '#6a4a34'); [[-0.7, -2.1], [1.9, -2.1], [-0.7, -1.1], [1.9, -1.1]].forEach(([x, z]) => tb(room, x, 0.37, z, 0.08, 0.74, 0.08, '#4a3424'));
+  const lap = grp(room, 0.9, 0.8, -1.65); tb(lap, 0, 0.01, 0, 0.6, 0.02, 0.42, '#2a2e3a'); const scr = grp(lap, 0, 0.01, -0.2); scr.rotation.x = -0.25; tb(scr, 0, 0.2, 0, 0.6, 0.4, 0.02, '#2a2e3a'); const scrTex = canvasTex(256, 170, (x, w, h) => { x.fillStyle = '#5ab0ff'; x.fillRect(0, 0, w, h); x.fillStyle = '#ffffff'; for (let i = 0; i < 7; i++) x.fillRect(16, 16 + i * 20, 60 + (i * 47) % 150, 8); }); const scrM = new T3.Mesh(new T3.PlaneGeometry(0.56, 0.36), new T3.MeshBasicMaterial({ map: scrTex, toneMapped: false })); scrM.position.set(0, 0.2, 0.012); scr.add(scrM);
+  const lapLight = new T3.PointLight(0x7ac8ff, 0, 6, 1.4); lapLight.position.set(0.9, 1.1, -1.3); room.add(lapLight);
+  for (let i = 0; i < 7; i++) tb(room, -0.3 + (i % 2) * 0.05, 0.84 + i * 0.07, -1.8, 0.5, 0.07, 0.36, ['#c8402a', '#2a6ad8', '#e8b030', '#2aa86a'][i % 4]);
+  const chair = grp(room, 0.9, 0, -0.75); tb(chair, 0, 0.45, 0, 0.55, 0.08, 0.55, '#2a2a34'); tb(chair, 0, 0.85, 0.27, 0.55, 0.8, 0.08, '#2a2a34');
+  // escritório
+  const office = grp(world, 1100, 0, 0); tb(office, 0, -0.05, 0, 14, 0.1, 14, '#9aa0a8'); tb(office, 0, 2, -3, 14, 4, 0.2, '#d8dce4'); const owin = tb(office, -2.5, 2.3, -2.88, 4, 2.2, 0.05, '#a8d0f0', true);
+  const clock = grp(office, 3, 2.8, -2.85); { const f = part(clock, CYL, '#ffffff', 0, 0, 0, 0.5, 0.06, 0.5, 0.06); f.rotation.x = Math.PI / 2; } const hH = grp(clock, 0, 0, 0.06), hM = grp(clock, 0, 0, 0.07); tb(hH, 0, 0.15, 0, 0.05, 0.3, 0.02, '#2a2a30'); tb(hM, 0, 0.2, 0, 0.035, 0.4, 0.02, '#2a2a30');
+  tb(office, 0.6, 0.75, -1.4, 2.6, 0.08, 1.2, '#e8e4dc'); const mon = grp(office, 0.9, 0.79, -1.7); tb(mon, 0, 0.35, 0, 0.9, 0.55, 0.05, '#2a2e3a'); const monM = new T3.Mesh(new T3.PlaneGeometry(0.82, 0.48), new T3.MeshBasicMaterial({ map: scrTex, toneMapped: false })); monM.position.set(0, 0.35, 0.03); mon.add(monM); tb(mon, 0, 0.05, 0, 0.1, 0.1, 0.05, '#2a2e3a');
+  const ochair = grp(office, 0.9, 0, -0.55); tb(ochair, 0, 0.45, 0, 0.55, 0.08, 0.55, '#3a3a4a');
+  const coworkers = [];
+
+  // ---------- PALCO ESCURO com ícones (x=2000) ----------
+  const stage = grp(world, 2000, 0, 0); const stageFloor = new T3.Mesh(new T3.CircleGeometry(8, 48), new T3.MeshToonMaterial({ color: '#141a34', gradientMap: GRAD })); stageFloor.rotation.x = -Math.PI / 2; stageFloor.receiveShadow = true; stage.add(stageFloor);
+  const ring = new T3.Mesh(new T3.TorusGeometry(2.4, 0.03, 8, 80), gm('#5ad0ff')); ring.rotation.x = Math.PI / 2; ring.position.y = 0.02; stage.add(ring);
+  function iconMesh(kind, col) { const g = grp(world); const M = gm(col);
+    const add = (geo, x, y, z, sx, sy, sz, rz) => { const m = new T3.Mesh(geo, M); m.position.set(x, y, z); m.scale.set(sx, sy, sz); if (rz) m.rotation.z = rz; g.add(m); return m; };
+    if (kind === 'gear') { add(TOR, 0, 0, 0, 0.22, 0.22, 0.6); for (let i = 0; i < 8; i++) add(BOX, Math.cos(i * 0.785) * 0.28, Math.sin(i * 0.785) * 0.28, 0, 0.1, 0.1, 0.06, i * 0.785); }
+    else if (kind === 'flask') { add(CONE, 0, -0.08, 0, 0.22, 0.3, 0.22); add(CYL, 0, 0.18, 0, 0.06, 0.24, 0.06); }
+    else if (kind === 'atom') { for (let i = 0; i < 3; i++) { const m = add(TOR, 0, 0, 0, 0.3, 0.12, 0.3); m.rotation.set(Math.PI / 2, 0, i * Math.PI / 3); m.scale.set(0.3, 0.3, 0.3); m.rotation.x = 1.2; m.rotation.y = i * 1.05; } add(SPH, 0, 0, 0, 0.07, 0.07, 0.07); }
+    else if (kind === 'health') { add(BOX, 0, 0, 0, 0.14, 0.44, 0.08); add(BOX, 0, 0, 0, 0.44, 0.14, 0.08); }
+    else if (kind === 'wheat') { add(CYL, 0, 0, 0, 0.015, 0.5, 0.015); for (let i = 0; i < 4; i++) [-1, 1].forEach(s => add(SPH, s * 0.05, -0.05 + i * 0.08, 0, 0.035, 0.06, 0.035, s * 0.6)); }
+    else if (kind === 'bolt') { add(BOX, 0.04, 0.1, 0, 0.08, 0.26, 0.06, -0.4); add(BOX, -0.04, -0.1, 0, 0.08, 0.26, 0.06, -0.4); add(BOX, 0, 0, 0, 0.18, 0.06, 0.06); }
+    else if (kind === 'sword') { add(BOX, 0, 0.08, 0, 0.05, 0.44, 0.02); add(BOX, 0, -0.14, 0, 0.22, 0.04, 0.04); add(BOX, 0, -0.22, 0, 0.04, 0.12, 0.04); }
+    else if (kind === 'coin') { const c = add(CYL, 0, 0, 0, 0.22, 0.04, 0.22); c.rotation.x = Math.PI / 2; }
+    else if (kind === 'anvil') { add(BOX, 0, 0.06, 0, 0.44, 0.1, 0.16); add(BOX, 0, -0.06, 0, 0.16, 0.16, 0.12); add(BOX, 0, -0.16, 0, 0.3, 0.06, 0.16); }
+    else if (kind === 'talk') { add(SPH, 0, 0.02, 0, 0.26, 0.18, 0.06); add(CONE, -0.1, -0.15, 0, 0.05, 0.12, 0.05, 0.6); }
+    else if (kind === 'money') { add(BOX, 0, 0, 0, 0.46, 0.24, 0.03); }
+    else if (kind === 'star') { for (let i = 0; i < 5; i++) add(CONE, Math.sin(i * 1.256) * 0.12, Math.cos(i * 1.256) * 0.12, 0, 0.08, 0.26, 0.05, -i * 1.256); add(SPH, 0, 0, 0, 0.12, 0.12, 0.05); }
+    else if (kind === 'brain') { add(SPH, -0.1, 0, 0, 0.16, 0.2, 0.14); add(SPH, 0.1, 0, 0, 0.16, 0.2, 0.14); }
+    const halo = glowSpr(g, 0, 0, -0.05, 1.4, col, 0.5); const x1 = new T3.Mesh(BOX, gm('#ff2a3a')), x2 = new T3.Mesh(BOX, gm('#ff2a3a')); x1.scale.set(0.8, 0.07, 0.07); x2.scale.set(0.8, 0.07, 0.07); x1.rotation.z = 0.785; x2.rotation.z = -0.785; x1.position.z = x2.position.z = 0.1; g.add(x1); g.add(x2); g.userData = { x1, x2 }; return opt(g); }
+  const ICOLS = ['#5ad0ff', '#ffd23c', '#7aff9a', '#ff7a9a', '#c89aff', '#ffb04a'];
+  const icNo = ['money', 'star', 'bolt', 'brain'].map((k, i) => iconMesh(k, ICOLS[i]));
+  const icA = ['gear', 'flask', 'atom', 'health', 'wheat', 'bolt'].map((k, i) => iconMesh(k, ICOLS[i]));
+  const icB = ['sword', 'coin', 'anvil', 'talk'].map((k, i) => iconMesh(k, ['#ffb04a', '#ffd23c', '#ff7a5a', '#c89aff'][i]));
+  const motes = particles(world, 160, '#9ad0ff', 0.04);
+  const greyCrowd = []; for (let i = 0; i < 16; i++) { const c = makeChar({ skin: '#b8b4bc', hairStyle: i % 3 ? 'short' : 'long', hairC: '#5a5a62', top: '#7a7e88', pants: '#5a5e68', shoe: '#4a4a52', ph: i * 0.7 }); opt(c); greyCrowd.push(c); }
+
+  // ---------- CAMPO (civilização) x=3000 ----------
+  const field = grp(world, 3000, 0, 0); tb(field, 0, -0.05, 0, 300, 0.1, 300, '#7ab060');
+  for (let i = 0; i < 40; i++) { const R = rng(i + 300); part(field, ICO, R() < 0.5 ? '#4a8a40' : '#5a9a4a', -60 + R() * 120, 1.5, -20 - R() * 60, 1.5 + R(), 2 + R(), 1.5 + R()); }
+  const builds = [];
+  function hut(x, z) { const g = grp(field, x, 0, z); tb(g, 0, 0.9, 0, 2.4, 1.8, 2.2, '#c89a6a'); const r = part(g, CONE, '#8a5a3a', 0, 2.4, 0, 2.0, 1.4, 2.0); r.rotation.y = 0.785; tb(g, 0, 0.6, 1.11, 0.6, 1.2, 0.05, '#5a3a24'); return g; }
+  function mill(x, z) { const g = grp(field, x, 0, z); part(g, CYL, '#e8d8b8', 0, 2.5, 0, 0.9, 5, 0.9).geometry; part(g, CONE, '#8a5a3a', 0, 5.5, 0, 1.1, 1.2, 1.1); const bl = grp(g, 0, 4.6, 1.0); for (let i = 0; i < 4; i++) { const b = tb(bl, 0, 0, 0, 0.3, 3.6, 0.05, '#f4ecd8'); b.geometry = BOX; b.position.set(Math.sin(i * 1.57) * 1.8, Math.cos(i * 1.57) * 1.8, 0); b.rotation.z = -i * 1.57; } g.userData.blades = bl; return g; }
+  function forge(x, z) { const g = grp(field, x, 0, z); tb(g, 0, 1.2, 0, 3, 2.4, 2.6, '#7a6a6a'); tb(g, 0.8, 3, -0.5, 0.6, 2, 0.6, '#5a4a4a'); glowSpr(g, -0.6, 0.8, 1.35, 2.5, '#ff8a3a', 0.9); return g; }
+  function factory(x, z) { const g = grp(field, x, 0, z); tb(g, 0, 1.8, 0, 7, 3.6, 4, '#a86a5a'); for (let i = 0; i < 3; i++) { const r = tb(g, -2.3 + i * 2.3, 4.0, 0, 2.2, 0.15, 4, '#8a5a4a'); r.rotation.z = 0.4; } tb(g, 3, 5, -1, 0.7, 6, 0.7, '#6a4a44'); for (let i = 0; i < 4; i++) tb(g, -2.5 + i * 1.6, 1.6, 2.01, 0.8, 0.9, 0.05, '#ffd890', true); return g; }
+  function tower(x, z) { const g = grp(field, x, 0, z); part(g, CYL, '#b8b0c0', 0, 3, 0, 1, 6, 1); part(g, CONE, '#5a6a9a', 0, 6.8, 0, 1.3, 1.6, 1.3); return g; }
+  [[hut, -6, 0], [hut, 4, -2], [mill, -1, -8], [hut, -10, -6], [forge, 8, -8], [factory, 0, -16], [hut, 10, 2], [tower, -12, -16]].forEach(([fn, x, z]) => builds.push(fn(x, z)));
+  const fSmoke = particles(world, 80, '#c8c8d0', 0.6), sparkle = particles(world, 80, '#fff2b0', 0.08);
+
+  // ---------- OUTRO MUNDO x=4000 ----------
+  const other = grp(world, 4000, 0, 0);
+  const planet = part(other, SPH, '#3a8ae8', 30, 40, -90, 14, 14, 14); part(other, SPH, '#5ac86a', 26, 44, -79, 6, 4, 4); glowSpr(other, 30, 40, -92, 50, '#7ab8ff', 0.6);
+  const isles = []; for (let i = 0; i < 9; i++) { const R = rng(i + 400); const g = grp(other, -30 + R() * 60, -4 + R() * 14, -10 - R() * 50); part(g, CONE, '#5a4a6a', 0, -1.6, 0, 2.2 + R() * 2, 3.2, 2.2 + R() * 2).rotation.x = Math.PI; part(g, CYL, '#6ac87a', 0, 0, 0, 2.3 + R() * 2, 0.4, 2.3 + R() * 2); if (R() < 0.5) part(g, ICO, '#4aa85a', 0.5, 1.2, 0, 0.9, 1.2, 0.9); g.userData.y0 = g.position.y; isles.push(g); }
+  const goddess = grp(other, 0, 2, -14); part(goddess, CONE, '#fff6e0', 0, 2.2, 0, 1.4, 4.4, 1.4, 0, true); part(goddess, SPH, '#fff6e0', 0, 4.9, 0, 0.55, 0.6, 0.55, 0, true); glowSpr(goddess, 0, 3.5, 0.5, 14, '#ffe8b0', 0.9);
+  const rays = []; for (let i = 0; i < 10; i++) { const m = new T3.Mesh(new T3.ConeGeometry(1.5, 40, 16, 1, true), new T3.MeshBasicMaterial({ color: '#ffeec8', transparent: true, opacity: 0.08, blending: T3.AdditiveBlending, depthWrite: false, side: T3.DoubleSide, toneMapped: false })); m.position.set(0, 3.5, 0); m.rotation.z = i * 0.63; m.translateY(20); goddess.add(m); rays.push(m); }
+  const lids = [tb(world, 0, 0, 0, 1, 1, 0.01, '#000000', true), tb(world, 0, 0, 0, 1, 1, 0.01, '#000000', true)]; lids.forEach(opt);
+  const drop = opt(part(world, SPH, '#9ab8e8', 0, 0, 0, 0.05, 0.08, 0.05, 0, true)); const ripple = opt(new T3.Mesh(new T3.TorusGeometry(1, 0.01, 6, 64), gm('#9ab8e8'))); ripple.rotation.x = Math.PI / 2; world.add(ripple);
+  const exMark = opt(grp(world)); tb(exMark, 0, 0.14, 0, 0.06, 0.22, 0.06, '#ffd23c', true); part(exMark, SPH, '#ffd23c', 0, -0.06, 0, 0.04, 0.04, 0.04, 0, true); glowSpr(exMark, 0, 0.05, 0, 0.8, '#ffd23c', 0.7);
+  const formulas = ['E=mc²', 'H₂O', 'F=m·a', 'Fe', 'π', '∫ dx'].map((s, i) => { const t = canvasTex(256, 96, (x, w, h) => { x.font = '700 64px Oswald'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = '#bfefff'; x.shadowColor = '#5ad0ff'; x.shadowBlur = 18; x.fillText(s, w / 2, h / 2); }); const m = new T3.Sprite(new T3.SpriteMaterial({ map: t, transparent: true, depthWrite: false, toneMapped: false, blending: T3.AdditiveBlending })); m.scale.set(0.08, 0.03, 1); world.add(m); return opt(m); });
+
+  // ---------- personagens ----------
+  const leo = makeChar(Object.assign({}, LEOC, { hoodie: true, ph: 0.3 }));
+  const leoPhone = makeChar(Object.assign({}, LEOC, { hoodie: true, phone: true, ph: 0.3 })); opt(leoPhone);
+  const leoBook = makeChar(Object.assign({}, LEOC, { hoodie: true, book: true, ph: 0.3 })); opt(leoBook);
+  const kid = makeChar({ kid: true, raincoat: true, skin: '#f4bc94', hairStyle: 'pig', hairC: '#6a3a1a', top: '#ffc42a', top2: '#e8a810', pants: '#3a6ad8', shoe: '#d83a3a', iris: '#3a2a1a' }); opt(kid);
+  const PEDS = []; { const R = rng(88); for (let i = 0; i < 14; i++) { const c = makeChar({ skin: ['#f2b48e', '#c88a5e', '#8a5a3a', '#e8a880'][i % 4], hairStyle: ['short', 'long', 'leo', 'bald', 'short'][i % 5], hairC: ['#2a1a14', '#14101a', '#7a4420', '#3a2a5a'][i % 4], top: ICOLS[i % 6], top2: shade(ICOLS[i % 6], 0.8), pants: ['#2a3048', '#4a3a2a', '#1a1a22', '#5a5a6a'][i % 4], shoe: '#2a2a2e', phone: R() < 0.3, ph: R() * 6, s: 0.92 + R() * 0.14 }); c.userData.dir = R() < 0.5 ? 1 : -1; c.userData.off = R() * 80; c.userData.lane = 9.4 + R() * 2.2; c.userData.sp = 1.1 + R() * 0.5; opt(c); PEDS.push(c); } }
+  [leo].forEach(opt);
+  function place(c, x, y, z, ry) { c.visible = true; c.position.set(x, y, z); c.rotation.set(0, ry || 0, 0); }
+  function peds(n, cx, night) { PEDS.slice(0, n).forEach((c, i) => { const span = 70; const x = cx - span / 2 + (((c.userData.off + gT * c.userData.sp * c.userData.dir) % span) + span) % span; place(c, x, 0.16, c.userData.lane, c.userData.dir > 0 ? Math.PI / 2 : -Math.PI / 2); pose(c, gT, { walk: true, mood: 'neutral', arms: c.userData.P.phone ? { elR: [-1.9, 0, 0], shR: [-0.3, 0, 0.1] } : null }); }); }
+  function carsRun(night, cx) { cars.forEach((c, i) => { c.visible = true; const span = 260; const dir = c.userData.lane > 0 ? 1 : -1; const x = cx - span / 2 + (((c.userData.off + gT * c.userData.sp * dir) % span) + span) % span; c.position.set(x, 0, c.userData.lane); c.rotation.y = dir > 0 ? 0 : Math.PI; c.userData.glows.forEach(g => g.material.opacity = night ? 1 : 0); }); }
+  cars.forEach(opt);
+
+  // ---------- céu / luz ----------
+  const skyC = document.createElement('canvas'); skyC.width = 4; skyC.height = 256; const skyX = skyC.getContext('2d'); const skyT = new T3.CanvasTexture(skyC); skyT.colorSpace = T3.SRGBColorSpace;
+  const MODES = { day: { sky: ['#3a7ae0', '#bfe0f8'], hemi: 1.2, sun: 2.4, sunC: '#fff4e0', fog: '#bfd8f0', fogN: 120, fogF: 520, win: 0, lamps: 0, ground: '#5a6a5a' },
+    dusk: { sky: ['#2a1a5a', '#ff9a6a'], hemi: 0.75, sun: 1.8, sunC: '#ffb070', fog: '#d88a7a', fogN: 90, fogF: 420, win: 0.9, lamps: 0.6, ground: '#5a4a5a' },
+    night: { sky: ['#06081a', '#1c2240'], hemi: 0.4, sun: 0.35, sunC: '#8aa0ff', fog: '#141a30', fogN: 30, fogF: 260, win: 1.2, lamps: 1, ground: '#20243a' },
+    void: { sky: ['#02040e', '#14204a'], hemi: 0.55, sun: 1.2, sunC: '#9ad0ff', fog: '#0a1028', fogN: 15, fogF: 60, win: 0, lamps: 0, ground: '#1a2040' },
+    grey: { sky: ['#6a6e78', '#a8acb4'], hemi: 1.0, sun: 1.4, sunC: '#ffffff', fog: '#9a9ea8', fogN: 10, fogF: 60, win: 0, lamps: 0, ground: '#6a6e78' },
+    room: { sky: ['#0a0c18', '#0a0c18'], hemi: 0.35, sun: 0.4, sunC: '#7a8aff', fog: '#0a0c18', fogN: 30, fogF: 80, win: 0, lamps: 0, ground: '#141420' },
+    office: { sky: ['#cfe0f0', '#cfe0f0'], hemi: 1.1, sun: 2.0, sunC: '#fff4e8', fog: '#cfe0f0', fogN: 30, fogF: 80, win: 0, lamps: 0, ground: '#8a8e98' },
+    field: { sky: ['#5a9ae8', '#ffe0b0'], hemi: 1.1, sun: 2.4, sunC: '#ffe0b0', fog: '#ffe0c0', fogN: 60, fogF: 240, win: 0, lamps: 0, ground: '#5a7a4a' },
+    other: { sky: ['#0a0624', '#6a4aa8'], hemi: 0.9, sun: 2.0, sunC: '#ffe8c0', fog: '#3a2a6a', fogN: 60, fogF: 200, win: 0, lamps: 0, ground: '#3a2a5a' },
+    black: { sky: ['#000000', '#000000'], hemi: 0.2, sun: 0, sunC: '#000000', fog: '#000000', fogN: 1, fogF: 30, win: 0, lamps: 0, ground: '#000000' },
+    white: { sky: ['#fffef0', '#ffd8a0'], hemi: 1.5, sun: 2, sunC: '#ffffff', fog: '#fff4d8', fogN: 5, fogF: 40, win: 0, lamps: 0, ground: '#fff' } };
+  scene.fog = new T3.Fog(0xbfd8f0, 120, 520); scene.background = skyT; const ca = new T3.Color(), cb = new T3.Color();
+  let curMode = '';
+  function setMode(k, flash) { const M = MODES[k]; const g = skyX.createLinearGradient(0, 0, 0, 256); g.addColorStop(0, M.sky[0]); g.addColorStop(1, M.sky[1]); skyX.fillStyle = g; skyX.fillRect(0, 0, 4, 256); skyT.needsUpdate = true;
+    hemi.color.set(0xffffff); hemi.groundColor.set(M.ground); hemi.intensity = M.hemi + (flash || 0) * 2; sun.color.set(M.sunC); sun.intensity = M.sun; rim.intensity = 0.25; rim.color.set(k === 'night' ? '#5aa0ff' : '#ffaa88');
+    scene.fog.color.set(M.fog); scene.fog.near = M.fogN; scene.fog.far = M.fogF;
+    BUILD.forEach(m => m.emissiveIntensity = M.win); SHOPG.forEach(s => s.material = gm(M.win ? '#ffe8b0' : '#a8c8e0')); LAMPS.forEach(l => l.material.opacity = M.lamps);
+    road.material = k === 'night' ? roadWet : tm('#3a3a46'); curMode = k; }
+  function sunAt(x, y, z) { sun.position.set(x + 20, y + 40, z + 25); sun.target.position.set(x, y, z); sun.target.updateMatrixWorld(); }
+  const rainP = particles(world, 520, '#bcd0ff', 0.03), splash = particles(world, 160, '#d8e4ff', 0.05), sparks = particles(world, 60, '#ffffff', 0.05);
+  function rainAround(cx, cy, cz, n) { rainP.userData.place((i, d) => { if (i > (n || 520)) return false; const R = rng(i + 7); const k = ((gT * 1.6 + R()) % 1); d.position.set(cx + (R() - .5) * 30, cy + 14 - k * 18, cz + (R() - .5) * 30); d.scale.set(0.012, 0.45, 0.012); d.rotation.z = 0.12; }); splash.userData.place((i, d) => { const R = rng(i + 77); const k = ((gT * 3 + R()) % 1); d.position.set(cx + (R() - .5) * 24, 0.2 + k * 0.08, cz + (R() - .5) * 24); d.scale.set(0.02 + k * 0.12, 0.01, 0.02 + k * 0.12); }); }
+  function motesAround(cx, cy, cz, col, r) { motes.material.color.set(col || '#9ad0ff'); motes.userData.place((i, d) => { const R = rng(i + 33); const k = ((gT * (0.05 + R() * 0.05) + R()) % 1); d.position.set(cx + (R() - .5) * (r || 8), cy - 1 + k * 5, cz + (R() - .5) * (r || 8)); d.scale.setScalar(0.03 + R() * 0.03); }); }
+  function orbitIcons(list, cx, cy, cz, R0, lt, step, crossK) { list.forEach((g, i) => { const a = i / list.length * Math.PI * 2 + gT * 0.45; const p = eBack(prog(lt, i * step, i * step + 0.45)); if (p <= 0.001) return; g.visible = true; g.position.set(cx + Math.cos(a) * R0, cy + Math.sin(a * 2 + i) * 0.2, cz + Math.sin(a) * R0 * 0.6); g.scale.setScalar(p * 0.62); g.rotation.y = gT * 0.8 + i; const ck = crossK ? crossK(i) : 0; g.userData.x1.visible = ck > 0; g.userData.x2.visible = ck > 0.5; g.userData.x1.scale.x = 0.8 * Math.min(1, ck * 2); g.userData.x2.scale.x = 0.8 * Math.min(1, Math.max(0, ck * 2 - 1)); }); }
+
+  // ---------- planos ----------
+  const camT = new T3.Vector3();
+  function camAt(p, l, fov) { cam.position.set(p[0], p[1], p[2]); camT.set(l[0], l[1], l[2]); if (cam.fov !== (fov || 40)) { cam.fov = fov || 40; cam.updateProjectionMatrix(); } }
+  function camAB(lt, T, a, b, la, lb, fov) { const u = eIO(clamp(lt / T)); camAt(L3(a, b, u), L3(la, lb || la, u), fov); }
+  const fx = { flash: 0, shake: 0, black: 0, white: 0 };
+  const LEOZ = 10.4;
+  const A = {
+    city_dusk(lt, T) { setMode('dusk'); place(leo, 0, 0.16, LEOZ, Math.PI); pose(leo, gT, { mood: 'neutral', headX: -0.15 }); peds(6, 0); carsRun(false, 0); camAB(lt, T, [-1.1, 1.85, 12.3], [-0.8, 1.95, 12.0], [0.3, 2.1, -40], [0.3, 2.6, -40], 45); sunAt(0, 0, LEOZ); },
+    leo_name(lt, T) { setMode('dusk'); place(leo, 0, 0.16, LEOZ, Math.PI - 0.2); pose(leo, gT, { mood: 'smile', look: [0, 0] }); carsRun(false, 0); camAB(lt, T, [0.6, 1.6, 6.8], [0.4, 1.62, 7.6], [0, 1.45, LEOZ], [0, 1.5, LEOZ], 35); sunAt(0, 0, LEOZ); },
+    avenida_day(lt, T) { setMode('day'); const x = -20 + lt * 1.35; place(leo, x, 0.16, LEOZ, Math.PI / 2); pose(leo, gT, { walk: true, mood: 'neutral', look: [0.3, 0] }); peds(12, x); carsRun(false, x); camAt([x + 0.3, 1.45, 3.4], [x + 0.6, 1.25, LEOZ], 42); sunAt(x, 0, LEOZ); },
+    sp_aerial(lt, T) { setMode('day'); carsRun(false, 0); peds(10, 0); camAB(lt, T, [-150, 150, 0], [-120, 140, 0], [60, 20, 0], [80, 22, 0], 45); sunAt(0, 0, 0); },
+    icons_no(lt, T) { setMode('void'); place(leo, 2000, 0, 0, 0); pose(leo, gT, { mood: 'neutral', look: [0, 0.4], headX: -0.1 }); camAB(lt, T, [2000, 1.5, 5.2], [2000, 1.45, 4.6], [2000, 1.4, 0], null, 40); icNo.forEach((g, i) => { const st = i * T / 4.6; const p = eBack(prog(lt, st, st + 0.4)); if (p <= 0.001) return; g.visible = true; g.position.set(2000 + [-0.62, 0.62, -0.66, 0.66][i], [2.35, 2.35, 1.55, 1.55][i] + Math.sin(gT * 1.5 + i) * 0.05, 0.4); g.scale.setScalar(p * 0.75); g.rotation.y = Math.sin(gT + i) * 0.3; const ck = prog(lt, st + 0.35, st + 0.75); g.userData.x1.visible = ck > 0; g.userData.x2.visible = ck > 0.5; g.userData.x1.scale.x = 0.8 * Math.min(1, ck * 2); g.userData.x2.scale.x = 0.8 * Math.min(1, Math.max(0, ck * 2 - 1)); }); motesAround(2000, 1.5, 0); sunAt(2000, 0, 0); },
+    crowd_grey(lt, T) { setMode('grey'); place(leo, 2000, 0, 0, 0); pose(leo, gT, { mood: 'neutral' }); greyCrowd.forEach((c, i) => { const r = Math.floor(i / 4), k = i % 4; const x = 2000 - 3 + k * 2 + (r % 2) * 1 + ((gT * 0.9 + r) % 2) * (r % 2 ? 1 : -1) * 0.5; place(c, x, 0, -3 + r * 2.0 - (r === 2 && k === 1 ? 10 : 0), r % 2 ? Math.PI / 2 : -Math.PI / 2); pose(c, gT, { walk: true }); }); camAB(lt, T, [2000, 4, 9], [2000, 2.2, 5.2], [2000, 1.0, 0], [2000, 1.5, 0], 40); sunAt(2000, 0, 0); },
+    office(lt, T) { setMode('office'); place(leo, 1100.9, 0, -0.75, Math.PI); pose(leo, gT, { sit: true, mood: 'neutral', look: [0, -0.2], arms: { shL: [-1.1, 0, 0], shR: [-1.1, 0, 0], elL: [-0.4 + Math.sin(gT * 14) * 0.08, 0, 0], elR: [-0.4 - Math.sin(gT * 14) * 0.08, 0, 0] } }); hM.rotation.z = -gT * 3; hH.rotation.z = -gT * 0.25; camAB(lt, T, [1103.6, 1.7, 2.0], [1103.0, 1.6, 1.4], [1100.8, 1.1, -1.1], null, 40); sunAt(1100, 0, 0); },
+    study(lt, T) { setMode('dusk'); place(leoBook, -14, 0.16 + 0.0, 11.9, Math.PI); pose(leoBook, gT, { sit: true, mood: 'neutral', look: [0, 0.5], headX: 0.35, arms: { shR: [-1.1, 0, 0.2], elR: [-1.0, 0, 0], shL: [-0.9, 0, -0.2], elL: [-1.1, 0, 0] } }); peds(8, -14); carsRun(false, -14); camAB(lt, T, [-12.2, 1.4, 8.6], [-12.8, 1.35, 8.9], [-14, 0.95, 11.9], null, 38); sunAt(-14, 0, 11); },
+    night_laptop(lt, T) { setMode('room'); place(leo, 1000.9, 0, -0.75, Math.PI); pose(leo, gT, { sit: true, mood: 'neutral', look: [0, -0.3], arms: { shL: [-1.1, 0, 0], shR: [-1.1, 0, 0], elL: [-0.4 + Math.sin(gT * 15) * 0.08, 0, 0], elR: [-0.4 - Math.sin(gT * 15) * 0.08, 0, 0] } }); lapLight.intensity = 3; camAB(lt, T, [1002.6, 1.6, 1.6], [1002.2, 1.5, 1.1], [1000.8, 1.1, -1.2], null, 40); sunAt(1000, 0, 0); },
+    leo_face_close(lt, T) { setMode('room'); place(leo, 1000.9, 0, -0.75, Math.PI); pose(leo, gT, { sit: true, mood: 'neutral', look: [0.2, -0.3], arms: { shL: [-1.1, 0, 0], shR: [-1.1, 0, 0], elL: [-0.4, 0, 0], elR: [-0.4, 0, 0] } }); lapLight.intensity = 1.2; camAB(lt, T, [1000.75, 1.36, -1.55], [1000.78, 1.35, -1.45], [1000.9, 1.32, -0.75], null, 32); sunAt(1000, 0, 0); },
+    eye_close(lt, T) { setMode('room'); place(leo, 1000.9, 0, -0.75, Math.PI); pose(leo, gT, { sit: true, mood: 'neutral', look: [0, 0], arms: { shL: [-1.1, 0, 0], shR: [-1.1, 0, 0], elL: [-0.4, 0, 0], elR: [-0.4, 0, 0] } }); lapLight.intensity = 1.2; leo.updateMatrixWorld(true); const ep = new T3.Vector3(); leo.userData.P.eyes[0].e.getWorldPosition(ep); const z = 0.22 - lt * 0.02; camAt([ep.x - 0.01, ep.y + 0.005, ep.z - z], [ep.x, ep.y, ep.z], 30); formulas.forEach((f, i) => { f.visible = true; const a = gT * 0.7 + i; f.position.set(ep.x + Math.cos(a) * 0.04, ep.y + Math.sin(a) * 0.03, ep.z - 0.05); }); sunAt(1000, 0, 0); },
+    icons_orbit(lt, T) { setMode('void'); place(leo, 2000, 0, 0, 0); pose(leo, gT, { mood: 'smile', look: [Math.sin(gT), 0.3] }); orbitIcons(icA, 2000, 1.95, 0, 0.85, lt, T / 6.5); camAB(lt, T, [2000, 1.7, 5.6], [2000.6, 1.65, 4.9], [2000, 1.5, 0], null, 40); motesAround(2000, 1.5, 0); sunAt(2000, 0, 0); },
+    icons_orbit2(lt, T) { setMode('void'); place(leo, 2000, 0, 0, 0); pose(leo, gT, { mood: 'determined', look: [Math.sin(gT), 0.3] }); orbitIcons(icA, 2000, 2.05, 0, 0.9, 99, 0); orbitIcons(icB, 2000, 1.25, 0, 0.62, lt, T / 4.6); camAB(lt, T, [2000.8, 1.4, 4.6], [2000, 1.5, 4.0], [2000, 1.5, 0], null, 40); motesAround(2000, 1.5, 0, '#ffb0e0'); sunAt(2000, 0, 0); },
+    window_think(lt, T) { setMode('room'); place(leo, 1001, 0, -2.2, Math.PI); pose(leo, gT, { mood: 'neutral', look: [0.2, 0.4], headX: -0.15, arms: { shR: [-1.6, 0, 0.3], elR: [-1.9, 0, 0] } }); lapLight.intensity = 3; camAB(lt, T, [999.8, 1.7, 1.4], [1000.2, 1.65, 0.6], [1001, 1.6, -2.6], null, 40); sunAt(1000, 0, 0); },
+    imagine_build(lt, T) { setMode('field'); builds.forEach((b, i) => { const p = eBack(prog(lt, i * T / 9, i * T / 9 + 0.5)); b.visible = p > 0.001; b.scale.setScalar(Math.max(0.001, p)); if (b.userData.blades) b.userData.blades.rotation.z = gT * 1.5; }); fSmoke.userData.place((i, d) => { const R = rng(i + 3); const k = ((gT * 0.3 + R()) % 1); const src = i % 2 ? [3003, 7.5, -17] : [3008.8, 4, -8.5]; if (!builds[i % 2 ? 5 : 4].visible) return false; d.position.set(src[0] + k * 3, src[1] + k * 8, src[2]); d.scale.setScalar(0.4 + k * 1.6); }); sparkle.userData.place((i, d) => { const R = rng(i + 9); const k = ((gT * 0.4 + R()) % 1); d.position.set(3000 + (R() - .5) * 30, k * 6, -6 + (R() - .5) * 20); }); camAB(lt, T, [3000, 6, 22], [3000, 12, 26], [3000, 2, -6], [3000, 3, -8], 45); sunAt(3000, 0, -6); },
+    question(lt, T) { setMode('void'); place(leo, 2000, 0, 0, 0); pose(leo, gT, { mood: 'smile', talk: true, look: [0, 0], arms: { shR: [-1.5, 0, 0.2], elR: [-0.2, 0, 0] } }); camAB(lt, T, [2000, 1.6, 3.6], [2000, 1.6, 3.2], [2000, 1.45, 0], null, 40); motesAround(2000, 1.5, 0, '#c89aff'); sunAt(2000, 0, 0); },
+    storm_city(lt, T) { const lf = (gT + 0.3) % 2.6; const fl = lf < 0.1 ? 1 : lf > 0.18 && lf < 0.24 ? 0.6 : 0; setMode('night', fl); carsRun(true, 0); camAB(lt, T, [-60, 22, 0], [-50, 20, 0], [60, 30, -6], [60, 32, -6], 45); rainAround(-50, 14, 0); fx.flash = fl * 0.35; sunAt(0, 0, 0); },
+    rain_walk(lt, T) { setMode('night'); const z = LEOZ; const x = -6 + lt * 1.2; place(leo, x, 0.16, z, Math.PI / 2); pose(leo, gT, { walk: true, hood: true, mood: 'neutral', look: [0, 0.2], headX: 0.1 }); carsRun(true, x); camAt([x + 4.2, 1.5, z - 1.2], [x, 1.2, z], 40); rainAround(x, 0, z); sunAt(x, 0, z); },
+    crosswalk(lt, T) { setMode('night'); const z = lerp(10, 1.5, clamp(lt / T)); place(leo, 0, z > 8 ? 0.16 : 0, z, Math.PI); pose(leo, gT, { walk: true, hood: true, mood: 'neutral' }); camAt([-8, 1.6, 4], [0, 1.0, 5], 40); rainAround(0, 0, 4); tlights.forEach(l => { l.r.visible = true; l.gg.visible = false; }); sunAt(0, 0, 4); },
+    exclaim(lt, T) { setMode('night'); place(leo, 0, 0, 1.5, Math.PI); const turn = eOut(prog(lt, 0, 0.35)); pose(leo, gT, { hood: true, mood: 'shock', headY: lerp(0, -1.0, turn), look: [lerp(0, -0.8, turn), 0] }); leo.updateMatrixWorld(true); const hp = new T3.Vector3(); leo.userData.P.head.getWorldPosition(hp); exMark.visible = true; const p = eBack(prog(lt, 0.1, 0.45)); exMark.position.set(hp.x, hp.y + 0.5, hp.z); exMark.scale.setScalar(Math.max(0.001, p * 1.4)); exMark.rotation.z = Math.sin(gT * 30) * 0.08; camAt([hp.x - 0.3, hp.y + 0.1, hp.z - 1.4], [hp.x, hp.y + 0.18, hp.z], 38); rainAround(0, 0, 1.5, 300); sunAt(0, 0, 1.5); },
+    child_fall(lt, T) { setMode('night'); place(kid, 2, 0.08, -2, -Math.PI / 2); pose(kid, gT, { mood: 'scream', look: [-0.5, 0.4], hipY: 0.15, lean: -1.2, legs: { thL: -1.4, thR: -1.1, knL: 0.4, knR: 0.2 }, arms: { shL: [-2.4, 0, -0.3], shR: [-0.6, 0, 0.4] } }); kid.rotation.z = 0; ball.visible = true; ball.position.set(1.2 - lt * 0.5, 0.12, -1.2 - lt * 0.2); ball.rotation.x = gT * 3; camAB(lt, T, [4.5, 0.9, 1.5], [4.0, 0.8, 1.0], [2, 0.3, -2], null, 40); rainAround(2, 0, -2, 360); sunAt(2, 0, -2); },
+    truck_coming(lt, T) { setMode('night'); const k = eIO(clamp(lt / T)); place(kid, 2, 0.08, -2, -Math.PI / 2); pose(kid, gT, { mood: 'scream', look: [-1, 0], hipY: 0.15, lean: -1.2, legs: { thL: -1.4, thR: -1.1, knL: 0.4, knR: 0.2 }, arms: { shL: [-2.4, 0, -0.3], shR: [-2.2, 0, 0.3] } }); truck.visible = true; truck.position.set(lerp(-60, -16, k), 0, -2.2); truck.rotation.y = 0; tSpot.intensity = 900; tGlow.forEach(g => g.material.opacity = 1); camAt([5, 0.7, -2.6], [-20, 1.5, -2.2], 40); rainAround(0, 0, -2); sunAt(2, 0, -2); },
+    leo_run(lt, T) { setMode('night'); const z = lerp(8, 0, clamp(lt / T)); place(leo, 0.6, 0, z, Math.PI); pose(leo, gT, { run: true, hood: true, mood: 'determined', look: [0, 0] }); truck.visible = true; truck.position.set(-28, 0, -2.2); tSpot.intensity = 900; tGlow.forEach(g => g.material.opacity = 1); camAt([4.8, 1.2, z + 0.5], [0.6, 1.1, z], 42); rainAround(0.6, 0, z); sunAt(0.6, 0, z); },
+    push_child(lt, T) { setMode('night'); const k = eOut(prog(lt, 0.2, T * 0.8)); place(kid, 2, 0.08 + Math.sin(k * Math.PI) * 0.6, lerp(-3.2, -9.6, k), -Math.PI / 2); pose(kid, gT * 0.3, { mood: 'shock', lean: -0.3, arms: { shL: [-2.4, 0, 0], shR: [-2.4, 0, 0] } }); place(leo, 2, 0, -2.4, Math.PI); pose(leo, gT * 0.3, { hood: true, mood: 'determined', lean: 0.5, arms: { shL: [-1.6, 0, -0.1], shR: [-1.6, 0, 0.1], elL: [-0.1, 0, 0], elR: [-0.1, 0, 0] }, legs: { thL: -0.8, knL: 0.4, thR: 0.6, knR: 0.5 } }); truck.visible = true; truck.position.set(-18, 0, -2.2); tSpot.intensity = 600; camAt([16, 2.2, -5.4], [2, 0.8, -5.4], 45); rainAround(2, 0, -2, 260); sunAt(2, 0, -2); },
+    leo_headlights(lt, T) { setMode('night'); const k = clamp(lt / T); place(leo, 2, 0, -1.8, -Math.PI / 2); pose(leo, gT, { hood: true, mood: 'shock', look: [0, 0], arms: { shL: [-2.2, 0, -0.3], shR: [-2.2, 0, 0.3], elL: [-1.2, 0, 0], elR: [-1.2, 0, 0] } }); truck.visible = true; truck.position.set(lerp(-12, -6, k), 0, -2.2); tSpot.intensity = 260; camAt([-0.6 + k * 0.3, 1.5, -2.0], [2, 1.45, -1.8], 38); fx.white = k * 0.15; rainAround(2, 0, -2, 300); sunAt(2, 0, -2); },
+    truck_close(lt, T) { setMode('night'); const k = clamp(lt / T); truck.visible = true; truck.position.set(lerp(-3.5, -1.5, k), 0, -2.2); tSpot.intensity = 0; tGlow.forEach(g => { g.material.opacity = 1; g.scale.set(2.5, 2.5, 1); }); camAt([3.5, 1.3, -2.2], [-3, 1.3, -2.2], lerp(45, 28, k)); fx.shake = 0.04 * Math.min(1, lt * 2); fx.white = k > 0.8 ? (k - 0.8) / 0.2 : 0; rainAround(0, 0, -2, 200); sunAt(0, 0, -2); },
+    black_drop(lt, T) { setMode('black'); camAt([5000, 1, 5], [5000, 1, 0], 40); fx.white = Math.max(0, 1 - lt / 0.3); rainAround(5000, -6, 0, 60); },
+    silence(lt, T) { setMode('black'); camAt([5000, 1, 5], [5000, 0.6, 0], 40); const k = prog(lt, 0, T * 0.6); drop.visible = k < 1; drop.position.set(5000, lerp(3, 0.05, eIO(k)), 0); hemi.intensity = 0.3; if (k >= 1) { const u = prog(lt, T * 0.6, T); ripple.visible = true; ripple.position.set(5000, 0.02, 0); ripple.scale.setScalar(0.1 + u * 3); ripple.material.opacity = 1 - u; } },
+    eye_open(lt, T) { setMode('white'); camAt([4000, 3, 12], [4000, 3, -14], 45); const o = eIO(prog(lt, 0.2, T * 0.9)); lids.forEach((l, i) => { l.visible = true; const f = new T3.Vector3(); cam.updateMatrixWorld(); l.position.set(4000, 3 + (i ? -1 : 1) * (0.25 + o * 0.6), 11.5); l.scale.set(3, 0.5, 0.01); }); motesAround(4000, 3, 0, '#ffffff', 20); },
+    other_world(lt, T) { setMode('other'); isles.forEach((g, i) => g.position.y = g.userData.y0 + Math.sin(gT * 0.6 + i) * 0.6); rays.forEach((r, i) => r.material.opacity = 0.06 + 0.04 * Math.sin(gT + i)); goddess.rotation.y = gT * 0.1; camAB(lt, T, [4000, 4, 20], [4000, 5, 30], [4000, 4, -14], [4000, 5, -20], 45); motesAround(4000, 4, 0, '#ffe8b0', 30); sunAt(4000, 0, 0); },
+  };
+  A.title_end = A.other_world;
+  const flashEl = document.getElementById('mundo-flash'), tintEl = document.getElementById('mundo-tint'), greyEl = document.getElementById('mundo-glitch');
+  function frame(t) {
+    gT = t; let idx = 0; for (let i = 0; i < SHOTS.length; i++) if (t >= SHOTS[i].t0) idx = i;
+    const sh = SHOTS[idx]; const lt = t - sh.t0, T = Math.max(0.3, sh.t1 - sh.t0);
+    for (const k in fx) fx[k] = 0;
+    PARTS.forEach(p => p.visible = false); OPT.forEach(o => o.visible = false); tSpot.intensity = 0; lapLight.intensity = 0; tlights.forEach((l, i) => { const g = ((gT % 8) < 5); l.gg.visible = g; l.r.visible = !g; });
+    (A[sh.id] || A.city_dusk)(lt, T);
+    // câmera na mão + soco de zoom no corte
+    const pk = 1 - 0.06 * (1 - eOut(clamp(lt / 0.4))); const dir = new T3.Vector3().subVectors(cam.position, camT); cam.position.copy(camT).addScaledVector(dir, pk);
+    cam.position.x += Math.sin(t * 0.9) * 0.02 + Math.sin(t * 2.3) * 0.008; cam.position.y += Math.cos(t * 0.7) * 0.015;
+    if (fx.shake) { cam.position.x += Math.sin(t * 87) * fx.shake; cam.position.y += Math.cos(t * 71) * fx.shake; }
+    cam.lookAt(camT); cam.updateMatrixWorld();
+    renderer.render(scene, cam);
+    flashEl.style.opacity = Math.max(fx.flash, fx.white).toFixed(3);
+    tintEl.style.opacity = 0; greyEl.style.opacity = 0;
+  }
+  const fontsReady = Promise.all(['700 40px Oswald', '700 40px Inter'].map(f => document.fonts.load(f).catch(() => null)));
+  fontsReady.then(() => {
+    SIGNS.forEach(sg => { const { shop, sc } = sg.userData.redraw; sg.material.map = canvasTex(512, 80, (x2, ww, hh) => { x2.fillStyle = sc; x2.fillRect(0, 0, ww, hh); x2.font = '700 54px Oswald'; x2.textAlign = 'center'; x2.textBaseline = 'middle'; x2.fillStyle = '#fff'; x2.fillText(shop, ww / 2, hh / 2 + 2); }); });
+    formulas.forEach(() => {});
+    const tl = gsap.timeline({ paused: true }); const clock = { t: 0 };
+    tl.fromTo(clock, { t: 0 }, { t: DUR, duration: DUR, ease: 'none', onUpdate: function () { frame(clock.t); } }, 0);
+    frame(0); window.__timelines['mundo'] = tl;
+  });
+})();
