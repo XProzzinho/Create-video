@@ -78,7 +78,7 @@ card("ep", 0.2, W(0, WI(0, "leonardo")), '<div class="epc"><span>PRÓLOGO</span>
 card("nome", W(0, WI(0, "leonardo")) + 0.2, W(1) + 0.2, '<div class="lt"><b>LEONARDO ALVES</b><i>27 anos · São Paulo</i></div>', top=1600, cls="tw", anim="slide")
 card("quest", W(10), END(10) + 0.8, '<div class="qq"><span>COMENTA AÍ</span>SE FOSSE VOCÊ,<br>POR ONDE <em>COMEÇARIA?</em></div>', top=300, cls="tw", anim="slam")
 card("fim1", W(21), TOTAL, '<div class="epc" style="font-size:92px"><span>FIM DO PRÓLOGO</span>O ÚLTIMO<br>CONHECIMENTO</div>', top=230, cls="tw", anim="slam")
-card("fim2", W(21, WI(21, "me")), TOTAL, '<div class="lgo"><img src="assets/logo.png"><b>SIGA O PORTAL INFINITO</b><small>CAPÍTULO 1 EM BREVE · Voz: ElevenLabs</small></div>', top=640, cls="tw", anim="pop")
+card("fim2", W(21, WI(21, "me")), TOTAL, '<div class="lgo"><img src="assets/logo.png"><b>SIGA O PORTAL INFINITO</b><small style="font-size:40px;color:#fff">@portalinfinito.oficial</small><small>CAPÍTULO 1 EM BREVE · Voz: ElevenLabs</small></div>', top=640, cls="tw", anim="pop")
 cards.append(("marca", 0, TOTAL, '<div class="wm"><img src="assets/logo.png"></div>', "none"))
 
 cards_html = "\n".join(f'<div id="k-{cid}" class="clip kwrap" data-start="{t0}" data-duration="{round(t1 - t0, 3)}" data-anim="{an}">{h}</div>' for cid, t0, t1, h, an in cards)
