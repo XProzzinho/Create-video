@@ -132,7 +132,7 @@ CARD_CSS = """
 .lt b{display:block;font-family:Oswald;font-weight:700;font-size:64px;color:#fff;letter-spacing:2px}.lt i{display:block;font-style:normal;font-family:Inter;font-weight:700;font-size:34px;color:#ffc83a}
 .qq{display:inline-block;padding:34px 44px;border-radius:34px;background:rgba(10,10,28,.82);border:4px solid #ffc83a;font-family:Oswald;font-weight:700;font-size:78px;line-height:1.05;color:#fff;box-shadow:0 18px 50px rgba(0,0,0,.6)}
 .qq span{display:block;font-family:Inter;font-weight:900;font-size:34px;letter-spacing:6px;color:#ffc83a;margin-bottom:12px}.qq em{font-style:normal;color:#ffc83a}
-.wm{position:absolute;left:900px;top:1500px;opacity:.9}.wm img{display:block;width:150px;height:150px;border-radius:75px;box-shadow:0 0 24px rgba(150,90,255,.7)}
+.wm{position:absolute;left:890px;top:150px;opacity:.9}.wm img{display:block;width:150px;height:150px;border-radius:75px;box-shadow:0 0 24px rgba(150,90,255,.7)}
 .lgo{text-align:center}.lgo img{width:380px;height:380px;border-radius:190px;box-shadow:0 0 60px rgba(150,90,255,.8)}.lgo b{display:block;margin-top:24px;font-family:Oswald;font-weight:700;font-size:64px;color:#fff;text-shadow:0 4px 16px #000}.lgo small{display:block;margin-top:8px;font-family:Inter;font-weight:700;font-size:30px;color:#c8b8ff}
 .wm i{display:block;width:46px;height:46px;border-radius:23px;background:conic-gradient(from 0deg,#5ad0ff,#c89aff,#ff7ab0,#ffc83a,#5ad0ff);box-shadow:0 0 18px rgba(160,140,255,.8);position:relative}
 .wm i:after{content:'∞';position:absolute;inset:0;text-align:center;line-height:44px;font-family:Inter;font-weight:900;font-size:30px;color:#fff}
