@@ -46,6 +46,14 @@ jobs:
           $HF render --quality ${{ inputs.quality }} --fps ${{ inputs.fps }} --output ../out/parte${{ matrix.parte }}.mp4 > ../out/render${{ matrix.parte }}.log 2>&1 || echo "RENDER FALHOU" >> ../out/render${{ matrix.parte }}.log
           tail -40 ../out/render${{ matrix.parte }}.log
           test -s ../out/parte${{ matrix.parte }}.mp4
+      - name: Publicar a parte ${{ matrix.parte }} como Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          N=${{ matrix.parte }}
+          TAG="${PROJECT}-parte${N}-$(date -u +%Y%m%d-%H%M)"
+          cp out/parte${N}.mp4 "/tmp/${PROJECT}-parte${N}.mp4"
+          gh release create "$TAG" "/tmp/${PROJECT}-parte${N}.mp4" --repo "${{ github.repository }}" --title "Vídeo ${PROJECT} — PARTE ${N}" --notes "Parte ${N} do vídeo. Gerado pelo robô."
       - uses: actions/upload-artifact@v4
         if: always()
         with:
