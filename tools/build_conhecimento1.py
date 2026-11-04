@@ -103,7 +103,7 @@ card("kae", W(49), END(49) + 0.3, tag("KAELA", "Guilda dos Aventureiros · Rota 
 card("mes", W(50), END(50) + 0.3, tag("MENSAGEIRO", "Duque Aldric · Rota C", "#ffd23c"), top=1580, anim="slide")
 op = lambda L, t, s: f'<div class="opt3"><b>{L}</b>{t}<small>{s}</small></div>'
 card("enq", W(51), TOTAL, '<div class="pq"><span>COMENTA AÍ</span>QUAL CAMINHO?</div>' + op("A", "ROTA DO SÁBIO", "Academia Real") + op("B", "ROTA DO AVENTUREIRO", "Guilda") + op("C", "ROTA DO REINO", "Duque Aldric"), top=250, anim="slam")
-card("fim", W(51, WI(51, "mais")), TOTAL, '<div class="lgo sm"><img src="assets/logo.png"><b>SIGA O PORTAL INFINITO</b><small style="color:#fff">@portal_infinito</small></div>', top=1270, anim="pop")
+card("fim", W(51, WI(51, "mais")), TOTAL, '<div class="lgo sm"><img src="assets/logo.png"><b>SIGA O BESSEKAI</b><small style="color:#fff">@Bessekai</small></div>', top=1270, anim="pop")
 cards.append(("marca", 0, TOTAL, '<div class="wm"><img src="assets/logo.png"></div>', "none"))
 cards_html = "\n".join(f'<div id="k-{cid}" class="clip kwrap" data-start="{t0}" data-duration="{round(t1 - t0, 3)}" data-anim="{an}">{h}</div>' for cid, t0, t1, h, an in cards)
 CARD_CSS = """
