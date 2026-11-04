@@ -169,17 +169,25 @@
     dissolve(lt, T) { voidScene('white', true); const k = prog(lt, 0.2, T * 0.85); elyP({ mood: 'smile' }); haloOn(ely); if (k < 0.7) leoP({ mood: 'smile', look: [0, 0] }); else leo.visible = false; leo.scale.setScalar(1 - k * 0.15); sand.userData.place((i, d) => { const R = rng(i + 41); const born = R(); if (born > k * 1.2) return false; const u = (k - born / 1.2) * 2; d.position.set((R() - .5) * 0.7 + u * (R() - .3) * 2, FY() + R() * 1.9 + u * 2.5, (R() - .5) * 0.4 + u * 1.2); d.scale.setScalar(0.03 * (1 - Math.min(1, u))); }); fx.white = prog(lt, T * 0.75, T); camAB(lt, T, [2.4, 1.4, 1.6], [3.0, 1.6, 2.4], [0, 1.3, -0.4], null, 42); },
     elysia_last(lt, T) { voidScene('white', true); leo.visible = false; elyP({ mood: 'smile', talk: lt > 1.6 && lt < T - 0.4, look: [0, 0.5], headX: 0.18 }); haloOn(ely); fx.white = Math.max(0, 0.7 - lt * 1.4) + prog(lt, T - 0.5, T); closeOn(ely, lt, T, 1, 1.9, 1.15, -0.35, 34); },
     village_night(lt, T) { setMode('vnight'); sunAt(8000, 0, 0); WIN.forEach(w => w.material.opacity = 0.75 + Math.sin(gT * 4 + w.id) * 0.06); snowAround(8000, 0, -6, 40); smokeUp(); camAB(lt, T, [8000, 14, 28], [8000, 4.5, 12], [8000, 3, -8], [8000, 2.6, -8], 45); },
-    baby_window(lt, T) { setMode('inner'); sunAt(9000, 0, 0); fireL.intensity = 3.2 + Math.sin(gT * 9) * 0.6 + Math.sin(gT * 23) * 0.3; flames.forEach((f, i) => { f.scale.y = 0.5 + Math.sin(gT * 11 + i * 2) * 0.12; });
+    baby_window(lt, T) { famSet(lt, T, false); },
+    baby_close(lt, T) { famSet(lt, T, true); },
+    leo_talk(lt, T) { voidScene('white', true); elyP({ mood: 'neutral' }); leoP({ mood: 'neutral', talk: lt < T - 0.3, look: [0.1, 0], headZ: Math.sin(gT * 1.3) * 0.05 }); closeOn(leo, lt, T, -1, 1.3, 1.05, -0.12); },
+    leo_surprise(lt, T) { voidScene('white', true); elyP({ mood: 'smile' }); leoP({ mood: 'shock', talk: lt > 0.2 && lt < T - 0.3, look: [0, 0], arms: { shL: [-0.9, 0, -0.5], elL: [-1.2, 0, 0], shR: [-0.9, 0, 0.5], elR: [-1.2, 0, 0] } }); fx.shake = lt < 0.2 ? 0.008 : 0; closeOn(leo, lt, T, -1, 1.0, 1.4, 0.15); },
+    ely_laugh(lt, T) { voidScene('white', true); leoP({ mood: 'neutral' }); elyP({ mood: 'smile', talk: lt < T - 0.3, look: [0, 0.2], headZ: Math.sin(gT * 9) * 0.06 * Math.max(0, 1 - lt / 1.5), headX: -0.08 }); haloOn(ely); closeOn(ely, lt, T, 1, 1.3, 1.0, 0.22); },
+  };
+  function famSet(lt, T, close) { setMode('inner'); sunAt(9000, 0, 0); fireL.intensity = 3.2 + Math.sin(gT * 9) * 0.6 + Math.sin(gT * 23) * 0.3; flames.forEach((f, i) => { f.scale.y = 0.5 + Math.sin(gT * 11 + i * 2) * 0.12; });
       place(mom, 8999.6, 0, -0.4, 0.25); pose(mom, gT, { mood: 'smile', look: [0.3, 0.5], headX: 0.3, headY: 0.2, arms: { shL: [-0.75, 0, 0.55], elL: [-1.45, 0, 0], shR: [-0.55, 0, -0.45], elR: [-1.35, 0, 0] } });
       place(dad, 9000.75, 0, -0.75, -0.45); pose(dad, gT, { mood: 'smile', talk: lt > T * 0.5, look: [-0.5, 0.3], headX: 0.15, arms: { shL: [-0.3, 0, -0.1] } });
       mom.updateMatrixWorld(true); const MP = mom.userData.P; const hL = new T3.Vector3(0, -0.29, 0.01), hR = new T3.Vector3(0, -0.29, 0.01); MP.elL.localToWorld(hL); MP.elR.localToWorld(hR); v3.copy(hL).add(hR).multiplyScalar(0.5); v3.y += 0.05; const fz = new T3.Vector3(Math.sin(0.25), 0, Math.cos(0.25)); const bx = new T3.Vector3().subVectors(hL, hR); bx.addScaledVector(fz, -bx.dot(fz)); bx.y *= 0.35; bx.normalize(); const by = new T3.Vector3().crossVectors(fz, bx).normalize(); baby.visible = true; baby.position.copy(v3).addScaledVector(fz, 0.03); baby.quaternion.setFromRotationMatrix(new T3.Matrix4().makeBasis(bx, by, fz)); baby.scale.setScalar(1.15); baby.updateMatrixWorld(true); window.__bb = [hL.toArray(), hR.toArray(), v3.toArray()]; const cry = Math.abs(Math.sin(gT * 6)); baby.userData.mouth.scale.set(0.016, 0.008 + cry * 0.012, 0.006);
-      const mh = headOf(mom); const bh = new T3.Vector3(0.17, 0, 0); baby.localToWorld(bh); const c = [(bh.x + mh[0]) / 2, (v3.y + mh[1]) / 2 - 0.05, (bh.z + mh[2]) / 2]; camAB(lt, T, add3(c, [0.5, 0.15, 3.0]), add3(c, [0.2, 0.05, 2.0]), c, null, 40); },
+      const mh = headOf(mom); const bh = new T3.Vector3(0.17, 0, 0); baby.localToWorld(bh); const c = [(bh.x + mh[0]) / 2, (v3.y + mh[1]) / 2 - 0.05, (bh.z + mh[2]) / 2]; if (close) { const bc = [bh.x, bh.y + 0.02, bh.z]; baby.userData.mouth.scale.set(0.012, 0.004, 0.006); camAB(lt, T, add3(bc, [0.25, 0.12, 1.0]), add3(bc, [0.12, 0.06, 0.6]), bc, null, 38); } else camAB(lt, T, add3(c, [0.5, 0.15, 3.0]), add3(c, [0.2, 0.05, 2.0]), c, null, 40); }
+  const A2 = {
     visitors(lt, T) { setMode('vday'); sunAt(8000, 0, 0); smokeUp(); snowAround(8000, 0, 0, 30); vSet(); camAB(lt, T, [8001.4, 1.5, 9.5], [8000.9, 1.3, 7.6], [8000, 1.1, 2.2], null, 42); },
     prof(lt, T) { setMode('vday'); sunAt(8000, 0, 0); snowAround(8000, 0, 0, 30); vSet(); pose(prof, gT, { mood: 'neutral', look: [0, 0], talk: true, arms: { shR: [-0.9, 0, 0], elR: [-1.0, 0, 0] } }); closeOn(prof, lt, T, 1, 1.4, 1.1, 0.25); },
     adventurer(lt, T) { setMode('vday'); sunAt(8000, 0, 0); snowAround(8000, 0, 0, 30); vSet(); pose(kaela, gT, { mood: 'smile', look: [0, 0], arms: { shR: [0, 0, 0.6], elR: [-1.6, 0, 0], shL: [0, 0, -0.6], elL: [-1.6, 0, 0] } }); closeOn(kaela, lt, T, 1, 1.4, 1.1, -0.2); },
     messenger(lt, T) { setMode('vday'); sunAt(8000, 0, 0); snowAround(8000, 0, 0, 30); vSet(); pose(mess, gT, { mood: 'neutral', look: [0, 0], arms: { shR: [-1.3, 0, 0.1], elR: [-0.3, 0, 0] } }); closeOn(mess, lt, T, 1, 1.5, 1.15, 0.2); },
     choose(lt, T) { setMode('vday'); sunAt(8000, 0, 0); smokeUp(); snowAround(8000, 0, 0, 30); vSet(true); const u = eIO(clamp(lt / 3)); camAt([8000 + lerp(1.6, 0.9, u) + Math.sin(gT * 0.4) * 0.2, lerp(0.8, 1.6, u), lerp(7.2, 6.4, u)], [8000, 1.25, 1.3], 46); },
   };
+  Object.assign(A, A2);
   function vSet(up) { place(kidLeo, 8000, 0, 4, Math.PI); pose(kidLeo, gT, { mood: up ? 'determined' : 'shock', look: up ? [0, 0.6] : [Math.sin(gT * 0.8), 0], headX: up ? -0.25 : 0 });
     place(prof, 7998.4, 0, 1.6, 0.35); place(kaela, 8000, 0, 1.1, 0); place(mess, 8001.6, 0, 1.6, -0.35);
     pose(prof, gT, { mood: 'neutral', look: [0.3, 0] }); pose(kaela, gT, { mood: 'smile', arms: { shR: [0, 0, 0.6], elR: [-1.6, 0, 0], shL: [0, 0, -0.6], elL: [-1.6, 0, 0] } }); pose(mess, gT, { mood: 'neutral', arms: { shR: [-1.3, 0, 0.1], elR: [-0.3, 0, 0] } }); }
@@ -191,7 +199,7 @@
     const sh = SHOTS[idx]; const lt = t - sh.t0, T = Math.max(0.3, sh.t1 - sh.t0);
     for (const k in fx) fx[k] = 0;
     PARTS.forEach(p => p.visible = false); OPT.forEach(o => o.visible = false); fireL.intensity = 0; ely.scale.setScalar(1); leo.scale.setScalar(1); aura.material.color.set('#ffd890');
-    (A[sh.id] || A.wake_white)(lt, T);
+    (A[sh.id] || A[sh.id.replace(/~\d+$/, '')] || A.wake_white)(lt, T);
     const pk = 1 - 0.05 * (1 - eOut(clamp(lt / 0.4))); const dir = new T3.Vector3().subVectors(cam.position, camT); cam.position.copy(camT).addScaledVector(dir, pk);
     cam.position.x += Math.sin(t * 0.9) * 0.012 + Math.sin(t * 2.3) * 0.005; cam.position.y += Math.cos(t * 0.7) * 0.01;
     if (fx.shake) { cam.position.x += Math.sin(t * 87) * fx.shake; cam.position.y += Math.cos(t * 71) * fx.shake; }

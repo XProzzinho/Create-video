@@ -3,26 +3,50 @@
 03	NAR	[whispers] Sem chão. Sem céu. Sem horizonte.
 04	NAR	Na frente dele, uma mulher de cabelos brancos e olhos dourados, segurando um cajado com uma pedra azul.
 05	ELY	[softly] Finalmente acordou, humano.
-06	LEO	[nervous] Eu morri? E a criança?
-07	ELY	[warmly] Está viva. Você conseguiu salvar ela.
-08	ELY	Eu sou Elysia, a deusa da criação... e guardiã do mundo de Aetherion.
-09	NAR	Um mundo de reinos medievais, dragões e magia... onde ninguém conhece a ciência.
-10	NAR	Sem eletricidade. Sem vacinas. Sem saneamento. [sarcastic] Nem sabão eles sabem fazer.
-11	ELY	Toda alma que eu envio recebe uma bênção. Força para partir montanhas... mana infinita... Pode pedir.
-12	NAR	O Leonardo pensou... e respondeu:
-13	LEO	[determined] Eu quero lembrar. De tudo que eu já li, estudei ou vi na vida.
-14	ELY	[surprised] Você pode ter o poder de um dragão... e quer lembrar de coisas?
-15	LEO	[laughs] Num mundo sem sabão, quem sabe fazer sabão vale mais que um dragão.
-16	NAR	Pela primeira vez em séculos... a deusa não soube o que responder.
-17	ELY	[laughs softly] Eu não sei o que fazer com você, Leonardo.
-18	LEO	Então me deixa ir... e vê o que acontece.
-19	NAR	Ela tocou a testa dele com o cajado... e ele viu tudo de uma vez. Fórmulas, mapas, máquinas... até a receita de pão da avó.
-20	NAR	[dramatic] Bênção concedida: Memória do Mundo Antigo.
-21	NAR	O espaço branco se desfez como areia. E a última coisa que ele ouviu foi...
-22	ELY	[whispers] Vamos ver o que você faz com o meu mundo, humano.
-23	NAR	Numa vila chamada Brumafria, numa noite de inverno, um bebê chorou pela primeira vez. E o pai deu a ele o nome de... Leonardo.
-24	NAR	Doze anos depois, três pessoas vieram buscar ele.
-25	PROF	A Academia Real quer você, garoto.
-26	KAE	[confident] Esquece os livros. A Guilda dos Aventureiros precisa de você!
-27	MES	Por ordem do Duque Aldric, você está convocado!
-28	NAR	[excited] Qual caminho o Leonardo deve seguir? Comenta A, B ou C! O mais votado vira o capítulo dois.
+06	LEO	[nervous] Eu morri?
+07	ELY	Sim.
+08	LEO	E a criança?
+09	ELY	[warmly] Está viva. Você conseguiu salvar ela.
+10	LEO	[sighs] Então está tudo bem.
+11	ELY	Você não está assustado?
+12	LEO	Estou. Mas acho que perguntar se eu tô vivo não vai mudar muita coisa.
+13	ELY	[laughs] Interessante. Normalmente os humanos perguntam sobre o céu, o inferno, dinheiro... ou imortalidade.
+14	LEO	E você é quem?
+15	ELY	Eu sou Elysia, a deusa da criação... e guardiã do mundo de Aetherion.
+16	LEO	[surprised] Pera... deusa? Então isso é tipo um isekai?
+17	ELY	[curious] Não conheço essa palavra.
+18	LEO	Esquece. Acho que já entendi.
+19	NAR	Ela ergueu o cajado, e no espaço branco apareceu outro mundo. Reinos medievais, dragões, cidades muradas e magia.
+20	ELY	Este é Aetherion. Aqui a magia existe... mas a tecnologia está muito atrasada.
+21	LEO	Vocês têm eletricidade? Saneamento? Vacinas? Imprensa?
+22	ELY	Não... O que é isso? Alguns reinos possuem escribas.
+23	LEO	[laughs] Então eu vou pra um mundo medieval, com magia, monstros... e ninguém conhece a ciência moderna?
+24	ELY	Correto.
+25	LEO	[sighs] Meu Deus...
+26	ELY	[laughs softly] Eu sou uma deusa. Não o seu Deus.
+27	ELY	Agora vem a parte que eu gosto. Toda alma que eu envio recebe uma bênção. Pode pedir o que quiser.
+28	ELY	Força pra partir montanhas. Mana infinita. Uma espada que corta o próprio destino. [mischievously] O último pediu pra ser irresistível pra todas as mulheres.
+29	LEO	E deu certo?
+30	ELY	Ele morreu com dezenove anos. Um marido ciumento.
+31	NAR	O Leonardo pensou... e respondeu:
+32	LEO	[determined] Eu quero lembrar. De tudo que eu já li, estudei ou vi na vida. Até aquele documentário de três horas sobre esgoto.
+33	ELY	[surprised] Você pode ter o poder de um dragão... e quer lembrar de documentários?
+34	LEO	Num mundo sem sabão, quem sabe fazer sabão vale mais que um dragão.
+35	NAR	Pela primeira vez em séculos... a deusa não soube o que responder.
+36	ELY	Vão te chamar de santo. Ou de herege. Talvez das duas coisas na mesma semana.
+37	LEO	Na Terra também era assim. Alguns foram queimados... outros mudaram o mundo.
+38	ELY	[softly] Eu não sei o que fazer com você, Leonardo.
+39	LEO	Então não faz nada. Me deixa ir... e vê o que acontece.
+40	NAR	Ela tocou a testa dele com o cajado... e ele viu tudo de uma vez. Fórmulas, mapas, máquinas... até a receita de pão da avó.
+41	NAR	[dramatic] Bênção concedida: Memória do Mundo Antigo.
+42	ELY	E um pouco de mana. Porque sem isso você morre na primeira semana.
+43	NAR	O espaço branco se desfez como areia. E a última coisa que ele ouviu foi...
+44	ELY	[whispers] Vamos ver o que você faz com o meu mundo, humano.
+45	NAR	Numa vila chamada Brumafria, numa noite de inverno, um bebê chorou pela primeira vez. E o pai deu a ele o nome de... Leonardo.
+46	NAR	E o bebê pensou, com toda a clareza do mundo:
+47	LEO	[whispers] Primeira coisa: alguém precisa lavar essas mãos antes de me pegar.
+48	NAR	Doze anos depois, três pessoas vieram buscar ele.
+49	PROF	A Academia Real quer você, garoto.
+50	KAE	[confident] Esquece os livros. A Guilda dos Aventureiros precisa de você!
+51	MES	Por ordem do Duque Aldric, você está convocado!
+52	NAR	[excited] Qual caminho o Leonardo deve seguir? Comenta A, B ou C! O mais votado vira o capítulo dois.

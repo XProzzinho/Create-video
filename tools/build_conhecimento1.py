@@ -18,18 +18,22 @@ head = head.replace('ROOT = os.path.join(HERE, "..", "sono")', 'ROOT = os.path.j
 a = head.index("CUTS = {"); b = head.index("MARKS = {}")
 SPEC = [
  [(0, "intro")], [(0, "wake_white"), ("flutuando", "leo_float")], [(0, "void_wide")], [(0, "elysia_reveal")],
- [(0, "elysia_talk")], [(0, "leo_ask")], [(0, "elysia_smile")], [(0, "elysia_intro")],
- [(0, "aeth_wide"), ("dragões", "dragon_fly")], [(0, "icons_no")], [(0, "blessing_offer")], [(0, "leo_think")],
- [(0, "leo_answer")], [(0, "elysia_shock")], [(0, "leo_soap")], [(0, "elysia_wonder")],
- [(0, "duo_talk")], [(0, "leo_smile")], [(0, "touch_forehead"), ("tudo", "memory_burst")], [(0, "blessing_title")],
- [(0, "dissolve")], [(0, "elysia_last")], [(0, "village_night"), ("bebê", "baby_window")], [(0, "visitors")],
+ [(0, "elysia_talk")], [(0, "leo_ask")], [(0, "elysia_smile~1")], [(0, "leo_ask~2")], [(0, "elysia_smile")], [(0, "leo_smile~1")],
+ [(0, "elysia_wonder~1")], [(0, "leo_talk")], [(0, "ely_laugh")], [(0, "leo_talk~2")], [(0, "elysia_intro")], [(0, "leo_surprise")],
+ [(0, "elysia_wonder~2")], [(0, "leo_talk~3")], [(0, "aeth_wide"), ("dragões", "dragon_fly")], [(0, "dragon_fly~2")],
+ [(0, "icons_no")], [(0, "elysia_smile~2")], [(0, "leo_smile~2")], [(0, "elysia_talk~2")], [(0, "leo_think~1")], [(0, "ely_laugh~2")],
+ [(0, "blessing_offer")], [(0, "elysia_smile~3")], [(0, "leo_surprise~2")], [(0, "elysia_talk~3")],
+ [(0, "leo_think")], [(0, "leo_answer")], [(0, "elysia_shock")], [(0, "leo_soap")], [(0, "elysia_wonder")],
+ [(0, "duo_talk")], [(0, "leo_talk~4")], [(0, "elysia_wonder~3")], [(0, "leo_smile")],
+ [(0, "touch_forehead"), ("tudo", "memory_burst")], [(0, "blessing_title")], [(0, "elysia_smile~4")], [(0, "dissolve")], [(0, "elysia_last")],
+ [(0, "village_night"), ("bebê", "baby_window")], [(0, "baby_close")], [(0, "baby_close~2")], [(0, "visitors")],
  [(0, "prof")], [(0, "adventurer")], [(0, "messenger")], [(0, "choose")],
 ]
 TXT = [clean(f[2]) for f in FALAS]
 def _wi(li, w): return [t.strip(".,!?:").lower() for t in TXT[li].split()].index(w)
 CUTS = {i: [(w if isinstance(w, int) else _wi(i, w), n) for w, n in sp] for i, sp in enumerate(SPEC)}
 head = head[:a] + "CUTS = " + repr(CUTS) + "\n" + head[b:]
-head = head.replace('GAP = {0: 0.3, 4: 0.6, 9: 0.8, 10: 0.8, 14: 0.6}', 'GAP = {0: 0.6, 2: 0.5, 3: 0.5, 7: 0.4, 9: 0.5, 11: 0.5, 13: 0.4, 15: 0.6, 18: 0.6, 19: 0.8, 20: 0.4, 21: 1.0, 22: 0.5, 23: 0.3, 26: 0.5}').replace('DEFAULT_GAP = 0.7', 'DEFAULT_GAP = 0.3').replace('TAIL = 2.6', 'TAIL = 4.2')
+head = head.replace('GAP = {0: 0.3, 4: 0.6, 9: 0.8, 10: 0.8, 14: 0.6}', 'GAP = {0: 0.6, 2: 0.5, 3: 0.5, 17: 0.4, 18: 0.3, 19: 0.4, 29: 0.5, 30: 0.3, 33: 0.6, 34: 0.4, 38: 0.6, 39: 0.6, 40: 0.5, 41: 0.4, 42: 1.0, 43: 0.5, 44: 0.4, 46: 0.6, 47: 0.3, 50: 0.5}').replace('DEFAULT_GAP = 0.7', 'DEFAULT_GAP = 0.3').replace('TAIL = 2.6', 'TAIL = 4.2')
 g = {"__file__": os.path.join(HERE, "build_sono.py")}
 exec(head, g)
 lines, shots, TOTAL = g["lines"], g["shots"], g["TOTAL"]
@@ -80,20 +84,26 @@ tag = lambda n, r, c="#ffc83a": f'<div class="lt" style="border-color:{c}"><b>{n
 card("ep", 0.15, W(0, WI(0, "lembra")), '<div class="lgo"><img src="assets/logo.png"><b>O ÚLTIMO CONHECIMENTO</b><small>CAPÍTULO 1</small></div>', top=470, anim="slam")
 card("voto", W(0, WI(0, "lembra")), END(0) + 0.5, '<div class="qq"><span>LEMBRA</span>NO FINAL, <em>VOCÊ</em> ESCOLHE<br>O PRÓXIMO EPISÓDIO</div>', top=380, anim="slam")
 card("cap", END(0) + 0.5, W(2), '<div class="epc"><span>CAPÍTULO 1</span>O DEUS QUE NÃO SABIA<br>O QUE FAZER COM ELE</div>', top=260, anim="fade")
-card("ely", W(7) + 0.1, END(7) + 0.4, tag("ELYSIA", "Deusa da criação · Aetherion", "#ffd890"), top=1580, anim="slide")
-card("aet", W(8), W(8, WI(8, "dragões")), '<div class="epc" style="font-size:120px"><span>O MUNDO DE</span>AETHERION</div>', top=300, anim="fade")
-card("sem", W(9), END(9) + 0.3, '<div class="crow"><span class="chip"><i style="background:#ff3a4a"></i>ELETRICIDADE</span><span class="chip"><i style="background:#ff3a4a"></i>VACINAS</span><span class="chip"><i style="background:#ff3a4a"></i>SANEAMENTO</span><span class="chip"><i style="background:#ff3a4a"></i>SABÃO</span></div>', top=300, anim="pop")
-card("pod", W(10, 6), END(10) + 0.3, '<div class="crow"><span class="chip"><i style="background:#ffb04a"></i>FORÇA</span><span class="chip"><i style="background:#5ad0ff"></i>MANA INFINITA</span><span class="chip"><i style="background:#c89aff"></i>??? </span></div>', top=280, anim="pop")
-card("frase", W(14) + 0.3, END(14) + 0.5, '<div class="qq">QUEM SABE FAZER <em>SABÃO</em><br>VALE MAIS QUE<br>UM <em>DRAGÃO</em></div>', top=300, anim="slam")
-card("bencao", W(19), END(19) + 0.8, '<div class="epc" style="font-size:88px"><span>BÊNÇÃO CONCEDIDA</span>MEMÓRIA DO<br>MUNDO ANTIGO</div>', top=300, anim="slam")
-card("vila", W(22) + 0.2, W(22, WI(22, "bebê")), '<div class="epc" style="font-size:110px"><span>VILA DE</span>BRUMAFRIA</div>', top=320, anim="fade")
-card("12", W(23), W(24), '<div class="epc" style="font-size:120px"><span>DOZE ANOS DEPOIS</span>LEONARDO, 12</div>', top=300, anim="slam")
-card("prof", W(24), END(24) + 0.3, tag("PROFESSOR AURELIUS", "Academia Real · Rota A", "#8aa8ff"), top=1580, anim="slide")
-card("kae", W(25), END(25) + 0.3, tag("KAELA", "Guilda dos Aventureiros · Rota B", "#ff7a5a"), top=1580, anim="slide")
-card("mes", W(26), END(26) + 0.3, tag("MENSAGEIRO", "Duque Aldric · Rota C", "#ffd23c"), top=1580, anim="slide")
+card("ely", W(14) + 0.1, END(14) + 0.4, tag("ELYSIA", "Deusa da criação · Aetherion", "#ffd890"), top=1580, anim="slide")
+card("ise", W(15, WI(15, "isekai")), END(16) + 0.3, '<div class="qq">ISEKAI?<br><em>???</em></div>', top=330, anim="slam")
+card("aet", W(18, WI(18, "apareceu")), W(18, WI(18, "dragões")), '<div class="epc" style="font-size:120px"><span>O MUNDO DE</span>AETHERION</div>', top=300, anim="fade")
+card("sem", W(20), END(21) + 0.3, '<div class="crow"><span class="chip"><i style="background:#ff3a4a"></i>ELETRICIDADE</span><span class="chip"><i style="background:#ff3a4a"></i>SANEAMENTO</span><span class="chip"><i style="background:#ff3a4a"></i>VACINAS</span><span class="chip"><i style="background:#ff3a4a"></i>IMPRENSA</span></div>', top=300, anim="pop")
+card("deus", W(25, WI(25, "deusa")), END(25) + 0.6, '<div class="qq">UMA <em>DEUSA</em>.<br>NÃO O SEU <em>DEUS</em>.</div>', top=320, anim="slam")
+card("pod", W(27), W(27, WI(27, "último")), '<div class="crow"><span class="chip"><i style="background:#ffb04a"></i>FORÇA</span><span class="chip"><i style="background:#5ad0ff"></i>MANA INFINITA</span><span class="chip"><i style="background:#c89aff"></i>ESPADA DO DESTINO</span></div>', top=280, anim="pop")
+card("ciu", W(29, WI(29, "marido")), END(29) + 0.5, '<div class="qq">MORREU AOS <em>19</em><br>(MARIDO CIUMENTO)</div>', top=320, anim="slam")
+card("frase", W(33) + 0.3, END(33) + 0.5, '<div class="qq">QUEM SABE FAZER <em>SABÃO</em><br>VALE MAIS QUE<br>UM <em>DRAGÃO</em></div>', top=300, anim="slam")
+card("san", W(35), END(35) + 0.3, '<div class="crow"><span class="chip"><i style="background:#ffd23c"></i>SANTO</span><span class="chip"><i style="background:#ff3a4a"></i>HEREGE</span></div>', top=300, anim="pop")
+card("bencao", W(40), END(40) + 0.8, '<div class="epc" style="font-size:88px"><span>BÊNÇÃO CONCEDIDA</span>MEMÓRIA DO<br>MUNDO ANTIGO</div>', top=300, anim="slam")
+card("mana", W(41, WI(41, "mana")), END(41) + 0.3, '<div class="crow"><span class="chip"><i style="background:#5ad0ff"></i>+ UM POUCO DE MANA</span></div>', top=300, anim="pop")
+card("vila", W(44) + 0.2, W(44, WI(44, "bebê")), '<div class="epc" style="font-size:110px"><span>VILA DE</span>BRUMAFRIA</div>', top=320, anim="fade")
+card("maos", W(46), END(46) + 0.5, '<div class="qq"><span>PENSAMENTO DO BEBÊ</span>LAVEM ESSAS<br><em>MÃOS</em> PRIMEIRO!</div>', top=300, anim="slam")
+card("12", W(47), W(48), '<div class="epc" style="font-size:120px"><span>DOZE ANOS DEPOIS</span>LEONARDO, 12</div>', top=300, anim="slam")
+card("prof", W(48), END(48) + 0.3, tag("PROFESSOR AURELIUS", "Academia Real · Rota A", "#8aa8ff"), top=1580, anim="slide")
+card("kae", W(49), END(49) + 0.3, tag("KAELA", "Guilda dos Aventureiros · Rota B", "#ff7a5a"), top=1580, anim="slide")
+card("mes", W(50), END(50) + 0.3, tag("MENSAGEIRO", "Duque Aldric · Rota C", "#ffd23c"), top=1580, anim="slide")
 op = lambda L, t, s: f'<div class="opt3"><b>{L}</b>{t}<small>{s}</small></div>'
-card("enq", W(27), TOTAL, '<div class="pq"><span>COMENTA AÍ</span>QUAL CAMINHO?</div>' + op("A", "ROTA DO SÁBIO", "Academia Real") + op("B", "ROTA DO AVENTUREIRO", "Guilda") + op("C", "ROTA DO REINO", "Duque Aldric"), top=250, anim="slam")
-card("fim", W(27, WI(27, "mais")), TOTAL, '<div class="lgo sm"><img src="assets/logo.png"><b>SIGA O PORTAL INFINITO</b><small style="color:#fff">@portal_infinito</small></div>', top=1270, anim="pop")
+card("enq", W(51), TOTAL, '<div class="pq"><span>COMENTA AÍ</span>QUAL CAMINHO?</div>' + op("A", "ROTA DO SÁBIO", "Academia Real") + op("B", "ROTA DO AVENTUREIRO", "Guilda") + op("C", "ROTA DO REINO", "Duque Aldric"), top=250, anim="slam")
+card("fim", W(51, WI(51, "mais")), TOTAL, '<div class="lgo sm"><img src="assets/logo.png"><b>SIGA O PORTAL INFINITO</b><small style="color:#fff">@portal_infinito</small></div>', top=1270, anim="pop")
 cards.append(("marca", 0, TOTAL, '<div class="wm"><img src="assets/logo.png"></div>', "none"))
 cards_html = "\n".join(f'<div id="k-{cid}" class="clip kwrap" data-start="{t0}" data-duration="{round(t1 - t0, 3)}" data-anim="{an}">{h}</div>' for cid, t0, t1, h, an in cards)
 CARD_CSS = """
@@ -198,10 +208,10 @@ el("aparece", st["elysia_reveal"], 0.5); el("cajado", st["elysia_intro"] + 0.2, 
 el("dragao", st["dragon_fly"] + 0.1, 0.55); el("asas", st["dragon_fly"] + 1.0, 0.45)
 step = sd["icons_no"] / 5
 for i in range(4): el("erro", st["icons_no"] + i * step + 0.55, 0.3)
-el("scratch", W(9, WI(9, "nem")) - 0.1, 0.45); el("pensando", st["leo_think"], 0.3); el("susto", st["elysia_shock"], 0.45)
+el("scratch", W(21) - 0.1, 0.45); el("susto", W(25, WI(25, "deusa")), 0.35); el("pensando", st["leo_think"], 0.3); el("susto", st["elysia_shock"], 0.45)
 el("bolhas", st["leo_soap"] + 0.3, 0.45); el("cajado", st["touch_forehead"] + 0.6, 0.55); el("memoria", st["memory_burst"], 0.55)
 el("bencao", st["blessing_title"], 0.55); el("areia", st["dissolve"] + 0.2, 0.5)
-el("lareira", st["baby_window"], 0.4, sd["baby_window"]); el("bebe", W(22, WI(22, "chorou")) - 0.2, 0.45)
+el("lareira", st["baby_window"], 0.4, sd["baby_window"]); el("bebe", W(44, WI(44, "chorou")) - 0.2, 0.45); el("bolhas", W(46, WI(46, "lavar")), 0.35)
 el("livro", st["prof"] + 0.2, 0.5); el("espada", st["adventurer"] + 0.15, 0.5); el("pergaminho", st["messenger"] + 0.2, 0.5); el("escolha", st["choose"], 0.5)
 add("sparkle", st["elysia_reveal"] + 0.2, 0.3); add("impact-bass-1", st["elysia_shock"] + 0.05, 0.35); add("impact-bass-2", st["blessing_title"], 0.45); add("chime", st["choose"] + 0.4, 0.3)
 for n in set(re.sub(r".*/|\.mp3", "", s[0]) for s in sfx if s[0].startswith("assets/sfx/")): shutil.copy(os.path.join(SFXDIR, n + ".mp3"), os.path.join(ROOT, "assets", "sfx", n + ".mp3"))
