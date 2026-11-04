@@ -1,0 +1,34 @@
+name: ElevenLabs info
+on:
+  workflow_dispatch:
+    inputs:
+      search:
+        default: "Leonardo"
+permissions:
+  contents: write
+jobs:
+  info:
+    runs-on: ubuntu-latest
+    env:
+      KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+      Q: ${{ inputs.search }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get install -y jq
+      - name: Consultar
+        run: |
+          mkdir -p cota
+          curl -s https://api.elevenlabs.io/v1/voices -H "xi-api-key: $KEY" | jq -r '.voices[]? | [.voice_id, .name, .category, (.labels|tostring), (.description//"")] | @tsv' > cota/minhas-vozes.tsv || true
+          curl -s https://api.elevenlabs.io/v1/voices -H "xi-api-key: $KEY" | head -c 600 > cota/vozes-raw.txt || true
+          for q in $Q; do
+            curl -s -G https://api.elevenlabs.io/v1/shared-voices -H "xi-api-key: $KEY" --data-urlencode "search=$q" --data-urlencode "page_size=30" | jq -r '.voices[]? | [.voice_id, .public_owner_id, .name, .language, .gender, .age, .accent, .use_case, (.description//"")[0:160]] | @tsv' >> cota/busca.tsv || true
+          done
+          for q in $Q; do
+            curl -s -G https://api.elevenlabs.io/v1/shared-voices -H "xi-api-key: $KEY" --data-urlencode "search=$q" --data-urlencode "language=pt" --data-urlencode "page_size=30" | jq -r '.voices[]? | [.voice_id, .public_owner_id, .name, .language, .gender, .age, .accent, .use_case, (.description//"")[0:160]] | @tsv' >> cota/busca-pt.tsv || true
+          done
+          curl -s https://api.elevenlabs.io/v1/user/subscription -H "xi-api-key: $KEY" | jq '{tier, character_count, character_limit, next_character_count_reset_unix, voice_limit, voice_slots_used}' > cota/plano.json || true
+      - name: Salvar
+        run: |
+          git config user.name "render-bot"; git config user.email "render-bot@users.noreply.github.com"
+          git add -A cota; git commit -q -m "Info ElevenLabs [skip ci]" || true
+          git pull -q --rebase && git push -q
