@@ -1,0 +1,81 @@
+name: Render em 2 partes
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: "Pasta do projeto"
+        required: true
+      corte:
+        description: "Segundo onde o vídeo é dividido"
+        required: true
+      quality:
+        description: "draft, looks ou delivery"
+        default: "delivery"
+      fps:
+        description: "30 ou 60"
+        default: "60"
+permissions:
+  contents: write
+jobs:
+  parte:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      matrix:
+        parte: [1, 2]
+    env:
+      PROJECT: ${{ inputs.project }}
+      HF: npx -y hyperframes@0.8.223
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Instalar FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Preparar a parte
+        run: |
+          TOT=$(grep -o 'id="root"[^>]*data-duration="[^"]*"' $PROJECT/index.html | grep -o 'data-duration="[^"]*"' | grep -o '[0-9.]*')
+          if [ "${{ matrix.parte }}" = "1" ]; then INI=0; FIM=${{ inputs.corte }}; else INI=${{ inputs.corte }}; FIM=$TOT; fi
+          python3 tools/partes.py $PROJECT $INI $FIM parte
+      - name: Renderizar a parte ${{ matrix.parte }}
+        working-directory: parte
+        run: |
+          mkdir -p ../out
+          $HF render --quality ${{ inputs.quality }} --fps ${{ inputs.fps }} --output ../out/parte${{ matrix.parte }}.mp4 > ../out/render${{ matrix.parte }}.log 2>&1 || echo "RENDER FALHOU" >> ../out/render${{ matrix.parte }}.log
+          tail -40 ../out/render${{ matrix.parte }}.log
+          test -s ../out/parte${{ matrix.parte }}.mp4
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: parte${{ matrix.parte }}
+          path: out/
+  juntar:
+    needs: parte
+    runs-on: ubuntu-latest
+    env:
+      PROJECT: ${{ inputs.project }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: partes
+      - name: Instalar FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Juntar as partes
+        run: |
+          ls -la partes/*
+          printf "file '%s'\n" "$PWD/partes/parte1/parte1.mp4" "$PWD/partes/parte2/parte2.mp4" > lista.txt
+          ffmpeg -v error -y -f concat -safe 0 -i lista.txt -c copy -movflags +faststart video.mp4
+          ffprobe -v error -show_entries format=duration -of csv=p=0 video.mp4
+      - name: Publicar como Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${PROJECT}-$(date -u +%Y%m%d-%H%M)"
+          cp video.mp4 "/tmp/${PROJECT}-original.mp4"
+          gh release create "$TAG" "/tmp/${PROJECT}-original.mp4" --repo "${{ github.repository }}" --title "Vídeo ${PROJECT} ($(date -u +%d/%m/%Y))" --notes "Vídeo original em qualidade máxima, renderizado em 2 partes e juntado. Gerado pelo robô."
+      - uses: actions/upload-artifact@v4
+        with:
+          name: video
+          path: video.mp4
