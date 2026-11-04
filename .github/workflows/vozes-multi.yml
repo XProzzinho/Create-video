@@ -1,0 +1,59 @@
+name: Vozes e efeitos ElevenLabs
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: "Pasta do projeto (usa falas.tsv, vozes-map.tsv e sfx.tsv)"
+        default: "conhecimento1"
+      model:
+        default: "eleven_v3"
+permissions:
+  contents: write
+jobs:
+  voz:
+    runs-on: ubuntu-latest
+    env:
+      KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+      PROJ: ${{ inputs.project }}
+      MODEL: ${{ inputs.model }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg jq
+      - name: Gerar falas
+        run: |
+          mkdir -p out $PROJ/assets/falas-eleven $PROJ/assets/sfx-eleven
+          declare -A V
+          while IFS=$'\t' read -r k id st; do [ -z "$k" ] && continue; V[$k]="$id"; S[$k]="${st:-0.5}"; done < $PROJ/vozes-map.tsv
+          while IFS=$'\t' read -r n k text; do
+            [ -z "$n" ] && continue
+            f=$PROJ/assets/falas-eleven/fala-$n.wav
+            [ -f "$f" ] && continue
+            vid="${V[$k]}"; [ -z "$vid" ] || [ "$vid" = "PENDENTE" ] && { echo "fala $n: pulada ($k)" | tee -a out/eleven.log; continue; }
+            body=$(jq -n --arg t "$text" --arg m "$MODEL" '{text:$t, model_id:$m, language_code:"pt", voice_settings:{stability:0.5, similarity_boost:0.8, style:0.45, use_speaker_boost:true}}')
+            code=$(curl -s -o /tmp/f.mp3 -w "%{http_code}" -X POST "https://api.elevenlabs.io/v1/text-to-speech/$vid?output_format=mp3_44100_128" -H "xi-api-key: $KEY" -H "Content-Type: application/json" -d "$body" < /dev/null)
+            echo "fala $n ($k): $code" | tee -a out/eleven.log
+            if [ "$code" != "200" ]; then head -c 400 /tmp/f.mp3 >> out/eleven.log; echo >> out/eleven.log; continue; fi
+            ffmpeg -nostdin -v error -y -i /tmp/f.mp3 -ar 44100 -ac 1 "$f"
+          done < $PROJ/falas.tsv
+      - name: Gerar efeitos
+        run: |
+          [ -f $PROJ/sfx.tsv ] || exit 0
+          while IFS=$'\t' read -r name secs prompt; do
+            [ -z "$name" ] && continue
+            f=$PROJ/assets/sfx-eleven/$name.wav
+            [ -f "$f" ] && continue
+            body=$(jq -n --arg t "$prompt" --argjson d "$secs" '{text:$t, duration_seconds:$d, prompt_influence:0.45}')
+            code=$(curl -s -o /tmp/s.mp3 -w "%{http_code}" -X POST "https://api.elevenlabs.io/v1/sound-generation?output_format=mp3_44100_128" -H "xi-api-key: $KEY" -H "Content-Type: application/json" -d "$body" < /dev/null)
+            echo "sfx $name: $code" | tee -a out/eleven.log
+            if [ "$code" != "200" ]; then head -c 400 /tmp/s.mp3 >> out/eleven.log; echo >> out/eleven.log; continue; fi
+            ffmpeg -nostdin -v error -y -i /tmp/s.mp3 -ar 44100 -ac 2 "$f"
+          done < $PROJ/sfx.tsv
+      - name: Salvar
+        if: always()
+        run: |
+          curl -s https://api.elevenlabs.io/v1/user/subscription -H "xi-api-key: $KEY" | jq '{tier, character_count, character_limit}' > $PROJ/plano.json || true
+          cp out/eleven.log $PROJ/eleven.log 2>/dev/null || true
+          git config user.name "render-bot"; git config user.email "render-bot@users.noreply.github.com"
+          git add -A $PROJ
+          git commit -q -m "Vozes e efeitos de $PROJ [skip ci]" || true
+          git pull -q --rebase && git push -q
