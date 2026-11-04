@@ -22,7 +22,7 @@ permissions:
 jobs:
   render:
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 350
     env:
       PROJECT: ${{ inputs.project || 'evil-tale-3d' }}
       QUALITY: ${{ inputs.quality || 'looks' }}
