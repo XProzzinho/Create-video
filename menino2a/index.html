@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>O menino que ninguém quis ajudar - Episódio 2 Parte 1</title>
+    <meta name="viewport" content="width=1080, height=1920" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <script src="assets/three.min.js"></script>
+    <style>*{margin:0;padding:0;box-sizing:border-box}html,body{margin:0;width:1080px;height:1920px;overflow:hidden;background:#000}#root{width:100%;height:100%}</style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="158.65" data-width="1080" data-height="1920">
+      <div id="mundo" data-composition-id="mundo" data-composition-src="compositions/mundo.html" data-start="0" data-duration="158.65" data-track-index="0" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:1"></div>
+      <div id="cartoes" data-composition-id="cartoes" data-composition-src="compositions/cartoes.html" data-start="0" data-duration="158.65" data-track-index="1" data-track-kind="graphics" data-width="1080" data-height="1920" style="z-index:2"></div>
+      <div id="palavras" data-composition-id="palavras" data-composition-src="compositions/palavras.html" data-start="0" data-duration="158.65" data-track-index="11" data-track-kind="captions" data-width="1080" data-height="1920" style="z-index:3"></div>
+      <audio id="trilha" class="clip" src="assets/trilha.wav" data-start="0" data-duration="158.65" data-track-index="9" data-volume="0.2"></audio>
+      <audio id="cama-0" class="clip" src="assets/cama-chuva.wav" data-start="15.742" data-duration="96.976" data-track-index="12" data-volume="0.45" data-fade-out="1.0"></audio>
+      <audio id="cama-1" class="clip" src="assets/cama-lareira.wav" data-start="112.718" data-duration="23.137" data-track-index="13" data-volume="0.35" data-fade-out="1.0"></audio>
+      <audio id="cama-2" class="clip" src="assets/cama-chuva2.wav" data-start="135.855" data-duration="22.795" data-track-index="14" data-volume="0.45" data-fade-out="1.0"></audio>
+      <audio id="fala-01" class="clip" src="assets/falas-eleven/fala-01.wav" data-start="0.45" data-duration="21.68" data-track-index="2" data-volume="1.4"></audio>
+      <audio id="fala-02" class="clip" src="assets/falas-eleven/fala-02.wav" data-start="22.83" data-duration="9.04" data-track-index="2" data-volume="1.4"></audio>
+      <audio id="fala-03" class="clip" src="assets/falas-eleven/fala-03.wav" data-start="32.27" data-duration="8.48" data-track-index="2" data-volume="1.4"></audio>
+      <audio id="fala-04" class="clip" src="assets/falas-eleven/fala-04.wav" data-start="41.25" data-duration="6.8" data-track-index="2" data-volume="1.4"></audio>
+      <audio id="fala-05" class="clip" src="assets/falas-eleven/fala-05.wav" data-start="48.45" data-duration="4.24" data-track-index="2" data-volume="1.4"></audio>
+      <audio id="fala-06" class="clip" src="assets/falas-eleven/fala-06.wav" data-start="52.99" data-duration="2.4" data-track-index="2" data-volume="1.35"></audio>
+      <audio id="fala-07" class="clip" src="assets/falas-eleven/fala-07.wav" data-start="55.89" data-duration="1.76" data-track-index="2" data-volume="1.35"></audio>
+      <audio id="fala-08" class="clip" src="assets/falas-eleven/fala-08.wav" data-start="57.95" data-duration="9.6" data-track-index="2" data-volume="1.35"></audio>
+      <audio id="fala-09" class="clip" src="assets/falas-eleven/fala-09.wav" data-start="68.15" data-duration="2.64" data-track-index="2" data-volume="1.4"></audio>
+      <audio id="fala-10" class="clip" src="assets/falas-eleven/fala-10.wav" data-start="71.19" data-duration="2.0" data-track-index="2" data-volume="1.35"></audio>
+      <audio id="fala-11" class="clip" src="assets/falas-eleven/fala-11.wav" data-start="74.09" data-duration="7.04" data-track-index="2" data-volume="1.4"></audio>
+      <audio id="fala-12" class="clip" src="assets/falas-eleven/fala-12.wav" data-start="81.73" data-duration="5.68" data-track-index="2" data-volume="1.35"></audio>
+      <audio id="fala-13" class="clip" src="assets/falas-eleven/fala-13.wav" data-start="87.71" data-duration="1.44" data-track-index="2" data-volume="1.35"></audio>
+      <audio id="fala-14" class="clip" src="assets/falas-eleven/fala-14.wav" data-start="89.45" data-duration="8.32" data-track-index="2" data-volume="1.35"></audio>
+      <audio id="fala-15" class="clip" src="assets/falas-eleven/fala-15.wav" data-start="98.27" data-duration="4.0" data-track-index="2" data-volume="1.4"></audio>
+      <audio id="fala-16" class="clip" src="assets/falas-eleven/fala-16.wav" data-start="102.57" data-duration="1.84" data-track-index="2" data-volume="1.35"></audio>
+      <audio id="fala-17" class="clip" src="assets/falas-eleven/fala-17.wav" data-start="104.71" data-duration="6.0" data-track-index="2" data-volume="1.35"></audio>
+      <audio id="fala-18" class="clip" src="assets/falas-eleven/fala-18.wav" data-start="111.41" data-duration="6.48" data-track-index="2" data-volume="1.4"></audio>
+      <audio id="fala-19" class="clip" src="assets/falas-eleven/fala-19.wav" data-start="118.19" data-duration="2.64" data-track-index="2" data-volume="1.35"></audio>
+      <audio id="fala-20" class="clip" src="assets/falas-eleven/fala-20.wav" data-start="121.13" data-duration="2.4" data-track-index="2" data-volume="1.35"></audio>
+      <audio id="fala-21" class="clip" src="assets/falas-eleven/fala-21.wav" data-start="123.83" data-duration="2.08" data-track-index="2" data-volume="1.35"></audio>
+      <audio id="fala-22" class="clip" src="assets/falas-eleven/fala-22.wav" data-start="126.21" data-duration="4.0" data-track-index="2" data-volume="1.4"></audio>
+      <audio id="fala-23" class="clip" src="assets/falas-eleven/fala-23.wav" data-start="130.61" data-duration="2.08" data-track-index="2" data-volume="1.35"></audio>
+      <audio id="fala-24" class="clip" src="assets/falas-eleven/fala-24.wav" data-start="132.99" data-duration="1.2" data-track-index="2" data-volume="1.35"></audio>
+      <audio id="fala-25" class="clip" src="assets/falas-eleven/fala-25.wav" data-start="134.99" data-duration="9.04" data-track-index="2" data-volume="1.4"></audio>
+      <audio id="fala-26" class="clip" src="assets/falas-eleven/fala-26.wav" data-start="144.93" data-duration="9.52" data-track-index="2" data-volume="1.4"></audio>
+      <audio id="sfx-00" class="clip" src="assets/sfx/pop.mp3" data-start="0.03" data-duration="1.2" data-track-index="3" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-01" class="clip" src="assets/sfx/pop.mp3" data-start="13.255" data-duration="1.2" data-track-index="4" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-02" class="clip" src="assets/sfx/pop.mp3" data-start="15.672" data-duration="1.2" data-track-index="5" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-03" class="clip" src="assets/sfx/pop.mp3" data-start="16.433" data-duration="1.2" data-track-index="6" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-04" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="22.57" data-duration="1.2" data-track-index="7" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-05" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="28.94" data-duration="1.2" data-track-index="3" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-06" class="clip" src="assets/sfx/pop.mp3" data-start="34.464" data-duration="1.2" data-track-index="4" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-07" class="clip" src="assets/sfx/pop.mp3" data-start="38.732" data-duration="1.2" data-track-index="5" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-08" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="45.55" data-duration="1.2" data-track-index="6" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-09" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="48.29" data-duration="1.2" data-track-index="7" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-10" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="52.963" data-duration="1.2" data-track-index="3" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-11" class="clip" src="assets/sfx/pop.mp3" data-start="52.953" data-duration="1.2" data-track-index="4" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-12" class="clip" src="assets/sfx/pop.mp3" data-start="61.119" data-duration="1.2" data-track-index="5" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-13" class="clip" src="assets/sfx/pop.mp3" data-start="66.653" data-duration="1.2" data-track-index="6" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-14" class="clip" src="assets/sfx/pop.mp3" data-start="71.137" data-duration="1.2" data-track-index="7" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-15" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="81.66" data-duration="1.2" data-track-index="3" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-16" class="clip" src="assets/sfx/pop.mp3" data-start="95.303" data-duration="1.2" data-track-index="4" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-17" class="clip" src="assets/sfx/whoosh-short.mp3" data-start="111.339" data-duration="1.2" data-track-index="5" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-18" class="clip" src="assets/sfx/pop.mp3" data-start="141.004" data-duration="1.2" data-track-index="6" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-19" class="clip" src="assets/sfx/pop.mp3" data-start="144.913" data-duration="1.2" data-track-index="7" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-20" class="clip" src="assets/sfx/pop.mp3" data-start="151.782" data-duration="1.2" data-track-index="3" data-volume="0.16" data-fade-out="0.15"></audio>
+      <audio id="sfx-21" class="clip" src="assets/sfx/whoosh.mp3" data-start="15.582" data-duration="0.6" data-track-index="4" data-volume="0.12" data-fade-out="0.15"></audio>
+      <audio id="sfx-22" class="clip" src="assets/sfx/whoosh.mp3" data-start="22.71" data-duration="0.6" data-track-index="5" data-volume="0.12" data-fade-out="0.15"></audio>
+      <audio id="sfx-23" class="clip" src="assets/sfx/whoosh.mp3" data-start="41.04" data-duration="0.6" data-track-index="6" data-volume="0.12" data-fade-out="0.15"></audio>
+      <audio id="sfx-24" class="clip" src="assets/sfx/whoosh.mp3" data-start="48.24" data-duration="0.6" data-track-index="7" data-volume="0.12" data-fade-out="0.15"></audio>
+      <audio id="sfx-25" class="clip" src="assets/sfx/whoosh.mp3" data-start="81.61" data-duration="0.6" data-track-index="3" data-volume="0.12" data-fade-out="0.15"></audio>
+      <audio id="sfx-26" class="clip" src="assets/sfx/whoosh.mp3" data-start="111.289" data-duration="0.6" data-track-index="4" data-volume="0.12" data-fade-out="0.15"></audio>
+      <audio id="sfx-27" class="clip" src="assets/sfx/whoosh.mp3" data-start="112.558" data-duration="0.6" data-track-index="5" data-volume="0.12" data-fade-out="0.15"></audio>
+      <audio id="sfx-28" class="clip" src="assets/sfx/whoosh.mp3" data-start="135.695" data-duration="0.6" data-track-index="6" data-volume="0.12" data-fade-out="0.15"></audio>
+      <audio id="sfx-29" class="clip" src="assets/sfx/whoosh.mp3" data-start="144.823" data-duration="0.6" data-track-index="7" data-volume="0.12" data-fade-out="0.15"></audio>
+      <audio id="sfx-30" class="clip" src="assets/sfx-eleven/virada.wav" data-start="15.542" data-duration="3.0" data-track-index="3" data-volume="0.55" data-fade-out="0.15"></audio>
+      <audio id="sfx-31" class="clip" src="assets/sfx/sparkle.mp3" data-start="15.712" data-duration="1.2" data-track-index="4" data-volume="0.3" data-fade-out="0.15"></audio>
+      <audio id="sfx-32" class="clip" src="assets/sfx-eleven/trovao.wav" data-start="24.42" data-duration="4.0" data-track-index="5" data-volume="0.4" data-fade-out="0.15"></audio>
+      <audio id="sfx-33" class="clip" src="assets/sfx-eleven/carro.wav" data-start="41.6" data-duration="4.0" data-track-index="6" data-volume="0.55" data-fade-out="0.15"></audio>
+      <audio id="sfx-34" class="clip" src="assets/sfx-eleven/passos.wav" data-start="44.034" data-duration="3.0" data-track-index="7" data-volume="0.35" data-fade-out="0.15"></audio>
+      <audio id="sfx-35" class="clip" src="assets/sfx-eleven/passos.wav" data-start="48.4" data-duration="3.0" data-track-index="3" data-volume="0.35" data-fade-out="0.15"></audio>
+      <audio id="sfx-36" class="clip" src="assets/sfx-eleven/coracao.wav" data-start="53.073" data-duration="4.0" data-track-index="4" data-volume="0.4" data-fade-out="0.15"></audio>
+      <audio id="sfx-37" class="clip" src="assets/sfx-eleven/tensao.wav" data-start="66.823" data-duration="4.0" data-track-index="5" data-volume="0.35" data-fade-out="0.15"></audio>
+      <audio id="sfx-38" class="clip" src="assets/sfx-eleven/coracao.wav" data-start="71.307" data-duration="4.0" data-track-index="6" data-volume="0.5" data-fade-out="0.15"></audio>
+      <audio id="sfx-39" class="clip" src="assets/sfx/impact-bass-1.mp3" data-start="71.257" data-duration="1.2" data-track-index="7" data-volume="0.3" data-fade-out="0.15"></audio>
+      <audio id="sfx-40" class="clip" src="assets/sfx-eleven/trovao.wav" data-start="82.07" data-duration="4.0" data-track-index="3" data-volume="0.3" data-fade-out="0.15"></audio>
+      <audio id="sfx-41" class="clip" src="assets/sfx-eleven/sussurro.wav" data-start="89.552" data-duration="3.0" data-track-index="4" data-volume="0.3" data-fade-out="0.15"></audio>
+      <audio id="sfx-42" class="clip" src="assets/sfx-eleven/passos.wav" data-start="98.317" data-duration="3.0" data-track-index="5" data-volume="0.4" data-fade-out="0.15"></audio>
+      <audio id="sfx-43" class="clip" src="assets/sfx-eleven/casaco.wav" data-start="99.951" data-duration="2.0" data-track-index="6" data-volume="0.5" data-fade-out="0.15"></audio>
+      <audio id="sfx-44" class="clip" src="assets/sfx-eleven/passos.wav" data-start="111.449" data-duration="3.0" data-track-index="7" data-volume="0.35" data-fade-out="0.15"></audio>
+      <audio id="sfx-45" class="clip" src="assets/sfx-eleven/prato.wav" data-start="113.97" data-duration="2.0" data-track-index="3" data-volume="0.45" data-fade-out="0.15"></audio>
+      <audio id="sfx-46" class="clip" src="assets/sfx-eleven/coracao.wav" data-start="130.649" data-duration="4.0" data-track-index="4" data-volume="0.4" data-fade-out="0.15"></audio>
+      <audio id="sfx-47" class="clip" src="assets/sfx-eleven/motor.wav" data-start="135.855" data-duration="4.0" data-track-index="5" data-volume="0.5" data-fade-out="0.15"></audio>
+      <audio id="sfx-48" class="clip" src="assets/sfx-eleven/tensao.wav" data-start="136.355" data-duration="4.0" data-track-index="6" data-volume="0.45" data-fade-out="0.15"></audio>
+      <audio id="sfx-49" class="clip" src="assets/sfx-eleven/sirene.wav" data-start="141.074" data-duration="4.0" data-track-index="7" data-volume="0.3" data-fade-out="0.15"></audio>
+      <audio id="sfx-50" class="clip" src="assets/sfx-eleven/impacto.wav" data-start="141.074" data-duration="3.0" data-track-index="3" data-volume="0.5" data-fade-out="0.15"></audio>
+      <audio id="sfx-51" class="clip" src="assets/sfx/impact-bass-2.mp3" data-start="141.024" data-duration="1.2" data-track-index="4" data-volume="0.35" data-fade-out="0.15"></audio>
+      <audio id="sfx-52" class="clip" src="assets/sfx-eleven/sussurro.wav" data-start="144.983" data-duration="3.0" data-track-index="5" data-volume="0.4" data-fade-out="0.15"></audio>
+    </div>
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

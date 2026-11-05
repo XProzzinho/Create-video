@@ -1,0 +1,607 @@
+<template>
+  <style>
+    #root{position:absolute;inset:0;overflow:hidden;background:#000}
+    #mundo-cv{position:absolute;left:0;top:0;width:1080px;height:1920px}
+    .mundo-fx{position:absolute;left:0;top:0;width:1080px;height:1920px;pointer-events:none}
+    #mundo-flash{background:#fff;opacity:0} #mundo-tint{opacity:0} #mundo-glitch{opacity:0}
+    #mundo-vig{background:radial-gradient(ellipse at 50% 45%,rgba(0,0,0,0) 58%,rgba(0,0,0,.42) 100%)}
+    .mundo-fontes{position:absolute;left:-9999px;top:0;font-family:Oswald;font-weight:700} .mundo-fontes b{font-family:Inter;font-weight:700}
+  </style>
+  <div id="root" data-composition-id="mundo" data-width="1080" data-height="1920" data-duration="158.65">
+    <canvas id="mundo-cv" width="1080" height="1920"></canvas>
+    <div id="mundo-tint" class="mundo-fx"></div>
+    <div id="mundo-glitch" class="mundo-fx"></div>
+    <div id="mundo-vig" class="mundo-fx"></div>
+    <div id="mundo-flash" class="mundo-fx"></div>
+    <div class="mundo-fontes" data-layout-ignore>Aa <b>Aa</b></div>
+    <img id="ep1-img" src="assets/ep1-2d.jpg" alt="" style="position:absolute;left:-9999px;top:0;width:8px;height:8px" data-layout-ignore>
+  </div>
+  <script>
+// Mundo 3D em blocos (voxel) do Evil Tale — um único renderizador Three.js,
+// que troca de cenário e câmera conforme o tempo. Tudo é função do tempo t.
+// [{"id": "intro2d", "t0": 0.0, "t1": 15.742}, {"id": "intro_burst", "t0": 15.742, "t1": 16.503}, {"id": "intro_title", "t0": 16.503, "t1": 22.87}, {"id": "rain_wide", "t0": 22.87, "t1": 29.05}, {"id": "noah_shiver", "t0": 29.05, "t1": 30.46}, {"id": "noah_photo", "t0": 30.46, "t1": 32.22}, {"id": "rain_high", "t0": 32.22, "t1": 35.831}, {"id": "passersby", "t0": 35.831, "t1": 38.802}, {"id": "noah_photo~1", "t0": 38.802, "t1": 41.2}, {"id": "car_arrive", "t0": 41.2, "t1": 43.834}, {"id": "rafa_out", "t0": 43.834, "t1": 48.4}, {"id": "mae_kneel", "t0": 48.4, "t1": 51.386}, {"id": "mae_hands", "t0": 51.386, "t1": 53.073}, {"id": "mae_face", "t0": 53.073, "t1": 55.976}, {"id": "noah_q", "t0": 55.976, "t1": 58.027}, {"id": "mae_face~1", "t0": 58.027, "t1": 61.189}, {"id": "mae_two", "t0": 61.189, "t1": 66.823}, {"id": "noah_tear", "t0": 66.823, "t1": 68.1}, {"id": "mae_hold", "t0": 68.1, "t1": 71.307}, {"id": "mae_close", "t0": 71.307, "t1": 74.139}, {"id": "noah_tear~1", "t0": 74.139, "t1": 76.436}, {"id": "mae_hold~1", "t0": 76.436, "t1": 81.77}, {"id": "tia_call", "t0": 81.77, "t1": 87.66}, {"id": "rafa_ask", "t0": 87.66, "t1": 89.552}, {"id": "tia_secret", "t0": 89.552, "t1": 96.751}, {"id": "mae_leave", "t0": 96.751, "t1": 98.317}, {"id": "rafa_arrive", "t0": 98.317, "t1": 99.651}, {"id": "coat_on", "t0": 99.651, "t1": 102.646}, {"id": "rafa_kneel_talk", "t0": 102.646, "t1": 104.771}, {"id": "noah_talk_rain", "t0": 104.771, "t1": 108.376}, {"id": "noah_lookup", "t0": 108.376, "t1": 111.449}, {"id": "inn_ext", "t0": 111.449, "t1": 112.718}, {"id": "inn_room_wide", "t0": 112.718, "t1": 113.67}, {"id": "noah_eat", "t0": 113.67, "t1": 118.266}, {"id": "rafa_talk_inn", "t0": 118.266, "t1": 121.184}, {"id": "noah_talk_inn", "t0": 121.184, "t1": 124.739}, {"id": "rafa_talk_inn~1", "t0": 124.739, "t1": 126.16}, {"id": "noah_smile", "t0": 126.16, "t1": 127.848}, {"id": "window_look", "t0": 127.848, "t1": 130.649}, {"id": "noah_window", "t0": 130.649, "t1": 133.075}, {"id": "rafa_ask_inn", "t0": 133.075, "t1": 135.045}, {"id": "window_look~1", "t0": 135.045, "t1": 135.855}, {"id": "dz_car", "t0": 135.855, "t1": 141.074}, {"id": "dz_symbol", "t0": 141.074, "t1": 144.983}, {"id": "dz_agent", "t0": 144.983, "t1": 151.852}, {"id": "dz_symbol~1", "t0": 151.852, "t1": 158.65}], {} e 158.65 são preenchidos por tools/build_3d.py.
+(function () {
+  const SHOTS = [{"id": "intro2d", "t0": 0.0, "t1": 15.742}, {"id": "intro_burst", "t0": 15.742, "t1": 16.503}, {"id": "intro_title", "t0": 16.503, "t1": 22.87}, {"id": "rain_wide", "t0": 22.87, "t1": 29.05}, {"id": "noah_shiver", "t0": 29.05, "t1": 30.46}, {"id": "noah_photo", "t0": 30.46, "t1": 32.22}, {"id": "rain_high", "t0": 32.22, "t1": 35.831}, {"id": "passersby", "t0": 35.831, "t1": 38.802}, {"id": "noah_photo~1", "t0": 38.802, "t1": 41.2}, {"id": "car_arrive", "t0": 41.2, "t1": 43.834}, {"id": "rafa_out", "t0": 43.834, "t1": 48.4}, {"id": "mae_kneel", "t0": 48.4, "t1": 51.386}, {"id": "mae_hands", "t0": 51.386, "t1": 53.073}, {"id": "mae_face", "t0": 53.073, "t1": 55.976}, {"id": "noah_q", "t0": 55.976, "t1": 58.027}, {"id": "mae_face~1", "t0": 58.027, "t1": 61.189}, {"id": "mae_two", "t0": 61.189, "t1": 66.823}, {"id": "noah_tear", "t0": 66.823, "t1": 68.1}, {"id": "mae_hold", "t0": 68.1, "t1": 71.307}, {"id": "mae_close", "t0": 71.307, "t1": 74.139}, {"id": "noah_tear~1", "t0": 74.139, "t1": 76.436}, {"id": "mae_hold~1", "t0": 76.436, "t1": 81.77}, {"id": "tia_call", "t0": 81.77, "t1": 87.66}, {"id": "rafa_ask", "t0": 87.66, "t1": 89.552}, {"id": "tia_secret", "t0": 89.552, "t1": 96.751}, {"id": "mae_leave", "t0": 96.751, "t1": 98.317}, {"id": "rafa_arrive", "t0": 98.317, "t1": 99.651}, {"id": "coat_on", "t0": 99.651, "t1": 102.646}, {"id": "rafa_kneel_talk", "t0": 102.646, "t1": 104.771}, {"id": "noah_talk_rain", "t0": 104.771, "t1": 108.376}, {"id": "noah_lookup", "t0": 108.376, "t1": 111.449}, {"id": "inn_ext", "t0": 111.449, "t1": 112.718}, {"id": "inn_room_wide", "t0": 112.718, "t1": 113.67}, {"id": "noah_eat", "t0": 113.67, "t1": 118.266}, {"id": "rafa_talk_inn", "t0": 118.266, "t1": 121.184}, {"id": "noah_talk_inn", "t0": 121.184, "t1": 124.739}, {"id": "rafa_talk_inn~1", "t0": 124.739, "t1": 126.16}, {"id": "noah_smile", "t0": 126.16, "t1": 127.848}, {"id": "window_look", "t0": 127.848, "t1": 130.649}, {"id": "noah_window", "t0": 130.649, "t1": 133.075}, {"id": "rafa_ask_inn", "t0": 133.075, "t1": 135.045}, {"id": "window_look~1", "t0": 135.045, "t1": 135.855}, {"id": "dz_car", "t0": 135.855, "t1": 141.074}, {"id": "dz_symbol", "t0": 141.074, "t1": 144.983}, {"id": "dz_agent", "t0": 144.983, "t1": 151.852}, {"id": "dz_symbol~1", "t0": 151.852, "t1": 158.65}];
+  const M = {};
+  const DUR = 158.65;
+  const W = 1080, H = 1920;
+  const T3 = THREE;
+
+  // ---------- utilidades ----------
+  function rng(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  const clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v));
+  const prog = (t, a, b) => clamp((t - a) / (b - a));
+  const eOut = x => 1 - Math.pow(1 - x, 3);
+  const eIn = x => x * x * x;
+  const eIO = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  const eBack = x => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+  const lerp = (a, b, u) => a + (b - a) * u;
+  const L3 = (a, b, u) => [lerp(a[0], b[0], u), lerp(a[1], b[1], u), lerp(a[2], b[2], u)];
+  const mk = (name) => (M[name] !== undefined ? M[name] : 1e9);
+
+  // ---------- renderizador ----------
+  const cv = document.getElementById('mundo-cv');
+  const renderer = new T3.WebGLRenderer({ canvas: cv, antialias: true, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(1);
+  renderer.setSize(W, H, false);
+  renderer.outputColorSpace = T3.SRGBColorSpace;
+  const scene = new T3.Scene();
+  const cam = new T3.PerspectiveCamera(50, W / H, 0.5, 3000);
+  const hemi = new T3.HemisphereLight(0xffffff, 0x222222, 1.2); scene.add(hemi);
+  const sun = new T3.DirectionalLight(0xffffff, 1.4); sun.position.set(40, 80, 50); scene.add(sun);
+  const rim = new T3.DirectionalLight(0xff66aa, 0.8); rim.position.set(-60, 30, -60); scene.add(rim);
+
+  const BOX = new T3.BoxGeometry(1, 1, 1);
+  const PARTS = [];
+  const MATS = {}, BMATS = {};
+  function mat(c) { return MATS[c] || (MATS[c] = new T3.MeshLambertMaterial({ color: c })); }
+  function bmat(c) { return BMATS[c] || (BMATS[c] = new T3.MeshBasicMaterial({ color: c, toneMapped: false })); }
+  function box(p, x, y, z, w, h, d, c, glow) { const m = new T3.Mesh(BOX, glow ? bmat(c) : mat(c)); m.position.set(x, y, z); m.scale.set(w, h, d); p.add(m); return m; }
+  function grp(p, x = 0, y = 0, z = 0) { const g = new T3.Group(); g.position.set(x, y, z); if (p) p.add(g); return g; }
+
+  function gradTex(stops) {
+    const c = document.createElement('canvas'); c.width = 4; c.height = 512; const x = c.getContext('2d');
+    const g = x.createLinearGradient(0, 0, 0, 512); stops.forEach((s, i) => g.addColorStop(i / (stops.length - 1), s));
+    x.fillStyle = g; x.fillRect(0, 0, 4, 512); const t = new T3.CanvasTexture(c); t.colorSpace = T3.SRGBColorSpace; return t;
+  }
+
+  // painel 2D (janela de jogo) desenhado num canvas e usado como textura
+  function panel(p, w, h, draw) {
+    const c = document.createElement('canvas'); c.width = 1024; c.height = Math.round(1024 * h / w);
+    const ctx = c.getContext('2d'); const tex = new T3.CanvasTexture(c); tex.colorSpace = T3.SRGBColorSpace; tex.anisotropy = 4;
+    const m = new T3.Mesh(new T3.PlaneGeometry(w, h), new T3.MeshBasicMaterial({ map: tex, transparent: true, toneMapped: false, depthWrite: false, side: T3.DoubleSide }));
+    let key = null;
+    m.userData.set = function (st) { const k = JSON.stringify(st || 0); if (k === key) return; key = k; ctx.clearRect(0, 0, c.width, c.height); draw(ctx, c.width, c.height, st || {}); tex.needsUpdate = true; };
+    if (p) p.add(m); return m;
+  }
+  function rr(x, X, y, w, h, r) { x.beginPath(); x.moveTo(X + r, y); x.arcTo(X + w, y, X + w, y + h, r); x.arcTo(X + w, y + h, X, y + h, r); x.arcTo(X, y + h, X, y, r); x.arcTo(X, y, X + w, y, r); x.closePath(); }
+  function winBg(x, w, h, border, bg) {
+    rr(x, 14, 14, w - 28, h - 28, 34); x.fillStyle = bg; x.fill();
+    x.lineWidth = 10; x.strokeStyle = border; x.shadowColor = border; x.shadowBlur = 30; x.stroke(); x.shadowBlur = 0;
+  }
+  function txt(x, s, X, Y, size, col, weight = 700, fam = 'Oswald', align = 'center') {
+    x.font = `${weight} ${size}px ${fam}`; while (align === 'center' && size > 20 && x.measureText(s).width > x.canvas.width - 70) { size -= 4; x.font = `${weight} ${size}px ${fam}`; } x.textAlign = align; x.textBaseline = 'middle'; x.fillStyle = col; x.fillText(s, X, Y);
+  }
+
+  // partículas: cubinhos instanciados com posição calculada a cada quadro
+  function particles(p, n, color, size) {
+    const im = new T3.InstancedMesh(BOX, bmat(color), n); im.frustumCulled = false; p.add(im);
+    const d = new T3.Object3D();
+    PARTS.push(im); im.visible = false;
+    im.userData.place = function (fn) {
+      im.visible = true;
+      for (let i = 0; i < n; i++) { const r = fn(i, d); if (r === false) { d.scale.setScalar(0.0001); } d.updateMatrix(); im.setMatrixAt(i, d.matrix); d.scale.setScalar(size); d.rotation.set(0, 0, 0); }
+      im.instanceMatrix.needsUpdate = true;
+    };
+    d.scale.setScalar(size); return im;
+  }
+
+  // ---------- personagens ----------
+  function makeHero(o = {}) {
+    const g = grp(null); const P = {};
+    const C = Object.assign({ shirt: '#7a4a2a', plate: '#5e3820', belt: '#3a2412', pants: '#2b2238', boot: '#1a120c', skin: '#f2c9a0', hair: '#121018', sword: true, eye: '#1a1a24' }, o);
+    const hips = grp(g, 0, 7, 0); P.hips = hips;
+    [-1, 1].forEach((s) => { const leg = grp(hips, 1.3 * s, 0, 0); box(leg, 0, -3.2, 0, 2.2, 6.4, 2.4, C.pants); box(leg, 0, -6.3, 0.3, 2.5, 1.6, 3, C.boot); P[s < 0 ? 'legL' : 'legR'] = leg; });
+    const torso = grp(hips, 0, 0, 0); P.torso = torso;
+    box(torso, 0, 3.3, 0, 6, 6.6, 3.4, C.shirt); box(torso, 0, 0.6, 0, 6.2, 1.1, 3.6, C.belt); box(torso, 0, 0.6, 1.85, 1.2, 0.9, 0.2, '#d8b048');
+    box(torso, -1.6, 4.6, 1.75, 2.2, 2.6, 0.2, C.plate); box(torso, 1.6, 4.6, 1.75, 2.2, 2.6, 0.2, C.plate); box(torso, 0, 6.8, 0, 5, 0.8, 3.2, C.plate);
+    [-1, 1].forEach((s) => { const arm = grp(torso, 4 * s, 6.2, 0); box(arm, 0, -1.4, 0, 2, 3, 2.1, C.shirt); box(arm, 0, -4.3, 0, 1.8, 2.8, 1.9, C.skin); box(arm, 0, -2.9, 0, 2.2, 0.7, 2.3, C.belt); P[s < 0 ? 'armL' : 'armR'] = arm; });
+    if (C.sword) {
+      const sw = grp(P.armR, 0, -5.6, 0.4); P.sword = sw;
+      box(sw, 0, 0, 0, 0.9, 0.9, 1, C.belt); box(sw, 0, 0.8, 0, 3.2, 0.6, 0.9, '#d8b048'); box(sw, 0, 5.6, 0, 0.6, 9, 1.4, '#c4ccd8'); box(sw, 0, 4, 0.72, 0.62, 1.6, 0.06, '#3d424c');
+      sw.rotation.x = Math.PI / 2;
+    }
+    const head = grp(torso, 0, 7.2, 0); P.head = head;
+    box(head, 0, 2.3, 0, 4.6, 4.6, 4.4, C.skin);
+    box(head, 0, 4.9, 0, 5, 1.2, 4.8, C.hair); box(head, 0, 3.4, -2.3, 5, 3.4, 0.6, C.hair); box(head, -2.45, 3.6, 0, 0.5, 2.6, 4.6, C.hair); box(head, 2.45, 3.6, 0, 0.5, 2.6, 4.6, C.hair);
+    box(head, -1.2, 4.15, 2.25, 2.6, 0.9, 0.4, C.hair); box(head, 1.1, 4.35, 2.25, 1.8, 0.6, 0.4, C.hair); box(head, 0.4, 5.7, 0.6, 1.4, 0.8, 1.4, C.hair); box(head, -0.9, 5.5, -0.8, 1.2, 0.6, 1.2, C.hair);
+    P.eyes = [];
+    [-1.05, 1.05].forEach((x) => { P.eyes.push(box(head, x, 2.6, 2.22, 0.75, 0.8, 0.1, C.eye, C.eyeGlow)); box(head, x, 1.95, 2.21, 0.9, 0.3, 0.08, '#a88aa8'); });
+    box(head, 0, 1.1, 2.21, 1.2, 0.25, 0.08, '#9c5a4a');
+    g.userData.P = P; return g;
+  }
+  function heroPose(h, t, o = {}) {
+    const P = h.userData.P; const br = Math.sin(t * 2.2) * 0.12;
+    P.hips.position.y = 7 + (o.bob || 0) + br * 0.4;
+    P.torso.rotation.x = o.lean || 0; P.torso.rotation.y = o.twist || 0;
+    const wk = o.walk ? Math.sin(t * o.walk) * 0.7 : 0;
+    P.legL.rotation.x = (o.legL !== undefined ? o.legL : wk); P.legR.rotation.x = (o.legR !== undefined ? o.legR : -wk);
+    P.armL.rotation.set(o.armL !== undefined ? o.armL : -wk * 0.8 + br, 0, o.armLz || 0.08);
+    P.armR.rotation.set(o.armR !== undefined ? o.armR : wk * 0.8 - br, 0, o.armRz || -0.08);
+    P.head.rotation.set(o.headX || 0, o.headY || 0, o.headZ || 0);
+    const blink = ((t + (o.blinkOff || 0)) % 3.1) < 0.12 ? 0.1 : 1; P.eyes.forEach(e => e.scale.y = 0.8 * blink);
+  }
+  function makeBoss() {
+    const g = grp(null); const P = {}; const A = '#17121f', B = '#2a2235', R = '#7a0f1e';
+    const hips = grp(g, 0, 7, 0); P.hips = hips;
+    [-1, 1].forEach(s => { const leg = grp(hips, 1.6 * s, 0, 0); box(leg, 0, -3.2, 0, 2.8, 6.4, 3, A); box(leg, 0, -6.4, 0.4, 3.2, 1.6, 3.8, B); });
+    const torso = grp(hips); P.torso = torso;
+    box(torso, 0, 3.6, 0, 7.4, 7.2, 4.2, A); box(torso, 0, 4.8, 2.15, 5, 3.4, 0.3, B); box(torso, 0, 0.6, 0, 7.6, 1.2, 4.4, R);
+    [-1, 1].forEach(s => { box(torso, 4.6 * s, 7.2, 0, 3.6, 2, 4.6, B); box(torso, 5.4 * s, 8.6, 0, 1, 1.6, 1, B); });
+    const cape = box(torso, 0, 1.5, -2.6, 8, 12, 0.4, R); P.cape = cape;
+    [-1, 1].forEach(s => { const arm = grp(torso, 5 * s, 6.6, 0); box(arm, 0, -2.4, 0, 2.6, 5, 2.8, A); box(arm, 0, -5.4, 0, 2.8, 2, 3, B); P[s < 0 ? 'armL' : 'armR'] = arm; });
+    const sw = grp(P.armR, 0, -6, 0.6); P.sword = sw; box(sw, 0, 0, 0, 1.2, 1.2, 1.2, B); box(sw, 0, 1.2, 0, 4.4, 0.8, 1.2, R); box(sw, 0, 8.6, 0, 1, 14, 2, '#2d2838'); box(sw, 0, 8.6, 1.05, 0.3, 14, 0.1, '#ff3b1f', true); sw.rotation.x = Math.PI / 2;
+    const head = grp(torso, 0, 8, 0); P.head = head;
+    box(head, 0, 2.4, 0, 5, 5, 5, A); box(head, 0, 1.6, 2.55, 4, 0.6, 0.2, B);
+    [[-2, 1.6], [-1, 2.6], [0, 3.4], [1, 2.6], [2, 1.6]].forEach(([x, h]) => box(head, x, 5 + h / 2, 0, 0.8, h, 0.8, '#3a2f48'));
+    P.eyes = [box(head, -1.2, 2.8, 2.56, 1.4, 0.6, 0.1, '#ff7a1a', true), box(head, 1.2, 2.8, 2.56, 1.4, 0.6, 0.1, '#ff7a1a', true)];
+    P.eyeLight = new T3.PointLight(0xff5a1a, 0, 60); P.eyeLight.position.set(0, 3, 6); head.add(P.eyeLight);
+    g.userData.P = P; return g;
+  }
+  function makeNPC(shirt, hat, seed) {
+    const h = makeHero({ shirt, plate: shirt, belt: '#3a2a1a', pants: '#3b3226', hair: hat ? '#4a3420' : '#6a4a2a', sword: false, eye: '#eef0ff' });
+    if (hat) { const P = h.userData.P; box(P.head, 0, 5.6, 0, 6, 0.6, 6, hat); box(P.head, 0, 6.6, 0, 3.6, 1.6, 3.6, hat); }
+    return h;
+  }
+  function makeSlime(c) {
+    const g = grp(null); const body = grp(g); box(body, 0, 2, 0, 5, 4, 5, c); box(body, 0, 4.1, 0, 4, 0.4, 4, '#ffffff'); box(body, -1, 2.6, 2.55, 0.8, 1.2, 0.1, '#10220f'); box(body, 1, 2.6, 2.55, 0.8, 1.2, 0.1, '#10220f');
+    g.userData.body = body; return g;
+  }
+  function tree(p, x, z, s, leaf) {
+    const g = grp(p, x, 0, z); g.scale.setScalar(s); box(g, 0, 4, 0, 2, 8, 2, '#6b4a2b'); box(g, 0, 10, 0, 8, 5, 8, leaf); box(g, 0, 13.5, 0, 5, 3, 5, leaf); return g;
+  }
+
+  // ===================== O MENINO QUE NINGUÉM QUIS AJUDAR — EPISÓDIO 2 EM 3D (toon) =====================
+  let gT = 0;
+  const OPT = []; const opt = (o) => { OPT.push(o); return o; };
+  const world = grp(scene);
+  function shade(hex, k) { const c = new T3.Color(hex); c.multiplyScalar(k); return '#' + c.getHexString(); }
+  cam.near = 0.03; cam.far = 1600; cam.updateProjectionMatrix(); renderer.shadowMap.enabled = true; renderer.shadowMap.type = T3.PCFSoftShadowMap;
+  sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.camera.left = -18; sun.shadow.camera.right = 18; sun.shadow.camera.top = 18; sun.shadow.camera.bottom = -18; sun.shadow.camera.near = 1; sun.shadow.camera.far = 120; sun.shadow.bias = -0.0008; scene.add(sun.target);
+  const GRAD = (() => { const d = new Uint8Array([95, 95, 95, 255, 175, 175, 175, 255, 255, 255, 255, 255]); const t = new T3.DataTexture(d, 3, 1); t.minFilter = t.magFilter = T3.NearestFilter; t.needsUpdate = true; return t; })();
+  const TM = {}; function tm(c) { return TM[c] || (TM[c] = new T3.MeshToonMaterial({ color: c, gradientMap: GRAD })); }
+  const GM = {}; function gm(c) { return GM[c] || (GM[c] = new T3.MeshBasicMaterial({ color: c, toneMapped: false })); }
+  const OUTM = new T3.MeshBasicMaterial({ color: 0x15101c, side: T3.BackSide });
+  const SPH = new T3.SphereGeometry(1, 28, 18), CAP = new T3.CapsuleGeometry(0.5, 1, 8, 16), CYL = new T3.CylinderGeometry(1, 1, 1, 18), CONE = new T3.ConeGeometry(1, 1, 12), ICO = new T3.IcosahedronGeometry(1, 1), TOR = new T3.TorusGeometry(1, 0.12, 10, 40);
+  function part(p, geo, c, x, y, z, sx, sy, sz, ol, glow) { const m = new T3.Mesh(geo, glow ? gm(c) : tm(c)); m.position.set(x, y, z); m.scale.set(sx, sy, sz); m.castShadow = true; m.receiveShadow = true; p.add(m); if (ol) { const o = new T3.Mesh(geo, OUTM); o.scale.setScalar(1 + ol); m.add(o); } return m; }
+  function tb(p, x, y, z, w, h, d, c, glow) { const m = new T3.Mesh(BOX, glow ? gm(c) : tm(c)); m.position.set(x, y, z); m.scale.set(w, h, d); m.castShadow = true; m.receiveShadow = true; p.add(m); return m; }
+  function canvasTex(w, h, draw) { const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); const t = new T3.CanvasTexture(c); t.colorSpace = T3.SRGBColorSpace; t.anisotropy = 4; return t; }
+  const glowTex = canvasTex(128, 128, (x, w, h) => { const g = x.createRadialGradient(64, 64, 0, 64, 64, 64); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.3, 'rgba(255,255,255,0.5)'); g.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = g; x.fillRect(0, 0, w, h); });
+  function glowSpr(p, x, y, z, s, c, a) { const m = new T3.Sprite(new T3.SpriteMaterial({ map: glowTex, color: c, transparent: true, opacity: a == null ? 1 : a, blending: T3.AdditiveBlending, depthWrite: false, toneMapped: false })); m.position.set(x, y, z); m.scale.set(s, s, 1); p.add(m); return m; }
+  const FONT_TEX = []; const SHOPG = []; const SIGNS = [];
+
+  // ---------- personagem 3D estilo anime ----------
+  const LEOC = { skin: '#f2b48e', hair: '#1c1a28', top: '#2c3e5e', top2: '#24324c', pants: '#3a4a6c', shoe: '#eeeef4', sole: '#9aa0b0', iris: '#6a3e1e' };
+  function makeChar(o) {
+    const g = grp(world); const P = { o };
+    const hips = grp(g, 0, 0.9, 0); P.hips = hips; const k = o.kid ? 0.62 : 1;
+    ['L', 'R'].forEach((s, i) => { const sx = i ? 1 : -1; const th = grp(hips, 0.095 * sx * k, 0, 0); part(th, CAP, o.pants, 0, -0.21, 0, 0.14, 0.215, 0.14, 0.06); const kn = grp(th, 0, -0.43, 0); part(kn, CAP, o.pants, 0, -0.2, 0, 0.12, 0.2, 0.12, 0.06); const ft = grp(kn, 0, -0.42, 0); part(ft, SPH, o.shoe, 0, 0.0, 0.05, 0.065, 0.055, 0.13, 0.08); part(ft, BOX, o.sole || '#5a5a64', 0, -0.045, 0.05, 0.12, 0.02, 0.26); P['th' + s] = th; P['kn' + s] = kn; P['ft' + s] = ft; });
+    const spine = grp(hips, 0, 0.02, 0); P.spine = spine;
+    part(spine, CAP, o.top, 0, 0.3, 0, 0.36, 0.3, 0.24, 0.05); part(spine, SPH, o.top, 0, 0.05, 0, 0.18, 0.08, 0.13);
+    if (o.hoodie) { part(spine, BOX, o.top2, 0, 0.16, 0.115, 0.2, 0.09, 0.02); [-1, 1].forEach(s => part(spine, CYL, '#e8eaf2', s * 0.04, 0.42, 0.125, 0.006, 0.12, 0.006)); part(spine, TOR, o.top2, 0, 0.57, -0.06, 0.12, 0.12, 0.25).rotation.x = Math.PI / 2.4; }
+    if (o.coat) part(spine, CYL, o.coat, 0, 0.0, 0, 0.2, 0.25, 0.15);
+    const neck = grp(spine, 0, 0.6, 0); part(neck, CYL, o.skin, 0, 0.03, 0, 0.045, 0.08, 0.045);
+    const head = grp(neck, 0, 0.08, 0); P.head = head; const hr = o.kid ? 0.15 : 0.14;
+    part(head, SPH, o.skin, 0, 0.13, 0, hr, hr * 1.06, hr * 1.0, 0.04);
+    [-1, 1].forEach(s => part(head, SPH, o.skin, s * hr * 0.98, 0.125, 0, 0.025, 0.04, 0.03));
+    part(head, SPH, o.skin, 0, 0.115, hr * 0.98, 0.014, 0.012, 0.012);
+    // olhos anime
+    P.eyes = [];
+    [-1, 1].forEach(s => { const e = grp(head, s * hr * 0.36, 0.14, hr * 0.9); e.rotation.y = s * 0.32; part(e, SPH, '#fbf8f2', 0, 0, 0, hr * 0.24, hr * 0.3, 0.012); const ir = grp(e, 0, 0, 0.008); part(ir, SPH, o.iris || '#5a3a1e', 0, -hr * 0.02, 0, hr * 0.17, hr * 0.23, 0.008); part(ir, SPH, '#0e0a10', 0, -hr * 0.02, 0.005, hr * 0.09, hr * 0.13, 0.006); part(ir, SPH, '#ffffff', -hr * 0.06, hr * 0.06, 0.009, hr * 0.05, hr * 0.06, 0.004, 0, true); const lid = part(e, BOX, '#1a1018', 0, hr * 0.28, 0.006, hr * 0.5, hr * 0.06, 0.01); const brow = part(head, BOX, o.hairC || o.hair, s * hr * 0.37, 0.14 + hr * 0.47, hr * 0.93, hr * 0.42, hr * 0.07, 0.02); brow.rotation.y = s * 0.3; P.eyes.push({ e, ir, lid, brow, s }); });
+    [-1, 1].forEach(s => { const b = part(head, SPH, '#ff7a8a', s * hr * 0.6, 0.085, hr * 0.78, hr * 0.14, hr * 0.06, 0.01); b.material = new T3.MeshBasicMaterial({ color: '#ff8a9a', transparent: true, opacity: 0.35 }); b.rotation.y = s * 0.6; });
+    P.mouth = part(head, SPH, '#5a1a24', 0, 0.06, hr * 0.94, hr * 0.17, hr * 0.03, 0.01); P.mouthLine = part(head, BOX, '#7a2a2a', 0, 0.062, hr * 0.955, hr * 0.26, hr * 0.03, 0.006);
+    // cabelo
+    const hc = o.hairC || '#1c1a28';
+    if (o.hairStyle === 'leo' || !o.hairStyle) { part(head, SPH, hc, 0, 0.17, -0.02, hr * 1.06, hr * 1.0, hr * 1.04, 0.04);
+      for (let i = 0; i < 7; i++) { const a = -0.9 + i * 0.3; const c = part(head, CONE, hc, Math.sin(a) * hr * 0.8, 0.2 + Math.cos(i) * 0.008, Math.cos(a) * hr * 0.82, hr * 0.17, hr * 0.5, hr * 0.12); c.rotation.set(2.5 + (i % 2) * 0.15, a, 0); }
+      for (let i = 0; i < 9; i++) { const a = i / 9 * Math.PI * 2; const c = part(head, CONE, hc, Math.sin(a) * hr * 0.75, 0.27, Math.cos(a) * hr * 0.6 - 0.02, hr * 0.2, hr * 0.55, hr * 0.2); c.rotation.set(-Math.cos(a) * 0.9, 0, Math.sin(a) * 0.9); } }
+    else if (o.hairStyle === 'pig') { part(head, SPH, hc, 0, 0.17, -0.02, hr * 1.06, hr * 0.98, hr * 1.04, 0.04); [-1, 1].forEach(s => { part(head, SPH, hc, s * hr * 1.15, 0.1, -0.03, hr * 0.32, hr * 0.5, hr * 0.32, 0.05); part(head, SPH, '#ff5a7a', s * hr * 1.05, 0.2, -0.02, hr * 0.12, hr * 0.12, hr * 0.12); }); for (let i = 0; i < 5; i++) { const c = part(head, CONE, hc, -hr * 0.5 + i * hr * 0.25, 0.22, hr * 0.8, hr * 0.15, hr * 0.35, hr * 0.1); c.rotation.x = 2.6; } }
+    else if (o.hairStyle === 'short') { part(head, SPH, hc, 0, 0.18, -0.025, hr * 1.05, hr * 0.92, hr * 1.04, 0.04); }
+    else if (o.hairStyle === 'long') { part(head, SPH, hc, 0, 0.17, -0.02, hr * 1.07, hr * 1.0, hr * 1.05, 0.04); part(head, CAP, hc, 0, 0.0, -0.07, hr * 2.0, hr * 1.4, hr * 1.2, 0.04); }
+    else if (o.hairStyle === 'bald') { part(head, SPH, '#b8b4c0', 0, 0.12, -0.04, hr * 1.02, hr * 0.7, hr * 1.0); }
+    if (o.kid && o.raincoat) { part(head, SPH, o.top, 0, 0.18, -0.04, hr * 1.18, hr * 1.1, hr * 1.12, 0.04); }
+    P.hood = part(head, SPH, o.top2 || o.top, 0, 0.15, -0.055, hr * 1.25, hr * 1.3, hr * 1.22, 0.04); P.hood.visible = false;
+    // braços
+    ['L', 'R'].forEach((s, i) => { const sx = i ? 1 : -1; const sh = grp(spine, 0.215 * sx * (o.kid ? 0.9 : 1), 0.52, 0); part(sh, CAP, o.top, 0, -0.15, 0, 0.11, 0.16, 0.11, 0.06); const el = grp(sh, 0, -0.3, 0); part(el, CAP, o.top, 0, -0.13, 0, 0.095, 0.14, 0.095, 0.06); part(el, SPH, o.skin, 0, -0.29, 0.01, 0.05, 0.06, 0.045, 0.06); P['sh' + s] = sh; P['el' + s] = el; });
+    if (o.phone) P.phone = part(P.elR, BOX, '#121220', 0, -0.33, 0.04, 0.05, 0.1, 0.01);
+    if (o.book) P.book = part(P.elR, BOX, '#c8402a', 0, -0.33, 0.07, 0.16, 0.2, 0.03);
+    g.scale.setScalar(o.kid ? 0.68 : (o.s || 1)); g.userData.P = P; return g;
+  }
+  function setFace(c, m, talk, t, look) {
+    const P = c.userData.P; const blink = ((t + (P.o.ph || 0)) % 3.3) < 0.11 ? 0.12 : 1; look = look || [0, 0];
+    P.eyes.forEach(({ e, ir, lid, brow, s }) => { const open = (m === 'shock' || m === 'scream' ? 1.2 : m === 'determined' ? 0.75 : m === 'sad' ? 0.8 : 1) * blink; e.scale.y = open; ir.position.x = look[0] * 0.012; ir.position.y = look[1] * 0.012; lid.visible = m === 'determined' || m === 'sad'; brow.rotation.z = s * (m === 'sad' || m === 'worried' ? -0.35 : m === 'determined' || m === 'angry' ? 0.4 : m === 'shock' ? -0.1 : 0.05); brow.position.y = 0.14 + 0.14 * 0.47 + (m === 'shock' || m === 'scream' ? 0.018 : 0); });
+    const op = m === 'scream' ? 1 : m === 'shock' ? 0.7 : talk ? Math.abs(Math.sin(t * 12)) * 0.8 : 0;
+    P.mouth.visible = op > 0.05; P.mouth.scale.y = 0.004 + op * 0.022; P.mouthLine.visible = op <= 0.05; P.mouthLine.rotation.z = 0; P.mouthLine.scale.x = m === 'smile' ? 0.05 : 0.036; P.mouthLine.position.y = m === 'smile' ? 0.058 : 0.062;
+    if (m === 'smile') { P.mouth.visible = true; P.mouth.scale.set(0.026, 0.008, 0.01); P.mouthLine.visible = false; } else P.mouth.scale.x = 0.024;
+  }
+  // poses: walk, run, idle, sit, custom
+  function pose(c, t, o) {
+    const P = c.userData.P; o = o || {}; t += P.o.ph || 0;
+    ['thL', 'thR', 'knL', 'knR', 'ftL', 'ftR', 'shL', 'shR', 'elL', 'elR'].forEach(k => P[k].rotation.set(0, 0, 0)); P.spine.rotation.set(0, 0, 0); P.head.rotation.set(0, 0, 0);
+    P.shL.rotation.z = -0.08; P.shR.rotation.z = 0.08; let hy = 0.9;
+    if (o.walk || o.run) { const run = !!o.run; const ph = t * (run ? 11 : 5.8); const A = run ? 0.95 : 0.48;
+      [['L', 0], ['R', Math.PI]].forEach(([s, off]) => { const p = ph + off; const th = -Math.sin(p) * A; const kn = (run ? 0.35 : 0.08) + Math.pow(Math.max(0, Math.cos(p)), 1.3) * (run ? 1.7 : 0.85); P['th' + s].rotation.x = th; P['kn' + s].rotation.x = kn; P['ft' + s].rotation.x = -(th + kn) * 0.55 + (run ? 0.2 : 0); P['sh' + s].rotation.x = Math.sin(p) * (run ? 1.0 : 0.42); P['el' + s].rotation.x = -(run ? 1.55 : 0.22 + Math.max(0, -Math.sin(p)) * 0.4); });
+      hy = 0.9 + (run ? 0.06 : 0.025) * Math.cos(2 * ph) - (run ? 0.05 : 0.01); P.spine.rotation.y = Math.sin(ph) * (run ? 0.18 : 0.09); P.spine.rotation.x = run ? 0.28 : 0.03; P.spine.rotation.z = Math.cos(ph) * 0.025; P.head.rotation.y = -Math.sin(ph) * 0.06; P.head.rotation.x = run ? -0.2 : 0;
+    } else if (o.sit) { ['L', 'R'].forEach(s => { P['th' + s].rotation.x = -1.5; P['kn' + s].rotation.x = 1.5; }); hy = 0.5; P.shL.rotation.x = -0.6; P.shR.rotation.x = -0.6; P.elL.rotation.x = -0.9; P.elR.rotation.x = -0.9; }
+    else { const br = Math.sin(t * 2) * 0.012; hy = 0.9 + br * 0.3; P.spine.rotation.x = br; P.shL.rotation.x = br * 2; P.shR.rotation.x = -br * 2; P.elL.rotation.x = -0.12; P.elR.rotation.x = -0.12; P.head.rotation.y = Math.sin(t * 0.6) * 0.08; }
+    P.hips.position.y = hy;
+    if (o.arms) { const a = o.arms; if (a.shL) P.shL.rotation.set(...a.shL); if (a.shR) P.shR.rotation.set(...a.shR); if (a.elL) P.elL.rotation.set(...a.elL); if (a.elR) P.elR.rotation.set(...a.elR); }
+    if (o.legs) { const l = o.legs; ['thL', 'thR', 'knL', 'knR'].forEach(k => { if (l[k] != null) P[k].rotation.x = l[k]; }); }
+    if (o.lean) P.spine.rotation.x = o.lean; if (o.headX != null) P.head.rotation.x = o.headX; if (o.headY != null) P.head.rotation.y = o.headY; if (o.headZ != null) P.head.rotation.z = o.headZ; if (o.hipY != null) P.hips.position.y = o.hipY;
+    P.hood.visible = !!o.hood; setFace(c, o.mood || 'neutral', o.talk, t, o.look);
+  }
+
+  const v3 = new T3.Vector3();
+  function headOf(c) { c.updateMatrixWorld(true); c.userData.P.head.getWorldPosition(v3); return [v3.x, v3.y + 0.13 * c.scale.y, v3.z]; }
+  function handOf(c, s) { c.updateMatrixWorld(true); const p = new T3.Vector3(0, -0.29, 0.01); c.userData.P['el' + s].localToWorld(p); return [p.x, p.y, p.z]; }
+  function place(c, x, y, z, ry) { c.visible = true; c.position.set(x, y, z); c.rotation.set(0, ry || 0, 0); }
+  const add3 = (a, b) => [a[0] + b[0], a[1] + b[1], a[2] + b[2]];
+  const CK = 1.9; const cl = (h, o) => add3(h, o.map(v => v * CK));
+  const camT = new T3.Vector3();
+  function camAt(p, l, fov) { cam.position.set(p[0], p[1], p[2]); camT.set(l[0], l[1], l[2]); if (cam.fov !== (fov || 40)) { cam.fov = fov || 40; cam.updateProjectionMatrix(); } }
+  function camAB(lt, T, a, b, la, lb, fov) { const u = eIO(clamp(lt / T)); camAt(L3(a, b, u), L3(la, lb || la, u), fov); }
+  function closeOn(c, lt, T, dir, d0, d1, side, fov, dy) { d0 *= CK; d1 *= CK; side = (side || 0.18) * CK; const h = headOf(c); h[1] += dy || 0; camAB(lt, T, add3(h, [side || 0.18, 0.02, dir * d0]), add3(h, [(side || 0.18) * 0.6, 0.0, dir * d1]), add3(h, [0, -0.04, 0]), null, fov || 35); }
+  // close de lado (personagem olhando para ±x)
+  function closeX(c, lt, T, dir, d0, d1, side, fov, dy) { d0 *= CK; d1 *= CK; side = (side || 0.18) * CK; const h = headOf(c); h[1] += dy || 0; camAB(lt, T, add3(h, [dir * d0, 0.02, side || 0.18]), add3(h, [dir * d1, 0.0, (side || 0.18) * 0.6]), add3(h, [0, -0.04, 0]), null, fov || 35); }
+  const fx = { flash: 0, shake: 0, white: 0, black: 0, blue: 0 };
+
+  // ---------- texturas ----------
+  function drawMark(x, w, h, glowC) {
+    x.save(); x.translate(w / 2, h / 2); const R = w * 0.36;
+    x.shadowColor = glowC || '#8a3aff'; x.shadowBlur = w * 0.06;
+    // correntes ao redor
+    x.strokeStyle = '#0a0610'; x.lineWidth = w * 0.028;
+    for (let i = 0; i < 14; i++) { const a = i / 14 * Math.PI * 2; x.save(); x.rotate(a); x.beginPath(); x.ellipse(R, 0, w * 0.06, w * 0.03, Math.PI / 2 * (i % 2), 0, Math.PI * 2); x.stroke(); x.restore(); }
+    // olho
+    x.fillStyle = '#0a0610'; x.beginPath(); x.moveTo(-R * 0.75, 0); x.quadraticCurveTo(0, -R * 0.62, R * 0.75, 0); x.quadraticCurveTo(0, R * 0.62, -R * 0.75, 0); x.fill();
+    x.shadowBlur = w * 0.08; x.fillStyle = glowC || '#a04aff'; x.beginPath(); x.arc(0, 0, R * 0.24, 0, Math.PI * 2); x.fill();
+    x.fillStyle = '#0a0610'; x.beginPath(); x.ellipse(0, 0, R * 0.06, R * 0.2, 0, 0, Math.PI * 2); x.fill();
+    // raios
+    x.strokeStyle = '#0a0610'; x.lineWidth = w * 0.016; for (let i = 0; i < 8; i++) { const a = i / 8 * Math.PI * 2; x.beginPath(); x.moveTo(Math.cos(a) * R * 0.8, Math.sin(a) * R * 0.8); x.lineTo(Math.cos(a) * R * 1.02, Math.sin(a) * R * 1.02); x.stroke(); }
+    x.restore();
+  }
+  const markTex = canvasTex(512, 512, (x, w, h) => drawMark(x, w, h));
+  const markMat = () => new T3.MeshBasicMaterial({ map: markTex, transparent: true, depthWrite: false, toneMapped: false, side: T3.DoubleSide });
+  const runeTex = canvasTex(512, 512, (x, w, h) => { x.translate(w / 2, h / 2); x.strokeStyle = '#bfe6ff'; x.shadowColor = '#5ab0ff'; x.shadowBlur = 18; x.lineWidth = 6; [0.46, 0.38, 0.22].forEach(r => { x.beginPath(); x.arc(0, 0, w * r, 0, Math.PI * 2); x.stroke(); });
+    x.font = '700 34px Inter'; x.fillStyle = '#d8f0ff'; x.textAlign = 'center'; x.textBaseline = 'middle'; const G = 'ᚠᚢᚦᚨᚱᚲᚷᚹᚺᚾᛁᛃᛇᛈᛉᛊᛏᛒᛖᛗ'; for (let i = 0; i < 20; i++) { const a = i / 20 * Math.PI * 2; x.save(); x.rotate(a); x.fillText(G[i], 0, -w * 0.42); x.restore(); }
+    for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2, b = (i + 2) / 6 * Math.PI * 2; x.beginPath(); x.moveTo(Math.cos(a) * w * 0.38, Math.sin(a) * w * 0.38); x.lineTo(Math.cos(b) * w * 0.38, Math.sin(b) * w * 0.38); x.stroke(); } });
+  const paperTex = canvasTex(512, 680, (x, w, h) => { const g = x.createRadialGradient(w / 2, h / 2, 50, w / 2, h / 2, w * 0.8); g.addColorStop(0, '#f2e2b8'); g.addColorStop(1, '#b8945a'); x.fillStyle = g; x.fillRect(0, 0, w, h);
+    x.fillStyle = '#5a3a1a'; x.font = '700 30px Inter'; x.textAlign = 'center'; x.fillText('ARQUIVO REAL · SECRETO', w / 2, 60); x.fillStyle = '#7a1a1a'; x.font = '900 26px Inter'; x.fillText('NÃO ABRIR', w / 2, 100);
+    x.save(); x.translate(w / 2 - 150, 140); drawMark(x, 300, 300, '#5a2a8a'); x.restore();
+    x.strokeStyle = 'rgba(70,40,20,.55)'; x.lineWidth = 3; for (let i = 0; i < 9; i++) { const y = 470 + i * 22; x.beginPath(); x.moveTo(60, y); x.lineTo(w - 60 - (i % 3) * 40, y); x.stroke(); }
+    x.fillStyle = '#a8202a'; x.beginPath(); x.arc(w - 90, h - 70, 34, 0, Math.PI * 2); x.fill(); });
+  const winRainTex = canvasTex(256, 256, (x, w, h) => { const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#0a1430'); g.addColorStop(1, '#1a2a50'); x.fillStyle = g; x.fillRect(0, 0, w, h); x.strokeStyle = 'rgba(180,210,255,.35)'; x.lineWidth = 2; const R = rng(9); for (let i = 0; i < 60; i++) { const a = R() * w, b = R() * h; x.beginPath(); x.moveTo(a, b); x.lineTo(a - 4, b + 22); x.stroke(); } });
+  function signTex(s, bg, fg) { return canvasTex(512, 128, (x, w, h) => { x.fillStyle = bg; x.fillRect(0, 0, w, h); x.font = '900 72px Inter'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillStyle = fg; x.shadowColor = fg; x.shadowBlur = 16; x.fillText(s, w / 2, h / 2 + 4); }); }
+  function plane(p, w, h, matl, x, y, z) { const m = new T3.Mesh(new T3.PlaneGeometry(w, h), matl); m.position.set(x, y, z); p.add(m); return m; }
+
+  // ---------- partículas ----------
+  const rainP = particles(world, 1100, '#bcd4ff', 1);
+  const splashP = particles(world, 160, '#dfeaff', 0.03);
+  const blueP = particles(world, 160, '#9ad8ff', 0.02);
+  const dustP = particles(world, 120, '#c8a878', 0.04);
+  const darkP = particles(world, 140, '#a04aff', 0.012);
+  function rainAround(cx, cy, cz, r, n, box) { rainP.userData.place((i, d) => { if (i >= (n || 1100)) return false; const R = rng(i + 7); const k = ((gT * (1.4 + R() * 0.4) + R()) % 1); const bx = box || [r || 14, r || 14]; d.position.set(cx + (R() - .5) * bx[0] + k * 0.6, cy + 9 - k * 11, cz + (R() - .5) * bx[1]); d.scale.set(0.007, 0.2, 0.007); d.rotation.z = 0.06; if (d.position.distanceTo(cam.position) < 2.0) d.scale.setScalar(0.0001); });
+    splashP.userData.place((i, d) => { const R = rng(i + 77); const k = ((gT * 2.2 + R()) % 1); d.position.set(cx + (R() - .5) * (r || 14), cy + 0.17 + k * 0.08, cz + (R() - .5) * (r || 14) * 0.6); d.scale.setScalar((1 - k) * 0.045); }); }
+  function riseBlue(cx, cy, cz, k) { blueP.userData.place((i, d) => { const R = rng(i + 300); const u = ((gT * (0.25 + R() * 0.3) + R()) % 1); const a = R() * 6.28 + gT * 0.6; const r = 0.25 + R() * 0.9; d.position.set(cx + Math.cos(a) * r, cy + u * 2.2 * k, cz + Math.sin(a) * r); d.scale.setScalar((0.01 + R() * 0.018) * k * (1 - u * 0.6)); d.rotation.set(gT, gT * 2, 0); }); }
+  function darkAround(cx, cy, cz, r, k) { darkP.userData.place((i, d) => { const R = rng(i + 500); const u = ((gT * (0.3 + R() * 0.2) + R()) % 1); const a = R() * 6.28 - gT; d.position.set(cx + Math.cos(a) * r * (1 - u * 0.7), cy + (R() - .5) * 0.6, cz + Math.sin(a) * r * (1 - u * 0.7)); d.scale.setScalar(0.014 * k * (1 - u)); }); }
+
+  // ---------- personagens ----------
+  const RAFA = { skin: '#eab48e', hairStyle: 'short', hairC: '#1e1410', top: '#e8e4dc', top2: '#c8c4bc', pants: '#2a3048', shoe: '#3a2a20', sole: '#1a1410', iris: '#4a3018' };
+  const rafaC = makeChar(Object.assign({}, RAFA, { top: '#7a5030', top2: '#5a3820', ph: 0.4 })); opt(rafaC);
+  const rafa = makeChar(Object.assign({}, RAFA, { ph: 0.4 })); opt(rafa);
+  [rafaC, rafa].forEach(c => { const P = c.userData.P; part(P.head, SPH, RAFA.hairC, 0, 0.2, 0.08, 0.12, 0.05, 0.08, 0.04); P.mark = new T3.Mesh(new T3.PlaneGeometry(0.11, 0.11), markMat()); P.mark.position.set(0, -0.28, 0.06); P.elR.add(P.mark); P.mark.visible = false; P.markG = glowSpr(P.elR, 0, -0.28, 0.08, 0.3, '#a04aff', 0.9); P.markG.visible = false; });
+  part(rafaC.userData.P.spine, BOX, '#5a3820', 0, 0.16, 0.12, 0.05, 0.4, 0.02);
+  const NOAH = { kid: true, skin: '#f0c09a', hairStyle: 'leo', hairC: '#4a2a14', top: '#7c7c8a', top2: '#5a5a68', pants: '#3a3a48', shoe: '#4a3a30', sole: '#2a2018', iris: '#3a9aff' };
+  const noah = makeChar(Object.assign({}, NOAH, { ph: 1.7 })); opt(noah);
+  const noahC = makeChar(Object.assign({}, NOAH, { top: '#7a5030', top2: '#5a3820', ph: 1.7 })); opt(noahC);
+  const noahD = makeChar(Object.assign({}, NOAH, { top: '#4a6a9a', top2: '#3a5a8a', ph: 1.7 })); opt(noahD);
+  [noah, noahC, noahD].forEach(c => { const P = c.userData.P; [0, 1, 2].forEach(i => part(P.head, SPH, '#7a4a2a', -0.06 + i * 0.06, 0.07, 0.135, 0.012, 0.008, 0.004)); P.mark = new T3.Mesh(new T3.PlaneGeometry(0.16, 0.16), markMat()); P.mark.position.set(0, -0.14, 0.1); P.elR.add(P.mark); P.mark.visible = false; P.markG = glowSpr(P.elR, 0, -0.14, 0.12, 0.45, '#a04aff', 0.8); P.markG.visible = false;
+    P.tears = [-1, 1].map(s => part(P.head, SPH, '#bfe6ff', s * 0.06, 0.09, 0.14, 0.006, 0.011, 0.004, 0, true)); P.tears.forEach(t => t.visible = false); });
+  // casaco largo do Rafael no Noah
+  { const P = noahC.userData.P; part(P.spine, CYL, '#7a5030', 0, 0.12, 0, 0.27, 0.55, 0.2, 0.04); part(P.spine, TOR, '#5a3820', 0, 0.56, 0, 0.17, 0.17, 0.3).rotation.x = Math.PI / 2; }
+  const GUARD = { skin: '#e0a880', hairStyle: 'short', hairC: '#2a1a10', top: '#8a8e9a', top2: '#a8303a', pants: '#3a3a44', shoe: '#2a2a30', sole: '#1a1a20', iris: '#3a2a1a' };
+  const guards = [0, 1, 2].map(i => { const c = makeChar(Object.assign({}, GUARD, { ph: 2 + i, skin: ['#e0a880', '#c88a5e', '#f0c0a0'][i] })); opt(c); const P = c.userData.P;
+    part(P.head, CYL, '#9aa0ae', 0, 0.22, -0.01, 0.16, 0.12, 0.16, 0.04); part(P.head, CONE, '#9aa0ae', 0, 0.33, -0.01, 0.16, 0.12, 0.16); tb(P.head, 0, 0.18, 0.15, 0.03, 0.12, 0.02, '#7a808e');
+    tb(P.spine, 0, 0.28, 0.125, 0.3, 0.46, 0.02, '#a8303a'); part(P.spine, SPH, '#e2c27a', 0, 0.38, 0.14, 0.04, 0.04, 0.01);
+    [-1, 1].forEach(s => part(P.spine, SPH, '#9aa0ae', s * 0.22, 0.52, 0, 0.12, 0.08, 0.12, 0.05));
+    const sp = grp(P.elR, 0, -0.3, 0.02); part(sp, CYL, '#6a4a2a', 0, 0.3, 0, 0.018, 2.0, 0.018); part(sp, CONE, '#c8ccd8', 0, 1.38, 0, 0.05, 0.2, 0.03); P.spear = sp; return c; });
+  const MUL = { skin: '#ead4c8', hairStyle: 'long', hairC: '#07060a', top: '#121018', top2: '#2a1a2a', pants: '#121018', shoe: '#050408', sole: '#000', iris: '#d83040' };
+  const mul = makeChar(Object.assign({}, MUL, { s: 1.04, ph: 3.3 })); opt(mul);
+  { const P = mul.userData.P; part(P.hips, CONE, '#121018', 0, -0.44, 0, 0.42, 1.0, 0.42, 0.03); part(P.head, SPH, '#a8203a', 0, 0.058, 0.138, 0.028, 0.008, 0.006);
+    const hood = part(P.head, SPH, '#1a1420', 0, 0.16, -0.05, 0.19, 0.2, 0.18, 0.04); hood.scale.z = 0.19; part(P.spine, SPH, '#a04aff', 0, 0.5, 0.13, 0.03, 0.03, 0.01, 0, true); P.glow = glowSpr(P.spine, 0, 0.5, 0.16, 0.25, '#a04aff', 0.8); }
+  // a tia do menino (a mulher rica do episódio 1)
+  const TIA = { skin: '#f0cfb4', hairStyle: 'long', hairC: '#6a3a1e', top: '#8a1a2a', top2: '#6a1220', pants: '#2a1018', shoe: '#1a0a10', sole: '#000', iris: '#3a6a3a' };
+  const tia = makeChar(Object.assign({}, TIA, { ph: 2.6 })); opt(tia);
+  { const P = tia.userData.P; part(P.hips, CONE, '#7a1624', 0, -0.38, 0, 0.36, 0.82, 0.36, 0.03); tb(P.spine, 0, 0.3, 0.125, 0.04, 0.44, 0.02, '#e8c060');
+    for (let i = 0; i < 9; i++) { const a = -1.0 + i * 0.25; part(P.spine, SPH, '#f4f0e8', Math.sin(a) * 0.12, 0.47 + (1 - Math.cos(a)) * -0.07, 0.115 + Math.cos(a) * 0.02, 0.02, 0.02, 0.02); }
+    [-1, 1].forEach(s2 => part(P.head, SPH, '#e8c060', s2 * 0.15, -0.03, 0.02, 0.012, 0.016, 0.012));
+        P.tears = [-1, 1].map(s2 => part(P.head, SPH, '#bfe6ff', s2 * 0.06, 0.09, 0.14, 0.006, 0.011, 0.004, 0, true)); }
+  const TIA_ARMS = { shL: [0.05, 0, -0.12], elL: [-0.35, 0, 0] };
+  // guarda-chuva do Rafael (motorista)
+  { const P = rafaC.userData.P; const u = grp(P.elR, 0, -0.3, 0.02); part(u, CYL, '#2a2a30', 0, 0.45, 0, 0.012, 0.9, 0.012); part(u, CONE, '#101014', 0, 0.95, 0, 0.7, 0.3, 0.7, 0.02); P.umb = u; u.visible = false; }
+  const RU = { shR: [-0.55, 0, 0.15], elR: [-1.15, 0, 0] };
+  // a fotografia do episódio 1 (mulher abraçada a um bebê)
+  const photoTex = canvasTex(160, 200, (x, w, h) => { x.fillStyle = '#f4efe2'; x.fillRect(0, 0, w, h); const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#c8a87a'); g.addColorStop(1, '#8a6a4a'); x.fillStyle = g; x.fillRect(12, 12, w - 24, h - 50);
+    x.fillStyle = '#6a3a1e'; x.beginPath(); x.arc(70, 70, 26, 0, 7); x.fill(); x.fillStyle = '#f0cfb4'; x.beginPath(); x.arc(70, 76, 19, 0, 7); x.fill(); x.fillStyle = '#8a1a2a'; x.fillRect(42, 98, 56, 52); x.fillStyle = '#fff4e8'; x.beginPath(); x.ellipse(96, 118, 20, 14, 0, 0, 7); x.fill(); x.fillStyle = '#f0c09a'; x.beginPath(); x.arc(104, 112, 8, 0, 7); x.fill(); });
+  [noah, noahC].forEach(c => { const P = c.userData.P; const ph = new T3.Mesh(new T3.PlaneGeometry(0.11, 0.14), new T3.MeshBasicMaterial({ map: photoTex, side: T3.DoubleSide, toneMapped: false })); ph.position.set(0.02, -0.3, 0.06); ph.rotation.x = -0.6; P.elR.add(ph); P.photo = ph; });
+  // agente da Divisão Zero: terno preto, óculos escuros, distintivo
+  const agent = makeChar({ skin: '#d8a880', hairStyle: 'short', hairC: '#101010', top: '#121216', top2: '#0a0a0e', pants: '#121216', shoe: '#050505', sole: '#000', iris: '#222', ph: 4.1 }); opt(agent);
+  { const P = agent.userData.P; tb(P.spine, 0, 0.36, 0.126, 0.12, 0.3, 0.02, '#e8e8ec'); tb(P.spine, 0, 0.34, 0.14, 0.035, 0.26, 0.012, '#0a0a0e'); tb(P.head, 0, 0.09, 0.145, 0.27, 0.055, 0.02, '#050508'); tb(P.spine, 0.1, 0.42, 0.13, 0.05, 0.06, 0.01, '#e8c060', true); part(P.head, SPH, '#c8c8d0', 0.15, 0.03, 0.0, 0.015, 0.02, 0.015); }
+  // passantes com guarda-chuva
+  const PAL = ['#c8503a', '#3a7a5a', '#5a4a8a', '#c89a3a', '#3a5a9a', '#8a3a5a'];
+  const passers = PAL.map((c, i) => { const ch = makeChar({ skin: ['#f2c0a0', '#c88a5e', '#e8b090', '#a86a48', '#f0c8a8', '#d8a07a'][i], hairStyle: ['short', 'long', 'short', 'bald', 'long', 'short'][i], hairC: ['#2a1a10', '#4a2a14', '#14101a', '#000', '#7a4a20', '#3a2a1a'][i], top: c, top2: shade(c, 0.7), pants: ['#2a2a3a', '#3a3a4a', '#1a1a2a'][i % 3], shoe: '#1a1a20', iris: '#3a2a1a', ph: i * 1.3 }); opt(ch);
+    const u = grp(ch.userData.P.elR, 0, -0.3, 0.02); part(u, CYL, '#2a2a30', 0, 0.45, 0, 0.012, 0.9, 0.012); const can = part(u, CONE, ['#1a1a22', '#c83a3a', '#2a4a8a', '#1a1a22', '#3a6a3a', '#5a2a5a'][i], 0, 0.95, 0, 0.62, 0.28, 0.62, 0.02); ch.userData.umb = u; return ch; });
+
+  // ---------- RUA COM CHUVA (x=0) ----------
+  const street = grp(world, 0, 0, 0);
+  tb(street, 0, -0.05, -3, 120, 0.1, 12, '#14161f'); const roadWet = new T3.MeshStandardMaterial({ color: '#141824', roughness: 0.12, metalness: 0.7 }); { const r = new T3.Mesh(BOX, tm('#1a1e2a')); r.position.set(0, 0.005, -3); r.scale.set(120, 0.01, 8); street.add(r); }
+  for (let x = -60; x < 60; x += 5) tb(street, x, 0.015, -3, 2.4, 0.01, 0.14, '#c8b878');
+  tb(street, 0, 0.075, 1.4, 120, 0.15, 3.2, '#5a5e6a'); tb(street, 0, 0.08, -0.2, 120, 0.16, 0.18, '#8a8e98');
+  for (let x = -60; x < 60; x += 1.2) tb(street, x, 0.152, 1.4, 0.03, 0.005, 3.2, '#4a4e5a');
+  const SHOPS = [['PADARIA', '#c84a2a', '#ffe8b0'], ['MERCADO', '#2a6ac8', '#fff4d0'], ['FARMÁCIA', '#2a9a5a', '#e8fff0'], ['BAR', '#8a2a6a', '#ffd0f0'], ['HOTEL', '#c8902a', '#fff0c0'], ['LOJA', '#5a5a8a', '#e0e0ff']];
+  const facCols = ['#4a3e44', '#3e4050', '#4a4438', '#363c4a', '#4a3e4a', '#423a34'];
+  for (let i = -5; i <= 5; i++) { const x = i * 6; const k = (i + 60) % 6; const h = 7 + ((i * 7 + 13) % 5);
+    tb(street, x, h / 2, 6, 5.9, h, 6, facCols[k]); tb(street, x, 0.4, 3.04, 5.9, 0.8, 0.1, shade(facCols[k], 0.6));
+    const gl = new T3.Mesh(BOX, new T3.MeshBasicMaterial({ color: '#ffd890', transparent: true, opacity: 0.18, toneMapped: false, depthWrite: false })); gl.position.set(x - 0.8, 1.7, 3.0); gl.scale.set(3.2, 1.8, 0.04); street.add(gl); tb(street, x - 0.8, 1.7, 3.7, 3.2, 1.8, 0.05, '#6a5434', true); [-1.6, 0, 1.6].forEach(dx => tb(street, x - 0.8 + dx, 1.7, 2.98, 0.06, 1.85, 0.06, '#2a2a30')); tb(street, x - 0.8, 2.62, 2.98, 3.3, 0.08, 0.08, '#2a2a30'); for (let r = 0; r < 3; r++) tb(street, x - 0.8, 1.05 + r * 0.55, 3.45, 3.0, 0.04, 0.4, '#5a4028');
+    for (let s = 0; s < 15; s++) tb(street, x - 2.1 + (s % 5) * 0.6, 1.17 + Math.floor(s / 5) * 0.55, 3.4, 0.28, 0.2 + (s % 3) * 0.06, 0.2, ['#e84a3a', '#3aa86a', '#e8b030', '#3a8ad8', '#d84a7a', '#8a5ad8'][s % 6]);
+    tb(street, x + 1.6, 1.1, 3.0, 1.1, 2.2, 0.08, '#3a2418'); part(street, SPH, '#e2c27a', x + 1.2, 1.1, 2.95, 0.04, 0.04, 0.04);
+    const aw = tb(street, x - 0.4, 2.85, 2.6, 5.2, 0.08, 1.2, SHOPS[k][1]); aw.rotation.x = -0.28;
+    for (let s = 0; s < 6; s++) tb(street, x - 2.8 + s * 0.94, 2.62, 2.05, 0.46, 0.18, 0.04, s % 2 ? '#f4f0e8' : SHOPS[k][1]);
+    const sg = plane(street, 3.2, 0.8, new T3.MeshBasicMaterial({ map: signTex(SHOPS[k][0], '#1a1a24', SHOPS[k][2]), toneMapped: false }), x - 0.4, 3.6, 2.98); sg.rotation.y = Math.PI;
+    for (let r = 0; r < 3; r++) for (let c = 0; c < 3; c++) { const lit = ((i * 3 + r * 5 + c * 7) % 5) < 3; tb(street, x - 1.8 + c * 1.8, 4.8 + r * 1.6, 3.0, 0.9, 1.0, 0.06, lit ? '#c89a50' : '#1a2030', lit); tb(street, x - 1.8 + c * 1.8, 4.25 + r * 1.6, 2.95, 1.1, 0.1, 0.16, '#3a3a44'); }
+  }
+  for (let i = -5; i <= 5; i++) { const x = i * 7 + 2, h = 9 + (i * 5 + 20) % 7; tb(street, x, h / 2, -12, 6.8, h, 4, '#2a2e3e'); for (let r = 0; r < 5; r++) for (let c = 0; c < 3; c++) if ((i + r * 3 + c) % 3) tb(street, x - 2 + c * 2, 1.5 + r * 1.8, -9.95, 1, 1.1, 0.05, (i + r + c) % 4 ? '#ffd890' : '#8ac8ff', true); }
+  const LAMPS = []; for (let i = -6; i <= 6; i++) { const x = i * 8 + 3; tb(street, x, 2.2, 0.15, 0.1, 4.4, 0.1, '#2a2e38'); tb(street, x, 4.4, 0.4, 0.08, 0.08, 0.6, '#2a2e38'); tb(street, x, 4.3, 0.65, 0.3, 0.12, 0.2, '#ffe8b0', true); LAMPS.push(glowSpr(street, x, 4.2, 0.65, 2.6, '#ffd890', 0.55)); const cone = new T3.Mesh(new T3.ConeGeometry(1.4, 4.2, 20, 1, true), new T3.MeshBasicMaterial({ color: '#ffe0a0', transparent: true, opacity: 0.06, blending: T3.AdditiveBlending, depthWrite: false, side: T3.DoubleSide })); cone.position.set(x, 2.15, 0.65); street.add(cone); }
+  const lampL = new T3.PointLight(0xffd8a0, 0, 12, 1.2); lampL.position.set(3, 4, 0.8); world.add(lampL);
+  const lampL2 = new T3.PointLight(0xffd8a0, 0, 12, 1.2); lampL2.position.set(-5, 4, 0.8); world.add(lampL2);
+  const PUDS = []; { const R = rng(31); for (let i = 0; i < 26; i++) { const m = new T3.Mesh(CYL, new T3.MeshBasicMaterial({ color: '#4a5a80', transparent: true, opacity: 0.45, toneMapped: false })); m.position.set(-20 + R() * 40, 0.16 + (R() < 0.5 ? 0 : -0.14), R() < 0.5 ? 0.6 + R() * 1.6 : -1 - R() * 4); m.scale.set(0.4 + R() * 0.8, 0.004, 0.25 + R() * 0.5); street.add(m); PUDS.push(m); } }
+  // caixa de papelão onde o Noah se encosta
+  tb(street, 0.55, 0.3, 2.65, 0.5, 0.34, 0.4, '#a8804a'); tb(street, -0.7, 0.24, 2.7, 0.4, 0.2, 0.3, '#8a6a3a');
+  const NOAH_ST = [0, 0.15, 2.55];
+  // carro preto de luxo da tia
+  const car = opt(grp(street, 4.6, 0, -1.2));
+  { tb(car, 0, 0.55, 0, 4.4, 0.55, 1.8, '#0e0e14'); tb(car, -0.25, 1.05, 0, 2.3, 0.5, 1.62, '#14141c'); tb(car, -0.25, 1.06, 0, 2.18, 0.4, 1.66, '#2a3448'); tb(car, -0.25, 1.06, 0, 0.08, 0.42, 1.68, '#0e0e14');
+    tb(car, 2.21, 0.6, 0, 0.04, 0.22, 1.2, '#8a8e98'); tb(car, -2.21, 0.62, 0, 0.04, 0.12, 1.5, '#5a1010', true); tb(car, 0, 0.4, 0.91, 4.0, 0.03, 0.02, '#8a8e98'); tb(car, 0, 0.4, -0.91, 4.0, 0.03, 0.02, '#8a8e98');
+    [-1.4, 1.4].forEach(x => [-0.86, 0.86].forEach(z => { const w = part(car, CYL, '#08080a', x, 0.34, z, 0.34, 0.22, 0.34); w.rotation.x = Math.PI / 2; const h = part(car, CYL, '#9a9ea8', x, 0.34, z * 1.07, 0.16, 0.04, 0.16); h.rotation.x = Math.PI / 2; }));
+    [-0.6, 0.6].forEach(z => { tb(car, 2.22, 0.72, z, 0.04, 0.12, 0.34, '#fff4d0', true); glowSpr(car, 2.4, 0.72, z, 1.2, '#fff0c0', 0.75); glowSpr(car, -2.3, 0.62, z, 0.6, '#ff2020', 0.6); });
+    part(car, SPH, '#e8c060', 2.25, 0.85, 0, 0.05, 0.05, 0.02, 0, true); }
+  // carro da Divisão Zero (do outro lado da rua) com o símbolo do zero cortado
+  const zeroTex = canvasTex(256, 256, (x, w, h) => { x.clearRect(0, 0, w, h); x.translate(w / 2, h / 2); x.strokeStyle = '#ff2a2a'; x.shadowColor = '#ff2a2a'; x.shadowBlur = 20; x.lineWidth = 16; x.beginPath(); x.ellipse(0, 0, 62, 92, 0, 0, 7); x.stroke(); x.lineWidth = 14; x.beginPath(); x.moveTo(-86, 96); x.lineTo(86, -96); x.stroke(); });
+  const dzL = new T3.PointLight(0xc8d0ff, 0, 10, 1.2);
+  const dzCar = opt(grp(street, 3.6, 0, -5.2));
+  { tb(dzCar, 0, 0.6, 0, 4.6, 0.62, 1.9, '#262632'); tb(dzCar, -0.2, 1.15, 0, 2.5, 0.55, 1.7, '#0a0a0e'); tb(dzCar, -0.2, 1.16, 0, 2.38, 0.44, 1.74, '#06080c'); tb(dzCar, -0.2, 1.16, 0, 0.08, 0.46, 1.76, '#070709');
+    [-1.45, 1.45].forEach(x => [-0.9, 0.9].forEach(z => { const w = part(dzCar, CYL, '#050506', x, 0.36, z, 0.36, 0.24, 0.36); w.rotation.x = Math.PI / 2; }));
+    [-0.62, 0.62].forEach(z => { tb(dzCar, 2.31, 0.75, z, 0.04, 0.1, 0.36, '#c8d8ff', true); glowSpr(dzCar, 2.5, 0.75, z, 1.4, '#c8d8ff', 0.6); glowSpr(dzCar, -2.4, 0.66, z, 0.5, '#ff1010', 0.5); });
+    dzCar.add(dzL); dzL.position.set(0.5, 3.2, 3.2);
+    const sym = new T3.Mesh(new T3.PlaneGeometry(0.5, 0.5), new T3.MeshBasicMaterial({ map: zeroTex, transparent: true, toneMapped: false, depthWrite: false })); sym.position.set(0.2, 0.68, 0.96); dzCar.add(sym); glowSpr(dzCar, 0.2, 0.68, 1.0, 0.9, '#ff2020', 0.35); }
+  function streetSet(mode) { setMode(mode || 'rain'); sunAt(0, 0, 0); lampL.intensity = 5; lampL2.intensity = 4; rainAround(cam.position.x, 0, cam.position.z + 2, 16, 1100); }
+  function passersWalk(n, sp) { passers.slice(0, n || 6).forEach((c, i) => { const dir = i % 2 ? 1 : -1; const span = 26; const x = -13 + (((gT * (sp || 1.1) * dir + i * 4.7) % span) + span) % span; place(c, x, 0.15, i % 2 ? 1.1 : 1.8, dir * Math.PI / 2); pose(c, gT, { walk: true, mood: 'neutral', look: [0, 0.2], arms: { shR: [-0.55, 0, 0.15], elR: [-1.15, 0, 0] } }); }); }
+  function noahSit(c, o) { place(c, NOAH_ST[0], NOAH_ST[1], NOAH_ST[2], Math.PI); pose(c, gT, Object.assign({ mood: 'sad', look: [0, 0.5], headX: 0.3, hipY: 0.16, legs: { thL: -2.0, thR: -2.0, knL: 2.35, knR: 2.35 }, arms: { shL: [-1.1, 0, 0.35], elL: [-1.2, 0, 0.2], shR: [-1.1, 0, -0.35], elR: [-1.2, 0, -0.2] } }, o || {})); const P = c.userData.P; P.spine.rotation.x = (o && o.lean != null) ? o.lean : 0.35 + Math.sin(gT * 14) * 0.012; }
+
+  // ---------- HOSPEDARIA (x=200) ----------
+  const IX = 200; const inn = grp(world, IX, 0, 0);
+  tb(inn, 0, -0.05, 0, 8, 0.1, 8, '#6a4a2e'); for (let i = 0; i < 16; i++) tb(inn, -3.75 + i * 0.5, 0.002, 0, 0.02, 0.006, 8, '#4a3020');
+  tb(inn, 0, 1.6, -3, 8, 3.2, 0.2, '#9a7a58'); tb(inn, -3.5, 1.6, 0, 0.2, 3.2, 8, '#8a6a4a'); tb(inn, 3.5, 2.7, 0, 0.2, 1.0, 8, '#8a6a4a'); tb(inn, 3.5, 1.1, -2.2, 0.2, 2.2, 3.6, '#8a6a4a'); tb(inn, 3.5, 1.1, 2.6, 0.2, 2.2, 2.8, '#8a6a4a');
+  for (let i = 0; i < 5; i++) tb(inn, -3 + i * 1.5, 3.1, 0, 0.18, 0.2, 8, '#4a3020'); for (let i = 0; i < 4; i++) tb(inn, -3.38, 1.6, -2.4 + i * 1.6, 0.06, 3.2, 0.14, '#5a3a24');
+  // janela no fundo
+  tb(inn, 1.4, 1.75, -2.9, 1.5, 1.3, 0.05, '#0a1020'); const winM = plane(inn, 1.4, 1.2, new T3.MeshBasicMaterial({ map: winRainTex, toneMapped: false }), 1.4, 1.75, -2.88); winRainTex.wrapT = T3.RepeatWrapping;
+  tb(inn, 1.4, 1.75, -2.86, 0.06, 1.3, 0.04, '#4a3020'); tb(inn, 1.4, 1.75, -2.86, 1.5, 0.06, 0.04, '#4a3020'); tb(inn, 1.4, 1.08, -2.8, 1.7, 0.08, 0.2, '#4a3020');
+  // lareira
+  const fire = grp(inn, -2.4, 0, -2.75); tb(fire, 0, 1.0, 0, 1.6, 2.0, 0.5, '#7a7480'); tb(fire, 0, 0.5, 0.2, 0.9, 0.7, 0.3, '#140a08'); tb(fire, 0, 2.2, -0.05, 0.9, 0.6, 0.4, '#6a6470');
+  const flames = [0, 1, 2].map(i => part(fire, CONE, ['#ffb030', '#ff7a1a', '#ffe070'][i], -0.2 + i * 0.2, 0.35, 0.28, 0.1, 0.36, 0.1, 0, true)); const fireG = glowSpr(fire, 0, 0.45, 0.5, 2.4, '#ff9a3a', 0.8);
+  // mesa, prato, vela
+  const table = grp(inn, 0, 0, -0.6); tb(table, 0, 0.74, 0, 1.6, 0.07, 0.9, '#7a5030'); [[-0.7, -0.35], [0.7, -0.35], [-0.7, 0.35], [0.7, 0.35]].forEach(([a, b]) => tb(table, a, 0.36, b, 0.07, 0.72, 0.07, '#5a3820'));
+  const plate = grp(table, -0.25, 0.78, -0.12); part(plate, CYL, '#f0ece4', 0, 0, 0, 0.17, 0.02, 0.17); part(plate, SPH, '#c87a3a', 0, 0.03, 0, 0.1, 0.04, 0.09); part(plate, SPH, '#e8c070', 0.06, 0.04, 0.03, 0.05, 0.03, 0.05); tb(plate, 0.22, 0.0, 0.05, 0.02, 0.01, 0.16, '#c8c8d0');
+  part(table, CYL, '#f0e8d8', -0.25, 0.81, 0.1, 0.08, 0.06, 0.08); part(table, CYL, '#8a5a2a', 0.45, 0.83, 0.1, 0.05, 0.12, 0.05); part(table, SPH, '#c8a060', 0.2, 0.82, -0.25, 0.09, 0.05, 0.06);
+  const CANDLES = [[0.25, 0.78, 0.0], [-3.3, 1.7, -1.2], [-3.3, 1.7, 1.4], [2.8, 1.9, -2.85]].map(([x, y, z], i) => { const g = grp(inn, x, y, z + (i ? 0 : -0.6)); part(g, CYL, '#f4ead0', 0, 0.08, 0, 0.03, 0.16, 0.03); const f = part(g, SPH, '#ffd060', 0, 0.2, 0, 0.022, 0.045, 0.022, 0, true); const gl = glowSpr(g, 0, 0.2, 0, 0.9, '#ffb050', 0.85); return { g, f, gl }; });
+  const candleL = new T3.PointLight(0xffb060, 0, 9, 1.3); candleL.position.set(IX + 0.2, 1.4, -0.4); world.add(candleL);
+  const fireL = new T3.PointLight(0xff8a3a, 0, 9, 1.3); fireL.position.set(IX - 2.4, 0.8, -2.2); world.add(fireL);
+  // bancos e cama
+  tb(inn, -0.25, 0.42, -1.3, 0.5, 0.06, 0.4, '#6a4428'); tb(inn, -0.25, 0.2, -1.3, 0.06, 0.4, 0.06, '#5a3820'); tb(inn, 1.25, 0.42, -0.6, 0.4, 0.06, 0.5, '#6a4428'); tb(inn, 1.25, 0.2, -0.6, 0.06, 0.4, 0.06, '#5a3820');
+  tb(inn, -2.6, 0.3, 0.9, 1.4, 0.4, 2.2, '#5a3820'); tb(inn, -2.6, 0.55, 0.9, 1.3, 0.12, 2.1, '#e8e0cc'); tb(inn, -2.6, 0.62, 0.2, 0.9, 0.1, 0.4, '#f4f0e8'); tb(inn, -2.6, 0.62, 1.2, 1.32, 0.06, 1.3, '#8a3a3a');
+  for (let i = 0; i < 3; i++) tb(inn, -3.3, 2.3 + i * 0.01, -2.0 + i * 0.5, 0.25, 0.04, 0.4, '#5a3820'); [['#4a6a8a', -2.2], ['#8a4a3a', -1.7], ['#c8a040', -1.25]].forEach(([c, z]) => part(inn, CYL, c, -3.25, 2.42, z, 0.06, 0.18, 0.06));
+  // porta (na parede da direita, x=+3.5, z=+0.8)
+  const doorP = grp(inn, 3.48, 0, 0.3); const door = grp(doorP, 0, 0, 0); tb(door, 0, 1.1, 0.5, 0.1, 2.2, 1.0, '#6a4428'); for (let i = 0; i < 4; i++) tb(door, -0.06, 1.1, 0.12 + i * 0.25, 0.02, 2.1, 0.02, '#4a2e18'); part(door, SPH, '#e2c27a', -0.08, 1.05, 0.88, 0.04, 0.04, 0.04); tb(door, -0.06, 0.6, 0.5, 0.02, 0.08, 1.0, '#3a2a1a'); tb(door, -0.06, 1.7, 0.5, 0.02, 0.08, 1.0, '#3a2a1a');
+  const doorLight = glowSpr(inn, 4.2, 1.2, 0.8, 3, '#ffc870', 0); const doorL = new T3.PointLight(0xffc070, 0, 6, 1.3); doorL.position.set(IX + 4.2, 1.3, 0.8); world.add(doorL);
+  // corredor do lado de fora
+  tb(inn, 6, -0.05, 0.8, 5, 0.1, 2.4, '#4a3424'); tb(inn, 6, 1.6, -0.45, 5, 3.2, 0.1, '#6a5038'); tb(inn, 6, 1.6, 2.05, 5, 3.2, 0.1, '#6a5038'); tb(inn, 8.5, 1.6, 0.8, 0.1, 3.2, 2.4, '#5a4030');
+  const torch = grp(inn, 6, 1.7, -0.38); tb(torch, 0, 0, 0, 0.05, 0.35, 0.05, '#4a2e18'); const torchF = part(torch, CONE, '#ff9a2a', 0, 0.25, 0, 0.06, 0.18, 0.06, 0, true); glowSpr(torch, 0, 0.25, 0.04, 1.4, '#ff8a2a', 0.8);
+  const torchL = new T3.PointLight(0xff8a3a, 0, 7, 1.3); torchL.position.set(IX + 6, 1.9, 0); world.add(torchL);
+  // círculo mágico
+  const rune = new T3.Mesh(new T3.PlaneGeometry(2.6, 2.6), new T3.MeshBasicMaterial({ map: runeTex, transparent: true, blending: T3.AdditiveBlending, depthWrite: false, toneMapped: false })); rune.rotation.x = -Math.PI / 2; world.add(rune); opt(rune);
+  const blueGl = opt(glowSpr(world, 0, 0, 0, 3, '#3a8aff', 0.9)); const blueGl2 = opt(glowSpr(world, 0, 0, 0, 1.2, '#cfeeff', 0.9));
+  const blueL = new T3.PointLight(0x4aa0ff, 0, 10, 1.2); world.add(blueL);
+  const NOAH_IN = [IX - 0.25, 0, -1.3], RAFA_IN = [IX + 1.25, 0, -0.6];
+  function innSet(o) { o = o || {}; setMode(o.mode || 'inn'); sunAt(IX, 0, 0); const on = !o.dark; candleL.intensity = on ? 3.2 + Math.sin(gT * 13) * 0.3 : 0; fireL.intensity = on ? 3 + Math.sin(gT * 9) * 0.5 : 0.4; flames.forEach((f, i) => { f.visible = on; f.scale.y = 0.36 * (1 + Math.sin(gT * 11 + i * 2) * 0.15); }); fireG.visible = on; CANDLES.forEach(c => { c.f.visible = on; c.gl.visible = on; c.f.scale.y = 0.045 * (1 + Math.sin(gT * 17 + c.g.id) * 0.12); });
+    winRainTex.offset.y = -gT * 1.6; rainAround(IX + 1.4, -2, -4.5, 3, 260, [3, 1.2]); door.rotation.set(0, 0, 0); door.position.set(0, 0, 0); door.visible = true; doorLight.material.opacity = 0; doorL.intensity = 0; torchL.intensity = 0; }
+  function sitTable(c, who, o) { const p = who === 'noah' ? NOAH_IN : RAFA_IN; place(c, p[0], 0.0, p[1 + 1], who === 'noah' ? 0 : -Math.PI / 2); pose(c, gT, Object.assign({ sit: true, hipY: who === 'noah' ? 0.62 : 0.5 }, o || {})); }
+  function guardsAt(xs, mood, o) { guards.forEach((g, i) => { place(g, IX + xs[i][0], 0, xs[i][1], xs[i][2]); pose(g, gT, Object.assign({ mood: mood || 'angry', look: [0, 0], arms: { shR: [-0.35, 0, 0.1], elR: [-0.9, 0, 0] } }, o || {})); }); }
+  function guardsDown(tremble) { const L = [[2.6, 0.5, 0.4], [2.0, 1.6, -0.6], [1.6, -0.4, 1.9]]; guards.forEach((g, i) => { const [x, z, r] = L[i]; place(g, IX + x, 0.12, z, r); g.rotation.x = -Math.PI / 2; g.rotation.order = 'YXZ'; pose(g, gT, { mood: 'sad', look: [0, 0], legs: { thL: 0.1, thR: -0.1 }, arms: { shL: [0, 0, -0.5], shR: [0, 0, 0.4] } }); const P = g.userData.P; P.eyes.forEach(e => e.e.scale.y = 0.08); if (tremble) { g.position.y += Math.abs(Math.sin(gT * 40 + i)) * 0.015; P.head.rotation.y = Math.sin(gT * 30 + i) * 0.08; } }); }
+  function magic(k) { rune.visible = k > 0.01; rune.position.set(NOAH_IN[0], 0.02, NOAH_IN[2] + 0.2); rune.rotation.z = gT * 0.8; rune.scale.setScalar(0.4 + k * 0.9); rune.material.opacity = k; blueGl.visible = blueGl2.visible = k > 0.01; blueGl.position.set(NOAH_IN[0], 0.3, NOAH_IN[2] + 0.2); blueGl.scale.set(3.5 * k, 1.6 * k, 1); blueGl2.position.set(NOAH_IN[0], 0.15, NOAH_IN[2] + 0.2); blueGl2.scale.set(1.6 * k, 0.6 * k, 1); blueL.intensity = 6 * k; blueL.position.set(NOAH_IN[0], 0.6, NOAH_IN[2] + 0.4); if (k > 0.01) riseBlue(NOAH_IN[0], 0.05, NOAH_IN[2] + 0.2, k); }
+
+  // ---------- BECO (visto da janela, x=230) ----------
+  const alley = grp(world, 230, 0, 0); tb(alley, 0, -0.05, 0, 3, 0.1, 14, '#1a1c24'); [-1.6, 1.6].forEach(x => { tb(alley, x, 4, 0, 0.3, 8, 14, '#5a3a34'); for (let y = 0; y < 16; y++) tb(alley, x * 0.99, y * 0.5 + 0.25, 0, 0.32, 0.02, 14, '#3a2420'); });
+  tb(alley, 0, 4, -7, 3.4, 8, 0.3, '#4a3430'); for (let i = 0; i < 6; i++) tb(alley, -0.9 + (i % 3) * 0.6, 0.3 + Math.floor(i / 3) * 0.5, -6.5, 0.5, 0.45, 0.5, '#5a4a3a'); part(alley, CYL, '#3a4a3a', 1.0, 0.5, -4, 0.35, 1, 0.35);
+  // ---------- DOCUMENTOS (x=260) ----------
+  const docs = grp(world, 260, 0, 0); tb(docs, 0, 0.7, 0, 3, 0.1, 2, '#4a2e1a'); const paper = plane(docs, 0.8, 1.06, new T3.MeshToonMaterial({ map: paperTex, gradientMap: GRAD }), 0, 0.76, 0); paper.rotation.x = -Math.PI / 2; paper.rotation.z = 0.08;
+  const paper2 = plane(docs, 0.7, 0.9, new T3.MeshToonMaterial({ color: '#c8a870', gradientMap: GRAD }), 0.6, 0.755, 0.2); paper2.rotation.x = -Math.PI / 2; paper2.rotation.z = -0.3;
+  const dCandle = grp(docs, -0.7, 0.75, -0.4); part(dCandle, CYL, '#f4ead0', 0, 0.12, 0, 0.04, 0.24, 0.04); part(dCandle, SPH, '#ffd060', 0, 0.28, 0, 0.025, 0.05, 0.025, 0, true); glowSpr(dCandle, 0, 0.28, 0, 1.2, '#ffb050', 0.8);
+  const docL = new T3.PointLight(0xffb060, 0, 5, 1.2); docL.position.set(259.3, 1.2, -0.4); world.add(docL);
+  // ---------- LENDA (x=320) ----------
+  const leg = grp(world, 320, 0, 0); tb(leg, 0, -0.05, 0, 80, 0.1, 80, '#1a0a14');
+  const god = makeChar({ skin: '#1a1020', hairStyle: 'long', hairC: '#0a0610', top: '#0e0a14', top2: '#1a1020', pants: '#0e0a14', shoe: '#0a0610', iris: '#ff3a5a', s: 1 }); god.scale.setScalar(9); god.position.set(320, 0, -14); god.visible = true;
+  { const P = god.userData.P; [-1, 1].forEach(s => { const w = grp(P.spine, s * 0.2, 0.45, -0.15); for (let i = 0; i < 5; i++) { const f = part(w, CONE, '#140a1a', s * (0.2 + i * 0.12), 0.1 - i * 0.05, 0, 0.06, 0.6 - i * 0.06, 0.02); f.rotation.z = -s * (0.9 + i * 0.25); } }); }
+  const godMark = plane(leg, 7, 7, markMat(), 0, 14, -13.5); const godMarkG = glowSpr(leg, 0, 14, -13.4, 16, '#8a2aff', 0.6);
+  const chains = []; for (let r = 0; r < 3; r++) { const g = grp(leg, 0, 4 + r * 3.2, -14); for (let i = 0; i < 26; i++) { const a = i / 26 * Math.PI * 2; const l = new T3.Mesh(TOR, tm('#5a5a68')); l.scale.set(0.35, 0.35, 0.5); l.position.set(Math.cos(a) * 4.2, 0, Math.sin(a) * 4.2); l.rotation.set(i % 2 ? Math.PI / 2 : 0, -a, 0); g.add(l); } chains.push(g); }
+  // ---------- VAZIO / ABERTURA (x=-400) ----------
+  const VX = -400; const vazio = grp(world, VX, 0, 0); const studio = []; { const R = rng(5); for (let i = 0; i < 40; i++) { const m = part(vazio, ICO, ['#2a2a4a', '#3a2a5a', '#1a2a4a'][i % 3], (R() - .5) * 20, -3 + R() * 12, -4 - R() * 14, 0.15 + R() * 0.4, 0.15 + R() * 0.4, 0.15 + R() * 0.4); m.userData.sp = 0.3 + R(); studio.push(m); } }
+  // painel 2D (imagem do episódio 1) que se quebra em pedaços
+  scene.add(cam); const tiles = grp(cam, 0, 0, 0); const TC = 8, TR = 14; const PD = 3.2; const PH = 2 * PD * Math.tan(20 * Math.PI / 180) * 0.82, PW = PH * 1080 / 1920;
+  const imgEl = document.getElementById('ep1-img'); const ep1C = document.createElement('canvas'); ep1C.width = 540; ep1C.height = 960; const ep1Tex = new T3.CanvasTexture(ep1C); ep1Tex.colorSpace = T3.SRGBColorSpace;
+  const tileMat = new T3.MeshBasicMaterial({ map: ep1Tex, toneMapped: false, side: T3.DoubleSide, transparent: true });
+  const TILES = []; for (let r = 0; r < TR; r++) for (let c = 0; c < TC; c++) { const geo = new T3.PlaneGeometry(PW / TC, PH / TR); const uv = geo.attributes.uv; for (let k = 0; k < uv.count; k++) uv.setXY(k, (c + uv.getX(k)) / TC, (TR - 1 - r + uv.getY(k)) / TR); const m = new T3.Mesh(geo, tileMat); const R = rng(r * 31 + c * 7 + 3); m.userData = { x: -PW / 2 + (c + 0.5) * PW / TC, y: PH / 2 - (r + 0.5) * PH / TR, vx: (R() - .5) * 3, vy: (R() - .5) * 3, vz: 1.5 + R() * 3, rx: (R() - .5) * 8, ry: (R() - .5) * 8, d: R() * 0.35 }; tiles.add(m); TILES.push(m); }
+  const frameB = new T3.Mesh(new T3.PlaneGeometry(PW * 1.04, PH * 1.03), new T3.MeshBasicMaterial({ color: '#f4f0e8', toneMapped: false })); frameB.position.z = -PD - 0.01; tiles.add(frameB);
+  const lab2d = new T3.Mesh(new T3.PlaneGeometry(PW * 0.5, PW * 0.14), new T3.MeshBasicMaterial({ map: signTex('2D', '#ffd23c', '#1a1420'), toneMapped: false, transparent: true })); lab2d.position.set(-PW * 0.3, PH * 0.47, -PD + 0.02); tiles.add(lab2d);
+  function tilesShow(k, burst) { tiles.visible = true; frameB.visible = burst <= 0; lab2d.visible = burst <= 0; TILES.forEach(m => { const u = m.userData; const b = Math.max(0, burst - u.d); m.position.set(u.x + u.vx * b + Math.sin(gT * 0.7) * 0.003, u.y + u.vy * b - b * b * 0.6, -PD + u.vz * b); m.rotation.set(u.rx * b, u.ry * b, 0); m.material.opacity = 1; m.visible = b < 1.6; }); tiles.rotation.set(Math.sin(gT * 0.5) * 0.03 * k, Math.sin(gT * 0.4) * 0.05 * k, 0); }
+
+  // ---------- céu / luz ----------
+  const skyC = document.createElement('canvas'); skyC.width = 4; skyC.height = 256; const skyX = skyC.getContext('2d'); const skyT = new T3.CanvasTexture(skyC); skyT.colorSpace = T3.SRGBColorSpace;
+  const MODES = {
+    rain: { sky: ['#03050c', '#1a2440'], hemi: 0.38, sun: 0.4, sunC: '#8aa0ff', fog: '#0e1424', fogN: 10, fogF: 55, ground: '#20263a', rim: '#5a7aff', rimI: 0.6 },
+    inn: { sky: ['#100806', '#100806'], hemi: 0.75, sun: 0.35, sunC: '#ffb070', fog: '#140c08', fogN: 12, fogF: 40, ground: '#3a2418', rim: '#ff8a3a', rimI: 0.4 },
+    dark: { sky: ['#04050c', '#04050c'], hemi: 0.28, sun: 0.12, sunC: '#5a7aff', fog: '#04050c', fogN: 8, fogF: 30, ground: '#0a0c18', rim: '#3a5aff', rimI: 0.3 },
+    alley: { sky: ['#02030a', '#0a1020'], hemi: 0.45, sun: 0.4, sunC: '#7a90ff', fog: '#060a16', fogN: 4, fogF: 22, ground: '#10141e', rim: '#4a6aff', rimI: 0.4 },
+    docs: { sky: ['#080402', '#080402'], hemi: 0.5, sun: 0.4, sunC: '#ffb070', fog: '#080402', fogN: 4, fogF: 12, ground: '#2a1a10', rim: '#ff8a3a', rimI: 0.3 },
+    legend: { sky: ['#0a0210', '#5a0a2a'], hemi: 0.5, sun: 0.9, sunC: '#ff4a6a', fog: '#2a0614', fogN: 20, fogF: 80, ground: '#1a0612', rim: '#a02aff', rimI: 1.2 },
+    void: { sky: ['#02020a', '#1a1438'], hemi: 0.7, sun: 0.8, sunC: '#c8b8ff', fog: '#0a0820', fogN: 10, fogF: 40, ground: '#0a0a1a', rim: '#8a5aff', rimI: 0.6 } };
+  scene.fog = new T3.Fog(0x000000, 10, 50); scene.background = skyT;
+  function setMode(k) { const M = MODES[k]; const g = skyX.createLinearGradient(0, 0, 0, 256); g.addColorStop(0, M.sky[0]); g.addColorStop(1, M.sky[1]); skyX.fillStyle = g; skyX.fillRect(0, 0, 4, 256); skyT.needsUpdate = true;
+    hemi.color.set(0xffffff); hemi.groundColor.set(M.ground); hemi.intensity = M.hemi; sun.color.set(M.sunC); sun.intensity = M.sun; rim.intensity = M.rimI; rim.color.set(M.rim); scene.fog.color.set(M.fog); scene.fog.near = M.fogN; scene.fog.far = M.fogF; }
+  function sunAt(x, y, z) { sun.position.set(x + 12, y + 30, z + 18); sun.target.position.set(x, y, z); sun.target.updateMatrixWorld(); }
+  const tearsOn = (c, k) => c.userData.P.tears.forEach((t, i) => { t.visible = k > 0; t.position.y = 0.09 - ((gT * 0.3 + i * 0.5) % 1) * 0.05 * k; });
+
+  // ---------- planos ----------
+  const A = {
+    // ABERTURA: a imagem 2D do episódio 1 se quebra e vira 3D
+    intro2d(lt, T) { setMode('void'); sunAt(VX, 0, 0); studio.forEach((m, i) => { m.rotation.set(gT * 0.2 * m.userData.sp, gT * 0.3, 0); m.position.y += Math.sin(gT + i) * 0.002; }); camAt([VX + Math.sin(gT * 0.3) * 0.2, 1.5, 6 - lt * 0.12], [VX, 1.5, 0], 40); tilesShow(1, 0); },
+    intro_burst(lt, T) { streetSet(); noahSit(noahC); passersWalk(6); const u = eOut(clamp(lt / T)); camAt([lerp(2.4, 1.2, u), lerp(1.4, 1.1, u), lerp(-2.2, -0.6, u)], [0, 0.55, 2.4], 40); tilesShow(1 - u, lt * 1.4); fx.white = Math.max(0, 0.5 - lt * 2); },
+    intro_title(lt, T) { streetSet(); noahSit(noahC); passersWalk(6); const a = 0.6 + lt * 0.1; camAt([Math.sin(a) * 3.2, 1.6 + lt * 0.05, 2.4 - Math.cos(a) * 3.2], [0, 0.6, 2.4], 42); },
+    // CENA 1 — A ESCOLHA (rua com chuva)
+    rain_wide(lt, T) { streetSet(); noahSit(noah); passersWalk(6); camAB(lt, T, [-6, 6, -6], [-3, 3.2, -3.5], [0, 0.8, 2.2], [0, 0.6, 2.3], 42); },
+    noah_shiver(lt, T) { streetSet(); noahSit(noah, { mood: 'sad', look: [0, 0.6] }); closeOn(noah, lt, T, -1, 1.1, 0.8, 0.2, 34, -0.05); },
+    passersby(lt, T) { streetSet(); noahSit(noah, { look: [Math.sin(gT * 1.5) * 0.8, 0.2] }); passersWalk(6, 1.4); camAB(lt, T, [2.4, 0.35, 0.2], [1.6, 0.4, 0.4], [0, 0.6, 2.4], null, 44); },
+    rain_high(lt, T) { streetSet(); noahSit(noah); passersWalk(6); camAB(lt, T, [0.3, 9, -1.5], [0.2, 7.5, 0.5], [0, 0.3, 2.4], null, 40); },
+    car_arrive(lt, T) { streetSet(); noahSit(noah, { look: [0.6, 0.1] }); passersWalk(4); const u = eOut(clamp(lt / (T * 0.85))); car.visible = true; car.position.x = lerp(-16, 4.6, u); camAB(lt, T, [-6, 1.3, -5.2], [-4.2, 1.2, -4.4], [car.position.x * 0.5, 0.6, -0.2], [1.6, 0.7, 0.8], 44); },
+    tia_arrive(lt, T) { streetSet(); car.visible = true; noahSit(noah, { look: [0.6, 0.3], headX: 0.1 }); passersWalk(2); const u = clamp(lt / (T * 0.8)); const x = lerp(3.2, 0.65, u), z = lerp(0.2, 1.75, u); place(tia, x, 0.15, z, u < 1 ? -1.1 : -0.64); pose(tia, gT, u < 1 ? { walk: true, mood: 'shock', look: [-0.3, -0.3], arms: TIA_ARMS } : { mood: 'sad', look: [-0.2, -0.6], headX: 0.3, lean: 0.15, arms: TIA_ARMS }); place(rafaC, 4.1, 0.15, -0.05, -0.8); pose(rafaC, gT, { mood: 'worried', look: [-0.5, 0] }); const w = eIO(clamp(lt / T)); camAt([lerp(0.4, -1.6, w), 1.5, lerp(-1.7, -0.4, w)], L3([x, 1.1, z], [x / 2 + 0.1, 0.9, (z + 2.55) / 2], w), 44); },
+    tia_close(lt, T) { streetSet(); car.visible = true; noahSit(noah, { look: [0.4, 0.5], headX: -0.1 }); place(tia, 0.65, 0.15, 1.75, -0.64); pose(tia, gT, { mood: 'worried', look: [-0.2, -0.6], headX: 0.35, lean: 0.2, arms: { shL: [0.05, 0, -0.12], elL: [-0.35, 0, 0], shR: [-0.9, 0, 0.3], elR: [-0.6, 0, 0] } }); tia.userData.P.tears.forEach(t => t.visible = lt > T * 0.3); const h = headOf(tia); camAB(lt, T, cl(h, [-0.82, 0.02, 0.3]), cl(h, [-0.66, 0.0, 0.24]), cl(h, [0, -0.04, 0]), null, 34); },
+    tia_call(lt, T) { streetSet(); car.visible = true; noahSit(noah, { look: [0.6, 0.3], headX: 0.1 }); place(tia, 0.65, 0.15, 1.75, 2.2); pose(tia, gT, { mood: 'worried', talk: lt < T - 0.2, look: [0, 0.1], arms: { shL: [0.05, 0, -0.12], elL: [-0.35, 0, 0], shR: [-1.3 + Math.sin(gT * 6) * 0.25, 0, 0.3], elR: [-0.4, 0, 0] } }); const u = clamp(lt / (T * 0.55)); const rx = lerp(4.1, 1.45, u), rz = lerp(-0.05, 0.85, u); place(rafaC, rx, 0.15, rz, -1.15); pose(rafaC, gT, u < 1 ? { walk: true, mood: 'worried', look: [0, 0.2], arms: RU } : { mood: 'worried', look: [0, 0.2], arms: RU }); rafaC.userData.P.umb.visible = true; camAB(lt, T, [-2.9, 1.6, -2.2], [-2.5, 1.55, -1.8], [1.3, 1.0, 1.1], [1.05, 1.0, 1.3], 40); },
+    tia_secret(lt, T) { streetSet(); car.visible = true; noahSit(noah, { look: [0.6, 0.3], headX: 0.1 }); place(tia, 0.85, 0.15, 1.55, 2.3); pose(tia, gT, { mood: 'worried', talk: lt < T - 0.2, look: [0.3, 0.1], headX: 0.1, lean: 0.12, arms: { shL: [0.05, 0, -0.12], elL: [-0.35, 0, 0], shR: [-0.7, 0, 0.2], elR: [-0.9, 0, 0] } }); place(rafaC, 1.45, 0.15, 0.85, -0.85); pose(rafaC, gT, { mood: 'worried', look: [0, 0.1], headX: 0.1, arms: RU }); rafaC.userData.P.umb.visible = true; const h = headOf(tia); camAB(lt, T, cl(h, [0.3, 0.03, -0.8]), cl(h, [0.24, 0.02, -0.66]), cl(h, [0, -0.04, 0]), null, 34); },
+    noah_photo(lt, T) { streetSet(); noahSit(noah, { look: [0, 0.8], headX: 0.45 }); const h = handOf(noah, 'R'); camAB(lt, T, add3(h, [0.4, 0.5, -0.85]), add3(h, [0.3, 0.42, -0.68]), add3(h, [0, 0.05, 0.02]), null, 36); },
+    rafa_out(lt, T) { streetSet(); car.visible = true; noahSit(noah, { look: [0.8, 0.2], headX: 0.1 }); const u = eOut(clamp(lt / (T * 0.7))); place(rafaC, lerp(3.8, 3.0, u), 0.15, lerp(-0.25, 0.4, u), -0.9); pose(rafaC, gT, { walk: u < 1, mood: 'neutral', look: [-0.4, 0], arms: RU }); rafaC.userData.P.umb.visible = true; const v = eOut(prog(lt, T * 0.45, T)); place(tia, lerp(4.6, 3.6, v), 0.15, lerp(-0.25, 0.15, v), -1.2); pose(tia, gT, { walk: v > 0 && v < 1, mood: 'worried', look: [-0.6, 0], arms: TIA_ARMS }); camAB(lt, T, [-0.4, 1.3, 1.7], [0.1, 1.35, 1.5], [3.6, 1.0, -0.2], [3.2, 1.0, 0.1], 40); },
+    mae_kneel(lt, T) { streetSet(); car.visible = true; noahSit(noah, { look: [0.6, 0.1], headX: 0 }); const u = clamp(lt / (T * 0.55)); const kn = eIO(prog(lt, T * 0.55, T * 0.85)); place(tia, lerp(2.4, 0.45, u), 0.15, lerp(0.6, 1.85, u), u < 1 ? -1.0 : -0.57); pose(tia, gT, u < 1 ? { walk: true, mood: 'worried', look: [-0.4, -0.4], arms: TIA_ARMS } : { mood: 'worried', look: [-0.3, -0.3], hipY: lerp(0, 0.42, kn), lean: 0.2 * kn, legs: { thL: -1.9 * kn, knL: 2.3 * kn, thR: -1.4 * kn, knR: 2.5 * kn }, arms: TIA_ARMS }); place(rafaC, 3.0, 0.15, 0.4, -1.0); pose(rafaC, gT, { mood: 'worried', look: [-0.4, 0], arms: RU }); rafaC.userData.P.umb.visible = true; camAB(lt, T, [-1.9, 1.2, 0.7], [-1.6, 1.0, 1.0], [0.9, 0.8, 1.6], [0.25, 0.7, 2.15], 42); },
+    mae_hands(lt, T) { A.mae_kneel(T, T); const tr = Math.sin(gT * 34) * 0.05; pose(tia, gT, { mood: 'worried', look: [-0.3, -0.3], hipY: 0.42, lean: 0.2, legs: { thL: -1.9, knL: 2.3, thR: -1.4, knR: 2.5 }, arms: { shL: [-0.9 + tr, 0, -0.25], elL: [-0.9, 0, 0], shR: [-0.9 - tr, 0, 0.25], elR: [-0.9, 0, 0] } }); camAB(lt, T, [-1.35, 0.78, 1.25], [-1.12, 0.74, 1.38], [0.3, 0.62, 2.0], null, 36); },
+    mae_face(lt, T) { streetSet(); car.visible = true; noahSit(noah, { look: [0.5, 0], headX: 0 }); place(tia, 0.45, 0.15, 1.85, -0.57); pose(tia, gT, { mood: 'worried', talk: lt < T - 0.2, look: [-0.3, -0.2], hipY: 0.42, lean: 0.2, legs: { thL: -1.9, knL: 2.3, thR: -1.4, knR: 2.5 }, arms: { shL: [-0.9, 0, -0.25], elL: [-0.9, 0, 0], shR: [-0.9, 0, 0.25], elR: [-0.9, 0, 0] } }); tia.userData.P.tears.forEach(t => t.visible = true); const h = headOf(tia); camAB(lt, T, cl(h, [-0.62, 0.04, 0.42]), cl(h, [-0.5, 0.03, 0.34]), cl(h, [0, -0.04, 0]), null, 34); },
+    mae_close(lt, T) { A.mae_face(lt, T); const h = headOf(tia); camAB(lt, T, cl(h, [-0.48, 0.02, 0.32]), cl(h, [-0.34, 0.01, 0.23]), cl(h, [0, -0.03, 0]), null, 33); },
+    noah_q(lt, T) { A.mae_face(lt, T); pose(tia, gT, { mood: 'worried', look: [-0.3, -0.2], hipY: 0.42, lean: 0.2, legs: { thL: -1.9, knL: 2.3, thR: -1.4, knR: 2.5 }, arms: { shL: [-0.9, 0, -0.25], elL: [-0.9, 0, 0], shR: [-0.9, 0, 0.25], elR: [-0.9, 0, 0] } }); noahSit(noah, { mood: 'shock', talk: lt < T - 0.2, look: [0.4, -0.2], headX: -0.15, lean: 0.15 }); { const h = headOf(noah); camAB(lt, T, add3(h, [-0.95, 0.3, -0.85]), add3(h, [-0.8, 0.25, -0.7]), add3(h, [0, -0.04, 0]), null, 33); } },
+    noah_tear(lt, T) { A.noah_q(lt, T); noahSit(noah, { mood: 'shock', look: [0.4, -0.2], headX: -0.15, lean: 0.15 }); tearsOn(noah, clamp(lt / 0.8)); { const h = headOf(noah); camAB(lt, T, add3(h, [-0.85, 0.26, -0.75]), add3(h, [-0.68, 0.22, -0.6]), add3(h, [0, -0.04, 0]), null, 33); } },
+    mae_two(lt, T) { A.mae_face(lt, T); camAB(lt, T, [-1.9, 0.95, 0.85], [-1.6, 0.9, 1.05], [0.22, 0.75, 2.2], null, 40); },
+    mae_hold(lt, T) { A.mae_face(lt, T); pose(tia, gT, { mood: 'worried', look: [-0.3, -0.2], hipY: 0.42, lean: 0.3, legs: { thL: -1.9, knL: 2.3, thR: -1.4, knR: 2.5 }, arms: { shL: [-1.45, 0, -0.45], elL: [-0.55, 0, 0], shR: [-1.45, 0, 0.45], elR: [-0.55, 0, 0] } }); noahSit(noah, { mood: 'sad', look: [0.4, -0.2], headX: -0.25, lean: 0.1 }); tearsOn(noah, 1); camAB(lt, T, [-1.9, 1.05, 1.15], [-1.6, 1.0, 1.3], [0.2, 0.8, 2.2], null, 38); },
+    rafa_ask(lt, T) { streetSet(); car.visible = true; noahSit(noah, { look: [0.6, 0.3], headX: 0.1 }); place(tia, 0.65, 0.15, 1.75, 2.2); pose(tia, gT, { mood: 'worried', look: [0, 0.1], arms: TIA_ARMS }); place(rafaC, 1.45, 0.15, 0.85, -0.73); pose(rafaC, gT, { mood: 'worried', talk: lt < T - 0.2, look: [0, 0.1] }); const h = headOf(rafaC); camAB(lt, T, cl(h, [0.1, 0.02, 0.72]), cl(h, [0.08, 0.01, 0.58]), cl(h, [0, -0.04, 0]), null, 34); },
+    mae_leave(lt, T) { A.rafa_arrive(lt * 0.3, T); place(rafaC, 1.45, 0.15, 0.85, -0.73); pose(rafaC, gT, { mood: 'worried', look: [-0.3, 0], arms: RU }); rafaC.userData.P.umb.visible = true; camAB(lt, T, [-1.5, 3.2, -0.6], [-1.2, 3.0, -0.4], [2.0, 0.8, 0.9], [2.4, 0.8, 0.7], 42); },
+    dz_car(lt, T) { streetSet(); dzCar.visible = true; dzL.intensity = 9; const u = eOut(clamp(lt / (T * 0.7))); dzCar.position.x = lerp(-12, 3.6, u); camAB(lt, T, [4.4, 2.2, 2.0], [4.2, 2.05, 1.7], [dzCar.position.x, 0.8, -5.2], [3.6, 0.7, -5.2], 40); },
+    dz_symbol(lt, T) { streetSet(); dzCar.visible = true; dzL.intensity = 9; dzCar.position.x = 3.6; camAB(lt, T, [4.1, 0.95, -2.5], [3.9, 0.82, -3.05], [3.8, 0.68, -4.24], null, 38); fx.shake = lt < 0.3 ? 0.01 : 0; },
+    dz_agent(lt, T) { streetSet(); dzCar.visible = true; dzL.intensity = 9; dzCar.position.x = 3.6; const u = eOut(clamp(lt / (T * 0.4))); place(agent, 2.3, 0, lerp(-5.0, -4.1, u), 0.25); pose(agent, gT, { walk: u < 1, mood: 'determined', look: [0, 0.4], headX: lerp(0, -0.35, eIO(prog(lt, T * 0.4, T * 0.7))) }); const h = headOf(agent); camAB(lt, T, [h[0] - 0.4, 0.55, h[2] + 2.2], [h[0] - 0.3, 0.6, h[2] + 1.6], [h[0], h[1] - 0.15, h[2]], null, 38); },
+    rafa_arrive(lt, T) { streetSet(); noahSit(noah, { look: [0.6, 0.2] }); passersWalk(2); const u = clamp(lt / (T * 0.8)); const x = lerp(1.45, -0.9, u); car.visible = true; place(tia, lerp(0.9, 3.4, clamp(lt / T)), 0.15, lerp(1.5, 0.1, clamp(lt / T)), 2.1); pose(tia, gT, { walk: true, mood: 'worried', look: [0, 0], arms: TIA_ARMS }); place(rafaC, x, 0.15, lerp(0.85, 1.8, u), u < 1 ? -1.19 : 2.4); pose(rafaC, gT, u < 1 ? { walk: true, mood: 'worried', look: [0.5, 0.3] } : { mood: 'worried', look: [0.3, 0.5], headX: 0.2 }); camAB(lt, T, [-1.5, 1.2, -2.4], [0.4, 1.3, -1.8], [x * 0.5 - 0.2, 0.9, 2.0], [-0.4, 0.8, 2.2], 44); },
+    coat_on(lt, T) { streetSet(); const u = eIO(prog(lt, 0.3, T * 0.75)); const c = u < 0.5 ? noah : noahC; noahSit(c, { look: [0.3, -0.5], headX: 0.0 }); const r = u < 0.5 ? rafaC : rafa; place(r, 0.0, 0.15, 1.85, 0); pose(r, gT, { mood: 'worried', look: [0, 0.6], headX: 0.35, lean: 0.45, arms: { shL: [-1.2 - u * 0.2, 0, -0.25], elL: [-0.5, 0, 0], shR: [-1.2 - u * 0.2, 0, 0.25], elR: [-0.5, 0, 0] } }); camAB(lt, T, [3.2, 1.35, 0.4], [2.8, 1.3, 0.7], [0, 1.0, 2.1], null, 46); },
+    rafa_kneel(lt, T) { streetSet(); noahSit(noahC, { look: [0.5, -0.2] }); place(rafa, -0.5, 0.15, 1.75, 2.6); pose(rafa, gT, { mood: 'worried', look: [0.3, 0.3], headX: 0.15, hipY: 0.42, lean: 0.25, legs: { thL: -1.9, knL: 2.3, thR: -1.4, knR: 2.5 }, arms: { shR: [-0.9, 0, 0.2], elR: [-0.5, 0, 0] } }); camAB(lt, T, [2.4, 1.3, -1.6], [2.1, 1.15, -1.2], [-0.25, 0.7, 2.1], null, 40); },
+    rafa_kneel_talk(lt, T) { streetSet(); noahSit(noahC, { look: [0.5, -0.2] }); place(rafa, -0.5, 0.15, 1.75, 2.6); pose(rafa, gT, { mood: 'worried', talk: lt < T - 0.3, look: [0.4, -0.2], headX: -0.05, hipY: 0.42, lean: 0.25, legs: { thL: -1.9, knL: 2.3, thR: -1.4, knR: 2.5 }, arms: { shR: [-0.9, 0, 0.2], elR: [-0.5, 0, 0] } }); const h = headOf(rafa); camAB(lt, T, cl(h, [0.9, 0.05, -0.6]), cl(h, [0.7, 0.02, -0.45]), cl(h, [0, -0.04, 0]), null, 34); },
+    rafa_frown(lt, T) { A.rafa_kneel_talk(lt, T); pose(rafa, gT, { mood: 'angry', look: [0.4, -0.2], hipY: 0.42, lean: 0.25, legs: { thL: -1.9, knL: 2.3, thR: -1.4, knR: 2.5 }, arms: { shR: [-0.9, 0, 0.2], elR: [-0.5, 0, 0] } }); },
+    noah_silent(lt, T) { streetSet(); noahSit(noahC, { look: [0, 0.7], headX: 0.45 }); closeOn(noahC, lt, T, -1, 1.0, 0.75, -0.25, 34, -0.04); },
+    noah_lookup(lt, T) { streetSet(); const u = eIO(prog(lt, 0.2, 1.4)); noahSit(noahC, { look: [-0.4, lerp(0.7, -0.3, u)], headX: lerp(0.45, -0.1, u) }); tearsOn(noahC, u); closeOn(noahC, lt, T, -1, 0.85, 0.6, -0.2, 33); },
+    noah_talk_rain(lt, T) { streetSet(); noahSit(noahC, { mood: 'sad', talk: lt < T - 0.3, look: [-0.5, -0.3], headX: -0.1 }); tearsOn(noahC, 1); closeOn(noahC, lt, T, -1, 0.7, 0.55, -0.22, 33); },
+    // CENA 2 — A HOSPEDARIA
+    inn_ext(lt, T) { streetSet(); const u = clamp(lt / T); place(rafa, lerp(-1, 4.2, u), 0.15, 1.6, Math.PI / 2); pose(rafa, gT, { walk: true, mood: 'neutral', arms: { shL: [-0.3, 0, -0.5], elL: [-0.6, 0, 0] } }); place(noahC, lerp(-1.6, 3.6, u), 0.15, 1.85, Math.PI / 2); pose(noahC, gT, { walk: true, mood: 'sad', look: [0.4, 0.3] }); camAB(lt, T, [-2.2, 1.4, -2.6], [1.2, 1.4, -2.2], [-0.5, 0.9, 1.7], [2.6, 0.9, 1.7], 44); },
+    inn_room_wide(lt, T) { innSet(); sitTable(noahD, 'noah', { mood: 'neutral', look: [0, 0.4], headX: 0.2, arms: { shL: [-0.9, 0, 0.2], elL: [-0.8, 0, 0], shR: [-0.9, 0, -0.2], elR: [-0.8, 0, 0] } }); sitTable(rafa, 'rafa', { mood: 'smile', look: [0, 0.2] }); camAB(lt, T, [IX + 2.8, 2.4, 3.4], [IX + 2.0, 1.9, 2.6], [IX - 0.2, 0.9, -0.8], null, 42); },
+    noah_eat(lt, T) { innSet(); const chew = Math.sin(gT * 9) * 0.06; sitTable(noahD, 'noah', { mood: 'worried', look: [0.2, 0.5], headX: 0.35 + chew, talk: false, arms: { shL: [-0.95, 0, 0.35], elL: [-0.9, 0, 0.2], shR: [-0.95, 0, -0.35], elR: [-0.9, 0, -0.2] } }); camAB(lt, T, [IX + 0.3, 1.55, 1.1], [IX + 0.2, 1.45, 0.8], [IX - 0.25, 0.85, -1.2], null, 38); },
+    rafa_notice(lt, T) { innSet(); sitTable(noahD, 'noah', { mood: 'worried', look: [0.2, 0.5], headX: 0.35 }); sitTable(rafa, 'rafa', { mood: 'worried', look: [0.2, 0.3], headX: 0.1 }); closeX(rafa, lt, T, -1, 1.0, 0.75, 0.35, 34); },
+    rafa_talk_inn(lt, T) { innSet(); sitTable(noahD, 'noah', { mood: 'worried', look: [0.6, 0], headX: 0.1 }); sitTable(rafa, 'rafa', { mood: 'smile', talk: lt < T - 0.3, look: [0, 0.1], arms: { shR: [-0.9, 0, 0.1], elR: [-0.6, 0, 0] } }); closeX(rafa, lt, T, -1, 0.95, 0.75, 0.4, 34); },
+    noah_stop(lt, T) { innSet(); sitTable(noahD, 'noah', { mood: 'shock', look: [0.7, 0], headX: 0.05, arms: { shL: [-0.95, 0, 0.35], elL: [-0.9, 0, 0.2], shR: [-0.95, 0, -0.35], elR: [-0.9, 0, -0.2] } }); closeOn(noahD, lt, T, 1, 0.85, 0.65, 0.2, 34); },
+    noah_talk_inn(lt, T) { innSet(); sitTable(noahD, 'noah', { mood: 'worried', talk: lt < T - 0.2, look: [0.7, 0], headX: 0.0 }); closeOn(noahD, lt, T, 1, 0.75, 0.62, 0.25, 34); },
+    noah_smile(lt, T) { innSet(); const fade = prog(lt, T * 0.55, T * 0.8); sitTable(noahD, 'noah', { mood: fade > 0.5 ? 'sad' : 'smile', look: [0.6, fade * 0.5], headX: fade * 0.3 }); closeOn(noahD, lt, T, 1, 0.9, 0.62, 0.15, 34); },
+    duo_table(lt, T) { innSet(); sitTable(noahD, 'noah', { mood: 'sad', look: [0.6, 0.3], headX: 0.2 }); sitTable(rafa, 'rafa', { mood: 'neutral', talk: lt < T * 0.5, look: [0, 0] }); camAB(lt, T, [IX + 0.6, 1.4, 1.6], [IX + 0.4, 1.3, 1.2], [IX + 0.5, 0.95, -0.9], null, 40); },
+    noah_scared_inn(lt, T) { innSet(); sitTable(noahD, 'noah', { mood: 'worried', talk: lt < T - 0.2, look: [0.6, 0.1], headX: 0.1 }); closeOn(noahD, lt, T, 1, 0.8, 0.6, -0.2, 34); },
+    window_look(lt, T) { innSet(); sitTable(noahD, 'noah', { mood: 'worried', look: [0.6, -0.4], headY: 0.6, headX: -0.1 }); sitTable(rafa, 'rafa', { mood: 'worried', look: [-0.5, -0.3], headY: 0.5 }); camAB(lt, T, [IX - 1.2, 1.3, 0.8], [IX - 0.9, 1.2, 0.4], [IX + 1.3, 1.6, -2.9], [IX + 1.3, 1.7, -2.9], 40); },
+    noah_window(lt, T) { innSet(); sitTable(noahD, 'noah', { mood: 'worried', talk: lt < T - 0.2, look: [0.7, -0.4], headY: 0.5, headX: -0.1 }); closeOn(noahD, lt, T, 1, 0.75, 0.6, 0.35, 33); },
+    rafa_shiver(lt, T) { innSet(); sitTable(rafa, 'rafa', { mood: 'shock', look: [0, 0] }); sitTable(noahD, 'noah', { mood: 'worried' }); fx.shake = 0.003; closeX(rafa, lt, T, -1, 0.8, 0.6, -0.3, 33); },
+    rafa_ask_inn(lt, T) { innSet(); sitTable(rafa, 'rafa', { mood: 'worried', talk: lt < T - 0.3, look: [0, 0.2], lean: 0.15 }); sitTable(noahD, 'noah', { mood: 'worried' }); closeX(rafa, lt, T, -1, 0.85, 0.65, 0.35, 34); },
+    // CENA 3 — ELES CHEGARAM
+    door_knock(lt, T) { innSet(); sitTable(noahD, 'noah', { mood: 'shock', look: [1, 0], headY: -0.6 }); sitTable(rafa, 'rafa', { mood: 'shock', look: [1, 0], headY: 0.8 }); const ks = [0.25, 0.75, 1.25].map(k => k * Math.min(1, T / 1.8)); let hit = 0; ks.forEach(k => { const d = lt - k; if (d > 0 && d < 0.25) hit = Math.max(hit, 1 - d / 0.25); }); door.position.x = -hit * 0.05; door.rotation.y = hit * 0.03; fx.shake = hit * 0.012; dustP.userData.place((i, d) => { const R = rng(i + 9); d.position.set(IX + 3.4 - R() * 0.4 * hit, 0.2 + R() * 2.2, 0.3 + R() * 1.0); d.scale.setScalar(0.03 * hit); }); camAB(lt, T, [IX - 1.0, 1.5, 3.0], [IX - 0.6, 1.45, 2.7], [IX + 2.6, 1.0, 0.2], null, 44); },
+    guards_out(lt, T) { innSet(); torchL.intensity = 4 + Math.sin(gT * 14) * 0.6; guardsAt([[5.2, 0.3, -Math.PI / 2], [6.0, 1.3, -Math.PI / 2 + 0.2], [6.6, 0.6, -Math.PI / 2]], 'angry', {}); pose(guards[0], gT, { mood: 'scream', look: [0, 0], arms: { shL: [-1.4, 0, 0], elL: [-0.6, 0, 0], shR: [-0.35, 0, 0.1], elR: [-0.9, 0, 0] } }); camAB(lt, T, [IX + 3.9, 1.5, 1.85], [IX + 4.0, 1.4, 1.75], [IX + 5.9, 1.2, 0.6], null, 46); fx.shake = 0.004; },
+    rafa_stand(lt, T) { innSet(); const u = eOut(prog(lt, 0, 0.5)); place(rafa, RAFA_IN[0] + 0.3 * u, 0, RAFA_IN[2] + 0.4 * u, -Math.PI / 2 + u * 1.1); pose(rafa, gT, u < 0.4 ? { sit: true, hipY: 0.5, mood: 'shock' } : { mood: 'determined', look: [0, 0] }); sitTable(noahD, 'noah', { mood: 'shock', look: [0.8, 0] }); camAB(lt, T, [IX - 0.8, 1.2, 2.2], [IX - 0.4, 1.3, 1.8], [IX + 1.2, 1.1, -0.4], null, 42); },
+    noah_tremble(lt, T) { innSet(); sitTable(noahD, 'noah', { mood: 'scream', look: [0.8, 0], headZ: Math.sin(gT * 40) * 0.03 }); noahD.position.x += Math.sin(gT * 45) * 0.006; tearsOn(noahD, 1); closeOn(noahD, lt, T, 1, 0.8, 0.6, -0.2, 34); },
+    noah_plead(lt, T) { innSet(); place(noahD, IX + 0.6, 0, 0.1, Math.PI / 2 - 0.3); pose(noahD, gT, { mood: 'sad', talk: lt < T - 0.2, look: [0.3, -0.6], headX: -0.35, arms: { shR: [-1.6, 0, 0], elR: [-0.4, 0, 0], shL: [-1.4, 0, 0], elL: [-0.5, 0, 0] } }); tearsOn(noahD, 1); place(rafa, IX + 1.2, 0, 0.1, -Math.PI / 2); pose(rafa, gT, { mood: 'worried', look: [0, 0.6], headX: 0.3 }); const h = headOf(noahD); camAB(lt, T, cl(h, [0.7, 0.25, 0.75]), cl(h, [0.55, 0.2, 0.6]), cl(h, [0, 0, 0]), null, 36); },
+    rafa_ask2(lt, T) { innSet(); place(noahD, IX + 0.6, 0, 0.1, Math.PI / 2 - 0.3); pose(noahD, gT, { mood: 'sad', look: [0.3, -0.6], headX: -0.35, arms: { shR: [-1.6, 0, 0], elR: [-0.4, 0, 0] } }); place(rafa, IX + 1.2, 0, 0.1, -Math.PI / 2); pose(rafa, gT, { mood: 'worried', talk: lt < T - 0.3, look: [0, 0.6], headX: 0.3 }); const h = headOf(rafa); camAB(lt, T, cl(h, [-0.85, -0.15, 0.6]), cl(h, [-0.7, -0.1, 0.5]), cl(h, [0, -0.04, 0]), null, 35); },
+    arm_grab(lt, T) { innSet(); place(noahD, IX + 0.75, 0, 0.1, Math.PI / 2 - 0.2); pose(noahD, gT, { mood: 'scream', look: [0.3, -0.6], headX: -0.35, arms: { shR: [-1.7, 0, 0.1], elR: [-0.3, 0, 0], shL: [-1.6, 0, -0.1], elL: [-0.3, 0, 0] } }); place(rafa, IX + 1.2, 0, 0.1, -Math.PI / 2); pose(rafa, gT, { mood: 'worried', look: [0, 0.6], headX: 0.3, arms: { shL: [-0.5, 0, 0.1], elL: [-0.3, 0, 0] } }); camAB(lt, T, [IX + 0.95, 1.25, 3.0], [IX + 0.95, 1.2, 2.7], [IX + 0.97, 0.95, 0.1], null, 42); },
+    noah_kill(lt, T) { innSet(); place(noahD, IX + 0.6, 0, 0.1, Math.PI / 2 - 0.3); pose(noahD, gT, { mood: lt > T * 0.45 ? 'scream' : 'sad', talk: lt < T - 0.2, look: [0.3, -0.6], headX: -0.35 }); tearsOn(noahD, 1); place(rafa, IX + 1.2, 0, 0.1, -Math.PI / 2); pose(rafa, gT, { mood: 'shock', look: [0, 0.6], headX: 0.3 }); const h = headOf(noahD); const z = lt > T * 0.45 ? eOut(prog(lt, T * 0.45, T * 0.6)) : 0; camAB(lt, T, cl(h, [0.6, 0.15, 0.8 - z * 0.3]), cl(h, [0.5, 0.12, 0.6 - z * 0.2]), cl(h, [0, -0.02, 0]), null, 36); fx.shake = z * 0.004; },
+    door_break(lt, T) { innSet(); const u = clamp(lt / 0.5); const hit = Math.sin(lt * 18) > 0.6 && lt < 1.0; door.position.x = hit ? -0.05 : 0; fx.shake = hit ? 0.015 : 0.004; if (lt > 1.0) { const k = eIn(prog(lt, 1.0, 1.4)); door.rotation.z = k * 1.45; door.position.x = -k * 0.2; dustP.userData.place((i, d) => { const R = rng(i + 3); const b = (lt - 1.0) * 1.5; d.position.set(IX + 3.3 - R() * 2 * b, 0.1 + R() * 1.6 * (1 - b * 0.3), 0.2 + R() * 1.2); d.scale.setScalar(0.05 * Math.max(0, 1 - b * 0.4)); }); doorLight.material.opacity = 0.7; doorL.intensity = 3; torchL.intensity = 4; } place(rafa, IX + 1.6, 0, 0.3, 1.2); pose(rafa, gT, { mood: 'determined', look: [0.6, 0], arms: { shL: [-0.6, 0, -0.6], elL: [-0.5, 0, 0] } }); place(noahD, IX + 1.1, 0, 0.0, 1.0); pose(noahD, gT, { mood: 'scream', look: [0.8, 0] }); camAB(lt, T, [IX + 0.2, 1.5, 3.2], [IX + 0.4, 1.45, 3.0], [IX + 3.0, 1.1, 0.6], null, 44); },
+    window_alley(lt, T) { setMode('alley'); sunAt(230, 0, 0); rainAround(230, 0, -2, 4, 600, [3, 12]); camAB(lt, T, [230, 6.5, 4], [230, 6.0, 3], [230, 0, -5], null, 44); },
+    hand_hold(lt, T) { innSet(); place(noahD, IX + 1.0, 0, 0.0, 1.3); pose(noahD, gT, { mood: 'determined', look: [0.4, -0.5], headX: -0.3, arms: { shR: [-0.9, 0, 0.3], elR: [-0.2, 0, 0] } }); place(rafa, IX + 1.5, 0, 0.35, -1.9); pose(rafa, gT, { mood: 'worried', look: [0, 0.6], headX: 0.3, arms: { shL: [-0.5, 0, 0.2], elL: [-0.3, 0, 0] } }); camAB(lt, T, [IX + 1.2, 1.25, 3.1], [IX + 1.2, 1.2, 2.8], [IX + 1.25, 0.95, 0.15], null, 42); },
+    noah_whisper(lt, T) { innSet(); place(noahD, IX + 1.0, 0, 0.0, 1.3); pose(noahD, gT, { mood: 'determined', talk: lt < T - 0.2, look: [0.4, -0.5], headX: -0.3 }); place(rafa, IX + 1.5, 0, 0.35, -1.9); pose(rafa, gT, { mood: 'worried', look: [0, 0.6], headX: 0.3 }); const h = headOf(noahD); camAB(lt, T, cl(h, [0.1, 0.1, 0.75]), cl(h, [0.08, 0.08, 0.55]), cl(h, [0, -0.03, 0]), null, 34); },
+    rafa_confused(lt, T) { innSet(); place(noahD, IX + 1.0, 0, 0.0, 1.3); pose(noahD, gT, { mood: 'determined', look: [0.4, -0.5], headX: -0.3 }); place(rafa, IX + 1.5, 0, 0.35, -1.9); pose(rafa, gT, { mood: 'shock', talk: lt < T - 0.2, look: [0, 0.6], headX: 0.3 }); const h = headOf(rafa); camAB(lt, T, cl(h, [-0.75, -0.2, -0.3]), cl(h, [-0.6, -0.15, -0.2]), cl(h, [0, -0.04, 0]), null, 34); },
+    blue_rise(lt, T) { innSet(); const k = eOut(prog(lt, 0.2, T)); NOAH_IN[0] = IX + 1.0; NOAH_IN[2] = 0.0; magic(k); place(noahD, IX + 1.0, 0, 0.0, 1.3); pose(noahD, gT, { mood: 'determined', look: [0, -0.2], headX: -0.1, arms: { shR: [-0.9, 0, 0.3], elR: [-0.2, 0, 0] } }); place(rafa, IX + 1.5, 0, 0.35, -1.9); pose(rafa, gT, { mood: 'shock', look: [0, 0.6], headX: 0.3 }); camAB(lt, T, [IX - 0.6, 0.6, 2.4], [IX - 0.4, 0.9, 2.1], [IX + 1.2, 0.3, 0.1], [IX + 1.2, 0.7, 0.1], 44); },
+    walls_shake(lt, T) { innSet(); magic(1); place(noahD, IX + 1.0, 0, 0.0, 1.3); pose(noahD, gT, { mood: 'determined', look: [0, 0] }); place(rafa, IX + 1.5, 0, 0.35, -1.9); pose(rafa, gT, { mood: 'determined', look: [0, 0.6] }); fx.shake = 0.018; dustP.userData.place((i, d) => { const R = rng(i + 41); const k = ((gT * 0.6 + R()) % 1); d.position.set(IX - 3 + R() * 6, 3 - k * 3, -2.8 + R() * 5); d.scale.setScalar(0.03); }); camAB(lt, T, [IX - 1.8, 2.4, 3.2], [IX - 1.5, 2.2, 2.9], [IX + 0.6, 1.0, -0.4], null, 44); },
+    candles_out(lt, T) { const off = lt > 0.35; innSet({ dark: off }); magic(1); if (!off) CANDLES.forEach(c => c.f.scale.x = 0.022 * (1 + lt * 3)); place(noahD, IX + 1.0, 0, 0.0, 1.3); pose(noahD, gT, { mood: 'determined', look: [0, 0] }); place(rafa, IX + 1.5, 0, 0.35, -1.9); pose(rafa, gT, { mood: 'determined', look: [0, 0.6] }); camAB(lt, T, [IX + 0.25, 1.0, 0.6], [IX + 0.25, 0.95, 0.4], [IX + 0.25, 0.9, -0.6], null, 40); },
+    silence_white(lt, T) { innSet({ dark: true }); magic(1 + lt); place(noahD, IX + 1.0, 0, 0.0, 1.3); pose(noahD, gT, { mood: 'determined', look: [0, 0] }); place(rafa, IX + 1.5, 0, 0.35, -1.9); pose(rafa, gT, { mood: 'determined', look: [0, 0.6] }); camAB(lt, T, [IX - 0.5, 1.6, 2.6], [IX - 0.2, 1.5, 2.2], [IX + 1.1, 0.8, 0], null, 44); fx.white = eIn(prog(lt, T * 0.5, T)); },
+    // CENA 4 — A VERDADE
+    guards_down(lt, T) { innSet({ mode: 'inn' }); guardsDown(false); fx.white = Math.max(0, 1 - lt * 1.5); place(rafa, IX + 1.5, 0, 0.35, 0.9); pose(rafa, gT, { mood: 'shock', look: [0.4, 0.6], headX: 0.3 }); place(noahD, IX + 1.0, 0, 0.0, 1.3); pose(noahD, gT, { mood: 'sad', look: [0, 0.5], headX: 0.3 }); doorLight.material.opacity = 0.6; doorL.intensity = 2.5; door.visible = false; camAB(lt, T, [IX + 0.2, 3.2, 2.8], [IX + 0.6, 2.6, 2.4], [IX + 2.2, 0.2, 0.6], null, 44); },
+    rafa_shock(lt, T) { innSet(); guardsDown(false); door.visible = false; doorL.intensity = 2.5; place(rafa, IX + 1.5, 0, 0.35, -1.9); pose(rafa, gT, { mood: 'shock', talk: lt < T - 0.2, look: [0, 0.6], headX: 0.25, arms: { shL: [-0.8, 0, -0.4], elL: [-0.8, 0, 0], shR: [-0.8, 0, 0.4], elR: [-0.8, 0, 0] } }); place(noahD, IX + 1.0, 0, 0.0, 1.3); pose(noahD, gT, { mood: 'sad' }); const h = headOf(rafa); camAB(lt, T, cl(h, [-0.8, -0.1, -0.35]), cl(h, [-0.6, -0.08, -0.25]), cl(h, [0, -0.04, 0]), null, 34); },
+    noah_sad(lt, T) { innSet(); guardsDown(false); door.visible = false; place(noahD, IX + 1.0, 0, 0.0, 1.3); pose(noahD, gT, { mood: 'sad', talk: lt < T - 0.2, look: [0, 0.6], headX: 0.35 }); tearsOn(noahD, 0.6); place(rafa, IX + 1.5, 0, 0.35, -1.9); pose(rafa, gT, { mood: 'worried' }); const h = headOf(noahD); camAB(lt, T, cl(h, [0.55, 0.0, -0.4]), cl(h, [0.45, 0.0, -0.32]), cl(h, [0, -0.04, 0]), null, 34); },
+    rafa_ask3(lt, T) { A.rafa_shock(lt, T); pose(rafa, gT, { mood: 'worried', talk: lt < T - 0.2, look: [0, 0.6], headX: 0.25 }); },
+    noah_cry(lt, T) { A.noah_sad(lt, T); pose(noahD, gT, { mood: 'sad', talk: lt < T - 0.2, look: [0, 0.3], headX: 0.1, headZ: Math.sin(gT * 8) * 0.04 }); tearsOn(noahD, 1); },
+    sleeve_up(lt, T) { innSet(); guardsDown(false); door.visible = false; const u = eOut(prog(lt, 0.3, 1.6)); place(noahD, IX + 1.0, 0, 0.0, 1.3); pose(noahD, gT, { mood: 'sad', look: [0.3, 0.6], headX: 0.35, arms: { shR: [-1.1, 0, 0.35], elR: [-1.1, 0, 0], shL: [-0.9, 0, -0.25], elL: [-0.9, 0, 0] } }); const P = noahD.userData.P; P.mark.visible = u > 0.05; P.mark.material.opacity = u; P.markG.visible = true; P.markG.material.opacity = 0.9 * u; darkAround(...handOf(noahD, 'R'), 0.25, u); const h = handOf(noahD, 'R'); h[1] += 0.12; camAB(lt, T, cl(h, [0.35, 0.18, 0.4]), cl(h, [0.25, 0.12, 0.28]), h, null, 34); },
+    rafa_frozen(lt, T) { innSet(); guardsDown(false); door.visible = false; place(rafa, IX + 1.5, 0, 0.35, -1.9); pose(rafa, gT, { mood: 'shock', look: [0, 0.7], headX: 0.35 }); place(noahD, IX + 1.0, 0, 0.0, 1.3); pose(noahD, gT, { mood: 'sad' }); const h = headOf(rafa); camAB(lt, T, cl(h, [-0.55, 0.0, -0.55]), cl(h, [-0.42, 0.0, -0.42]), cl(h, [0, -0.04, 0]), null, 33); },
+    royal_docs(lt, T) { setMode('docs'); sunAt(260, 0, 0); docL.intensity = 3 + Math.sin(gT * 13) * 0.3; camAB(lt, T, [260.1, 2.1, 0.5], [260.05, 1.55, 0.25], [260, 0.76, 0], null, 40); },
+    legend_god(lt, T) { setMode('legend'); sunAt(320, 0, -10); pose(god, gT * 0.3, { mood: 'determined', look: [0, 0.2], headX: 0.2, arms: { shL: [0, 0, -0.5], shR: [0, 0, 0.5], elL: [-0.3, 0, 0], elR: [-0.3, 0, 0] } }); god.visible = true; chains.forEach((c, i) => { c.rotation.y = gT * (i % 2 ? 0.2 : -0.25); }); godMarkG.scale.setScalar(16 + Math.sin(gT * 2) * 2); camAB(lt, T, [320, 2, 14], [320, 4, 9], [320, 8, -12], [320, 11, -12], 50); },
+    noah_name(lt, T) { innSet(); guardsDown(false); door.visible = false; place(noahD, IX + 1.0, 0, 0.0, 1.3); pose(noahD, gT, { mood: 'neutral', talk: lt < T - 0.2, look: [0.3, -0.5], headX: -0.25 }); const P = noahD.userData.P; P.mark.visible = true; P.markG.visible = true; P.mark.material.opacity = 1; place(rafa, IX + 1.5, 0, 0.35, -1.9); pose(rafa, gT, { mood: 'shock' }); const h = headOf(noahD); camAB(lt, T, cl(h, [0.5, 0.0, -0.4]), cl(h, [0.42, 0.0, -0.32]), cl(h, [0, -0.04, 0]), null, 34); },
+    noah_god(lt, T) { innSet({ dark: true }); guardsDown(false); door.visible = false; NOAH_IN[0] = IX + 1.0; NOAH_IN[2] = 0.0; magic(0.7); place(noahD, IX + 1.0, 0, 0.0, 1.3); pose(noahD, gT, { mood: 'determined', talk: lt < T - 0.2, look: [0.2, -0.7], headX: -0.3 }); const P = noahD.userData.P; P.mark.visible = true; P.markG.visible = true; P.markG.material.opacity = 1; darkAround(IX + 1.0, 0.5, 0, 0.9, 1); place(rafa, IX + 1.5, 0, 0.35, -1.9); pose(rafa, gT, { mood: 'shock' }); const h = headOf(noahD); camAB(lt, T, cl(h, [0.55, -0.45, -0.4]), cl(h, [0.42, -0.36, -0.3]), cl(h, [0, 0.0, 0]), null, 40); fx.shake = 0.002; },
+    // CENA 5 — A GRANDE REVELAÇÃO
+    rafa_step_back(lt, T) { innSet(); guardsDown(false); door.visible = false; const u = eOut(prog(lt, 0, 0.8)); place(rafa, IX + 1.5 + u * 0.4, 0, 0.35 + u * 0.15, -1.9); pose(rafa, gT, { mood: 'shock', look: [0, 0.6], lean: -0.12 }); place(noahD, IX + 1.0, 0, 0.0, 1.3); pose(noahD, gT, { mood: 'sad', look: [0.4, -0.5] }); camAB(lt, T, [IX - 0.9, 1.4, 2.3], [IX - 0.6, 1.35, 2.0], [IX + 1.4, 1.0, 0.2], null, 40); },
+    door_shadow(lt, T) { innSet(); guardsDown(false); door.visible = false; doorLight.material.opacity = 0.8; doorL.intensity = 2; place(mul, IX + 4.1, 0, 0.8, -Math.PI / 2); pose(mul, gT, { mood: 'neutral', look: [0, 0] }); camAB(lt, T, [IX + 1.4, 1.5, 0.6], [IX + 1.8, 1.5, 0.7], [IX + 4.1, 1.4, 0.8], null, 38); },
+    woman_door(lt, T) { innSet(); guardsDown(lt > T * 0.6); door.visible = false; doorLight.material.opacity = 0.9; doorL.intensity = 2.5; const u = eOut(prog(lt, 0, T * 0.5)); place(mul, IX + lerp(4.1, 3.2, u), 0, 0.8, -Math.PI / 2); pose(mul, gT, { mood: 'neutral', look: [0, 0], walk: u < 0.95 }); darkAround(IX + 3.4, 0.2, 0.8, 1.2, 1); camAB(lt, T, [IX + 0.6, 0.6, 1.4], [IX + 0.9, 0.7, 1.3], [IX + 3.3, 1.3, 0.8], null, 42); },
+    rafa_turn(lt, T) { innSet(); guardsDown(false); door.visible = false; doorL.intensity = 2.5; const u = eOut(prog(lt, 0, 0.5)); place(rafa, IX + 1.9, 0, 0.5, -1.9 + u * 3.3); pose(rafa, gT, { mood: 'shock', look: [0, 0] }); place(noahD, IX + 1.3, 0, 0.3, 1.4); pose(noahD, gT, { mood: 'shock', look: [0.7, 0] }); camAB(lt, T, [IX + 0.2, 1.4, 2.6], [IX + 0.4, 1.4, 2.4], [IX + 1.8, 1.2, 0.4], null, 42); },
+    guards_tremble(lt, T) { innSet(); guardsDown(true); door.visible = false; doorLight.material.opacity = 0.9; doorL.intensity = 2.5; place(mul, IX + 3.2, 0, 0.8, -Math.PI / 2); pose(mul, gT, { mood: 'neutral', look: [0, 0.6], headX: 0.2 }); darkAround(IX + 2.4, 0.2, 0.6, 1.4, 1); camAB(lt, T, [IX + 1.2, 0.5, 2.4], [IX + 1.3, 0.55, 2.2], [IX + 2.3, 0.2, 0.6], null, 42); },
+    woman_smile(lt, T) { innSet(); guardsDown(false); door.visible = false; doorL.intensity = 2.5; place(mul, IX + 3.2, 0, 0.8, -Math.PI / 2); pose(mul, gT, { mood: lt > T * 0.5 ? 'smile' : 'neutral', look: [0.4, 0.3], headX: 0.1 }); closeX(mul, lt, T, -1, 0.9, 0.7, 0.3, 34); },
+    woman_talk(lt, T) { innSet(); guardsDown(false); door.visible = false; doorL.intensity = 2.5; place(mul, IX + 3.2, 0, 0.8, -Math.PI / 2); pose(mul, gT, { mood: 'smile', talk: lt < T - 0.2, look: [0.2, 0.1] }); closeX(mul, lt, T, -1, 0.85, 0.7, -0.3, 34); },
+    rafa_protect(lt, T) { innSet(); guardsDown(false); door.visible = false; doorL.intensity = 2.5; place(rafa, IX + 2.0, 0, 0.6, Math.PI / 2); pose(rafa, gT, { mood: 'determined', talk: false, look: [0, 0], arms: { shL: [-0.3, 0, -0.9], elL: [-0.3, 0, 0], shR: [-0.3, 0, 0.9], elR: [-0.3, 0, 0] } }); place(noahD, IX + 1.5, 0, 0.6, Math.PI / 2); pose(noahD, gT, { mood: 'worried', look: [0.5, 0], headY: 0.2 }); place(mul, IX + 3.2, 0, 0.8, -Math.PI / 2); pose(mul, gT, { mood: 'smile' }); camAB(lt, T, [IX + 1.0, 1.4, 3.4], [IX + 1.2, 1.35, 3.1], [IX + 2.3, 1.0, 0.6], null, 44); },
+    rafa_talk_w(lt, T) { innSet(); guardsDown(false); door.visible = false; doorL.intensity = 2.5; place(rafa, IX + 2.0, 0, 0.6, Math.PI / 2); pose(rafa, gT, { mood: 'determined', talk: lt < T - 0.2, look: [0, 0], arms: { shL: [-0.3, 0, -0.9], elL: [-0.3, 0, 0] } }); place(noahD, IX + 1.5, 0, 0.6, Math.PI / 2); pose(noahD, gT, { mood: 'worried' }); closeX(rafa, lt, T, 1, 0.85, 0.7, 0.35, 34); },
+    rafa_cold(lt, T) { A.rafa_talk_w(lt, T); pose(rafa, gT, { mood: 'shock', talk: false, look: [0, 0] }); fx.blue = 0.3; },
+    rafa_what(lt, T) { A.rafa_talk_w(lt, T); pose(rafa, gT, { mood: 'shock', talk: lt < T - 0.2, look: [0, 0] }); },
+    woman_look(lt, T) { innSet(); guardsDown(false); door.visible = false; doorL.intensity = 2.5; place(mul, IX + 3.2, 0, 0.8, -Math.PI / 2); pose(mul, gT, { mood: 'neutral', look: [0, 0], headX: -0.05 }); place(rafa, IX + 2.0, 0, 0.6, Math.PI / 2); pose(rafa, gT, { mood: 'determined' }); const h = headOf(mul); camAB(lt, T, cl(h, [-0.75, 0.0, 0.1]), cl(h, [-0.6, 0.0, 0.08]), cl(h, [0, -0.04, 0]), null, 32); },
+    woman_hand(lt, T) { innSet(); guardsDown(false); door.visible = false; doorL.intensity = 2.5; const u = eOut(prog(lt, 0, T * 0.7)); place(mul, IX + 3.0, 0, 0.75, -Math.PI / 2); pose(mul, gT, { mood: 'smile', look: [0, 0], arms: { shR: [-1.5 * u, 0, 0], elR: [-0.1, 0, 0] } }); place(rafa, IX + 2.0, 0, 0.6, Math.PI / 2); pose(rafa, gT, { mood: 'shock' }); darkAround(...handOf(mul, 'R'), 0.3, u); const h = handOf(mul, 'R'); camAB(lt, T, cl(h, [-0.6, 0.15, 0.9]), cl(h, [-0.5, 0.12, 0.7]), cl(h, [0.1, 0, 0]), null, 40); },
+    noah_scream(lt, T) { innSet(); guardsDown(false); door.visible = false; doorL.intensity = 2.5; place(noahD, IX + 1.5, 0, 0.6, Math.PI / 2 + 0.4); pose(noahD, gT, { mood: 'scream', look: [0.4, -0.4], headX: -0.25, arms: { shR: [-1.6, 0, 0.3], elR: [-0.2, 0, 0] } }); tearsOn(noahD, 1); fx.shake = 0.008; const h = headOf(noahD); camAB(lt, T, cl(h, [0.4, 0.0, 0.7]), cl(h, [0.32, 0.0, 0.52]), cl(h, [0, -0.04, 0]), null, 36); },
+    rafa_mark(lt, T) { innSet({ mode: 'inn' }); guardsDown(false); door.visible = false; doorL.intensity = 2.5; const u = eOut(prog(lt, 0.4, 1.8)); place(rafa, IX + 2.0, 0, 0.6, Math.PI / 2); pose(rafa, gT, { mood: 'shock', look: [0, 0.6], arms: { shR: [-1.2, 0, 0.2], elR: [-0.6, 0, 0] } }); const P = rafa.userData.P; P.mark.visible = u > 0.05; P.mark.material.opacity = u; P.markG.visible = true; P.markG.material.opacity = u; darkAround(...handOf(rafa, 'R'), 0.25, u); const h = handOf(rafa, 'R'); camAB(lt, T, cl(h, [-0.1, 0.35, 0.45]), cl(h, [-0.08, 0.25, 0.32]), h, null, 34); fx.shake = u * 0.002; },
+    woman_fear(lt, T) { innSet(); guardsDown(false); door.visible = false; doorL.intensity = 2.5; place(mul, IX + 3.0, 0, 0.75, -Math.PI / 2); const u = prog(lt, 0, 0.6); pose(mul, gT, { mood: u > 0.5 ? 'shock' : 'smile', talk: lt > 0.8 && lt < T - 0.2, look: [0, 0.2], headX: 0.1, lean: -0.08 * u, arms: { shR: [-1.2 * (1 - u), 0, 0] } }); const h = headOf(mul); camAB(lt, T, cl(h, [-0.7, 0.0, -0.25]), cl(h, [-0.5, 0.0, -0.18]), cl(h, [0, -0.04, 0]), null, 34); },
+    rafa_eyes(lt, T) { innSet({ dark: true }); guardsDown(false); door.visible = false; doorL.intensity = 1.5; place(rafa, IX + 2.0, 0, 0.6, Math.PI / 2); pose(rafa, gT, { mood: 'determined', look: [0, 0] }); const P = rafa.userData.P; P.mark.visible = true; P.markG.visible = true; P.markG.material.opacity = 1; const h = headOf(rafa); camAB(lt, T, cl(h, [0.75, 0.02, 0.05]), cl(h, [0.6, 0.02, 0.04]), cl(h, [0, -0.02, 0]), null, 30); },
+    final_black(lt, T) { setMode('dark'); sunAt(0, 0, 0); camAt([0, 1.2, -2], [0, 0.8, 2.6], 40); rainAround(0, 0, 0, 8, 400); fx.black = 0.8; },
+    poll(lt, T) { streetSet(); place(rafa, -0.3, 0.15, 1.9, Math.PI); pose(rafa, gT, { mood: 'determined', look: [0, 0], arms: { shL: [0, 0, -0.35], elL: [-0.4, 0, 0] } }); const P = rafa.userData.P; P.mark.visible = true; P.markG.visible = true; place(noahC, 0.35, 0.15, 2.0, Math.PI); pose(noahC, gT, { mood: 'worried', look: [-0.4, -0.3], headY: -0.3, arms: { shR: [0, 0, 0.35], elR: [-0.4, 0, 0] } }); const a = -0.4 + lt * 0.05; camAt([Math.sin(a) * 4.5, 1.1 + lt * 0.03, 1.9 - Math.cos(a) * 4.5], [0, 1.0, 1.9], 42); },
+  };
+
+  const flashEl = document.getElementById('mundo-flash'), tintEl = document.getElementById('mundo-tint');
+  const ALLC = [rafa, rafaC, noah, noahC, noahD, mul, tia, agent, ...guards];
+  function frame(t) {
+    gT = t; let idx = 0; for (let i = 0; i < SHOTS.length; i++) if (t >= SHOTS[i].t0) idx = i;
+    const sh = SHOTS[idx]; const lt = t - sh.t0, T = Math.max(0.3, sh.t1 - sh.t0);
+    for (const k in fx) fx[k] = 0;
+    PARTS.forEach(p => p.visible = false); OPT.forEach(o => o.visible = false); tiles.visible = false; god.visible = false;
+    ALLC.forEach(c => { const P = c.userData.P; if (P.mark) { P.mark.visible = false; P.markG.visible = false; P.mark.material.opacity = 1; P.markG.material.opacity = 0.9; } if (P.tears) P.tears.forEach(x => x.visible = false); if (P.umb) P.umb.visible = false; c.rotation.order = 'XYZ'; });
+    [lampL, lampL2, candleL, fireL, blueL, doorL, torchL, docL, dzL].forEach(l => l.intensity = 0); NOAH_IN[0] = IX - 0.25; NOAH_IN[2] = -1.3;
+    (A[sh.id] || A[sh.id.replace(/~\d+$/, '')] || A.rain_wide)(lt, T);
+    const pk = 1 - 0.05 * (1 - eOut(clamp(lt / 0.4))); const dir = new T3.Vector3().subVectors(cam.position, camT); cam.position.copy(camT).addScaledVector(dir, pk);
+    cam.position.x += Math.sin(t * 0.9) * 0.01 + Math.sin(t * 2.3) * 0.004; cam.position.y += Math.cos(t * 0.7) * 0.008;
+    if (fx.shake) { cam.position.x += Math.sin(t * 87) * fx.shake; cam.position.y += Math.cos(t * 71) * fx.shake; }
+    cam.lookAt(camT); cam.updateMatrixWorld();
+    renderer.render(scene, cam);
+    flashEl.style.opacity = Math.max(fx.flash, fx.white).toFixed(3);
+    tintEl.style.background = fx.black ? '#000' : '#2a4aff'; tintEl.style.opacity = (fx.black || fx.blue * 0.4).toFixed(3);
+  }
+  const fontsReady = Promise.all(['700 40px Oswald', '700 40px Inter', '900 40px Inter'].map(f => document.fonts.load(f).catch(() => null)).concat([imgEl.decode ? imgEl.decode().catch(() => null) : null]));
+  fontsReady.then(() => {
+    try { ep1C.getContext('2d').drawImage(imgEl, 0, 0, 540, 960); } catch (e) {} ep1Tex.needsUpdate = true;
+    const tl = gsap.timeline({ paused: true }); const clock = { t: 0 };
+    tl.fromTo(clock, { t: 0 }, { t: DUR, duration: DUR, ease: 'none', onUpdate: function () { frame(clock.t); } }, 0);
+    frame(0); window.__timelines['mundo'] = tl;
+  });
+})();
+
+  </script>
+</template>
