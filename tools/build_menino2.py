@@ -19,7 +19,8 @@ a = head.index("CUTS = {"); b = head.index("MARKS = {}")
 SPEC = [
  [(0, "intro2d"), ("3d", "intro_burst"), ("lembra", "intro_title")],
  [(0, "rain_wide"), ("tremendo", "noah_shiver"), ("pessoas", "passersby")],
- [(0, "rain_high")],
+ [(0, "car_arrive"), ("mulher", "tia_arrive"), ("decidiu", "tia_close")],
+ [(0, "tia_call"), ("ninguém", "tia_secret")],
  [(0, "rafa_arrive"), ("tirou", "coat_on")],
  [(0, "rafa_kneel_talk")],
  [(0, "noah_silent"), ("rafael", "rafa_kneel")],
@@ -98,7 +99,7 @@ TXT = [clean(f[2]) for f in FALAS]
 def _wi(li, w): return [t.strip(".,!?:").lower() for t in TXT[li].split()].index(w)
 CUTS = {i: [(w if isinstance(w, int) else _wi(i, w), n) for w, n in sp] for i, sp in enumerate(SPEC)}
 head = head[:a] + "CUTS = " + repr(CUTS) + "\n" + head[b:]
-head = head.replace('GAP = {0: 0.3, 4: 0.6, 9: 0.8, 10: 0.8, 14: 0.6}', 'GAP = {0: 0.7, 1: 0.4, 2: 0.4, 12: 0.7, 26: 0.6, 27: 1.6, 28: 0.6, 29: 0.15, 30: 0.3, 35: 0.5, 36: 0.4, 41: 0.9, 42: 0.4, 47: 0.5, 48: 0.4, 51: 0.7, 52: 1.6, 53: 0.6, 54: 0.3, 62: 0.6, 67: 0.2, 69: 0.4, 72: 0.8, 73: 1.2}').replace('DEFAULT_GAP = 0.7', 'DEFAULT_GAP = 0.3').replace('TAIL = 2.6', 'TAIL = 4.2')
+head = head.replace('GAP = {0: 0.3, 4: 0.6, 9: 0.8, 10: 0.8, 14: 0.6}', 'GAP = {0: 0.7, 1: 0.4, 2: 0.4, 3: 0.4, 13: 0.7, 27: 0.6, 28: 1.6, 29: 0.6, 30: 0.15, 31: 0.3, 36: 0.5, 37: 0.4, 42: 0.9, 43: 0.4, 48: 0.5, 49: 0.4, 52: 0.7, 53: 1.6, 54: 0.6, 55: 0.3, 63: 0.6, 68: 0.2, 70: 0.4, 73: 0.8, 74: 1.2}').replace('DEFAULT_GAP = 0.7', 'DEFAULT_GAP = 0.3').replace('TAIL = 2.6', 'TAIL = 4.2')
 g = {"__file__": os.path.join(HERE, "build_sono.py")}
 exec(head, g)
 lines, shots, TOTAL = g["lines"], g["shots"], g["TOTAL"]
@@ -153,32 +154,33 @@ card("voto", W(0, WI(0, "lembra")), END(0) + 0.6, '<div class="qq"><span>LEMBRA<
 card("tit", END(0) + 0.6, W(1, WI(1, "tremendo")), '<div class="epc" style="font-size:74px"><span>EPISÓDIO 2</span>AQUELE QUE ESTAVA<br>ESCONDIDO NAS SOMBRAS</div>', top=280, anim="fade")
 cena = lambda n, t: f'<div class="cena"><b>{n}</b>{t}</div>'
 card("c1", W(1, WI(1, "tremendo")), W(1, WI(1, "tremendo")) + 2.4, cena("CENA 1", "A ESCOLHA"), top=1580, anim="slide")
-card("optA", W(2, WI(2, "opção")), END(2) + 0.3, '<div class="qq"><span>VOCÊS ESCOLHERAM</span>OPÇÃO <em>A</em><br>AJUDAR O MENINO</div>', top=330, anim="slam")
-card("rafa", W(3, WI(3, "rafael")), END(3) + 0.2, tag("RAFAEL", "O jovem que parou para ajudar", "#7ab8ff"), top=1580, anim="slide")
-card("c2", W(13) + 0.1, W(13) + 2.5, cena("CENA 2", "O SEGREDO DO MENINO"), top=1580, anim="slide")
-card("toc", W(29, WI(29, "três")), END(29) + 0.4, '<div class="qq"><em>TOC! TOC! TOC!</em></div>', top=330, anim="slam")
-card("c3", W(30), W(30) + 2.4, cena("CENA 3", "ELES CHEGARAM"), top=1580, anim="slide")
-card("abram", W(30), END(30) + 0.3, '<div class="qq" style="border-color:#ff4a4a"><span style="color:#ff6a5a">GUARDA REAL</span>ABRAM!</div>', top=330, anim="slam")
-card("matar", W(35, WI(35, "matar")) - 0.1, END(35) + 0.4, '<div class="qq" style="border-color:#ff4a4a">ELES QUEREM<br>ME <em style="color:#ff4a4a">MATAR</em></div>', top=330, anim="slam")
-card("beco", W(36, WI(36, "beco")), END(36) + 0.3, '<div class="qq"><span>A JANELA</span>BECO SEM SAÍDA</div>', top=330, anim="pop")
-card("c4", W(42), W(42) + 2.4, cena("CENA 4", "A VERDADE"), top=1580, anim="slide")
-card("magia", W(45, WI(45, "magia")) - 0.1, END(45) + 0.4, '<div class="qq" style="border-color:#5ab0ff"><span style="color:#8ad0ff">ELE TEM</span><em style="color:#8ad0ff">MAGIA?</em></div>', top=330, anim="slam")
-card("mil", W(48, WI(48, "mil")) - 0.2, END(48) + 0.4, '<div class="epc" style="font-size:96px"><span>DESAPARECIDA HÁ</span>MIL ANOS</div>', top=300, anim="slam")
-card("noah", W(49), END(49) + 0.3, tag("NOAH", "O menino sem nome", "#9affc8"), top=1580, anim="slide")
-card("filho", W(51, WI(51, "último")) - 0.1, END(51) + 0.6, '<div class="qq" style="border-color:#a04aff"><span style="color:#c88aff">REVELAÇÃO</span>O ÚLTIMO FILHO<br>DO <em style="color:#c88aff">DEUS</em> QUE<br>VOCÊS MATARAM</div>', top=300, anim="slam")
-card("c5", W(54), W(54) + 2.4, cena("CENA 5", "A GRANDE REVELAÇÃO"), top=1580, anim="slide")
-card("mul", W(56, WI(56, "mulher")), W(56, WI(56, "mas")), tag("A MULHER DE PRETO", "Ninguém sabe quem ela é", "#d88aff"), top=1580, anim="slide")
-card("teste", W(66) - 0.1, END(66) + 0.5, '<div class="qq" style="border-color:#d88aff">VOCÊ PASSOU<br>NO <em style="color:#d88aff">TESTE</em></div>', top=330, anim="slam")
-card("cf", W(67), W(67) + 2.2, cena("CENA FINAL", "O CLIFFHANGER"), top=1580, anim="slide")
-card("alma", W(72) - 0.1, END(72) + 0.6, '<div class="qq" style="border-color:#a04aff">VOCÊ NÃO DEVERIA<br>TER ESSA <em style="color:#c88aff">ALMA</em></div>', top=330, anim="slam")
-card("frase", W(73) - 0.2, W(74) - 0.2, '<div class="epc" style="font-size:78px">"O MENINO NÃO ERA<br>O ÚNICO QUE ESTAVA<br>SENDO <em style="color:#ff4a5a;font-style:normal">CAÇADO</em>."</div><div class="fim">FIM DO EPISÓDIO 2</div>', top=620, anim="fade")
-card("cont1", W(27, WI(27, "parte")), END(27) + 1.5, '<div class="qq"><span>CONTINUA NA</span><em>PARTE 2</em></div><div class="cena" style="margin-top:30px">ME SEGUE PRA NÃO PERDER</div>', top=420, anim="slam")
-card("p2", W(28), W(28, WI(28, "bora")) + 0.6, '<div class="epc"><span>EPISÓDIO 2 · PARTE 2</span>O MENINO QUE<br>NINGUÉM QUIS AJUDAR</div>', top=300, anim="slam")
-card("cont2", W(52, WI(52, "parte")), END(52) + 1.5, '<div class="qq"><span>CONTINUA NA</span><em>PARTE 3</em></div><div class="cena" style="margin-top:30px">ME SEGUE PRA NÃO PERDER</div>', top=420, anim="slam")
-card("p3", W(53), W(53, WI(53, "bora")) + 0.6, '<div class="epc"><span>EPISÓDIO 2 · PARTE 3 · FINAL</span>O MENINO QUE<br>NINGUÉM QUIS AJUDAR</div>', top=300, anim="slam")
+card("optA", W(2, WI(2, "opção")), END(2) + 0.3, '<div class="qq"><span>VOCÊS ESCOLHERAM</span>OPÇÃO <em>A</em><br>ELA CUIDA DO MENINO</div>', top=330, anim="slam")
+card("tia", W(2, WI(2, "mulher")), W(2, WI(2, "decidiu")), tag("A TIA DO MENINO", "Irmã da Ana, a mãe dele", "#ff8aa0"), top=1580, anim="slide")
+card("rafa", W(4, WI(4, "rafael")), END(4) + 0.2, tag("RAFAEL", "O motorista da tia", "#7ab8ff"), top=1580, anim="slide")
+card("c2", W(14) + 0.1, W(14) + 2.5, cena("CENA 2", "O SEGREDO DO MENINO"), top=1580, anim="slide")
+card("toc", W(30, WI(30, "três")), END(30) + 0.4, '<div class="qq"><em>TOC! TOC! TOC!</em></div>', top=330, anim="slam")
+card("c3", W(31), W(31) + 2.4, cena("CENA 3", "ELES CHEGARAM"), top=1580, anim="slide")
+card("abram", W(31), END(31) + 0.3, '<div class="qq" style="border-color:#ff4a4a"><span style="color:#ff6a5a">GUARDA REAL</span>ABRAM!</div>', top=330, anim="slam")
+card("matar", W(36, WI(36, "matar")) - 0.1, END(36) + 0.4, '<div class="qq" style="border-color:#ff4a4a">ELES QUEREM<br>ME <em style="color:#ff4a4a">MATAR</em></div>', top=330, anim="slam")
+card("beco", W(37, WI(37, "beco")), END(37) + 0.3, '<div class="qq"><span>A JANELA</span>BECO SEM SAÍDA</div>', top=330, anim="pop")
+card("c4", W(43), W(43) + 2.4, cena("CENA 4", "A VERDADE"), top=1580, anim="slide")
+card("magia", W(46, WI(46, "magia")) - 0.1, END(46) + 0.4, '<div class="qq" style="border-color:#5ab0ff"><span style="color:#8ad0ff">ELE TEM</span><em style="color:#8ad0ff">MAGIA?</em></div>', top=330, anim="slam")
+card("mil", W(49, WI(49, "mil")) - 0.2, END(49) + 0.4, '<div class="epc" style="font-size:96px"><span>DESAPARECIDA HÁ</span>MIL ANOS</div>', top=300, anim="slam")
+card("noah", W(50), END(50) + 0.3, tag("NOAH", "O menino sem nome", "#9affc8"), top=1580, anim="slide")
+card("filho", W(52, WI(52, "último")) - 0.1, END(52) + 0.6, '<div class="qq" style="border-color:#a04aff"><span style="color:#c88aff">REVELAÇÃO</span>O ÚLTIMO FILHO<br>DO <em style="color:#c88aff">DEUS</em> QUE<br>VOCÊS MATARAM</div>', top=300, anim="slam")
+card("c5", W(55), W(55) + 2.4, cena("CENA 5", "A GRANDE REVELAÇÃO"), top=1580, anim="slide")
+card("mul", W(57, WI(57, "mulher")), W(57, WI(57, "mas")), tag("A MULHER DE PRETO", "Ninguém sabe quem ela é", "#d88aff"), top=1580, anim="slide")
+card("teste", W(67) - 0.1, END(67) + 0.5, '<div class="qq" style="border-color:#d88aff">VOCÊ PASSOU<br>NO <em style="color:#d88aff">TESTE</em></div>', top=330, anim="slam")
+card("cf", W(68), W(68) + 2.2, cena("CENA FINAL", "O CLIFFHANGER"), top=1580, anim="slide")
+card("alma", W(73) - 0.1, END(73) + 0.6, '<div class="qq" style="border-color:#a04aff">VOCÊ NÃO DEVERIA<br>TER ESSA <em style="color:#c88aff">ALMA</em></div>', top=330, anim="slam")
+card("frase", W(74) - 0.2, W(75) - 0.2, '<div class="epc" style="font-size:78px">"O MENINO NÃO ERA<br>O ÚNICO QUE ESTAVA<br>SENDO <em style="color:#ff4a5a;font-style:normal">CAÇADO</em>."</div><div class="fim">FIM DO EPISÓDIO 2</div>', top=620, anim="fade")
+card("cont1", W(28, WI(28, "parte")), END(28) + 1.5, '<div class="qq"><span>CONTINUA NA</span><em>PARTE 2</em></div><div class="cena" style="margin-top:30px">ME SEGUE PRA NÃO PERDER</div>', top=420, anim="slam")
+card("p2", W(29), W(29, WI(29, "bora")) + 0.6, '<div class="epc"><span>EPISÓDIO 2 · PARTE 2</span>O MENINO QUE<br>NINGUÉM QUIS AJUDAR</div>', top=300, anim="slam")
+card("cont2", W(53, WI(53, "parte")), END(53) + 1.5, '<div class="qq"><span>CONTINUA NA</span><em>PARTE 3</em></div><div class="cena" style="margin-top:30px">ME SEGUE PRA NÃO PERDER</div>', top=420, anim="slam")
+card("p3", W(54), W(54, WI(54, "bora")) + 0.6, '<div class="epc"><span>EPISÓDIO 2 · PARTE 3 · FINAL</span>O MENINO QUE<br>NINGUÉM QUIS AJUDAR</div>', top=300, anim="slam")
 op = lambda L, t, s: f'<div class="opt3"><b>{L}</b>{t}<small>{s}</small></div>'
-card("enq", W(74), TOTAL, '<div class="pq"><span>COMENTA AÍ</span>O QUE O RAFAEL FAZ?</div>' + op("A", "PROTEGER O NOAH", "A qualquer custo") + op("B", "EXIGIR A VERDADE", "Por que sua alma é especial?") + op("C", "FUGIR COM O NOAH", "Mas alguém está seguindo os dois") + op("D", "ENTREGAR O NOAH", "Talvez a pior decisão possível"), top=170, anim="slam")
-card("fim", W(75, WI(75, "segue")), TOTAL, '<div class="cena" style="font-size:44px"><b>ME SEGUE</b>PRA NÃO PERDER O EPISÓDIO 3</div>', top=1640, anim="pop")
+card("enq", W(75), TOTAL, '<div class="pq"><span>COMENTA AÍ</span>O QUE O RAFAEL FAZ?</div>' + op("A", "PROTEGER O NOAH", "A qualquer custo") + op("B", "EXIGIR A VERDADE", "Por que sua alma é especial?") + op("C", "FUGIR COM O NOAH", "Mas alguém está seguindo os dois") + op("D", "ENTREGAR O NOAH", "Talvez a pior decisão possível"), top=170, anim="slam")
+card("fim", W(76, WI(76, "segue")), TOTAL, '<div class="cena" style="font-size:44px"><b>ME SEGUE</b>PRA NÃO PERDER O EPISÓDIO 3</div>', top=1640, anim="pop")
 cards_html = "\n".join(f'<div id="k-{cid}" class="clip kwrap" data-start="{t0}" data-duration="{round(t1 - t0, 3)}" data-anim="{an}">{h}</div>' for cid, t0, t1, h, an in cards)
 CARD_CSS = """
 #root{position:absolute;inset:0;pointer-events:none;font-family:Inter}
@@ -228,7 +230,7 @@ open(os.path.join(COMP, "cartoes.html"), "w", encoding="utf-8").write(f"""<templ
 """)
 
 # ---------- legenda palavra por palavra (cor muda por personagem) ----------
-COLW = {"NAR": "#ffc83a", "RAF": "#7ab8ff", "NOAH": "#9affc8", "GUA": "#ff6a5a", "MUL": "#d88aff"}
+COLW = {"NAR": "#ffc83a", "RAF": "#7ab8ff", "NOAH": "#9affc8", "GUA": "#ff6a5a", "MUL": "#d88aff", "TIA": "#ff8aa0"}
 STOP = set("o a os as um uma de da do das dos e é em no na nos nas pra pro que se ele ela eu me te mais mas não só por com era tinha foi ao".split())
 raw = []
 for L in lines:
@@ -279,7 +281,7 @@ for cid, t0, t1, h, an in cards:
     add("whoosh-short" if an in ("slide", "fade") else "pop", t0, 0.16)
 for k in ("intro_burst", "rain_wide", "inn_ext", "inn_room_wide", "door_knock", "guards_out", "guards_down", "royal_docs", "legend_god", "woman_door", "final_black", "poll"): add("whoosh", st[k], 0.12, 0.6)
 el("virada", st["intro_burst"] - 0.2, 0.55); add("sparkle", st["intro_burst"], 0.3); el("trovao", W(1) + 1.5, 0.4); el("passos", st["rafa_arrive"], 0.4); el("casaco", st["coat_on"] + 0.3, 0.5)
-el("trovao", st["rain_high"] + 0.5, 0.3); el("passos", st["inn_ext"], 0.35); el("prato", st["noah_eat"] + 0.3, 0.45); el("prato", st["noah_stop"], 0.3, 0.8)
+el("trovao", st["car_arrive"] + 0.5, 0.3); el("carro", st["car_arrive"] + 0.4, 0.55); el("passos", st["tia_arrive"], 0.35); el("passos", st["inn_ext"], 0.35); el("prato", st["noah_eat"] + 0.3, 0.45); el("prato", st["noah_stop"], 0.3, 0.8)
 el("coracao", st["rafa_shiver"], 0.4); el("batidas", st["door_knock"], 0.75); el("armadura", st["guards_out"], 0.45); add("impact-bass-1", st["guards_out"], 0.35)
 el("armadura", st["rafa_stand"] + 0.2, 0.3); el("batidas", st["noah_plead"], 0.35); el("batidas", st["arm_grab"], 0.35); el("tensao", st["noah_kill"], 0.4)
 el("arrombar", st["door_break"] + 0.95, 0.7); add("impact-bass-2", st["door_break"] + 1.0, 0.4); el("chuva", st["window_alley"], 0.35, sd["window_alley"])
@@ -323,7 +325,7 @@ mus = (mus + pad) * np.minimum(1, tt / 1.5) * np.clip((TOTAL - tt) / 2, 0, 1)
 mus = np.convolve(mus, np.ones(3) / 3, mode="same")
 wav(os.path.join(ROOT, "assets", "trilha.wav"), mus / max(1e-6, np.abs(mus).max()) * 0.6)
 
-VOL = {"NAR": 1.4, "RAF": 1.35, "NOAH": 1.35, "GUA": 1.3, "MUL": 1.35}
+VOL = {"NAR": 1.4, "RAF": 1.35, "NOAH": 1.35, "GUA": 1.3, "MUL": 1.35, "TIA": 1.35}
 aud = [f'      <audio id="trilha" class="clip" src="assets/trilha.wav" data-start="0" data-duration="{TOTAL}" data-track-index="9" data-volume="0.2"></audio>']
 for i, b_ in enumerate(beds):
     if b_: aud.append(f'      <audio id="cama-{i}" class="clip" src="{b_[0]}" data-start="{b_[1]}" data-duration="{b_[2]}" data-track-index="{12 + i}" data-volume="{BV[i]}" data-fade-out="1.0"></audio>')
@@ -355,6 +357,6 @@ open(os.path.join(ROOT, "index.html"), "w", encoding="utf-8").write(f"""<!doctyp
   </body>
 </html>
 """)
-CUT1 = round(END(27) + 0.9, 2); CUT2 = round(END(52) + 0.9, 2)
+CUT1 = round(END(28) + 0.9, 2); CUT2 = round(END(53) + 0.9, 2)
 json.dump({"total": TOTAL, "shots": shots, "cortes": [CUT1, CUT2]}, open(os.path.join(ROOT, "timing.json"), "w"), indent=1)
 print("ok", TOTAL, "s,", len(shots), "planos,", len(cards), "cartões,", len(words), "palavras,", len(sfx), "sons")

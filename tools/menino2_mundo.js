@@ -79,6 +79,15 @@
   const mul = makeChar(Object.assign({}, MUL, { s: 1.04, ph: 3.3 })); opt(mul);
   { const P = mul.userData.P; part(P.hips, CONE, '#121018', 0, -0.44, 0, 0.42, 1.0, 0.42, 0.03); part(P.head, SPH, '#a8203a', 0, 0.058, 0.138, 0.028, 0.008, 0.006);
     const hood = part(P.head, SPH, '#1a1420', 0, 0.16, -0.05, 0.19, 0.2, 0.18, 0.04); hood.scale.z = 0.19; part(P.spine, SPH, '#a04aff', 0, 0.5, 0.13, 0.03, 0.03, 0.01, 0, true); P.glow = glowSpr(P.spine, 0, 0.5, 0.16, 0.25, '#a04aff', 0.8); }
+  // a tia do menino (a mulher rica do episódio 1)
+  const TIA = { skin: '#f0cfb4', hairStyle: 'long', hairC: '#6a3a1e', top: '#8a1a2a', top2: '#6a1220', pants: '#2a1018', shoe: '#1a0a10', sole: '#000', iris: '#3a6a3a' };
+  const tia = makeChar(Object.assign({}, TIA, { ph: 2.6 })); opt(tia);
+  { const P = tia.userData.P; part(P.hips, CONE, '#7a1624', 0, -0.38, 0, 0.36, 0.82, 0.36, 0.03); tb(P.spine, 0, 0.3, 0.125, 0.04, 0.44, 0.02, '#e8c060');
+    for (let i = 0; i < 9; i++) { const a = -1.0 + i * 0.25; part(P.spine, SPH, '#f4f0e8', Math.sin(a) * 0.12, 0.47 + (1 - Math.cos(a)) * -0.07, 0.115 + Math.cos(a) * 0.02, 0.02, 0.02, 0.02); }
+    [-1, 1].forEach(s2 => part(P.head, SPH, '#e8c060', s2 * 0.15, -0.03, 0.02, 0.012, 0.016, 0.012));
+    tb(P.elL, 0.06, -0.26, 0.0, 0.07, 0.2, 0.22, '#2a1418'); tb(P.elL, 0.03, -0.14, 0.0, 0.02, 0.1, 0.12, '#e8c060');
+    P.tears = [-1, 1].map(s2 => part(P.head, SPH, '#bfe6ff', s2 * 0.06, 0.09, 0.14, 0.006, 0.011, 0.004, 0, true)); }
+  const TIA_ARMS = { shL: [0.05, 0, -0.12], elL: [-0.35, 0, 0] };
   // passantes com guarda-chuva
   const PAL = ['#c8503a', '#3a7a5a', '#5a4a8a', '#c89a3a', '#3a5a9a', '#8a3a5a'];
   const passers = PAL.map((c, i) => { const ch = makeChar({ skin: ['#f2c0a0', '#c88a5e', '#e8b090', '#a86a48', '#f0c8a8', '#d8a07a'][i], hairStyle: ['short', 'long', 'short', 'bald', 'long', 'short'][i], hairC: ['#2a1a10', '#4a2a14', '#14101a', '#000', '#7a4a20', '#3a2a1a'][i], top: c, top2: shade(c, 0.7), pants: ['#2a2a3a', '#3a3a4a', '#1a1a2a'][i % 3], shoe: '#1a1a20', iris: '#3a2a1a', ph: i * 1.3 }); opt(ch);
@@ -110,6 +119,13 @@
   // caixa de papelão onde o Noah se encosta
   tb(street, 0.55, 0.3, 2.65, 0.5, 0.34, 0.4, '#a8804a'); tb(street, -0.7, 0.24, 2.7, 0.4, 0.2, 0.3, '#8a6a3a');
   const NOAH_ST = [0, 0.15, 2.55];
+  // carro preto de luxo da tia
+  const car = opt(grp(street, 4.6, 0, -1.2));
+  { tb(car, 0, 0.55, 0, 4.4, 0.55, 1.8, '#0e0e14'); tb(car, -0.25, 1.05, 0, 2.3, 0.5, 1.62, '#14141c'); tb(car, -0.25, 1.06, 0, 2.18, 0.4, 1.66, '#2a3448'); tb(car, -0.25, 1.06, 0, 0.08, 0.42, 1.68, '#0e0e14');
+    tb(car, 2.21, 0.6, 0, 0.04, 0.22, 1.2, '#8a8e98'); tb(car, -2.21, 0.62, 0, 0.04, 0.12, 1.5, '#5a1010', true); tb(car, 0, 0.4, 0.91, 4.0, 0.03, 0.02, '#8a8e98'); tb(car, 0, 0.4, -0.91, 4.0, 0.03, 0.02, '#8a8e98');
+    [-1.4, 1.4].forEach(x => [-0.86, 0.86].forEach(z => { const w = part(car, CYL, '#08080a', x, 0.34, z, 0.34, 0.22, 0.34); w.rotation.x = Math.PI / 2; const h = part(car, CYL, '#9a9ea8', x, 0.34, z * 1.07, 0.16, 0.04, 0.16); h.rotation.x = Math.PI / 2; }));
+    [-0.6, 0.6].forEach(z => { tb(car, 2.22, 0.72, z, 0.04, 0.12, 0.34, '#fff4d0', true); glowSpr(car, 2.4, 0.72, z, 1.2, '#fff0c0', 0.75); glowSpr(car, -2.3, 0.62, z, 0.6, '#ff2020', 0.6); });
+    part(car, SPH, '#e8c060', 2.25, 0.85, 0, 0.05, 0.05, 0.02, 0, true); }
   function streetSet(mode) { setMode(mode || 'rain'); sunAt(0, 0, 0); lampL.intensity = 5; lampL2.intensity = 4; rainAround(cam.position.x, 0, cam.position.z + 2, 16, 1100); }
   function passersWalk(n, sp) { passers.slice(0, n || 6).forEach((c, i) => { const dir = i % 2 ? 1 : -1; const span = 26; const x = -13 + (((gT * (sp || 1.1) * dir + i * 4.7) % span) + span) % span; place(c, x, 0.15, i % 2 ? 1.1 : 1.8, dir * Math.PI / 2); pose(c, gT, { walk: true, mood: 'neutral', look: [0, 0.2], arms: { shR: [-0.55, 0, 0.15], elR: [-1.15, 0, 0] } }); }); }
   function noahSit(c, o) { place(c, NOAH_ST[0], NOAH_ST[1], NOAH_ST[2], Math.PI); pose(c, gT, Object.assign({ mood: 'sad', look: [0, 0.5], headX: 0.3, hipY: 0.16, legs: { thL: -2.0, thR: -2.0, knL: 2.35, knR: 2.35 }, arms: { shL: [-1.1, 0, 0.35], elL: [-1.2, 0, 0.2], shR: [-1.1, 0, -0.35], elR: [-1.2, 0, -0.2] } }, o || {})); const P = c.userData.P; P.spine.rotation.x = (o && o.lean != null) ? o.lean : 0.35 + Math.sin(gT * 14) * 0.012; }
@@ -207,7 +223,12 @@
     noah_shiver(lt, T) { streetSet(); noahSit(noah, { mood: 'sad', look: [0, 0.6] }); closeOn(noah, lt, T, -1, 1.1, 0.8, 0.2, 34, -0.05); },
     passersby(lt, T) { streetSet(); noahSit(noah, { look: [Math.sin(gT * 1.5) * 0.8, 0.2] }); passersWalk(6, 1.4); camAB(lt, T, [2.4, 0.35, 0.2], [1.6, 0.4, 0.4], [0, 0.6, 2.4], null, 44); },
     rain_high(lt, T) { streetSet(); noahSit(noah); passersWalk(6); camAB(lt, T, [0.3, 9, -1.5], [0.2, 7.5, 0.5], [0, 0.3, 2.4], null, 40); },
-    rafa_arrive(lt, T) { streetSet(); noahSit(noah, { look: [0.6, 0.2] }); passersWalk(2); const u = clamp(lt / (T * 0.8)); const x = lerp(-6, -0.9, u); place(rafaC, x, 0.15, 1.8, u < 1 ? Math.PI / 2 : 2.4); pose(rafaC, gT, u < 1 ? { walk: true, mood: 'worried', look: [0.5, 0.3] } : { mood: 'worried', look: [0.3, 0.5], headX: 0.2 }); camAB(lt, T, [-1.5, 1.2, -2.4], [0.4, 1.3, -1.8], [x * 0.5 - 0.2, 0.9, 2.0], [-0.4, 0.8, 2.2], 44); },
+    car_arrive(lt, T) { streetSet(); noahSit(noah, { look: [0.6, 0.1] }); passersWalk(4); const u = eOut(clamp(lt / (T * 0.85))); car.visible = true; car.position.x = lerp(-16, 4.6, u); camAB(lt, T, [-6, 1.3, -5.2], [-4.2, 1.2, -4.4], [car.position.x * 0.5, 0.6, -0.2], [1.6, 0.7, 0.8], 44); },
+    tia_arrive(lt, T) { streetSet(); car.visible = true; noahSit(noah, { look: [0.6, 0.3], headX: 0.1 }); passersWalk(2); const u = clamp(lt / (T * 0.8)); const x = lerp(3.2, 0.65, u), z = lerp(0.2, 1.75, u); place(tia, x, 0.15, z, u < 1 ? -1.1 : -0.64); pose(tia, gT, u < 1 ? { walk: true, mood: 'shock', look: [-0.3, -0.3], arms: TIA_ARMS } : { mood: 'sad', look: [-0.2, -0.6], headX: 0.3, lean: 0.15, arms: TIA_ARMS }); place(rafaC, 4.1, 0.15, -0.05, -0.8); pose(rafaC, gT, { mood: 'worried', look: [-0.5, 0] }); const w = eIO(clamp(lt / T)); camAt([lerp(0.4, -1.6, w), 1.5, lerp(-1.7, -0.4, w)], L3([x, 1.1, z], [x / 2 + 0.1, 0.9, (z + 2.55) / 2], w), 44); },
+    tia_close(lt, T) { streetSet(); car.visible = true; noahSit(noah, { look: [0.4, 0.5], headX: -0.1 }); place(tia, 0.65, 0.15, 1.75, -0.64); pose(tia, gT, { mood: 'worried', look: [-0.2, -0.6], headX: 0.35, lean: 0.2, arms: { shL: [0.05, 0, -0.12], elL: [-0.35, 0, 0], shR: [-0.9, 0, 0.3], elR: [-0.6, 0, 0] } }); tia.userData.P.tears.forEach(t => t.visible = lt > T * 0.3); const h = headOf(tia); camAB(lt, T, cl(h, [-0.82, 0.02, 0.3]), cl(h, [-0.66, 0.0, 0.24]), cl(h, [0, -0.04, 0]), null, 34); },
+    tia_call(lt, T) { streetSet(); car.visible = true; noahSit(noah, { look: [0.6, 0.3], headX: 0.1 }); place(tia, 0.65, 0.15, 1.75, 2.2); pose(tia, gT, { mood: 'worried', talk: lt < T - 0.2, look: [0, 0.1], arms: { shL: [0.05, 0, -0.12], elL: [-0.35, 0, 0], shR: [-1.3 + Math.sin(gT * 6) * 0.25, 0, 0.3], elR: [-0.4, 0, 0] } }); const u = clamp(lt / (T * 0.55)); const rx = lerp(4.1, 1.45, u), rz = lerp(-0.05, 0.85, u); place(rafaC, rx, 0.15, rz, -1.15); pose(rafaC, gT, u < 1 ? { walk: true, mood: 'worried', look: [0, 0.2] } : { mood: 'worried', look: [0, 0.2] }); camAB(lt, T, [-2.9, 1.6, -2.2], [-2.5, 1.55, -1.8], [1.3, 1.0, 1.1], [1.05, 1.0, 1.3], 40); },
+    tia_secret(lt, T) { streetSet(); car.visible = true; noahSit(noah, { look: [0.6, 0.3], headX: 0.1 }); place(tia, 0.85, 0.15, 1.55, 2.3); pose(tia, gT, { mood: 'worried', talk: lt < T - 0.2, look: [0.3, 0.1], headX: 0.1, lean: 0.12, arms: { shL: [0.05, 0, -0.12], elL: [-0.35, 0, 0], shR: [-0.7, 0, 0.2], elR: [-0.9, 0, 0] } }); place(rafaC, 1.45, 0.15, 0.85, -0.85); pose(rafaC, gT, { mood: 'worried', look: [0, 0.1], headX: 0.1 }); const h = headOf(tia); camAB(lt, T, cl(h, [0.3, 0.03, -0.8]), cl(h, [0.24, 0.02, -0.66]), cl(h, [0, -0.04, 0]), null, 34); },
+    rafa_arrive(lt, T) { streetSet(); noahSit(noah, { look: [0.6, 0.2] }); passersWalk(2); const u = clamp(lt / (T * 0.8)); const x = lerp(1.45, -0.9, u); car.visible = true; place(tia, lerp(0.9, 3.4, clamp(lt / T)), 0.15, lerp(1.5, 0.1, clamp(lt / T)), 2.1); pose(tia, gT, { walk: true, mood: 'worried', look: [0, 0], arms: TIA_ARMS }); place(rafaC, x, 0.15, lerp(0.85, 1.8, u), u < 1 ? -1.19 : 2.4); pose(rafaC, gT, u < 1 ? { walk: true, mood: 'worried', look: [0.5, 0.3] } : { mood: 'worried', look: [0.3, 0.5], headX: 0.2 }); camAB(lt, T, [-1.5, 1.2, -2.4], [0.4, 1.3, -1.8], [x * 0.5 - 0.2, 0.9, 2.0], [-0.4, 0.8, 2.2], 44); },
     coat_on(lt, T) { streetSet(); const u = eIO(prog(lt, 0.3, T * 0.75)); const c = u < 0.5 ? noah : noahC; noahSit(c, { look: [0.3, -0.5], headX: 0.0 }); const r = u < 0.5 ? rafaC : rafa; place(r, 0.0, 0.15, 1.85, 0); pose(r, gT, { mood: 'worried', look: [0, 0.6], headX: 0.35, lean: 0.45, arms: { shL: [-1.2 - u * 0.2, 0, -0.25], elL: [-0.5, 0, 0], shR: [-1.2 - u * 0.2, 0, 0.25], elR: [-0.5, 0, 0] } }); camAB(lt, T, [3.2, 1.35, 0.4], [2.8, 1.3, 0.7], [0, 1.0, 2.1], null, 46); },
     rafa_kneel(lt, T) { streetSet(); noahSit(noahC, { look: [0.5, -0.2] }); place(rafa, -0.5, 0.15, 1.75, 2.6); pose(rafa, gT, { mood: 'worried', look: [0.3, 0.3], headX: 0.15, hipY: 0.42, lean: 0.25, legs: { thL: -1.9, knL: 2.3, thR: -1.4, knR: 2.5 }, arms: { shR: [-0.9, 0, 0.2], elR: [-0.5, 0, 0] } }); camAB(lt, T, [2.4, 1.3, -1.6], [2.1, 1.15, -1.2], [-0.25, 0.7, 2.1], null, 40); },
     rafa_kneel_talk(lt, T) { streetSet(); noahSit(noahC, { look: [0.5, -0.2] }); place(rafa, -0.5, 0.15, 1.75, 2.6); pose(rafa, gT, { mood: 'worried', talk: lt < T - 0.3, look: [0.4, -0.2], headX: -0.05, hipY: 0.42, lean: 0.25, legs: { thL: -1.9, knL: 2.3, thR: -1.4, knR: 2.5 }, arms: { shR: [-0.9, 0, 0.2], elR: [-0.5, 0, 0] } }); const h = headOf(rafa); camAB(lt, T, cl(h, [0.9, 0.05, -0.6]), cl(h, [0.7, 0.02, -0.45]), cl(h, [0, -0.04, 0]), null, 34); },
@@ -283,7 +304,7 @@
   };
 
   const flashEl = document.getElementById('mundo-flash'), tintEl = document.getElementById('mundo-tint');
-  const ALLC = [rafa, rafaC, noah, noahC, noahD, mul, ...guards];
+  const ALLC = [rafa, rafaC, noah, noahC, noahD, mul, tia, ...guards];
   function frame(t) {
     gT = t; let idx = 0; for (let i = 0; i < SHOTS.length; i++) if (t >= SHOTS[i].t0) idx = i;
     const sh = SHOTS[idx]; const lt = t - sh.t0, T = Math.max(0.3, sh.t1 - sh.t0);

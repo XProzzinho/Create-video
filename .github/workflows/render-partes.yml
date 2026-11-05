@@ -14,6 +14,9 @@ on:
       fps:
         description: "30 ou 60"
         default: "60"
+      so:
+        description: "Renderizar só esta parte (vazio = todas)"
+        default: ""
 permissions:
   contents: write
 jobs:
@@ -25,7 +28,7 @@ jobs:
       - id: p
         run: |
           N=$(( $(echo "${{ inputs.corte }}" | tr ',' '\n' | grep -c .) + 1 ))
-          echo "partes=[$(seq -s, 1 $N)]" >> $GITHUB_OUTPUT
+          if [ -n "${{ inputs.so }}" ]; then echo "partes=[${{ inputs.so }}]" >> $GITHUB_OUTPUT; else echo "partes=[$(seq -s, 1 $N)]" >> $GITHUB_OUTPUT; fi
   parte:
     needs: prep
     runs-on: ubuntu-latest
@@ -73,6 +76,7 @@ jobs:
           path: out/
   juntar:
     needs: parte
+    if: inputs.so == ''
     runs-on: ubuntu-latest
     env:
       PROJECT: ${{ inputs.project }}
