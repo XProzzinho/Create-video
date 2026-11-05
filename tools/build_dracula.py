@@ -35,7 +35,7 @@ TXT = [clean(f[2]) for f in FALAS]
 def _wi(li, w): return [t.strip(".,!?:").lower() for t in TXT[li].split()].index(w)
 CUTS = {i: [(w if isinstance(w, int) else _wi(i, w), n) for w, n in sp] for i, sp in enumerate(SPEC)}
 head = head[:a] + "CUTS = " + repr(CUTS) + "\n" + head[b:]
-head = head.replace('GAP = {0: 0.3, 4: 0.6, 9: 0.8, 10: 0.8, 14: 0.6}', 'GAP = {0: 0.6, 1: 0.5, 2: 0.3, 3: 0.4, 6: 0.4, 7: 0.4, 9: 0.4, 10: 0.9}').replace('DEFAULT_GAP = 0.7', 'DEFAULT_GAP = 0.3').replace('TAIL = 2.6', 'TAIL = 4.2')
+head = head.replace('GAP = {0: 0.3, 4: 0.6, 9: 0.8, 10: 0.8, 14: 0.6}', 'GAP = {0: 0.6, 1: 0.5, 2: 0.3, 3: 0.4, 6: 3.4, 7: 0.4, 9: 0.4, 10: 0.9}').replace('DEFAULT_GAP = 0.7', 'DEFAULT_GAP = 0.3').replace('TAIL = 2.6', 'TAIL = 4.2')
 g = {"__file__": os.path.join(HERE, "build_sono.py")}
 exec(head, g)
 lines, shots, TOTAL = g["lines"], g["shots"], g["TOTAL"]
@@ -52,7 +52,8 @@ im = re.search(r"  function iconMesh\(kind, col\) \{.*?return opt\(g\); \}\n", p
 im = im.replace("    else if (kind === 'brain')", "    else if (kind === 'drop') { add(SPH, 0, -0.06, 0, 0.17, 0.19, 0.12); add(CONE, 0, 0.16, 0, 0.12, 0.26, 0.09); }\n    else if (kind === 'soap') { add(BOX, 0, 0, 0, 0.44, 0.24, 0.14); add(SPH, 0.12, 0.2, 0.02, 0.07, 0.07, 0.07); add(SPH, -0.05, 0.26, 0.02, 0.05, 0.05, 0.05); add(SPH, 0.02, 0.36, 0.02, 0.035, 0.035, 0.035); }\n    else if (kind === 'brain')")
 base = open(os.path.join(HERE, "mundo.js"), encoding="utf-8").read().split("  // ---------- cenários ----------")[0]
 ep = open(os.path.join(HERE, "dracula_mundo.js"), encoding="utf-8").read().replace("  // __PERSONAGENS__\n", chars)
-js = (base + ep).replace("__SHOTS__", json.dumps(shots)).replace("__MARKS__", "{}").replace("__DUR__", str(TOTAL))
+PS = round(END(6) + 0.25, 3); PE = round(W(7) - 0.25, 3)
+js = (base + ep).replace("__PAUSE__", json.dumps([PS, PE])).replace("__SHOTS__", json.dumps(shots)).replace("__MARKS__", "{}").replace("__DUR__", str(TOTAL))
 shutil.copy(os.path.join(HERE, "..", "conhecimento0", "assets", "three.min.js"), os.path.join(ROOT, "assets", "three.min.js"))
 open(os.path.join(COMP, "mundo.html"), "w", encoding="utf-8").write(f"""<template>
   <style>
@@ -90,6 +91,7 @@ card("fome", W(2, WI(2, "muita")), END(2) + 0.3, '<div class="qq" style="border-
 card("veia", W(5), END(5) + 0.3, '<div class="qq" style="border-color:#ff3a4a"><span style="color:#ff6a6a">SANGUE</span>DIRETO NAS <em style="color:#ff3a4a">VEIAS</em></div>', top=300, anim="pop")
 card("forte", W(6), W(6, WI(6, "olhos")), '<div class="epc" style="font-size:120px">3X<br><span style="font-size:52px;letter-spacing:4px">MAIS FORTE</span></div>', top=300, anim="slam")
 card("visao", W(6, WI(6, "olhos")), END(6) + 0.3, '<div class="qq" style="border-color:#ff3a4a"><span style="color:#ff6a6a">MODO</span>VISÃO NO ESCURO</div>', top=330, anim="pop")
+card("pausa", PS, PE, '<div class="pzb"><div class="pzi"><i></i><i></i></div><div class="pzt">SIGA O<br><em>PORTAL INFINITO</em></div><div class="pzh">@portal_infinito</div><div class="pzf">+ SEGUIR</div></div>', top=0, cls="pz", anim="fade")
 card("morc", W(7, WI(7, "morcego")) - 0.1, END(7) + 0.6, '<div class="qq" style="border-color:#a04aff"><span style="color:#c88aff">TRANSFORMAÇÃO</span><em style="color:#c88aff">MORCEGO</em></div>', top=330, anim="slam")
 card("sol", W(9), END(9) + 0.4, '<div class="qq" style="border-color:#ffb03a"><span>PERIGO</span>LUZ DO <em>SOL</em></div>', top=330, anim="slam")
 card("ciclo", W(11), END(11) + 0.6, '<div class="epc" style="font-size:84px">E AMANHÃ...<br><span style="font-size:48px">TUDO DE NOVO</span></div>', top=360, anim="fade")
@@ -115,6 +117,13 @@ CARD_CSS = """
 .pq{font-family:Oswald;font-weight:700;font-size:92px;color:#fff;text-shadow:0 6px 20px #000;margin-bottom:26px}.pq span{display:block;font-family:Inter;font-weight:900;font-size:36px;letter-spacing:8px;color:#ffc83a}
 .cena{display:inline-block;padding:16px 34px;border-radius:16px;background:rgba(10,10,24,.82);border-left:10px solid #ffc83a;font-family:Inter;font-weight:900;font-size:40px;color:#fff;letter-spacing:2px}.cena b{color:#ffc83a;margin-right:16px}
 .vtit{display:inline-block;padding:18px 40px;border-radius:30px;background:#fff;font-family:Inter;font-weight:900;font-size:78px;color:#14122e;box-shadow:0 10px 30px rgba(0,0,0,.5)}.vtit em{font-style:normal;background:#c80a1a;color:#fff;padding:0 16px;border-radius:14px}
+.pz{position:absolute;left:0;top:0;width:1080px;height:1920px;background:rgba(6,4,16,.62);backdrop-filter:blur(6px)}
+.pzb{position:absolute;left:0;right:0;top:560px;text-align:center}
+.pzi{width:220px;height:220px;border-radius:110px;margin:0 auto;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;gap:34px;box-shadow:0 0 60px rgba(160,80,255,.6)}
+.pzi i{display:block;width:40px;height:100px;border-radius:10px;background:#14122e}
+.pzt{margin-top:56px;font-family:Inter;font-weight:900;font-size:96px;line-height:1.04;color:#fff;text-shadow:0 6px 24px rgba(0,0,0,.8)}.pzt em{font-style:normal;color:#c88aff}
+.pzh{margin-top:18px;font-family:Inter;font-weight:900;font-size:46px;color:#e8e0ff;letter-spacing:2px}
+.pzf{display:inline-block;margin-top:40px;padding:22px 60px;border-radius:50px;background:#ff2d55;font-family:Inter;font-weight:900;font-size:50px;color:#fff;box-shadow:0 12px 30px rgba(255,45,85,.45)}
 .fim{margin-top:40px;font-family:Inter;font-weight:900;font-size:36px;letter-spacing:8px;color:#c8c0e8;text-align:center}
 .opt3{margin:16px 30px;padding:22px 30px;border-radius:30px;background:rgba(18,14,30,.9);border:4px solid rgba(255,255,255,.22);font-weight:900;font-size:46px;color:#fff;text-align:left;box-shadow:0 14px 40px rgba(0,0,0,.5)}
 .opt3 b{display:inline-block;width:76px;height:76px;border-radius:38px;background:#ffd23c;color:#14122e;text-align:center;line-height:76px;margin-right:22px;font-family:'Archivo Black';font-size:46px;vertical-align:middle}
@@ -198,7 +207,7 @@ for k in ("lid_open", "xray_heart_still", "bite_flash", "xray_throat", "xray_vei
 el("sino", 0.4, 0.45); el("sino", st["bell_moon"], 0.5); el("caixao", st["lid_open"] + 0.1, 0.7); el("coracao", st["xray_heart_beat"], 0.9); add("impact-bass-2", st["xray_heart_beat"], 0.4)
 el("fome", st["drac_hungry"], 0.6); el("mordida", st["bite_flash"], 0.8); add("impact-bass-1", st["bite_flash"], 0.4); el("sangue", st["xray_throat"], 0.6); el("sangue", st["xray_stomach"] + 0.4, 0.4)
 el("energia", st["xray_veins"] + 0.3, 0.55); el("energia", st["xray_cells"], 0.45); add("sparkle", st["xray_cells"], 0.3); el("forca", st["xray_muscles"] + 0.2, 0.6); el("coracao", st["eyes_dark"], 0.4)
-el("forca", st["xray_shrink"], 0.5); el("morcego", st["xray_wings"] + 0.3, 0.6); add("sparkle", st["bat_pop"], 0.35); el("morcego", st["bat_pop"], 0.5); el("vento", st["bat_fly"], 0.45)
+add("pop", PS, 0.4); add("chime", PS + 0.3, 0.3); el("forca", st["xray_shrink"], 0.5); el("morcego", st["xray_wings"] + 0.3, 0.6); add("sparkle", st["bat_pop"], 0.35); el("morcego", st["bat_pop"], 0.5); el("vento", st["bat_fly"], 0.45)
 el("sol", st["dawn_sky"] + 0.5, 0.55); el("fumaca", st["smoke_skin"], 0.7); el("passos", st["run_back"], 0.3); el("tampa", st["lid_close"] + 0.5, 0.8); add("impact-bass-2", st["lid_close"] + 0.6, 0.4); el("coracao", st["xray_heart_stop"], 0.6)
 for n in set(re.sub(r".*/|\.mp3", "", s[0]) for s in sfx if s[0].startswith("assets/sfx/")): shutil.copy(os.path.join(SFXDIR, n + ".mp3"), os.path.join(ROOT, "assets", "sfx", n + ".mp3"))
 shutil.copy(os.path.join(SFXDIR, "CREDITS.md"), os.path.join(ROOT, "assets", "sfx", "CREDITS.md"))

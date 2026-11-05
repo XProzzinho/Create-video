@@ -157,7 +157,9 @@
 
   const flashEl = document.getElementById('mundo-flash'), tintEl = document.getElementById('mundo-tint');
   const ALLC = [dra, draX];
+  const PAUSE = __PAUSE__;
   function frame(t) {
+    if (t > PAUSE[0] && t < PAUSE[1]) t = PAUSE[0];
     gT = t; let idx = 0; for (let i = 0; i < SHOTS.length; i++) if (t >= SHOTS[i].t0) idx = i;
     const sh = SHOTS[idx]; const lt = t - sh.t0, T = Math.max(0.3, sh.t1 - sh.t0);
     for (const k in fx) fx[k] = 0;
