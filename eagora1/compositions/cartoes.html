@@ -1,0 +1,70 @@
+<template>
+  <style>
+#root{position:absolute;inset:0;pointer-events:none;font-family:Inter}
+.kwrap{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.tw{position:absolute;left:60px;right:60px;text-align:center}
+.chip{display:inline-block;margin:10px;padding:16px 30px;border-radius:40px;background:rgba(14,12,34,.9);border:3px solid rgba(255,255,255,.22);font-weight:900;font-size:42px;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+.chip i{display:inline-block;width:20px;height:20px;border-radius:10px;margin-right:14px;vertical-align:middle}
+.crow{margin-top:10px}
+.epc{font-family:'Archivo Black';font-size:70px;line-height:1.05;color:#fff;text-align:center;text-shadow:0 6px 24px rgba(0,0,0,.85),0 2px 0 #000}
+.epc span{display:block;font-family:Inter;font-weight:900;font-size:38px;letter-spacing:8px;color:#ffd23c;margin-bottom:10px}
+.lt{display:inline-block;padding:20px 36px;border-left:10px solid #ffc83a;background:rgba(10,10,24,.78);text-align:left;border-radius:6px 24px 24px 6px}
+.lt b{display:block;font-family:Oswald;font-weight:700;font-size:62px;color:#fff;letter-spacing:2px}.lt i{display:block;font-style:normal;font-family:Inter;font-weight:700;font-size:32px}
+.qq{display:inline-block;padding:34px 44px;border-radius:34px;background:rgba(10,10,28,.84);border:4px solid #ffc83a;font-family:Oswald;font-weight:700;font-size:76px;line-height:1.08;color:#fff;box-shadow:0 18px 50px rgba(0,0,0,.6)}
+.qq span{display:block;font-family:Inter;font-weight:900;font-size:34px;letter-spacing:6px;color:#ffc83a;margin-bottom:12px}.qq em{font-style:normal;color:#ffc83a}
+.wm{position:absolute;left:890px;top:150px;opacity:.9}.wm img{display:block;width:150px;height:150px;border-radius:75px;box-shadow:0 0 24px rgba(150,90,255,.7)}
+.lgo{text-align:center}.lgo img{width:380px;height:380px;border-radius:190px;box-shadow:0 0 60px rgba(150,90,255,.8)}.lgo b{display:block;margin-top:24px;font-family:Oswald;font-weight:700;font-size:70px;color:#fff;text-shadow:0 4px 16px #000}.lgo small{display:block;margin-top:8px;font-family:Inter;font-weight:900;font-size:40px;letter-spacing:6px;color:#ffd23c;text-shadow:0 3px 12px #000}
+.lgo.sm img{width:170px;height:170px}.lgo.sm b{font-size:52px;margin-top:12px}.lgo.sm small{font-size:34px;letter-spacing:2px}
+.pq{font-family:Oswald;font-weight:700;font-size:92px;color:#fff;text-shadow:0 6px 20px #000;margin-bottom:26px}.pq span{display:block;font-family:Inter;font-weight:900;font-size:36px;letter-spacing:8px;color:#ffc83a}
+.cena{display:inline-block;padding:16px 34px;border-radius:16px;background:rgba(10,10,24,.82);border-left:10px solid #ffc83a;font-family:Inter;font-weight:900;font-size:40px;color:#fff;letter-spacing:2px}.cena b{color:#ffc83a;margin-right:16px}
+.eag{font-family:Inter;font-weight:900;font-size:170px;color:#ffd23c;text-align:center;-webkit-text-stroke:10px #14122e;paint-order:stroke fill;text-shadow:0 10px 0 #14122e}
+.eps{margin:6px auto 0;display:table;padding:10px 34px;border-radius:30px;background:#e83a3a;font-family:Inter;font-weight:900;font-size:44px;color:#fff;letter-spacing:4px}
+.sub2{margin-top:26px;font-family:Inter;font-weight:900;font-size:46px;line-height:1.2;color:#fff;text-align:center;text-shadow:0 4px 16px rgba(0,0,0,.8)}
+.ref{display:inline-block;padding:16px 28px;border-radius:18px;background:rgba(255,255,255,.94);font-family:Inter;font-weight:800;font-size:32px;color:#1a2a3a;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.pz{position:absolute;left:0;top:0;width:1080px;height:1920px;background:rgba(6,4,16,.62);backdrop-filter:blur(6px)}
+.pzb{position:absolute;left:0;right:0;top:560px;text-align:center}
+.pzi{width:220px;height:220px;border-radius:110px;margin:0 auto;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;gap:34px;box-shadow:0 0 60px rgba(160,80,255,.6)}
+.pzi i{display:block;width:40px;height:100px;border-radius:10px;background:#14122e}
+.pzt{margin-top:56px;font-family:Inter;font-weight:900;font-size:96px;line-height:1.04;color:#fff;text-shadow:0 6px 24px rgba(0,0,0,.8)}.pzt em{font-style:normal;color:#c88aff}
+.pzh{margin-top:18px;font-family:Inter;font-weight:900;font-size:46px;color:#e8e0ff;letter-spacing:2px}
+.pzf{display:inline-block;margin-top:40px;padding:22px 60px;border-radius:50px;background:#ff2d55;font-family:Inter;font-weight:900;font-size:50px;color:#fff;box-shadow:0 12px 30px rgba(255,45,85,.45)}
+.fim{margin-top:40px;font-family:Inter;font-weight:900;font-size:36px;letter-spacing:8px;color:#c8c0e8;text-align:center}
+.opt3{margin:16px 30px;padding:22px 30px;border-radius:30px;background:rgba(18,14,30,.9);border:4px solid rgba(255,255,255,.22);font-weight:900;font-size:46px;color:#fff;text-align:left;box-shadow:0 14px 40px rgba(0,0,0,.5)}
+.opt3 b{display:inline-block;width:76px;height:76px;border-radius:38px;background:#ffd23c;color:#14122e;text-align:center;line-height:76px;margin-right:22px;font-family:'Archivo Black';font-size:46px;vertical-align:middle}
+.opt3 small{display:block;margin-left:98px;margin-top:-10px;font-size:30px;color:#c8c0e8;font-weight:700}
+</style>
+  <div id="root" data-composition-id="cartoes" data-width="1080" data-height="1920" data-duration="284.83">
+<div id="k-ep" class="clip kwrap" data-start="0.15" data-duration="8.686" data-anim="slam"><div class="tw" style="top:260px;"><div class="eag">E AGORA?</div><div class="eps">EPISÓDIO 01</div><div class="sub2">Você foi parado pela Polícia Federal<br>no aeroporto de Guarulhos</div></div></div>
+<div id="k-c1" class="clip kwrap" data-start="9.857" data-duration="2.4" data-anim="slide"><div class="tw" style="top:1580px;"><div class="cena"><b>CENA 1</b>O FAVOR</div></div></div>
+<div id="k-enc" class="clip kwrap" data-start="16.797" data-duration="2.614" data-anim="pop"><div class="tw" style="top:330px;"><div class="qq"><span>ELE DISSE</span>"É SÓ UMA<br><em>ENCOMENDA</em>"</div></div></div>
+<div id="k-c2" class="clip kwrap" data-start="27.63" data-duration="2.4" data-anim="slide"><div class="tw" style="top:1580px;"><div class="cena"><b>CENA 2</b>O QUE TINHA NA MALA?</div></div></div>
+<div id="k-vixi" class="clip kwrap" data-start="52.21" data-duration="7.562" data-anim="slam"><div class="tw" style="top:330px;"><div class="qq" style="border-color:#ff4a4a"><em style="color:#ff4a4a">VIXI!</em></div></div></div>
+<div id="k-r1" class="clip kwrap" data-start="79.14" data-duration="23.49" data-anim="slide"><div class="tw" style="top:1500px;"><div class="ref">Constituição Federal, art. 5º, incisos LXIII, LXII e LVII</div></div></div>
+<div id="k-c3" class="clip kwrap" data-start="118.83" data-duration="2.4" data-anim="slide"><div class="tw" style="top:1580px;"><div class="cena"><b>CENA 3</b>A POSSÍVEL PRISÃO</div></div></div>
+<div id="k-r2" class="clip kwrap" data-start="137.044" data-duration="5.006" data-anim="slide"><div class="tw" style="top:1500px;"><div class="ref">Lei 11.343/2006 (Lei de Drogas), art. 33</div></div></div>
+<div id="k-r3" class="clip kwrap" data-start="160.025" data-duration="6.645" data-anim="slide"><div class="tw" style="top:1300px;"><div class="ref">Lei 11.343/2006, art. 40, inciso I</div></div></div>
+<div id="k-c4" class="clip kwrap" data-start="166.87" data-duration="2.4" data-anim="slide"><div class="tw" style="top:1580px;"><div class="cena"><b>CENA 4</b>E SE FOSSE EM OUTRO PAÍS?</div></div></div>
+<div id="k-c5" class="clip kwrap" data-start="213.631" data-duration="2.4" data-anim="slide"><div class="tw" style="top:1580px;"><div class="cena"><b>CENA 5</b>O QUE ACONTECE AGORA?</div></div></div>
+<div id="k-r4" class="clip kwrap" data-start="223.71" data-duration="11.58" data-anim="slide"><div class="tw" style="top:1300px;"><div class="ref">Código de Processo Penal, arts. 306 e 310</div></div></div>
+<div id="k-cf" class="clip kwrap" data-start="246.67" data-duration="2.4" data-anim="slide"><div class="tw" style="top:1580px;"><div class="cena"><b>CENA FINAL</b>A MENSAGEM</div></div></div>
+<div id="k-pausa" class="clip kwrap" data-start="115.68" data-duration="2.9" data-anim="fade"><div class="pz" style="top:0px;"><div class="pzb"><div class="pzi"><i></i><i></i></div><div class="pzt">SIGA O<br><em>PORTAL INFINITO</em></div><div class="pzh">@portal_infinito</div><div class="pzf">+ SEGUIR</div></div></div></div>
+<div id="k-fim" class="clip kwrap" data-start="273.805" data-duration="11.025" data-anim="slam"><div class="tw" style="top:300px;"><div class="qq"><span>FIM DO EPISÓDIO 01</span>COMPARTILHA<br>E SEGUE O <em style="color:#c88aff">PORTAL INFINITO</em></div><div class="cena" style="margin-top:30px">@portal_infinito</div></div></div>
+<div id="k-aviso" class="clip kwrap" data-start="273.805" data-duration="11.025" data-anim="fade"><div class="tw" style="top:1700px;"><div class="ref">Conteúdo informativo. Não é aconselhamento jurídico.</div></div></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    document.querySelectorAll('#root .kwrap').forEach(function (k) {
+      const s = parseFloat(k.dataset.start), d = parseFloat(k.dataset.duration), an = k.dataset.anim; const el = k.firstElementChild;
+      if (an === 'none') return;
+      if (an === 'slam') tl.fromTo(el, { scale: 1.6, opacity: 0, rotation: -4 }, { scale: 1, opacity: 1, rotation: 0, duration: 0.28, ease: 'back.out(2.2)' }, s);
+      else if (an === 'slide') tl.fromTo(el, { x: -360, opacity: 0 }, { x: 0, opacity: 1, duration: 0.35, ease: 'expo.out' }, s);
+      else if (an === 'fade') tl.fromTo(el, { opacity: 0, scale: 1.12 }, { opacity: 1, scale: 1, duration: 0.3, ease: 'power2.out' }, s);
+      else tl.fromTo(el, { scale: 0.6, opacity: 0, y: 40 }, { scale: 1, opacity: 1, y: 0, duration: 0.35, ease: 'back.out(1.8)' }, s);
+      if (s + d < 284.83 - 0.05) tl.to(el, { opacity: 0, scale: 0.92, duration: 0.18, ease: 'power3.in' }, s + d - 0.2);
+      tl.to(el, { y: '-=10', duration: Math.max(0.5, d), ease: 'sine.inOut' }, s + 0.35);
+      k.querySelectorAll('.chip,.opt3').forEach(function (c, i) { tl.fromTo(c, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: 'back.out(2.4)' }, s + 0.25 + i * 0.3); });
+      k.querySelectorAll('.lgo img').forEach(function (im) { tl.fromTo(im, { rotation: -200 }, { rotation: 0, duration: 0.9, ease: 'back.out(1.4)' }, s); });
+    });
+    window.__timelines["cartoes"] = tl;
+  </script>
+</template>
