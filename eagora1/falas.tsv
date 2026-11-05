@@ -1,0 +1,37 @@
+01	NAR	[sarcastic] E agora? Episódio um. Você foi parado pela Polícia Federal no aeroporto de Guarulhos. E agora?
+02	NAR	Tudo começou com um favor. Um conhecido te ofereceu dinheiro fácil pra levar uma mala pra outro país. "É só uma encomenda", ele disse.
+03	PER	[happy] Dinheiro fácil, viagem de graça... o que pode dar errado?
+04	NAR	[sarcastic] Pois é... tudo.
+05	NAR	Na hora da inspeção, dois agentes da Polícia Federal param você. A mala é aberta sobre a mesa.
+06	PER	[nervous] Calma aí... por que vocês estão olhando minha mala desse jeito?
+07	POL	[firm] Senhor, encontramos um material suspeito dentro da sua bagagem. Precisamos esclarecer a situação.
+08	PER	[panicked] Como assim?! E agora? O que eu faço? Eu vou ser preso?
+09	NAR	[sarcastic] Vixi! Meu amigo... a situação ficou séria! Você achou que estava indo viajar, mas agora pode estar diante de um problema criminal muito grave.
+10	NAR	O policial chama outro agente. O material é separado para análise, e os procedimentos legais começam.
+11	PER	[nervous] Mas espera! Eu tenho direito a alguma coisa? Posso ficar calado?
+12	NAR	[excited] SIM! E presta atenção, porque isso é muito importante!
+13	NAR	[serious] A Constituição garante: você tem direito de ficar calado e de ter a assistência de um advogado. A prisão deve ser comunicada à sua família ou a uma pessoa indicada. E ninguém é considerado culpado antes do fim do processo.
+14	NAR	Isso significa que você não perde seus direitos só porque foi acusado de um crime. Você tem direito à defesa e a um processo legal.
+15	PER	Então eu não preciso responder tudo que me perguntarem?
+16	NAR	[serious] Você pode permanecer em silêncio e pedir um advogado. Não tente resolver a situação inventando histórias, nem assinando documentos sem entender o que está escrito.
+17	NAR	Depois disso, você é levado para a unidade da polícia para os procedimentos.
+18	PER	[scared] Mas eu vou ficar preso? Quanto tempo eu posso pegar?
+19	NAR	[serious] Agora vem uma informação importante. Se a investigação apontar tráfico de drogas, existe uma lei específica no Brasil: a Lei de Drogas, de 2006.
+20	NAR	[serious] O artigo trinta e três prevê pena de cinco a quinze anos de reclusão, além de multa.
+21	PER	[shouting] QUINZE ANOS?! Você está falando sério?!
+22	NAR	[sarcastic] Tô! Mas calma: essa é a pena prevista. Não significa que toda pessoa abordada vai receber essa condenação. Tudo depende das provas, das circunstâncias e da decisão do juiz.
+23	NAR	[serious] E quando o tráfico envolve outro país, a lei ainda prevê aumento de um sexto a dois terços da pena.
+24	PER	Mas espera... se eu fosse pego levando isso em outro país, seria a mesma coisa?
+25	NAR	Aí é que está! Você poderia enfrentar consequências ainda mais severas. Existem países que aplicam até pena de morte pra certos crimes de tráfico.
+26	NAR	[serious] Em Singapura, por exemplo, ser pego com mais de quinze gramas de heroína pura pode resultar em pena de morte.
+27	NAR	[serious] No Irã, determinados crimes de tráfico de drogas também podem levar à pena de morte.
+28	PER	[shocked] Pera aí... você tá me dizendo que em alguns lugares eu poderia até ser condenado à morte?!
+29	NAR	Exatamente. Por isso, nunca aceite levar uma encomenda de desconhecidos achando que é dinheiro fácil. Você pode estar colocando sua liberdade, e a sua própria vida, em risco.
+30	NAR	[serious] Voltando ao Brasil: se houver prisão em flagrante, o preso é apresentado à autoridade policial, é informado dos seus direitos, e a prisão é comunicada à Justiça.
+31	NAR	[serious] Em regra, em até vinte e quatro horas acontece a audiência de custódia. O juiz pode relaxar uma prisão ilegal, conceder liberdade provisória, ou converter a prisão em preventiva.
+32	PER	Então eu ainda posso responder ao processo em liberdade?
+33	NAR	Depende do caso. Não existe condenação automática. Quem decide é a Justiça, depois de analisar as provas e a defesa.
+34	NAR	Agora você entendeu por que levar algo ilegal pra outra pessoa pode destruir sua vida? Nunca coloque sua liberdade nas mãos de um desconhecido por uma promessa de dinheiro fácil.
+35	NAR	Uma viagem pode durar algumas horas. Mas as consequências de uma decisão podem durar muitos anos.
+36	PER	[sad] Se eu soubesse disso antes... nunca teria aceitado.
+37	NAR	Informação também salva vidas. Compartilha este vídeo, e segue o Portal Infinito. Alguém pode precisar ouvir isso antes de cometer um erro que não tem como desfazer.
