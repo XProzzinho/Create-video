@@ -1,5 +1,5 @@
-fala 01 (NAR): 200
-fala 28 (NAR): 200
-fala 29 (NAR): 200
-fala 53 (NAR): 200
-fala 54 (NAR): 200
+fala 03 (NAR): 200
+fala 04 (TIA): 404
+{"detail":{"type":"not_found","code":"voice_not_found","message":"A voice with voice_id 'XrExE9yKIg1WjnLlVkGX' was not found.","status":"voice_not_found","request_id":"095160854b10e56e0f3f0397b4127086"}}
+fala 05 (NAR): 200
+sfx carro: 200
