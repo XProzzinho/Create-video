@@ -94,7 +94,7 @@ card("morc", W(7, WI(7, "morcego")) - 0.1, END(7) + 0.6, '<div class="qq" style=
 card("sol", W(9), END(9) + 0.4, '<div class="qq" style="border-color:#ffb03a"><span>PERIGO</span>LUZ DO <em>SOL</em></div>', top=330, anim="slam")
 card("ciclo", W(11), END(11) + 0.6, '<div class="epc" style="font-size:84px">E AMANHÃ...<br><span style="font-size:48px">TUDO DE NOVO</span></div>', top=360, anim="fade")
 card("cmt", W(12), TOTAL, '<div class="qq"><span>COMENTA AÍ</span>QUAL PERSONAGEM<br>VOCÊ QUER <em>SER?</em></div>', top=330, anim="slam")
-card("fim", W(12, WI(12, "segue")), TOTAL, '<div class="cena" style="font-size:44px"><b>ME SEGUE</b>@Bessekai</div>', top=1640, anim="pop")
+card("fim", W(12, WI(12, "segue")), TOTAL, '<div class="cena" style="font-size:44px"><b>SIGA O PORTAL INFINITO</b>@portal_infinito</div>', top=1640, anim="pop")
 cards_html = "\n".join(f'<div id="k-{cid}" class="clip kwrap" data-start="{t0}" data-duration="{round(t1 - t0, 3)}" data-anim="{an}">{h}</div>' for cid, t0, t1, h, an in cards)
 CARD_CSS = """
 #root{position:absolute;inset:0;pointer-events:none;font-family:Inter}
