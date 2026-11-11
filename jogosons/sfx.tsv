@@ -1,0 +1,56 @@
+golpe	0.5	quick fast whoosh of a wooden staff swinging through air, video game
+acerto	0.5	punchy cartoon impact hit on a creature, video game melee hit
+critico	0.8	heavy critical hit impact with crunch and sparkle, fantasy video game
+espada	0.5	sharp sword slash swoosh with metallic ring, video game
+tiro	0.5	crossbow bolt firing twang and whoosh
+dano	0.5	young man short pained grunt when hit, video game
+desmaio	1.5	young man groans and collapses to the ground, body fall thud
+pulo	0.5	light jump whoosh with cloth rustle, cartoon game
+aterrissa	0.5	soft landing thud on grass
+moeda	0.6	bright coin pickup jingle, video game collectible
+item	0.6	magical item pickup sparkle chime, video game
+nivel	2	triumphant short level up fanfare with sparkles, fantasy RPG
+ponto	1	magical ascending chime reward, skill point gained, fantasy game
+missao	1.5	quest accepted medieval horn and drum flourish, RPG
+missao_ok	2.5	quest complete triumphant orchestral fanfare with coins, fantasy RPG
+clique	0.3	soft wooden UI button click, cozy game
+fala	0.3	short soft pop blip for dialogue box opening, cozy game
+porta	1	old wooden door creaking open
+comer	1	eating a bite of crusty bread, crunchy chewing
+lobo	1.2	aggressive wolf snarl and growl
+lobo_morte	1	wolf yelp and whimper, defeated
+javali	1	angry wild boar grunt and squeal
+javali_morte	1	wild boar squeal falling down
+goblin	1	nasty goblin cackling laugh, high pitched fantasy creature
+goblin_ataque	0.6	goblin short angry battle grunt, fantasy creature
+goblin_morte	1	goblin high pitched death squeal, fantasy creature
+rato	0.8	giant rat squeak and hiss
+golem	2	huge ice golem deep roar with cracking ice, fantasy monster
+golem_soco	1.5	massive ground slam with ice shattering and rumble
+golem_morte	2.5	giant ice golem collapsing, ice shattering into pieces, deep rumble
+morcego	1.5	giant bat screech, fantasy monster
+morcego_morte	1.5	giant bat death screech and wings flapping falling
+chama	1.2	burst of fire whoosh, fireball spell
+gelo	1	ice freezing crackle spell, frost magic
+raio	1.2	electric lightning zap crackle thunder spell
+explosao	1.5	gunpowder explosion boom with debris
+luz	1	bright magic flash shimmer spell
+cura	1.2	gentle healing magic chime, sparkling
+ima	1	magnetic humming pull with metallic clinks
+vento	1	quick strong wind gust spell
+escudo	1	magical shield activating hum with shimmer
+dardo	0.6	magic light projectile shot zip
+magia	0.8	generic arcane spell cast whoosh, fantasy game
+bolhas	1	soap bubbles popping
+vapor	1	water boiling and steam hissing
+impulso	0.6	fast dash whoosh
+tremor	1.2	heavy earth slam impact with rumble
+modo	1.5	powerful energy charge up and burst, transformation, anime game
+troca	0.6	sword unsheathing metal scrape
+forja	1	blacksmith hammer on anvil clang
+compra	1	coins clinking into a purse, purchase
+amb_vila	10	gentle snowy village ambience, soft cold wind, distant birds, loopable
+amb_floresta	10	dark forest ambience, rustling leaves, distant creepy goblin chatter, loopable
+amb_cidade	10	medieval city ambience, distant crowd murmur, footsteps, carts, loopable
+amb_noite	10	quiet night ambience with crickets and soft wind, loopable
+amb_fogo	5	crackling campfire, loopable
